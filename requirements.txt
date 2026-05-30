@@ -1,0 +1,23 @@
+# Embedding / 向量
+faiss-cpu>=1.7.4
+sentence-transformers>=2.7.0
+
+# LLM
+openai>=1.40.0
+
+# API
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.7.0
+pydantic-settings>=2.4.0
+
+# 檔案處理
+pdfplumber>=0.11.0
+python-docx>=1.1.0
+pdf2image>=1.17.0
+pytesseract>=0.3.10
+
+# 工具
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+numpy>=1.24.0

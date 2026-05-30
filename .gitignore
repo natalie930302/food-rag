@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# Env
+.env
+
+# 資料(原始 + 索引不入版控)
+data/raw/*
+data/converted/*
+data/processed/*
+data/index/*
+!data/raw/.gitkeep
+!data/converted/.gitkeep
+!data/processed/.gitkeep
+!data/index/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Claude Code
+.claude/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# 模型快取
+.cache/
+~/.cache/

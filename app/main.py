@@ -24,7 +24,16 @@ logging.basicConfig(
 logger = logging.getLogger("food-rag")
 
 _LABELING_KEYWORDS = ("標示", "標籤", "包裝", "基因改造", "GMO", "有機", "素食", "過敏原", "營養標示", "成分")
-_AD_KEYWORDS = ("廣告", "宣稱", "宣傳", "文案", "行銷")
+_AD_KEYWORDS = ("廣告", "宣稱", "宣傳", "文案", "行銷", "標榜", "聲稱")
+
+# 廣告常見功效動詞，出現即視同廣告問題 → 路由至第28條
+_AD_CLAIM_VERBS = (
+    "阻斷", "燃燒", "排出", "溶解", "抑制吸收",
+    "瘦", "燃脂", "消脂", "去脂", "塑身", "纖體",
+    "壯陽", "豐胸", "增高",
+    "治療", "治癒", "根治", "抗癌", "防癌",
+    "降血糖", "降血壓", "降血脂", "降膽固醇",
+)
 
 
 @asynccontextmanager
@@ -65,14 +74,15 @@ def ask(req: schemas.AskRequest):
         t0 = time.time()
         _em = deps.get_embed_model()
         _fi = deps.get_faiss_chunks()
-        is_ad  = any(kw in req.question for kw in _AD_KEYWORDS)
+        is_ad    = any(kw in req.question for kw in _AD_KEYWORDS)
+        is_claim = any(kw in req.question for kw in _AD_CLAIM_VERBS)
         is_label = any(kw in req.question for kw in _LABELING_KEYWORDS)
 
-        if is_ad and is_label:
-            # 廣告 + 標示 → 全庫（22/25/28條都需要）
+        if (is_ad or is_claim) and is_label:
+            # 廣告/宣稱 + 標示 → 全庫（22/25/28條都需要）
             filters = None
-        elif is_ad:
-            # 純廣告問題 → 鎖定第28條，避免被22/25條淹沒
+        elif is_ad or is_claim:
+            # 廣告或功效宣稱 → 鎖定第28條
             filters = {"law_article": "食安法第28條"}
         else:
             filters = req.filters

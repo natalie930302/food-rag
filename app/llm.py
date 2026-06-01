@@ -146,9 +146,9 @@ def call_llm(client: OpenAI, system: str, user: str) -> str:
 
 # ============ 廣告審稿關鍵字偵測 ============
 
-# 取自食安法第 28 條認定準則 Q&A
+# 取自食安法第28條認定準則 Q&A + 藥事法 + 健康食品管理法
 HIGH_RISK_KEYWORDS = {
-    # Q1:涉及維持或改變人體器官、組織、生理或外觀
+    # 食安法第28條 Q1：涉及維持或改變人體器官、組織、生理或外觀
     "function": [
         "保護眼睛", "增加血管彈性", "增強抵抗力", "強化細胞功能",
         "增智", "補腦", "增強記憶力", "改善體質", "解酒",
@@ -158,7 +158,7 @@ HIGH_RISK_KEYWORDS = {
         "使頭髮烏黑", "延遲衰老", "防止老化", "改善皺紋",
         "美白", "纖體", "瘦身",
     ],
-    # Q3:涉及預防、改善、減輕、診斷或治療疾病
+    # 食安法第28條 Q3：涉及預防、改善、減輕、診斷或治療疾病
     "medical": [
         "治療", "恢復視力", "防止便秘", "利尿", "改善過敏體質",
         "壯陽", "強精", "減輕過敏", "治失眠", "防止貧血",
@@ -166,6 +166,17 @@ HIGH_RISK_KEYWORDS = {
         "防止更年期", "消滯", "降肝火", "改善喉嚨發炎",
         "祛痰止喘", "消腫止痛", "消除心律不整", "解毒",
         "降血糖", "降膽固醇", "降血脂",
+    ],
+    # 藥事法第65-66條：宣稱藥品療效
+    "drug": [
+        "藥效", "藥用", "處方", "醫師推薦", "臨床證實", "醫學實證",
+        "藥理作用", "抗癌", "防癌", "抑制腫瘤", "消炎止痛",
+        "退燒", "抗菌", "殺菌", "抗病毒", "增強免疫力",
+    ],
+    # 健康食品管理法第14條：未經認證宣稱健康食品
+    "health_food": [
+        "健康食品", "衛署健食字", "小綠人標章",
+        "經衛生福利部認證", "通過衛福部審核",
     ],
 }
 
@@ -188,7 +199,8 @@ _LEVEL_ORDER = {"low": 0, "medium": 1, "high": 2}
 def infer_verdict(matched_keywords: list[str], answer: str) -> str:
     """keyword 層與 LLM 層各自判定，取較高風險值。"""
     if matched_keywords:
-        kw_level = "high" if any(kw in matched_keywords for kw in HIGH_RISK_KEYWORDS["medical"]) else "medium"
+        high_cats = HIGH_RISK_KEYWORDS["medical"] + HIGH_RISK_KEYWORDS["drug"]
+        kw_level = "high" if any(kw in matched_keywords for kw in high_cats) else "medium"
     else:
         kw_level = "low"
 

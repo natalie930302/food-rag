@@ -126,16 +126,33 @@ def review(req: schemas.ReviewRequest):
         t0 = time.time()
         matched = llm.detect_risk_keywords(req.ad_text)
 
-        # 檢索:用整段廣告文案
-        chunks = retrieval.retrieve_chunks(
-            db=db,
-            model=deps.get_embed_model(),
-            faiss_index=deps.get_faiss_chunks(),
-            question=req.ad_text,
-            filters={"law_article": "食安法第28條"},  # 廣告主要看 28 條
-            top_k=req.top_k,
-        )
-        # 並行查相似案例
+        # 三段式檢索：食安法28條 + 藥事法 + 健康食品法，各取 top_k 後合併去重
+        _em = deps.get_embed_model()
+        _fi = deps.get_faiss_chunks()
+        _law_filters = [
+            {"law_article": "食安法第28條"},
+            {"law_article": "藥事法第65條"},
+            {"law_article": "健康食品管理法第14條"},
+        ]
+        seen_ids: set[int] = set()
+        chunks = []
+        for f in _law_filters:
+            for c in retrieval.retrieve_chunks(
+                db=db, model=_em, faiss_index=_fi,
+                question=req.ad_text, filters=f, top_k=req.top_k,
+            ):
+                if c.chunk_id not in seen_ids:
+                    seen_ids.add(c.chunk_id)
+                    chunks.append(c)
+        # 若三段都沒撈到任何東西，退回全庫搜尋
+        if not chunks:
+            chunks = retrieval.retrieve_chunks(
+                db=db, model=_em, faiss_index=_fi,
+                question=req.ad_text, filters=None, top_k=req.top_k,
+            )
+        chunks.sort(key=lambda x: -x.score)
+
+        # 查相似違規案例
         cases = retrieval.retrieve_cases(
             db=db,
             model=deps.get_embed_model(),

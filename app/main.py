@@ -63,17 +63,23 @@ def ask(req: schemas.AskRequest):
     db = deps.get_db()
     try:
         t0 = time.time()
-        filters = req.filters or {}
-        if any(kw in req.question for kw in _AD_KEYWORDS) and \
-           any(kw in req.question for kw in _LABELING_KEYWORDS):
-            filters = {}
+        _em = deps.get_embed_model()
+        _fi = deps.get_faiss_chunks()
+        is_ad  = any(kw in req.question for kw in _AD_KEYWORDS)
+        is_label = any(kw in req.question for kw in _LABELING_KEYWORDS)
+
+        if is_ad and is_label:
+            # 廣告 + 標示 → 全庫（22/25/28條都需要）
+            filters = None
+        elif is_ad:
+            # 純廣告問題 → 鎖定第28條，避免被22/25條淹沒
+            filters = {"law_article": "食安法第28條"}
+        else:
+            filters = req.filters
+
         chunks = retrieval.retrieve_chunks(
-            db=db,
-            model=deps.get_embed_model(),
-            faiss_index=deps.get_faiss_chunks(),
-            question=req.question,
-            filters=filters or None,
-            top_k=req.top_k,
+            db=db, model=_em, faiss_index=_fi,
+            question=req.question, filters=filters, top_k=req.top_k,
         )
         cases = []
         if req.include_cases or any(
@@ -133,15 +139,24 @@ def review(req: schemas.ReviewRequest):
         t0 = time.time()
         matched = llm.detect_risk_keywords(req.ad_text)
 
-        # 不限法條，讓向量搜尋自動找最相關的法規片段
-        chunks = retrieval.retrieve_chunks(
-            db=db,
-            model=deps.get_embed_model(),
-            faiss_index=deps.get_faiss_chunks(),
+        # 兩段式：先保證撈到食安法第28條，再補全庫填滿 top_k
+        _em = deps.get_embed_model()
+        _fi = deps.get_faiss_chunks()
+        guaranteed = retrieval.retrieve_chunks(
+            db=db, model=_em, faiss_index=_fi,
+            question=req.ad_text,
+            filters={"law_article": "食安法第28條"},
+            top_k=req.top_k,
+        )
+        supplement = retrieval.retrieve_chunks(
+            db=db, model=_em, faiss_index=_fi,
             question=req.ad_text,
             filters=None,
             top_k=req.top_k,
         )
+        seen: set[int] = {c.chunk_id for c in guaranteed}
+        chunks = list(guaranteed) + [c for c in supplement if c.chunk_id not in seen]
+        chunks = sorted(chunks, key=lambda x: -x.score)[:req.top_k]
 
         # 查相似違規案例
         cases = retrieval.retrieve_cases(

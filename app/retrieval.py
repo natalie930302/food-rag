@@ -72,7 +72,8 @@ def _get_candidate_embedding_ids(
                 SELECT DISTINCT c.embedding_id
                 FROM chunks c
                 LEFT JOIN chunk_laws cl ON c.id = cl.chunk_id
-                WHERE c.primary_law = ? OR cl.article_full = ?
+                WHERE (c.primary_law = ? OR cl.article_full = ?)
+                  AND c.embedding_id IS NOT NULL
             """
             rows = db.execute(sql, [law, article_full]).fetchall()
         else:

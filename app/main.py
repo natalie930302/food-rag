@@ -154,9 +154,14 @@ def review(req: schemas.ReviewRequest):
             filters=None,
             top_k=req.top_k,
         )
+        # 28條優先佔前排，剩餘名額才給 supplement（不按分數淘汰保底的28條）
         seen: set[int] = {c.chunk_id for c in guaranteed}
-        chunks = list(guaranteed) + [c for c in supplement if c.chunk_id not in seen]
-        chunks = sorted(chunks, key=lambda x: -x.score)[:req.top_k]
+        remaining = max(0, req.top_k - len(guaranteed))
+        extra = sorted(
+            [c for c in supplement if c.chunk_id not in seen],
+            key=lambda x: -x.score,
+        )[:remaining]
+        chunks = list(guaranteed) + extra
 
         # 查相似違規案例
         cases = retrieval.retrieve_cases(

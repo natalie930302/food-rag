@@ -10,6 +10,7 @@ fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
 pydantic>=2.7.0
 pydantic-settings>=2.4.0
+aiofiles>=23.0.0
 
 # 檔案處理
 pdfplumber>=0.11.0

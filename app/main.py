@@ -11,8 +11,9 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
-from config.settings import settings
+from config.settings import settings, PROJECT_ROOT
 from app import deps, retrieval, llm, schemas
 
 
@@ -294,5 +295,10 @@ def serve_file(file_path: str):
         return FileResponse(full_path, media_type=media_type,
                             headers={"Content-Disposition": "inline"})
     return FileResponse(full_path, filename=full_path.name)
+
+
+_UI_DIST = PROJECT_ROOT.parent / "food-rag-ui" / "dist"
+if _UI_DIST.exists():
+    app.mount("/", StaticFiles(directory=_UI_DIST, html=True), name="ui")
 
 

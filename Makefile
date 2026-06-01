@@ -3,12 +3,13 @@
 help:
 	@echo "Available commands:"
 	@echo "  make install     - 建立 venv + 安裝套件"
+	@echo "  make build-ui    - 打包前端 (需先安裝 Node.js)"
 	@echo "  make unzip       - 解壓 data/raw/zips/ 內的 zip 檔"
 	@echo "  make ingest      - 跑完整 ingest pipeline (parse + build-index)"
 	@echo "  make parse       - 只跑 step1 (解析所有檔案 → JSONL)"
 	@echo "  make build-index - 只跑 step2 (編碼 + 寫 SQLite + FAISS)"
-	@echo "  make run         - 啟動 API (dev mode)"
-	@echo "  make run-prod    - 啟動 API (production)"
+	@echo "  make run         - 啟動 API (dev mode, 含前端 UI)"
+	@echo "  make run-prod    - 啟動 API (production, 含前端 UI)"
 	@echo "  make stats       - 印出索引統計"
 	@echo "  make failed      - 印出無法處理的檔案清單"
 	@echo "  make test        - 跑 pytest"
@@ -17,6 +18,9 @@ help:
 install:
 	python3.11 -m venv .venv
 	. .venv/bin/activate && pip install -U pip && pip install -r requirements.txt
+
+build-ui:
+	cd ../food-rag-ui && npm install && npm run build
 
 unzip:
 	python scripts/unzip_uploads.py

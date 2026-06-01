@@ -1,4 +1,5 @@
 """LLM 整合層:組裝 prompt + 呼叫 OpenAI。"""
+import os
 import re
 from pathlib import Path
 
@@ -122,9 +123,15 @@ def build_review_prompt(
     )
     return system, user
 
-
 def call_llm(client: OpenAI, system: str, user: str) -> str:
     """呼叫 OpenAI,回傳回答字串。"""
+    import os
+    if os.getenv("LLM_DEBUG", "").lower() in ("1", "true"):
+        print("\n" + "="*60)
+        print("[SYSTEM]\n" + system)
+        print("-"*60)
+        print("[USER]\n" + user)
+        print("="*60 + "\n")
     resp = client.chat.completions.create(
         model=settings.openai_model,
         temperature=settings.openai_temperature,

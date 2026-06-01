@@ -11,7 +11,7 @@ class AskRequest(BaseModel):
         default=None,
         description="可選 metadata 篩選,如 {'law_article':'食安法第28條','subtopic':'GHP'}",
     )
-    top_k: int = Field(default=5, ge=1, le=20)
+    top_k: int = Field(default=8, ge=1, le=20)
     include_cases: bool = Field(
         default=False, description="是否並行查詢相關違規案例")
 

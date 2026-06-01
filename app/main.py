@@ -23,6 +23,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger("food-rag")
 
+_LABELING_KEYWORDS = ("標示", "標籤", "包裝", "基因改造", "GMO", "有機", "素食", "過敏原", "營養標示", "成分")
+_AD_KEYWORDS = ("廣告", "宣稱", "宣傳", "文案", "行銷")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -60,12 +63,16 @@ def ask(req: schemas.AskRequest):
     db = deps.get_db()
     try:
         t0 = time.time()
+        filters = req.filters or {}
+        if any(kw in req.question for kw in _AD_KEYWORDS) and \
+           any(kw in req.question for kw in _LABELING_KEYWORDS):
+            filters = {}
         chunks = retrieval.retrieve_chunks(
             db=db,
             model=deps.get_embed_model(),
             faiss_index=deps.get_faiss_chunks(),
             question=req.question,
-            filters=req.filters,
+            filters=filters or None,
             top_k=req.top_k,
         )
         cases = []

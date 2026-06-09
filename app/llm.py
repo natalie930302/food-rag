@@ -33,6 +33,21 @@ def _format_chunks(chunks: list[RetrievedChunk]) -> str:
     return "\n\n---\n\n".join(parts)
 
 
+_VIOLATION_MARKERS = (
+    "內容述及略以：「", "內容述及略以:「", "其內容宣稱：「", "內容宣稱：「",
+    "內容述及略以：", "其內容宣稱：", "宣稱：「", "述及：",
+)
+
+def _extract_violation_content(text: str, max_chars: int = 500) -> str:
+    """跳過套語（受處分人/網址/下載日期），直取實際違規宣稱內容。"""
+    for marker in _VIOLATION_MARKERS:
+        pos = text.find(marker)
+        if pos != -1:
+            content = text[pos + len(marker):]
+            return content[:max_chars] + ("..." if len(content) > max_chars else "")
+    return text[:max_chars] + ("..." if len(text) > max_chars else "")
+
+
 def _format_cases(cases: list[RetrievedCase]) -> str:
     if not cases:
         return "(沒有相關違規案例)"
@@ -43,7 +58,7 @@ def _format_cases(cases: list[RetrievedCase]) -> str:
             f"[案例 {i}] {c.year}年{c.month}月 | "
             f"產品:{c.product} | 廠商:{c.company} | "
             f"罰鍰:{penalty} | 法條:{c.law_cited}\n"
-            f"違規情節:{c.violation[:120]}{'...' if c.violation and len(c.violation) > 120 else ''}"
+            f"違規情節:{_extract_violation_content(c.violation or '')}"
         )
     return "\n---\n".join(parts)
 
@@ -85,7 +100,7 @@ def build_review_prompt(
     cases: list[RetrievedCase],
     matched_keywords: list[str],
 ) -> tuple[str, str]:
-    system = _load_prompt("system") or "你是食品法規助理,只依據提供的 context 回答。"
+    system = _load_prompt("system_review") or _load_prompt("system") or "你是食品法規助理,只依據提供的 context 回答。"
     tmpl = _load_prompt("ad_review") or """
 你是食品廣告審稿專家。請依以下 3 段格式回答:
 
@@ -148,33 +163,47 @@ def call_llm(client: OpenAI, system: str, user: str) -> str:
 
 # 取自食安法第28條認定準則 Q&A + 健康食品管理法第14條
 HIGH_RISK_KEYWORDS = {
-    # 食安法第28條 Q1：涉及維持或改變人體器官、組織、生理或外觀
+    # 食安法第28條：涉及器官功能、外觀改變（只保留 LLM 容易漏判的明確詞）
     "function": [
-        "保護眼睛", "增加血管彈性", "增強抵抗力", "強化細胞功能",
-        "增智", "補腦", "增強記憶力", "改善體質", "解酒",
-        "清除自由基", "排毒素", "分解有害物質",
-        "改善更年期障礙", "平胃氣", "防止口臭",
-        "豐胸", "預防乳房下垂", "減肥", "塑身", "增高",
-        "使頭髮烏黑", "延遲衰老", "防止老化", "改善皺紋",
-        "美白", "纖體", "瘦身",
+        "補腦", "增強記憶力",
+        "清除自由基", "排毒素", "排出毒素",
+        "豐胸", "減肥", "塑身", "纖體", "瘦身",
+        "燃燒脂肪", "燃燒體脂", "阻斷澱粉", "快速瘦", "輕鬆瘦",
+        "美白",
+        # 血脂調節（健食法）— 900731 判例補充
+        "清血", "淨血", "宿便",
+        # 免疫調節（健食法）— 900731 判例補充；與白名單「維持免疫系統正常運作」不同
+        "提高免疫力", "增強抵抗力", "強化免疫力",
+        # 外觀／體型
+        "雕塑", "解酒",
     ],
-    # 食安法第28條 Q3：涉及預防、改善、減輕、診斷或治療疾病（含類藥品效能宣稱）
+    # 食安法第28條：疾病治療/預防/改善，最高優先（命中即 high）
     "medical": [
-        "治療", "恢復視力", "防止便秘", "利尿", "改善過敏體質",
-        "壯陽", "強精", "減輕過敏", "治失眠", "防止貧血",
-        "降血壓", "改善血濁", "清血", "調整內分泌",
-        "防止更年期", "消滯", "降肝火", "改善喉嚨發炎",
-        "祛痰止喘", "消腫止痛", "消除心律不整", "解毒",
-        "降血糖", "降膽固醇", "降血脂",
-        "藥效", "藥用", "處方", "臨床證實", "醫學實證",
-        "抗癌", "防癌", "抑制腫瘤", "消炎止痛", "退燒",
-        "抗菌", "殺菌", "抗病毒",
+        "治療", "治癒", "根治", "恢復視力",
+        "壯陽", "治失眠",
+        "降血壓", "降血糖", "降膽固醇", "降血脂",
+        "降低血糖", "降低膽固醇", "降低血脂", "降低血壓",
+        "控制血糖", "改善血糖", "改善糖尿病",
+        "臨床證實", "臨床實證", "醫學實證",
+        "抗癌", "防癌", "抑制腫瘤", "縮小腫瘤", "抑制癌細胞",
+        # 900731 判例補充：明確疾病名稱
+        "高血脂", "血栓", "動脈硬化", "骨質疏鬆", "老人痴呆",
     ],
-    # 健康食品管理法第14條：未經認證宣稱健康食品
+    # 健康食品管理法第14條
     "health_food": [
         "健康食品", "衛署健食字", "小綠人標章",
-        "經衛生福利部認證", "通過衛福部審核",
     ],
+}
+
+# 合規詞白名單：這些詞出現且無 medical/function keywords 命中時，程式側降為 low
+_COMPLIANT_PHRASES = {
+    "有助於維持正常視覺功能", "有助於維持免疫系統正常運作",
+    "有助於維持正常認知功能", "有助於維持正常代謝功能",
+    "有助於減少疲勞感", "維持正常精力", "維持正常精力與活力",
+    "幫助維持消化功能順暢", "促進腸道蠕動", "有助於消化道保健",
+    "幫助維持肌膚正常代謝", "補充膠原蛋白原料，維持肌膚彈性",
+    "適合體重管理計畫期間補充", "低熱量配方，適合控制體重時食用",
+    "補充有益心臟的Omega-3", "支持每日心血管保養", "維持心血管正常功能",
 }
 
 
@@ -193,8 +222,10 @@ _LLM_TO_LEVEL = {"高風險": "high", "有疑慮": "medium", "合規": "low"}
 _LEVEL_ORDER = {"low": 0, "medium": 1, "high": 2}
 
 
-def infer_verdict(matched_keywords: list[str], answer: str) -> str:
-    """keyword 層與 LLM 層各自判定，取較高風險值。"""
+def infer_verdict(matched_keywords: list[str], answer: str, ad_text: str = "") -> str:
+    """keyword 層與 LLM 層各自判定，取較高風險值。
+    例外：無 keyword 命中且廣告文案全部屬於合規白名單用語時，強制降為 low。
+    """
     if matched_keywords:
         kw_level = "high" if any(kw in matched_keywords for kw in HIGH_RISK_KEYWORDS["medical"]) else "medium"
     else:
@@ -203,4 +234,11 @@ def infer_verdict(matched_keywords: list[str], answer: str) -> str:
     m = _VERDICT_LINE.search(answer)
     llm_level = _LLM_TO_LEVEL.get(m.group(1), "low") if m else "low"
 
-    return max(kw_level, llm_level, key=lambda x: _LEVEL_ORDER[x])
+    combined = max(kw_level, llm_level, key=lambda x: _LEVEL_ORDER[x])
+
+    # 白名單強制降級：無 keyword + LLM 判 medium + 文案全是合規用語 → low
+    if combined == "medium" and kw_level == "low" and ad_text:
+        if any(phrase in ad_text for phrase in _COMPLIANT_PHRASES):
+            return "low"
+
+    return combined

@@ -59,4 +59,5 @@ def preload_all():
     get_embed_model()
     get_faiss_chunks()
     get_faiss_cases()
-    get_openai_client()
+    if settings.openai_api_key:
+        get_openai_client()

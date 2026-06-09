@@ -8,7 +8,8 @@ import re
 import time
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Header
+from openai import OpenAI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -33,6 +34,9 @@ _AD_CLAIM_VERBS = (
     "壯陽", "豐胸", "增高",
     "治療", "治癒", "根治", "抗癌", "防癌",
     "降血糖", "降血壓", "降血脂", "降膽固醇",
+    "降低血糖", "降低血壓", "降低血脂", "降低膽固醇",
+    "控制血糖", "穩定血糖", "改善血糖",
+    "醫療效能", "疾病症狀", "適合糖尿病",
 )
 
 
@@ -68,7 +72,7 @@ app.add_middleware(
 # ============ 端點 ============
 
 @app.post("/ask", response_model=schemas.AskResponse)
-def ask(req: schemas.AskRequest):
+def ask(req: schemas.AskRequest, x_openai_key: str | None = Header(default=None)):
     db = deps.get_db()
     try:
         t0 = time.time()
@@ -92,7 +96,7 @@ def ask(req: schemas.AskRequest):
             question=req.question, filters=filters, top_k=req.top_k,
         )
         cases = []
-        if req.include_cases or any(
+        if req.include_cases or is_ad or is_claim or any(
             kw in req.question for kw in ("罰", "案例", "違規", "裁處")
         ):
             cases = retrieval.retrieve_cases(
@@ -107,7 +111,8 @@ def ask(req: schemas.AskRequest):
         # 呼叫 LLM
         t1 = time.time()
         system, user = llm.build_general_prompt(req.question, chunks, cases)
-        answer = llm.call_llm(deps.get_openai_client(), system, user)
+        client = OpenAI(api_key=x_openai_key) if x_openai_key else deps.get_openai_client()
+        answer = llm.call_llm(client, system, user)
         llm_ms = int((time.time() - t1) * 1000)
 
         return schemas.AskResponse(
@@ -142,7 +147,7 @@ def ask(req: schemas.AskRequest):
 
 
 @app.post("/review", response_model=schemas.ReviewResponse)
-def review(req: schemas.ReviewRequest):
+def review(req: schemas.ReviewRequest, x_openai_key: str | None = Header(default=None)):
     """廣告審稿:固定三段式輸出。"""
     db = deps.get_db()
     try:
@@ -179,17 +184,18 @@ def review(req: schemas.ReviewRequest):
             model=deps.get_embed_model(),
             faiss_index=deps.get_faiss_cases(),
             text=req.ad_text,
-            top_k=3,
+            top_k=5,
         )
         retrieval_ms = int((time.time() - t0) * 1000)
 
         # 呼叫 LLM
         t1 = time.time()
         system, user = llm.build_review_prompt(req.ad_text, chunks, cases, matched)
-        answer = llm.call_llm(deps.get_openai_client(), system, user)
+        client = OpenAI(api_key=x_openai_key) if x_openai_key else deps.get_openai_client()
+        answer = llm.call_llm(client, system, user)
         llm_ms = int((time.time() - t1) * 1000)
 
-        verdict = llm.infer_verdict(matched, answer)
+        verdict = llm.infer_verdict(matched, answer, req.ad_text)
         answer = re.sub(r"\n*VERDICT:\s*(高風險|有疑慮|合規)\s*$", "", answer).strip()
 
         sources = [
@@ -335,7 +341,9 @@ def serve_file(file_path: str):
     return FileResponse(full_path, filename=full_path.name)
 
 
-_UI_DIST = PROJECT_ROOT.parent / "food-rag-ui" / "dist"
+_UI_DIST = PROJECT_ROOT / "ui_dist"
+if not _UI_DIST.exists():
+    _UI_DIST = PROJECT_ROOT.parent / "food-rag-ui" / "dist"
 if _UI_DIST.exists():
     app.mount("/", StaticFiles(directory=_UI_DIST, html=True), name="ui")
 

@@ -118,9 +118,42 @@ food-rag/
 │   ├── chunker/     # 切碎策略
 │   └── extractors/  # 法條偵測等
 ├── app/             # FastAPI 應用
+├── eval/            # 檢索品質評估(見下方)
 ├── prompts/         # Prompt 模板
 ├── scripts/         # 一次性工具
 └── tests/           # 測試
+```
+
+## 檢索品質評估(2026/09 新增)
+
+`tests/` 底下原本只有 API 層的 plumbing 測試(狀態碼、回傳格式對不對),沒有量測過「檢索有沒有真的撈到對的內容」——這是 RAG 系統最關鍵、卻最容易被跳過驗證的一環。
+
+- `eval/eval_questions.json`:從真實已索引的 17,152 個 chunks 裡,挑 24 題涵蓋不同主題(標示規定、添加物登錄、檢驗週期、追溯系統、裁罰基準等)的內容,**用改寫過的自然提問方式**(不是直接複製索引文字)當查詢,避免文字表面重疊讓 Recall 虛高
+- `eval/eval_retrieval.py`:直接呼叫 `app/retrieval.py` 裡正式環境在用的 `retrieve_chunks()`,量到的數字反映的是真實部署的檢索品質,不是另外寫一套簡化邏輯
+
+### Baseline 結果(BGE-M3 dense retrieval,無 metadata 過濾)
+
+| Recall@1 | Recall@3 | Recall@5 | MRR |
+|---|---|---|---|
+| 0.708 | 0.958 | 1.000 | 0.830 |
+
+### 加上 Cross-Encoder Reranking 後
+
+`eval/eval_reranking.py` 在 dense retrieval 的初篩結果(top-10)上,加一層 `BAAI/bge-reranker-base`(跟現有的 `BAAI/bge-m3` embedding 同團隊發布)重新排序——這是近年 production RAG 系統的標準兩階段做法:bi-encoder(query 和文件各自獨立編碼)負責快速從全庫撈候選,cross-encoder(query 和文件當同一個輸入一起編碼,能做 token 級別的交互注意力)負責在小範圍候選裡精排,犧牲不能預先索引全庫的代價換取更高的排序精度。
+
+| 方法 | Recall@1 | Recall@3 | Recall@5 | MRR |
+|---|---|---|---|---|
+| Baseline(僅dense retrieval) | 0.708 | 0.958 | 1.000 | 0.830 |
+| **+ Cross-Encoder Reranking** | **0.750** | **1.000** | 1.000 | **0.861** |
+
+真實、正向的結果:Recall@1 提升 4.2 個百分點、Recall@3 到 100%、MRR 提升 3.1 個百分點。這跟 Portfolio 裡其他幾個「微調反而讓結果變差」的負向案例不同——這裡驗證的是「在已經很強的 baseline 之上,加一個現在業界/學界標準的兩階段檢索架構是否真的有幫助」,結果是肯定的。
+
+### 如何重現
+
+```bash
+cd eval
+python eval_retrieval.py    # baseline 檢索評估
+python eval_reranking.py    # baseline vs. reranking 比較(會下載bge-reranker-base)
 ```
 
 ## 文件

@@ -148,12 +148,34 @@ food-rag/
 
 真實、正向的結果:Recall@1 提升 4.2 個百分點、Recall@3 到 100%、MRR 提升 3.1 個百分點。這跟 Portfolio 裡其他幾個「微調反而讓結果變差」的負向案例不同——這裡驗證的是「在已經很強的 baseline 之上,加一個現在業界/學界標準的兩階段檢索架構是否真的有幫助」,結果是肯定的。
 
+### Corrective RAG:檢索結果不夠相關時,誠實拒答而不是硬答
+
+參考 Yan et al., *"Corrective Retrieval Augmented Generation"*(arXiv:2401.15884, 2024)的核心概念:傳統 RAG 不管檢索品質好壞,一律把 top-k 結果塞給 LLM 生成答案,這是常見的幻覺(hallucination)成因之一——檢索到不相關的內容,LLM 還是會努力「掰」出一個看似合理的答案。`app/corrective_retrieval.py` 用 cross-encoder reranker 的分數當簡化版的「相關性評分器」,分數低於信心閾值就回傳「沒有足夠可信的檢索結果」,而不是硬塞低相關內容給 LLM。
+
+**閾值是實測校準出來的,不是猜的**:`eval/tune_confidence_threshold.py` 跑了24題真實in-domain問題跟6題明顯跟食品法規無關的問題(所得稅申報、Unity動畫設定、颱風居家安全等),量到兩組分數有清楚間隔——
+
+| | 分數範圍 |
+|---|---|
+| In-domain(24題) | 0.994 ~ 1.000 |
+| Out-of-domain(6題) | 0.0006 ~ 0.8056 |
+
+取中點訂閾值為 0.90。`eval/eval_corrective.py` 驗證加了這道信心閘門後:
+
+| | 結果 |
+|---|---|
+| In-domain 維持信心且答對 | **24/24**(沒有因為加了把關機制而誤傷) |
+| Out-of-domain 正確拒答 | **6/6**(全部正確識別為「不該自信回答」) |
+
+這是簡化版的 CRAG(用reranker分數當評分器,沒有CRAG論文完整的網路搜尋fallback機制),但核心的「檢索結果品質把關」邏輯是一致的,而且是用真實跑出來的數字驗證過,不是紙上假設。
+
 ### 如何重現
 
 ```bash
 cd eval
-python eval_retrieval.py    # baseline 檢索評估
-python eval_reranking.py    # baseline vs. reranking 比較(會下載bge-reranker-base)
+python eval_retrieval.py              # baseline 檢索評估
+python eval_reranking.py               # baseline vs. reranking 比較
+python tune_confidence_threshold.py    # 實測校準信心閾值
+python eval_corrective.py              # 驗證 corrective retrieval 的把關效果
 ```
 
 ## 文件

@@ -1,0 +1,7 @@
+{
+  "in_domain_correct_and_confident": 24,
+  "in_domain_total": 24,
+  "in_domain_wrongly_rejected": 0,
+  "out_domain_correctly_rejected": 6,
+  "out_domain_total": 6
+}

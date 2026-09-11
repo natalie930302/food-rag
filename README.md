@@ -197,6 +197,37 @@ python eval_agentic.py                 # 驗證 agentic query reformulation 的�
 
 跟 Portfolio 裡其他負向結果一樣的教訓:**不是每個聽起來合理的改進方向都真的有用,誠實驗證比預設會成功更重要**。這個方向本身(agentic retry)架構上是安全的(沒有誤傷原本答對的問題),但這次具體驗證的「LLM重新表述問題」這個corrective action,在小樣本測試中沒有展現出效果——如果要繼續往這個方向做,下一步應該是先解決chunking粒度問題,而不是繼續在同一個chunk結構上做更多次retry。
 
+## 研究歷程
+
+### 研究動機與路徑
+
+`tests/` 底下原本只有 API 層的 plumbing 測試(狀態碼、回傳格式對不對),從沒量過「檢索有沒有真的撈到對的內容」——這是這輪補強的起點。先建立 24 題自然提問的評估集跟量測管線,量出 baseline 其實已經不差(Recall@1=0.708),於是研究路徑分三步往下走:
+
+1. **在已經不錯的 baseline 上,現在業界標準的兩階段架構(dense retrieval + cross-encoder reranking)是否還有提升空間?**→ 驗證結果是肯定的,全面提升
+2. **檢索到不相關內容時,系統該不該誠實拒答,而不是硬答?**→ 參考 Corrective RAG,用校準過的信心閾值做把關,兩組問題(in-domain/out-of-domain)都拿到滿分
+3. **信心不夠時,系統能不能主動採取行動補救,而不是只會拒答?**→ 這是刻意呼應「Agentic AI 是目前最主流研究方向」這個時勢判斷去補的方向,做了 query reformulation + retry 的最小可行版本,新增 8 題刻意口語化的 hard 問題集去逼近系統的真實極限,而不是繼續在已經 24/24 的簡單題目上驗證
+
+第 3 步的結果不如預期(0/1 成功救回),但診斷根因指向 chunk 語意粒度問題,這比「假裝有效」更有價值——它把下一步該往哪裡去(chunking 策略,而不是 retry 次數)講清楚了。
+
+### 研究方法
+
+- **兩階段檢索架構驗證**:比照 production RAG 系統的標準做法(bi-encoder 全庫召回 + cross-encoder 精排),用同一組真實 API 路徑(`retrieve_chunks()`)量測,避免另外寫一套簡化邏輯量出灌水的數字
+- **閾值用分布間隔實測校準,不是猜的**:`tune_confidence_threshold.py` 分別測 in-domain(24題)跟 out-of-domain(6題)兩組分數分布,取有清楚間隔的中點,而非拍腦袋設一個看起來合理的數字
+- **用「故意設計來考倒系統」的問題集驗證極限**:`hard_questions.json` 8題刻意用更口語、跟法規原文用詞差距更大的問法,目的是在系統已經對簡單題目滿分的情況下,找出它真正的失敗模式,而不是重複驗證已知會過的案例
+- **失敗後往根因追,不是停在「沒救回來」**:唯一觸發retry的那題沒被救回來時,直接回頭比對 gold chunk 的實際內容,發現答案是嵌在較大範疇定義裡的一個例子,才確認問題出在chunk粒度而非問法正式與否
+
+### 遇到的困難
+
+- **信心閘門的本質限制,不是這次能解決的**:8題hard問題裡有1題是reranker給高分但答案錯的「confidently wrong」,retry完全不會被觸發——這暴露出「檢索內容看起來像不像相關」≠「答案對不對」,是confidence-based方法本身的天花板,誠實記錄下來而不是回頭修改評估方式讓數字好看
+- **agentic retry沒有帶來預期中的提升**:一開始預期reformulation至少能救回一部分case,實際只有1題觸發、0題救回——沒有回頭調整hard_questions.json的題目難度讓結果好看,而是把「為什麼沒救回來」的根因分析寫清楚
+
+### 時程(依實際執行順序)
+
+1. 補 24 題評估集 + `retrieve_chunks()` baseline 檢索評估
+2. Cross-Encoder Reranking 驗證(正向)
+3. Corrective RAG:閾值校準 + in/out-of-domain 驗證(正向)
+4. Agentic Query Reformulation:新增 8 題 hard 問題集 + 驗證(誠實負向,根因診斷出chunk粒度問題)
+
 ## 文件
 
 詳細技術說明見規劃文件。

@@ -176,7 +176,26 @@ python eval_retrieval.py              # baseline 檢索評估
 python eval_reranking.py               # baseline vs. reranking 比較
 python tune_confidence_threshold.py    # 實測校準信心閾值
 python eval_corrective.py              # 驗證 corrective retrieval 的把關效果
+python eval_agentic.py                 # 驗證 agentic query reformulation 的效果
 ```
+
+### Agentic Query Reformulation:誠實的負向/中性結果
+
+**Agentic RAG** 是目前(2025-2026)最主流的研究方向之一(ICML 2026 workshop 光是標題含「agentic」的投稿就有60+篇)。`corrective_retrieval.py` 原本只做「被動把關」(信心不夠就拒答),`app/agentic_retrieval.py` 把它升級成「主動採取行動」:信心不足時,用 LLM(`gpt-4o-mini`)把問題換一種更正式的說法重新表述,再檢索一次——這是 Agentic RAG 最基礎的一種行為模式(query reformulation + retry),不是完整的 multi-agent 系統,誠實地說是「最小可行版本」。
+
+用 24 題原本的評估集(baseline已經24/24信心且答對)+ 新增 8 題刻意用更口語、跟法規原文用詞差距更大的「hard」問題集測試:
+
+| 問題集 | 正確 | 觸發retry | 因retry救回 |
+|---|---|---|---|
+| eval_questions.json(24題) | 24/24 | 0 | 0(預期內,確認沒有誤傷) |
+| hard_questions.json(8題) | 6/8 | 1 | **0** |
+
+**誠實記錄兩個發現,都不是我想要的結果,但都是真的跑出來的:**
+
+1. **8題裡有1題(`如果我只是把東西重新分裝,不算是真正在做食品加工吧?`)是「confidently wrong」**——reranker給了很高的信心分數,但答案是錯的。這代表信心閘門機制有一個本質限制:它評分的是「檢索到的內容看起來像不像相關」,不是「答案對不對」,兩者不完全等價。這個問題目前的機制**偵測不到**,agentic retry完全不會被觸發,不是這次改動能解決的。
+2. 唯一真的觸發retry的那一題(`紅麴膠囊這種東西,官方是怎麼歸類的?`),LLM把它改寫成更正式的「紅麴膠囊在官方法規中屬於何種產品類別？」,但重新檢索後信心分數還是偏低,**沒有救回來**。診斷原因:gold chunk 的內容主體是「什麼是營養補充食品」的一般性定義,紅麴膠囊只是文中順帶提到的其中一個例子——問題不在於問法夠不夠正式,是這個chunk的語意重心本來就不在「紅麴膠囊」本身,單純換句話說沒辦法解決這種「答案藏在較大範疇定義裡的一個例子」的檢索粒度問題,需要更根本的作法(例如更細的chunking策略,或是先做entity extraction再檢索)。
+
+跟 Portfolio 裡其他負向結果一樣的教訓:**不是每個聽起來合理的改進方向都真的有用,誠實驗證比預設會成功更重要**。這個方向本身(agentic retry)架構上是安全的(沒有誤傷原本答對的問題),但這次具體驗證的「LLM重新表述問題」這個corrective action,在小樣本測試中沒有展現出效果——如果要繼續往這個方向做,下一步應該是先解決chunking粒度問題,而不是繼續在同一個chunk結構上做更多次retry。
 
 ## 文件
 

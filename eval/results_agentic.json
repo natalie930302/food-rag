@@ -1,0 +1,14 @@
+{
+  "easy": {
+    "correct": 24,
+    "total": 24,
+    "retried": 0,
+    "recovered": 0
+  },
+  "hard": {
+    "correct": 6,
+    "total": 8,
+    "retried": 1,
+    "recovered": 0
+  }
+}

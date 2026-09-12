@@ -20,6 +20,7 @@ Ambiguous(混合使用)三類,而不是像傳統RAG一樣不管檢索品質好�
 from dataclasses import dataclass
 
 from app.retrieval import RetrievedChunk, retrieve_chunks
+from app.entity_boost import find_entity_boosted_chunk_ids, fetch_chunks_by_ids
 
 # 閾值是用 eval/tune_confidence_threshold.py 對24題真實in-domain問題跟6題
 # out-of-domain問題的reranker分數分布實測校準出來的,不是隨便猜的數字:
@@ -40,8 +41,21 @@ def retrieve_with_confidence_gate(
     db, embed_model, faiss_index, reranker, question: str,
     filters: dict | None = None, top_k: int = 5, candidate_n: int = 10,
 ) -> CorrectiveRetrievalResult:
-    """先用dense retrieval撈候選,cross-encoder重排,分數太低就回傳「不確定」。"""
+    """先用dense retrieval撈候選,cross-encoder重排,分數太低就回傳「不確定」。
+
+    候選池除了dense retrieval的結果,也會併入entity_boost.py找到的關鍵詞比對
+    候選(針對「答案藏在定義段落列舉例子裡」這種dense retrieval抓不準的窄範圍
+    問題所做的局部修補,見README「解決Agentic RAG誠實負向結果」章節)。這一層
+    只負責擴充候選池、不影響下面的cross-encoder重排跟信心閘門邏輯——即使
+    entity boost撈到不相關的chunk,一樣會被reranker評低分、被信心閘門擋掉。
+    """
     candidates = retrieve_chunks(db, embed_model, faiss_index, question, filters, top_k=candidate_n)
+
+    boosted_ids = find_entity_boosted_chunk_ids(question)
+    existing_ids = {c.chunk_id for c in candidates}
+    new_boosted_ids = [cid for cid in boosted_ids if cid not in existing_ids]
+    if new_boosted_ids:
+        candidates = candidates + fetch_chunks_by_ids(db, new_boosted_ids)
 
     if not candidates:
         return CorrectiveRetrievalResult(chunks=[], confident=False, top_score=None)

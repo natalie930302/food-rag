@@ -8,8 +8,9 @@ production RAG 系統的標準做法(dense retrieval 先撈出候選,rerank 再�
 先撈 top-N 候選(快、可預先索引全庫),再用 cross-encoder 對這N個候選重新排序
 (慢、只做在候選集上)。
 
-用的 reranker 是 BAAI/bge-reranker-base,跟現有的 BAAI/bge-m3 embedding 同一個
-團隊發布、同樣支援中文,選擇上比較一致。
+用的 reranker 是 BAAI/bge-reranker-v2-m3(2026/09 從 bge-reranker-base 換過來——
+compare_reranker_models.py 實測 32 題 rank-1 準確率從 0.688 提升到 0.875,是全面性
+的改善,不是單一案例湊巧,詳見 README「reranker 模型升級」章節)。
 
 baseline的Recall@5已經到1.000(24題全部都在top5),reranking能改善的空間主要在
 Recall@1跟MRR——看cross-encoder精排能不能把原本排在第2-5名的正確答案挪到第1名。
@@ -27,11 +28,11 @@ from sentence_transformers import CrossEncoder
 with open(Path(__file__).parent / "eval_questions.json", encoding="utf-8") as f:
     eval_qs = json.load(f)
 
-print("載入 BGE-M3 embedding 模型、FAISS 索引、bge-reranker-base...")
+print("載入 BGE-M3 embedding 模型、FAISS 索引、bge-reranker-v2-m3...")
 model = get_embed_model()
 index = get_faiss_chunks()
 db = get_db()
-reranker = CrossEncoder("BAAI/bge-reranker-base", max_length=512)
+reranker = CrossEncoder("BAAI/bge-reranker-v2-m3", max_length=512)
 
 TOP_N_CANDIDATES = 10  # dense retrieval先撈的候選數,reranker只對這些重排
 

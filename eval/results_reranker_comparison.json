@@ -1,0 +1,7 @@
+{
+  "n_questions": 32,
+  "bge_reranker_base_rank1_acc": 0.6875,
+  "bge_reranker_v2_m3_rank1_acc": 0.875,
+  "improved_count": 7,
+  "regressed_count": 1
+}

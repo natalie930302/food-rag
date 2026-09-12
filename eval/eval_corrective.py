@@ -25,7 +25,7 @@ print("載入模型與索引...")
 model = get_embed_model()
 index = get_faiss_chunks()
 db = get_db()
-reranker = CrossEncoder("BAAI/bge-reranker-base", max_length=512)
+reranker = CrossEncoder("BAAI/bge-reranker-v2-m3", max_length=512)
 
 print("\n=== In-domain 問題(應該要 confident=True,且撈到正確 gold chunk) ===")
 in_domain_correct_and_confident = 0

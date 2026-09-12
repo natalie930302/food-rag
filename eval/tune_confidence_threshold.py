@@ -26,7 +26,7 @@ print("載入模型與索引...")
 model = get_embed_model()
 index = get_faiss_chunks()
 db = get_db()
-reranker = CrossEncoder("BAAI/bge-reranker-base", max_length=512)
+reranker = CrossEncoder("BAAI/bge-reranker-v2-m3", max_length=512)
 
 
 def top_scores(questions):

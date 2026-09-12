@@ -29,7 +29,7 @@ with open(Path(__file__).parent / "hard_questions.json", encoding="utf-8") as f:
 model = get_embed_model()
 index = get_faiss_chunks()
 db = get_db()
-reranker = CrossEncoder("BAAI/bge-reranker-base", max_length=512)
+reranker = CrossEncoder("BAAI/bge-reranker-v2-m3", max_length=512)
 openai_client = get_openai_client()
 
 

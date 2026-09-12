@@ -23,11 +23,14 @@ from app.retrieval import RetrievedChunk, retrieve_chunks
 from app.entity_boost import find_entity_boosted_chunk_ids, fetch_chunks_by_ids
 
 # 閾值是用 eval/tune_confidence_threshold.py 對24題真實in-domain問題跟6題
-# out-of-domain問題的reranker分數分布實測校準出來的,不是隨便猜的數字:
-# in-domain分數落在 0.994~1.000(24題全部),out-of-domain分數落在
-# 0.0006~0.8056(6題),兩組有清楚間隔(gap=0.1884),取中點約0.90。
-# 見 eval/threshold_tuning_results.json 完整數字。
-CONFIDENCE_THRESHOLD = 0.90
+# out-of-domain問題的reranker分數分布實測校準出來的,不是隨便猜的數字。
+#
+# 2026/09 reranker從bge-reranker-base換成bge-reranker-v2-m3後(見README「reranker
+# 模型升級」章節,32題rank-1準確率0.688->0.875的實測改善),重新跑過一次校準:
+# in-domain分數落在 0.984~1.000(24題全部),out-of-domain分數落在
+# 0.0004~0.0592(6題),兩組間隔比舊模型更乾淨(gap=0.9250,舊模型是0.1884),
+# 取中點約0.52。見 eval/threshold_tuning_results.json 完整數字。
+CONFIDENCE_THRESHOLD = 0.52
 
 
 @dataclass

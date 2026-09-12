@@ -6,9 +6,9 @@
     "recovered": 0
   },
   "hard": {
-    "correct": 7,
+    "correct": 6,
     "total": 8,
-    "retried": 1,
+    "retried": 2,
     "recovered": 1
   }
 }

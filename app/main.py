@@ -16,6 +16,7 @@ from fastapi.staticfiles import StaticFiles
 
 from config.settings import settings, PROJECT_ROOT
 from app import deps, retrieval, llm, schemas
+from app.agentic_retrieval import retrieve_agentic
 
 
 logging.basicConfig(
@@ -91,10 +92,16 @@ def ask(req: schemas.AskRequest, x_openai_key: str | None = Header(default=None)
         else:
             filters = req.filters
 
-        chunks = retrieval.retrieve_chunks(
-            db=db, model=_em, faiss_index=_fi,
+        client = OpenAI(api_key=x_openai_key) if x_openai_key else deps.get_openai_client()
+
+        agentic_result = retrieve_agentic(
+            db=db, embed_model=_em, faiss_index=_fi,
+            reranker=deps.get_reranker(), openai_client=client,
             question=req.question, filters=filters, top_k=req.top_k,
         )
+        confident = agentic_result.final_result.confident
+        chunks = agentic_result.final_result.chunks if confident else []
+
         cases = []
         if req.include_cases or is_ad or is_claim or any(
             kw in req.question for kw in ("罰", "案例", "違規", "裁處")
@@ -108,11 +115,14 @@ def ask(req: schemas.AskRequest, x_openai_key: str | None = Header(default=None)
             )
         retrieval_ms = int((time.time() - t0) * 1000)
 
-        # 呼叫 LLM
+        # 信心不足時,誠實回報找不到可信依據,不硬答(Corrective RAG,見README)
+        # 也不呼叫 LLM——省下一次呼叫的延遲跟費用,且避免LLM在沒有可信依據時自己腦補答案
         t1 = time.time()
-        system, user = llm.build_general_prompt(req.question, chunks, cases)
-        client = OpenAI(api_key=x_openai_key) if x_openai_key else deps.get_openai_client()
-        answer = llm.call_llm(client, system, user)
+        if not confident:
+            answer = "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+        else:
+            system, user = llm.build_general_prompt(req.question, chunks, cases)
+            answer = llm.call_llm(client, system, user)
         llm_ms = int((time.time() - t1) * 1000)
 
         return schemas.AskResponse(
@@ -140,6 +150,8 @@ def ask(req: schemas.AskRequest, x_openai_key: str | None = Header(default=None)
                 llm_ms=llm_ms,
                 model=settings.openai_model,
                 total_chunks_searched=deps.get_faiss_chunks().ntotal,
+                confident=confident,
+                used_retry=agentic_result.used_retry,
             ),
         )
     finally:

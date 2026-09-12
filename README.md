@@ -89,6 +89,8 @@ make run
 
 ## API 範例
 
+`/ask` 內部實際跑的是 `retrieve_agentic()`(dense retrieval + entity boost候選 + cross-encoder rerank + 信心閘門 + 信心不足時LLM改寫重試),不是原始的 `retrieve_chunks()`——`eval/`裡驗證過的這一整條 Corrective/Agentic RAG 管線,2026/09 已經接進正式API,不再只是研究用的評估腳本。信心不足時系統會誠實回報「沒有足夠可信的依據」,不呼叫LLM硬答(省一次API費用跟延遲),回應的 `meta.confident`/`meta.used_retry` 可以看到信心閘門有沒有通過、有沒有觸發重試。
+
 ```bash
 # 一般問答
 curl -X POST http://localhost:8000/ask \

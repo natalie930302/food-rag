@@ -7,7 +7,7 @@ from functools import lru_cache
 
 import faiss
 from openai import OpenAI
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import CrossEncoder, SentenceTransformer
 
 from config.settings import settings
 
@@ -48,6 +48,17 @@ def get_db() -> sqlite3.Connection:
 
 
 @lru_cache(maxsize=1)
+def get_reranker() -> CrossEncoder:
+    """單例載入 cross-encoder reranker,用於 corrective/agentic retrieval。
+
+    2026/09 從 bge-reranker-base 換成 bge-reranker-v2-m3:
+    compare_reranker_models.py 實測32題rank-1準確率從0.688提升到0.875,
+    見 eval/results_reranker_comparison.json 與 README「reranker 模型升級」章節。
+    """
+    return CrossEncoder("BAAI/bge-reranker-v2-m3", max_length=512)
+
+
+@lru_cache(maxsize=1)
 def get_openai_client() -> OpenAI:
     if not settings.openai_api_key:
         raise RuntimeError("OPENAI_API_KEY 未設定,請編輯 .env")
@@ -59,5 +70,6 @@ def preload_all():
     get_embed_model()
     get_faiss_chunks()
     get_faiss_cases()
+    get_reranker()
     if settings.openai_api_key:
         get_openai_client()

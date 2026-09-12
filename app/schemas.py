@@ -55,6 +55,14 @@ class QueryMeta(BaseModel):
     llm_ms: int
     model: str
     total_chunks_searched: int
+    confident: bool | None = Field(
+        default=None,
+        description="Corrective RAG信心閘門判斷:檢索結果夠不夠可信。/ask才會有值,/review不使用這道機制",
+    )
+    used_retry: bool | None = Field(
+        default=None,
+        description="是否觸發了Agentic RAG的query reformulation重試",
+    )
 
 
 class AskResponse(BaseModel):

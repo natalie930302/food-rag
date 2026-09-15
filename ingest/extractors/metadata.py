@@ -73,7 +73,6 @@ def derive_metadata(path: Path | str, root: str = "data/raw") -> dict:
 
 def infer_kind(filename: str, primary_law: str | None) -> str:
     """從檔名與法條推導 chunk 類型。"""
-    fname_lower = filename.lower()
     if any(k in filename for k in ("問答", "Q&A", "QA", "Q＆A")):
         return "qa"
     if "標準" in filename and "Q" not in filename:

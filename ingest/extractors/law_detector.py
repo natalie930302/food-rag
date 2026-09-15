@@ -18,28 +18,32 @@ class LawRef:
     role: str               # primary / penalty / definition / reference
 
 
+# 條號:同時接受「第15之一條」(法條原文慣例)跟「第15條之一」(語料裡實際出現
+# 92 次的寫法,例如「第十八條之一」的阿拉伯數字版)。原本只認前者,後者的「之一」
+# 會被默默丟掉、跟第15條混在一起——tests/test_law_detector.py::test_article_with_suffix
+# 抓到的 bug。中文數字條號(第十五條)目前仍不支援,是已知限制。
+_ARTICLE = r"第\s*(\d+(?:之[一二三四五]|之\d+)?)\s*條(?:之([一二三四五]|\d+))?"
+_PARAGRAPH = r"(?:[\s\S]{0,30}?第\s*(\d+)\s*項)?"
+
 # 主要 pattern:抓「<法律名>...第X條第Y項」
 # 為避免吞太多字,中間最多容許 50 字
 PATTERN_FOOD_SAFETY = re.compile(
     r"(?:食(?:品)?安(?:全衛生管理)?法)"
     r"[\s\S]{0,50}?"
-    r"第\s*(\d+(?:之[一二三四五]|之\d+)?)\s*條"
-    r"(?:[\s\S]{0,30}?第\s*(\d+)\s*項)?"
+    + _ARTICLE + _PARAGRAPH
 )
 
 PATTERN_HEALTH_FOOD = re.compile(
     r"健康食品管理法"
     r"[\s\S]{0,50}?"
-    r"第\s*(\d+(?:之[一二三四五]|之\d+)?)\s*條"
-    r"(?:[\s\S]{0,30}?第\s*(\d+)\s*項)?"
+    + _ARTICLE + _PARAGRAPH
 )
 
 # 「本法、同法、本準則」:相對指稱,需從 primary_law 推
 PATTERN_RELATIVE = re.compile(
     r"(?:本法|同法|本準則|本標準|本辦法)"
     r"[\s\S]{0,30}?"
-    r"第\s*(\d+(?:之[一二三四五]|之\d+)?)\s*條"
-    r"(?:[\s\S]{0,30}?第\s*(\d+)\s*項)?"
+    + _ARTICLE + _PARAGRAPH
 )
 
 
@@ -55,6 +59,12 @@ def _chinese_to_int(s: str) -> int:
     """簡單中文數字轉阿拉伯數字(只處理 1-10 + 之X)。"""
     m = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5}
     return m.get(s, 0)
+
+
+def _article_full(m: "re.Match") -> str:
+    """把 regex match 組合成 article_full:「15之一」不管原文是哪種寫法。"""
+    base, trailing = m.group(1), m.group(2)
+    return f"{base}之{trailing}" if trailing else base
 
 
 def _normalize_article(article_full: str) -> int:
@@ -102,11 +112,11 @@ def detect_laws(chunk_text: str, primary_law_hint: str | None = None) -> list[La
 
     # 食安法
     for m in PATTERN_FOOD_SAFETY.finditer(chunk_text):
-        _add("食安法", m.group(1), m.group(2), m.start(), m.end())
+        _add("食安法", _article_full(m), m.group(3), m.start(), m.end())
 
     # 健食法
     for m in PATTERN_HEALTH_FOOD.finditer(chunk_text):
-        _add("健康食品管理法", m.group(1), m.group(2), m.start(), m.end())
+        _add("健康食品管理法", _article_full(m), m.group(3), m.start(), m.end())
 
     # 相對指稱
     if primary_law_hint:
@@ -120,7 +130,7 @@ def detect_laws(chunk_text: str, primary_law_hint: str | None = None) -> list[La
 
         if relative_law:
             for m in PATTERN_RELATIVE.finditer(chunk_text):
-                _add(relative_law, m.group(1), m.group(2), m.start(), m.end())
+                _add(relative_law, _article_full(m), m.group(3), m.start(), m.end())
 
     return refs
 
@@ -129,10 +139,17 @@ def primary_law_to_ref(primary_law: str) -> LawRef | None:
     """把 metadata 的 primary_law(食安法第28條)轉成 LawRef。"""
     if not primary_law:
         return None
-    m = re.match(r"食安法第(\d+)(?:之([一二三四五]|\d+))?條", primary_law)
+    # 兩種寫法都要接受:「第15之一條」(法條原文慣例)跟「第15條之一」(資料夾/metadata
+    # 實際用的寫法,例如 data/ 裡 primary_law='食安法第15條之一')。原本只認前者,
+    # 導致後者被默默解析成「第15條」、suffix 遺失——tests/test_law_detector.py 的
+    # test_with_suffix 就是抓到這個 bug 的測試。
+    m = re.match(
+        r"食安法第(\d+)(?:之([一二三四五]|\d+))?條(?:之([一二三四五]|\d+))?$",
+        primary_law.strip(),
+    )
     if m:
         article = m.group(1)
-        suffix = m.group(2)
+        suffix = m.group(2) or m.group(3)
         article_full = f"{article}之{suffix}" if suffix else article
         return LawRef(
             law_name="食安法",

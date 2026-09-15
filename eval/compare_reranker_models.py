@@ -14,10 +14,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from app.deps import get_embed_model, get_faiss_chunks, get_db
-from app.retrieval import retrieve_chunks
-from app.entity_boost import find_entity_boosted_chunk_ids, fetch_chunks_by_ids
 from sentence_transformers import CrossEncoder
+
+from app.deps import get_db, get_embed_model, get_faiss_chunks
+from app.entity_boost import fetch_chunks_by_ids, find_entity_boosted_chunk_ids
+from app.retrieval import retrieve_chunks
 
 with open(Path(__file__).parent / "eval_questions.json", encoding="utf-8") as f:
     easy_qs = [{"question": q["question"], "gold_id": q["gold_chunk_id"]} for q in json.load(f)]

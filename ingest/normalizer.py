@@ -10,7 +10,6 @@
 import re
 import unicodedata
 
-
 # (cid:NNN) — PDF 字型無 ToUnicode mapping 時的殘留碼
 CID_PATTERN = re.compile(r"\(cid:\d+\)")
 

@@ -8,10 +8,10 @@
 """
 import re
 
-from ingest.chunker.hash_delimiter import split_by_hash, is_hash_format
-from ingest.chunker.qa_chunker import split_by_qa, is_qa_format
-from ingest.chunker.header_chunker import split_by_headers, has_structural_headers
+from ingest.chunker.hash_delimiter import is_hash_format, split_by_hash
+from ingest.chunker.header_chunker import has_structural_headers, split_by_headers
 from ingest.chunker.length_chunker import split_by_length
+from ingest.chunker.qa_chunker import is_qa_format, split_by_qa
 
 # hash 格式 fallback 前清除殘留的 @header 行與 # 分隔符
 _HASH_HEADER = re.compile(r"@[^\n]*\n?")

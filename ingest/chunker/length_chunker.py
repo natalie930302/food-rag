@@ -6,7 +6,6 @@ import re
 
 from config.settings import settings
 
-
 SENT_END = re.compile(r"(?<=[。!?\n])")
 
 

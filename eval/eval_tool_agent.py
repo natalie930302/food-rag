@@ -15,10 +15,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from app.deps import get_embed_model, get_faiss_chunks, get_db, get_openai_client
-from app.agent import run_agent
-from app.agentic_retrieval import retrieve_agentic
 from sentence_transformers import CrossEncoder
+
+from app.agent import run_agent
+from app.deps import get_db, get_embed_model, get_faiss_chunks, get_openai_client
 
 with open(Path(__file__).parent / "eval_questions.json", encoding="utf-8") as f:
     easy_qs = json.load(f)

@@ -5,8 +5,8 @@
 """
 import re
 from pathlib import Path
-import pdfplumber
 
+import pdfplumber
 
 # 從檔名抽年月,例:114年1月份 / 公告115年2月份
 FILENAME_DATE_RE = re.compile(r"(11[4-9])年(\d{1,2})月")

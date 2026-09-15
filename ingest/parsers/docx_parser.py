@@ -1,5 +1,6 @@
 """DOCX 解析器 — 同時抽段落與表格,表格轉 Markdown。"""
 from pathlib import Path
+
 from docx import Document
 from docx.table import Table
 from docx.text.paragraph import Paragraph

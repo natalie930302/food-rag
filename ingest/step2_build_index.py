@@ -17,8 +17,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
 
-from config.settings import settings, ensure_dirs
-
+from config.settings import ensure_dirs, settings
 
 SCHEMA_SQL = """
 DROP TABLE IF EXISTS chunks;
@@ -157,7 +156,7 @@ def main():
     violations = load_jsonl(violations_path)
     failed = load_jsonl(failed_path)
 
-    print(f"讀取結果:")
+    print("讀取結果:")
     print(f"  chunks    : {len(chunks)}")
     print(f"  violations: {len(violations)}")
     print(f"  failed    : {len(failed)}")
@@ -274,7 +273,7 @@ def main():
     print(f"  SQLite              : {settings.db_path}")
     print(f"  FAISS (chunks)      : {settings.faiss_chunks_path} ({chunk_vecs.shape})")
     print(f"  FAISS (cases)       : {settings.faiss_cases_path} ({viol_vecs.shape})")
-    print(f"\n啟動 API:  make run\n")
+    print("\n啟動 API:  make run\n")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install CPU-only torch first (avoids the multi-GB CUDA wheel)
+        run: pip install torch --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      # 單元測試不需要模型權重、FAISS 索引或 OpenAI key:
+      # 檢索/agent 邏輯用 fake reranker + scripted LLM client 測(見 tests/conftest.py),
+      # 需要索引的 API 測試會自動 skip。
+      - name: Run tests
+        run: pytest tests/ -q
+
+      - name: Lint (ruff)
+        run: ruff check app ingest eval tests scripts

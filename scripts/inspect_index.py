@@ -51,7 +51,7 @@ def main():
     # OCR / 表格
     ocr = cur.execute("SELECT COUNT(*) AS n FROM chunks WHERE is_ocr = 1").fetchone()["n"]
     tab = cur.execute("SELECT COUNT(*) AS n FROM chunks WHERE has_table = 1").fetchone()["n"]
-    print(f"\n--- 特殊屬性 ---")
+    print("\n--- 特殊屬性 ---")
     print(f"  OCR 來源 chunks   : {ocr}")
     print(f"  含表格 chunks     : {tab}")
 
@@ -60,7 +60,7 @@ def main():
     if n_viol:
         s = cur.execute("SELECT SUM(penalty_twd) AS s FROM violations").fetchone()["s"] or 0
         avg = s / n_viol
-        print(f"\n--- 違規案例 ---")
+        print("\n--- 違規案例 ---")
         print(f"  總案數    : {n_viol}")
         print(f"  總罰鍰    : NT${s:,}")
         print(f"  平均罰鍰  : NT${avg:,.0f}")
@@ -75,7 +75,7 @@ def main():
     # 失敗檔
     n_fail = cur.execute("SELECT COUNT(*) AS n FROM failed_files").fetchone()["n"]
     if n_fail:
-        print(f"\n--- 失敗檔案 ---")
+        print("\n--- 失敗檔案 ---")
         for r in cur.execute(
             """SELECT failure_reason, COUNT(*) AS n FROM failed_files
                GROUP BY failure_reason ORDER BY n DESC"""

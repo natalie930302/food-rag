@@ -17,19 +17,20 @@ from tqdm import tqdm
 
 WORKERS = max(1, min(multiprocessing.cpu_count() - 1, 4))  # 最多 4 個 worker，保留 1 核
 
-from config.settings import settings, ensure_dirs
-from ingest.classify_pdf import classify_pdf
-from ingest.normalizer import normalize
-from ingest.chunker.router import chunk_document
-from ingest.extractors.metadata import derive_metadata, infer_kind
-from ingest.extractors.law_detector import detect_laws, primary_law_to_ref
-from ingest.parsers.txt_parser import parse_txt
-from ingest.parsers.docx_parser import parse_docx
-from ingest.parsers.doc_converter import convert_doc_to_docx, ConversionError
 from docx.opc.exceptions import PackageNotFoundError as DocxPackageNotFoundError
-from ingest.parsers.pdf_text import parse_pdf_text
+
+from config.settings import ensure_dirs, settings
+from ingest.chunker.router import chunk_document
+from ingest.classify_pdf import classify_pdf
+from ingest.extractors.law_detector import detect_laws, primary_law_to_ref
+from ingest.extractors.metadata import derive_metadata, infer_kind
+from ingest.normalizer import normalize
+from ingest.parsers.doc_converter import ConversionError, convert_doc_to_docx
+from ingest.parsers.docx_parser import parse_docx
+from ingest.parsers.pdf_ocr import OcrError, parse_pdf_ocr
 from ingest.parsers.pdf_table import parse_pdf_with_tables
-from ingest.parsers.pdf_ocr import parse_pdf_ocr, OcrError
+from ingest.parsers.pdf_text import parse_pdf_text
+from ingest.parsers.txt_parser import parse_txt
 from ingest.parsers.violation_pdf import parse_violation_pdf
 
 
@@ -121,7 +122,7 @@ def parse_one_file(path: Path, stats: Stats) -> tuple[dict | None, dict | None]:
                             "file_ext": ext,
                             "page_count": cls["n_pages"],
                             "failure_reason": "ocr_no_text",
-                            "note": f"OCR 後仍無文字(< 50 字),原始檔可能為純圖或文字無法辨識",
+                            "note": "OCR 後仍無文字(< 50 字),原始檔可能為純圖或文字無法辨識",
                         }
                     stats.ocr_success += 1
                     result["meta"].update({"pdf_type": "ocr", "is_ocr": True})
@@ -314,16 +315,16 @@ def main():
     print("\n" + "=" * 60)
     print("INGEST Step 1 完成")
     print("=" * 60)
-    print(f"\n📂 處理檔案(按副檔名):")
+    print("\n📂 處理檔案(按副檔名):")
     for ext, n in stats.by_ext.items():
         print(f"   .{ext:5s}: {n}")
 
-    print(f"\n📄 PDF 分類:")
+    print("\n📄 PDF 分類:")
     for t, n in stats.pdf_types.items():
         print(f"   {t:15s}: {n}")
     print(f"   OCR 成功 / 失敗: {stats.ocr_success} / {stats.ocr_failed}")
 
-    print(f"\n📊 結果:")
+    print("\n📊 結果:")
     print(f"   總 chunks         : {stats.total_chunks}")
     print(f"   總違規案例         : {stats.total_violations}")
     print(f"   失敗檔案數         : {stats.failed_files}")
@@ -331,14 +332,14 @@ def main():
     if stats.total_chunks > 0:
         print(f"   平均法條/chunk     : {stats.law_refs / stats.total_chunks:.2f}")
 
-    print(f"\n📁 輸出檔:")
+    print("\n📁 輸出檔:")
     print(f"   {chunks_out}")
     print(f"   {violations_out}")
     print(f"   {failed_out}")
 
     if stats.failed_files > 0:
         print(f"\n⚠️  有 {stats.failed_files} 個檔案無法處理。")
-        print(f"   執行 `make failed` 或 `python scripts/check_failed_files.py` 檢視清單。")
+        print("   執行 `make failed` 或 `python scripts/check_failed_files.py` 檢視清單。")
 
 
 if __name__ == "__main__":

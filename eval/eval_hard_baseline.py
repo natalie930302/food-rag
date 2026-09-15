@@ -4,9 +4,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from app.deps import get_embed_model, get_faiss_chunks, get_db
-from app.corrective_retrieval import retrieve_with_confidence_gate
 from sentence_transformers import CrossEncoder
+
+from app.corrective_retrieval import retrieve_with_confidence_gate
+from app.deps import get_db, get_embed_model, get_faiss_chunks
 
 with open(Path(__file__).parent / "hard_questions.json", encoding="utf-8") as f:
     hard_qs = json.load(f)

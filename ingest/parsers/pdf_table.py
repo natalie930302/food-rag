@@ -5,6 +5,7 @@
 只排除「資料表格」的 bbox,「版面表格」仍由 extract_text() 自然抽取。
 """
 from pathlib import Path
+
 import pdfplumber
 
 from ingest.normalizer import normalize

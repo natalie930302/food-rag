@@ -1,7 +1,10 @@
 """文字清理測試。"""
 from ingest.normalizer import (
-    normalize, normalize_unicode, remove_page_numbers,
-    merge_broken_lines, remove_invisible_chars,
+    merge_broken_lines,
+    normalize,
+    normalize_unicode,
+    remove_invisible_chars,
+    remove_page_numbers,
 )
 
 

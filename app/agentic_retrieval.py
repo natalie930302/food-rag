@@ -19,7 +19,8 @@ confidence-based方法本身的限制,不是這次改動能解決的問題,在RE
 from dataclasses import dataclass
 
 from openai import OpenAI
-from app.corrective_retrieval import retrieve_with_confidence_gate, CorrectiveRetrievalResult
+
+from app.corrective_retrieval import CorrectiveRetrievalResult, retrieve_with_confidence_gate
 from config.settings import settings
 
 REFORMULATE_PROMPT = """你是食品法規檢索系統的輔助工具。以下使用者問題,用檢索系統目前的搜尋方式找不到足夠相關的結果。

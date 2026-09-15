@@ -1,0 +1,11 @@
+line-length = 120
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "W", "I"]
+# E501: 中文註解行長不強制;E402: eval/ 與 ingest 腳本需先 sys.path.insert 再 import;
+# E741: retrieval.py 的 D/I 是 FAISS 慣用命名(distances / indices)
+ignore = ["E501", "E402", "E741"]
+
+[lint.isort]
+known-first-party = ["app", "config", "ingest", "eval"]

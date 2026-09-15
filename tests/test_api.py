@@ -3,8 +3,8 @@
 這些測試需要 data/index/ 已有索引才能跑。
 若沒有,會被 skip。
 """
+
 import pytest
-from pathlib import Path
 
 # 條件 skip
 from config.settings import settings
@@ -18,6 +18,7 @@ skip_no_index = pytest.mark.skipif(
 @skip_no_index
 def test_stats():
     from fastapi.testclient import TestClient
+
     from app.main import app
     client = TestClient(app)
     r = client.get("/stats")
@@ -30,6 +31,7 @@ def test_stats():
 @skip_no_index
 def test_failed_files():
     from fastapi.testclient import TestClient
+
     from app.main import app
     client = TestClient(app)
     r = client.get("/failed")

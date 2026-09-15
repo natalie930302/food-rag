@@ -19,8 +19,8 @@ Ambiguous(混合使用)三類,而不是像傳統RAG一樣不管檢索品質好�
 """
 from dataclasses import dataclass
 
+from app.entity_boost import fetch_chunks_by_ids, find_entity_boosted_chunk_ids
 from app.retrieval import RetrievedChunk, retrieve_chunks
-from app.entity_boost import find_entity_boosted_chunk_ids, fetch_chunks_by_ids
 
 # 閾值是用 eval/tune_confidence_threshold.py 對24題真實in-domain問題跟6題
 # out-of-domain問題的reranker分數分布實測校準出來的,不是隨便猜的數字。

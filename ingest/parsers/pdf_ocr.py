@@ -6,6 +6,7 @@
   - poppler-utils(pdf2image 依賴)
 """
 from pathlib import Path
+
 import pytesseract
 from pdf2image import convert_from_path
 

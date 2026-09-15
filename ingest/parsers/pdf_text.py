@@ -1,5 +1,6 @@
 """正常文字 PDF 解析(無表格、無需 OCR)。"""
 from pathlib import Path
+
 import pdfplumber
 
 from ingest.normalizer import normalize

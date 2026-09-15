@@ -3,7 +3,6 @@
 最簡單的 case:直接讀檔。但要注意 BOM 與編碼。
 """
 from pathlib import Path
-from ingest.normalizer import normalize
 
 
 def parse_txt(path: Path | str) -> dict:

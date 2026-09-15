@@ -5,9 +5,8 @@ from pathlib import Path
 
 from openai import OpenAI
 
+from app.retrieval import RetrievedCase, RetrievedChunk
 from config.settings import settings
-from app.retrieval import RetrievedChunk, RetrievedCase
-
 
 PROMPTS_DIR = Path(__file__).parent.parent / "prompts"
 
@@ -140,7 +139,6 @@ def build_review_prompt(
 
 def call_llm(client: OpenAI, system: str, user: str) -> str:
     """呼叫 OpenAI,回傳回答字串。"""
-    import os
     if os.getenv("LLM_DEBUG", "").lower() in ("1", "true"):
         print("\n" + "="*60)
         print("[SYSTEM]\n" + system)

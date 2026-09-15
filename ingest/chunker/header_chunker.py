@@ -11,7 +11,6 @@ import re
 
 from config.settings import settings
 
-
 # 三層標題,從最高到最低
 TOP_HEADERS = [
     re.compile(r"^\s*[壹貳參肆伍陸柒捌玖拾]+[、,.]", re.MULTILINE),

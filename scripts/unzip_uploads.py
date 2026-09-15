@@ -8,7 +8,7 @@ import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from config.settings import settings, ensure_dirs
+from config.settings import ensure_dirs, settings
 
 
 def fix_chinese_filename(name: str) -> str:
@@ -37,7 +37,7 @@ def extract_zip(zip_path: Path, dest: Path):
                 # 嘗試修正
                 info.filename = fix_chinese_filename(info.filename)
             zf.extract(info, str(dest))
-    print(f"  完成")
+    print("  完成")
 
 
 def main():

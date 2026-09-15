@@ -1,393 +1,278 @@
-# 食品法規 RAG 問答系統
+# food-rag:食品法規 RAG 問答系統
 
-基於食藥署法規與北市違規廣告案例的問答 API,使用 LlamaIndex + FAISS + SQLite + OpenAI。
+[![CI](https://github.com/natalie930302/food-rag/actions/workflows/ci.yml/badge.svg)](https://github.com/natalie930302/food-rag/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[English README](README.en.md) · [研究日誌](docs/RESEARCH_LOG.md) · [評估總表](eval/RESULTS.md) · [技術報告](docs/technical_report.md)
 
-## 特色
+以食藥署法規/指引/問答集(16,119 個 chunks)與台北市違規廣告裁罰公告(400 筆)為語料的
+問答 API:**本地 BGE-M3 embedding + FAISS → cross-encoder reranking → 信心閘門 → 雲端 LLM**,
+外加一個有邊界的 tool-calling agent(`/ask_agent`)。重點不是功能清單,是**每個元件都有量化證據、
+每個「提升」都附信賴區間、負向結果照實記錄**。
 
-- 🌐 **混合架構**:本地 embedding(BGE-M3)+ 雲端 LLM(GPT-4o)
-- 📂 **全格式支援**:PDF / DOC / DOCX / TXT 都能處理
-- 🔍 **OCR 處理掃描檔**:Tesseract 中文繁體
-- 📊 **表格抽取與檢查**:PDF 表格自動轉 Markdown
-- 🕸️ **法條網狀關聯**:支援「重組肉 Q1 一次引用 4 條法條」這種聯合查詢
-- ❌ **失敗檔追蹤**:無法處理的檔案會標註但不丟失,API 可告知使用者
-- 🤖 **Tool-calling agent**(`/ask_agent`):LLM 自主決定要不要重查、查哪個工具(法規/案例/關聯法條),有工具呼叫上限、強制 grounding 檢查、字面錨定一致性檢查三層安全邊界,不是單純呼叫一次 API——從發現負向結果(22/24)→診斷根因→設計緩解機制→再診斷剩餘不穩定的根因(取樣溫度)→修正後淨提升超越原始baseline(31/32 vs. 30/32)的完整研究閉環,見「Tool-Calling Agent」章節
+## 30 秒看懂
 
-## 系統需求
-
-| 項目 | 最低 | 建議 |
+| 問題 | 答案 | 證據 |
 |---|---|---|
-| Python | 3.11 | 3.11 / 3.12 |
-| RAM | 8 GB | 16 GB |
-| 磁碟 | 5 GB | 10 GB |
-| OS | Linux / macOS / WSL2 | 同左 |
+| 兩階段檢索(dense → rerank)有用嗎? | **看 reranker**。`bge-reranker-base` 沒有顯著幫助(p=0.82);`bge-reranker-v2-m3` 有(Recall@1 +0.12 [+0.05, +0.19],p=0.004) | [§檢索](#1-檢索兩階段架構不是自動有效) |
+| 檢索結果不可信時系統會拒答嗎? | 會。閾值 0.52 下 out-of-domain 20/20 正確拒答,代價是 in-domain 誤拒 8/108 | [§信心閘門](#2-信心閘門乾淨的閾值是小樣本假象) |
+| 「讓 LLM 自主決策」比固定重試好嗎? | **沒有**。單跳 99 vs 100/108;連為它設計的 20 題 multi-hop 也是 8 vs 10(p=0.69),唯一贏的是 baseline 沒有的關聯法條工具(3/3) | [§Agent](#3-agent固定重試-vs-tool-calling-harness)、[§Multi-hop](#5-multi-hopagent-什麼時候才真的有用) |
+| harness 的每道邊界各擋掉什麼? | 消融量出來:只有 drift 檢查有效(關掉 31→27/32);grounded 強制與引用驗證在這組題目上一個都沒攔到,是保險不是提升 | [§消融](#4-harness-消融每道邊界的存在理由) |
+| 那什麼時候該用 agent? | `/query` 先分流:規則層 100%、整體 97.6%,只把 multi-hop 交給 agent,漏掉案例的有害錯誤 0 題 | [§Router](#6-router單一入口的新失效點量出來) |
+| 評估集夠大嗎? | 24 題手寫 → **108 題**(+84 題 LLM 生成、人工審查),外加 8 題 hard、20 題 out-of-domain、20 題 multi-hop | [eval/](eval/) |
 
-## 安裝
+## 架構
 
-### 1. 系統依賴
+```mermaid
+flowchart LR
+    subgraph ingest["Ingest(離線)"]
+        R[PDF / DOC / TXT<br/>OCR 掃描檔] --> P[parsers → chunker<br/>hash / QA / header / length] --> X[law_detector<br/>法條多對多關聯]
+        X --> DB[(SQLite<br/>chunks · chunk_laws · violations)]
+        X --> E[BGE-M3] --> F[(FAISS IndexFlatIP<br/>16,119 × 1024)]
+    end
 
-**Ubuntu / WSL2**:
+    subgraph router["/query:單一入口"]
+        Q0[問題或文案] --> RT{router<br/>規則層 → LLM 層}
+        RT -- regulation_qa / case_lookup --> Q
+        RT -- ad_review --> REV[/review<br/>廣告審稿/]
+        RT -- multi_hop --> Q2
+    end
+
+    subgraph pipe["/ask:固定管線"]
+        Q[問題] --> D[dense retrieval<br/>top-10] --> B[entity boost<br/>列舉名詞 → chunk]
+        B --> RR[bge-reranker-v2-m3<br/>cross-encoder]
+        RR --> G{信心閘門<br/>top-1 ≥ 0.52?}
+        G -- 否 --> RF[LLM 改寫問題<br/>重查一次] --> D
+        G -- 否, 重試後仍否 --> NO[誠實拒答<br/>不呼叫 LLM]
+        G -- 是 --> L[gpt-4o-mini 生成] --> V{引用驗證<br/>答案裡的第N條<br/>都在 chunk 裡?}
+        V -- 否 --> L2[帶回饋重生成 1 次] --> A[答案 + meta]
+        V -- 是 --> A
+    end
+
+    subgraph agent["/ask_agent:tool-calling harness"]
+        Q2[問題] --> LLM[gpt-4o-mini<br/>function calling]
+        LLM <--> T1[search_regulations<br/>= 上面的 D→B→RR→G]
+        LLM <--> T2[search_violation_cases]
+        LLM <--> T3[search_related_laws<br/>法條共現統計]
+        T1 -. 字面錨定<br/>drift 檢查 .-> T1
+        LLM --> H[harness 邊界<br/>預算 · grounded 強制 · 引用驗證] --> A2[答案 + trace + usage]
+    end
+
+    F --> D
+    DB --> D
+    F --> T1
+    DB --> T2
+    DB --> T3
+```
+
+`/ask` 是確定性管線(信心不足就固定做一次改寫重試);`/ask_agent` 把同一套檢索包成工具交給 LLM
+決定控制流,harness 用程式碼強制邊界——**prompt 是請求,程式碼才是保證**。
+
+`/query` 是單一入口:先用零成本的關鍵字規則判意圖,判不出來才問一次 gpt-4o-mini(結構化 JSON、temperature 0),
+然後**只把真的需要多步檢索的問題交給 agent**——單跳問題上 agent 跟固定管線一樣準但慢一倍(§3),所以預設走便宜、
+確定性的那條(Adaptive-RAG 的精神)。路由決定連同理由回傳在 `route` 欄位。
+
+## 評估結果
+
+全部數字可用 `make eval` 重現,完整表格與每題結果在 [eval/RESULTS.md](eval/RESULTS.md)。
+區間是 95% percentile bootstrap CI(10,000 次重抽);配置之間的差距用 paired bootstrap + 精確符號檢定。
+
+### 1. 檢索:兩階段架構不是自動有效
+
+108 題(24 手寫 + 84 合成),候選池固定為 dense top-10,只換排序:
+
+| 配置 | Recall@1 | Recall@3 | MRR |
+|---|---|---|---|
+| BGE-M3 dense only | 0.713 [0.630, 0.796] | 0.861 [0.796, 0.926] | 0.796 [0.732, 0.858] |
+| + bge-reranker-base | 0.731 [0.648, 0.815] | 0.935 [0.889, 0.972] | 0.826 [0.767, 0.883] |
+| **+ bge-reranker-v2-m3** | **0.833 [0.759, 0.898]** | 0.907 [0.852, 0.954] | **0.874 [0.818, 0.926]** |
+
+| 比較(Recall@1) | Δ [95% CI] | 翻對 / 翻錯 | 符號檢定 p |
+|---|---|---|---|
+| dense → +base | +0.019 [−0.056, +0.093] | 10 / 8 | 0.815 |
+| +base → +v2-m3 | **+0.102 [+0.037, +0.176]** | 13 / 2 | **0.007** |
+| dense → +v2-m3 | **+0.120 [+0.046, +0.194]** | 16 / 3 | **0.004** |
+
+**這推翻了早期的結論。** 24 題時 `bge-reranker-base` 的 Recall@1 從 0.708 到 0.750,當時寫成「全面提升」——
+其實只是多對 1 題;108 題上它翻對 10 題、翻錯 8 題,跟沒加一樣。真正有效的是換成更強的 reranker,
+而那個決定當初是從一個具體失敗案例(「分類存放」vs「怎麼歸類」的詞義混淆)追出來的,見
+[研究日誌](docs/RESEARCH_LOG.md)「reranker 模型升級」一節。手寫題(n=24)與合成題(n=84)分開看趨勢一致,
+但手寫題 Recall@1 更高(0.917 vs 0.810)——合成題並沒有比較簡單,反而更難,見 [eval/RESULTS.md](eval/RESULTS.md)。
+
+### 2. 信心閘門:「乾淨的閾值」是小樣本假象
+
+Corrective RAG(Yan et al. 2024)的簡化版:用 reranker top-1 分數當相關性評分,低於閾值就拒答、不呼叫 LLM。
+閾值原本是用 24 題 in-domain + 6 題 out-of-domain 校準的:兩組分數有一段乾淨的間隔(gap = +0.93),取中點 0.52。
+
+擴到 108 + 20 題之後,**間隔消失了**(gap = −0.33):
+
+| 閾值 | in-domain 誤拒 | out-of-domain 誤放 |
+|---|---|---|
+| 0.52(現行) | 8 / 108(7.4%) | 0 / 20 |
+| 0.068(總錯誤最少) | 0 / 108 | 2 / 20 |
+
+沒有一個閾值同時零誤拒、零誤放。誤拒的 8 題裡有 4 題是農藥殘留表格、檢驗費用表這類「答案在表格列裡」
+的內容,reranker 本來就給不高的分數。現行 0.52 是刻意偏向「寧可拒答也不硬答」,這是產品決策不是統計最佳解,
+兩邊的代價都列在上面。
+
+端對端驗證(`eval/eval_corrective.py`,閾值 0.52):in-domain 維持信心且撈到 gold **96/108 = 0.889 [0.824, 0.944]**
+(手寫 24/24、合成 72/84);誤拒 8 題;另有 **4 題 confidently wrong**——閘門給高分、卻沒撈到正確答案,這是
+confidence-based 方法的結構性盲點,信心閘門偵測不到。out-of-domain **20/20** 正確拒答,包括 4 題刻意設計的近域陷阱
+(化妝品標示 0.24、房屋租賃公證 0.40 是最接近閾值的兩題)。
+
+### 3. Agent:固定重試 vs. tool-calling harness
+
+同一組題目、同樣的 hit 定義(gold chunk 有沒有在最後拿去回答的 chunk 裡):
+
+| 問題集 | 固定重試(`/ask`) | Tool-calling agent(`/ask_agent`) | 翻對 / 翻錯 | 符號檢定 p |
+|---|---|---|---|---|
+| 主評估集(108) | **100/108 = 0.926 [0.870, 0.972]** | 99/108 = 0.917 [0.861, 0.963] | 0 / 1 | 1.000 |
+| hard(8) | 6/8 = 0.750 [0.500, 1.000] | 6/8 = 0.750 [0.500, 1.000] | 0 / 0 | 1.000 |
+
+- **固定重試在 108 題上確實有用**:8 題觸發改寫重試、4 題救回——先前 8 題 hard set 上「1 題觸發、0 題救回」的負向結論,
+  是樣本太小看不到效果
+- **agent 在單跳問題上打平,沒有更好**:108 題裡只有 3 題用了 >1 次工具;字面錨定 drift 檢查介入了 25 題(LLM 改寫的查詢
+  跟原始問題 top-1 不一致);延遲 31.5 秒/題(固定管線先前在同機器量到約 13 秒)。早期 32 題上「31/32 超越 30/32」的結論,
+  在 108 題上不成立(99 vs 100,差 1 題)
+- 兩邊都有 **confidently wrong**(固定重試 5+2 題):閘門給高分、答案卻錯,信心機制偵測不到
+- 結論:agent 多出來的自由度(自己決定查詢字串、查幾次)在單跳問題上沒有換到準確率,只換到延遲。它的價值只能在
+  需要多步的問題上量(§5)——量的結果也沒有贏,只有關聯法條這一項是它獨有的。這是 `/query` 只把 multi-hop
+  交給 agent、其餘一律走固定管線的依據(§6)
+
+### 4. Harness 消融:每道邊界的存在理由
+
+把 `/ask_agent` 的每道邊界各關掉一次,同一組題目(24 手寫 + 8 hard 量命中率;20 out-of-domain 量「沒依據卻硬答」):
+
+| 配置 | 關掉的東西 | in-domain 命中 | OOD 沒依據卻硬答 | 秒/題 |
+|---|---|---|---|---|
+| full | — | **31/32 = 0.969 [0.906, 1.000]** | 0/20 | 18.6 |
+| no_grounding | 不強制覆寫沒依據的答案 | 30/32 = 0.938 [0.844, 1.000] | **0/20** | 19.3 |
+| no_drift_check | 不用字面問題當一致性錨點 | **27/32 = 0.844 [0.719, 0.969]** | 0/20 | 11.4 |
+| temp_0.1 | 決策溫度回到 0.1 | 31/32 = 0.969 [0.906, 1.000] | 0/20 | 18.3 |
+
+三個誠實的結論,一個正向、一個「多餘」、一個「一次跑不出來」:
+
+- **drift 檢查是真的在擋東西**:關掉後掉 4 題(31 → 27),掉的正是 query drift 那類案例(「超商餐盒牛肉」「食品添加物輸入登記」);
+  代價是每題多 7 秒(再 rerank 一次)
+- **grounded 強制覆寫在這組題目上是多餘的**:關掉之後 gpt-4o-mini 對 20 題 OOD 全部自己用不同措辭拒答了(第一版腳本只比對
+  拒答句字面,誤計成 19/20 硬答;改用語意判斷後是 0/20)。這條邊界的價值是「保證」而不是「量得到的提升」——prompt 這次守住了,
+  不代表下一個模型或下一版 prompt 也會,所以留著,但誠實標示它在本評估集上沒有攔到任何東西
+- **temperature=0 的效果一次跑不出來**:0.1 這次也是 31/32。早期發現的「同題重跑結果不一致」是抖動,要多次重跑才量得到,
+  單次消融看不出差別,如實記錄
+
+**答案層引用驗證也是同一類結果**(`eval/eval_citation_verifier.py`):108 題裡 100 題通過信心閘門並生成答案,89 題答案含條號,
+驗證前就 **0/100** 引用了 context 裡沒有的條號——重生成機制一次都沒觸發。prompt 裡的「不得捏造條號」在 gpt-4o-mini 上守住了。
+所以四道邊界裡,**只有 drift 檢查在這組評估集上有量得到的效果**;grounded 強制覆寫與引用驗證是程式碼層的保險,
+在目前的模型 + prompt 組合下沒有被用到,但換模型或改 prompt 時就是它們在擋。這個結論比「四道邊界都很重要」誠實,
+也比較有用:它告訴你 harness 的成本(每題多一次 rerank、多一次驗證)換到的是什麼。
+
+### 5. Multi-hop:agent 什麼時候才真的有用
+
+單跳題組測不出 agent 的價值(§3),所以另外手寫 20 題需要「法規 + 案例」或「法規 + 關聯法條」的問題
+(`eval/multihop_questions.json`)。命中拆成三個元件,全部達成才算 full_hit:
+
+| 元件 | baseline(`/ask` 邏輯:固定重試 + 關鍵字觸發查案例) | tool-calling agent |
+|---|---|---|
+| reg_hit(法規查對) | **14/20 = 0.700 [0.500, 0.900]** | 10/20 = 0.500 [0.300, 0.700] |
+| case_hit(案例查對,17 題要求) | 16/17 = 0.941 [0.824, 1.000] | 15/17 = 0.882 [0.706, 1.000] |
+| related_hit(關聯法條,3 題要求) | 0/3(沒有這個工具) | **3/3** |
+| **full_hit** | **10/20 = 0.500 [0.300, 0.700]** | 8/20 = 0.400 [0.200, 0.600] |
+
+翻對 2 / 翻錯 4,符號檢定 p = 0.688;agent 平均 2.15 次工具呼叫、18/20 題用了 >1 次(harness 這次真的被用到了)。
+
+**誠實的結論:即使在為 agent 設計的題組上,它也沒有贏過「固定管線 + 關鍵字規則」。** 拆開看才知道為什麼:
+
+- 案例這一跳,`/ask` 的關鍵字觸發(問題含「罰/案例/裁處」就查案例)跟 LLM 自己決定去查,效果一樣(16 vs 15)
+- 法規這一跳 agent 反而輸 4 題:多步時 LLM 濃縮的查詢字串更容易飄(§3 的 query drift 在多步場景放大),而且有 2 題它
+  直接跳過 `search_regulations` 只查案例,harness 因此判定 ungrounded 而拒答
+- agent 唯一無可取代的是 `search_related_laws`(3/3):baseline 沒有這個能力
+
+這個結果第一次跑時是 0/17 案例命中,追下去發現 `search_violation_cases` 拿的是法規 chunk 的 FAISS 索引而不是案例索引
+——一個藏了幾個月的真 bug,多步題組才把它逼出來,已修並加回歸測試。
+
+下一步很明確,而且不是「讓 agent 更聰明」:把案例與關聯法條查詢做成**規則觸發的確定性多步管線**,再跟 agent 比一次。
+如果打平,agent 在這個領域就只剩「探索未知工具組合」的價值;如果 agent 贏,才是它該存在的證據。
+
+### 6. Router:單一入口的新失效點,量出來
+
+`/query` 的路由器是新增的失效點,所以單獨評估(`eval/eval_router.py`)。標籤集不用另外標:108+8 題單跳 → `regulation_qa`、
+20 題 multi-hop → `multi_hop`,再加 30 題手寫的審稿/案例/邊界題,共 166 題。
+
+| | 題數 | 準確率 |
+|---|---|---|
+| 規則層(零成本、確定性) | 61(37%) | 61/61 = 1.000 |
+| LLM 層(規則判不出來才問) | 105(63%) | 101/105 = 0.962 |
+| **整體** | 166 | **162/166 = 0.976 [0.952, 0.994]** |
+
+| gold \ pred | regulation_qa | case_lookup | ad_review | multi_hop | recall |
+|---|---|---|---|---|---|
+| regulation_qa | 120 | 1 | 1 | 1 | 0.976 |
+| case_lookup | 0 | 7 | 0 | 1 | 0.875 |
+| ad_review | 0 | 0 | 10 | 0 | 1.000 |
+| multi_hop | 0 | 0 | 0 | 25 | 1.000 |
+
+兩種錯的代價不對稱,分開算:**有害**(multi_hop 被判成單跳,會漏掉案例/關聯法條)**0 題**;浪費(單跳被判成 multi_hop,只是變慢)2 題。
+第一版規則層只有 90%——把「罰款/裁罰」這類泛用字當成案例訊號,「罰款標準怎麼制定」就被判成案例;收緊成只在訊號很強時才自己判、
+其餘交給 LLM 之後,規則層 100%、整體從 94.0% 到 97.6%。這是「規則要窄、LLM 要當 fallback 而不是主力」的一個具體例子。
+
+## 誠實的限制
+
+- **合成題目的偏差**:84 題是 gpt-4o-mini 看著 chunk 出的題,雖然過濾了字面重疊(最長共同子字串 ≤ 6 字)、
+  人工剔除了 56 題(gold 不唯一、表格切片、OCR 亂碼),仍不等於真實使用者的問法
+- **confidently wrong 偵測不到**:信心閘門評的是「內容像不像相關」,不是「答案對不對」;
+  答案層引用驗證只能抓「條號不在 context 裡」這種可機械判定的錯,抓不到引用了對的條號但解讀錯
+- **案例庫偏斜**:400 筆裁罰案例 391 筆是食安法第 28 條,multi-hop 題組的案例命中對任何真的去查案例的系統都容易
+- **法條偵測只認阿拉伯數字**:「第十五條」這類中文條號不會被關聯;`第15條之一` 曾被誤解析成 `第15條`
+  (2026/09 修正,索引尚未重建)
+- **非確定性**:agent 決策溫度已歸零,但 OpenAI API 本身不保證完全可重現
+
+## 快速開始
+
 ```bash
-sudo apt update
-sudo apt install -y python3.11 python3.11-venv \
-    tesseract-ocr tesseract-ocr-chi-tra \
-    libreoffice poppler-utils
+# 系統依賴(Ubuntu/WSL2):tesseract-ocr tesseract-ocr-chi-tra libreoffice poppler-utils
+make install && source .venv/bin/activate
+cp .env.example .env            # 填 OPENAI_API_KEY
+make unzip && make ingest       # 第一次會下載 BGE-M3(~2.3 GB)
+make run                        # http://localhost:8000/docs
 ```
-
-**macOS**:
-```bash
-brew install python@3.11 tesseract tesseract-lang libreoffice poppler
-```
-
-### 2. 專案安裝
 
 ```bash
-git clone <your-repo> food-rag
-cd food-rag
-make install
-source .venv/bin/activate
-
-cp .env.example .env
-# 編輯 .env 填入 OPENAI_API_KEY
+curl -X POST localhost:8000/ask       -H "Content-Type: application/json" -d '{"question": "真空包裝豆干要符合什麼規定?"}'
+curl -X POST localhost:8000/ask_agent -H "Content-Type: application/json" -d '{"question": "廣告說能提升免疫力,違反哪條?有案例嗎?"}'
+curl -X POST localhost:8000/review    -H "Content-Type: application/json" -d '{"ad_text": "本產品有效改善高血壓"}'
 ```
 
-## 使用
-
-### 1. 準備資料
-
-把三個 zip 檔放到 `data/raw/zips/`:
-```
-data/raw/zips/
-├── 食藥署.zip
-├── 台北市政府公告114年違規廣告.zip
-└── 台北市政府公告115年違規廣告.zip
-```
-
-執行:
-```bash
-make unzip
-```
-
-### 2. 跑 Ingest
+回應的 `meta` 帶 `confident` / `used_retry` / `unsupported_citations`;`/ask_agent` 另外回 `trace`(每步工具、查詢、信心分數、是否觸發 drift 介入)與 `usage`(token / 秒數 / 停止原因)。
 
 ```bash
-make ingest
-```
-
-完成後 `data/index/` 下會有:
-- `chunks.db`(SQLite)
-- `faiss_chunks.index`(法規向量)
-- `faiss_cases.index`(案例向量)
-
-第一次跑會下載 BGE-M3 模型(~2.3 GB),需時較久。
-
-### 3. 啟動 API
-
-```bash
-make run
-```
-
-瀏覽器開 `http://localhost:8000/docs` 看互動文件。
-
-## API 範例
-
-`/ask` 內部實際跑的是 `retrieve_agentic()`(dense retrieval + entity boost候選 + cross-encoder rerank + 信心閘門 + 信心不足時LLM改寫重試),不是原始的 `retrieve_chunks()`——`eval/`裡驗證過的這一整條 Corrective/Agentic RAG 管線,2026/09 已經接進正式API,不再只是研究用的評估腳本。信心不足時系統會誠實回報「沒有足夠可信的依據」,不呼叫LLM硬答(省一次API費用跟延遲),回應的 `meta.confident`/`meta.used_retry` 可以看到信心閘門有沒有通過、有沒有觸發重試。
-
-```bash
-# 一般問答
-curl -X POST http://localhost:8000/ask \
-  -H "Content-Type: application/json" \
-  -d '{"question": "真空包裝豆干要符合什麼規定?"}'
-
-# 一般問答(tool-calling agent 版,見下方「Tool-Calling Agent」章節——
-# 讓 LLM 自己決定要不要重查、查哪個工具,不是走 /ask 固定的重試邏輯)
-curl -X POST http://localhost:8000/ask_agent \
-  -H "Content-Type: application/json" \
-  -d '{"question": "真空包裝豆干要符合什麼規定?"}'
-
-# 廣告審稿
-curl -X POST http://localhost:8000/review \
-  -H "Content-Type: application/json" \
-  -d '{"ad_text": "本產品有效改善高血壓"}'
-
-# 法條關聯
-curl http://localhost:8000/laws/食安法第28條/related
-
-# 失敗檔清單
-curl http://localhost:8000/failed
+make test     # 84 個單元測試,不需要模型或 API key
+make lint
+make eval     # 重跑全部評估 → eval/RESULTS.md(需要索引與 API key)
+python scripts/replay_trace.py eval/results_tool_agent_drift_check.json --miss   # 逐步回放答錯的題
 ```
 
 ## 專案結構
 
 ```
-food-rag/
-├── config/          # 設定
-├── data/            # 資料(raw/converted/processed/index)
-├── ingest/          # 攝取 pipeline
-│   ├── parsers/     # 各格式解析器
-│   ├── chunker/     # 切碎策略
-│   └── extractors/  # 法條偵測等
-├── app/             # FastAPI 應用
-├── eval/            # 檢索品質評估(見下方)
-├── prompts/         # Prompt 模板
-├── scripts/         # 一次性工具
-└── tests/           # 測試
+app/                 FastAPI + 檢索/agent 邏輯
+  retrieval.py         SQL 預過濾 + FAISS 搜尋、案例檢索、法條共現
+  corrective_retrieval.py  信心閘門(+ entity boost 併入候選)
+  agentic_retrieval.py     固定重試(信心不足 → LLM 改寫重查)
+  agent.py / agent_tools.py  tool-calling harness:預算、grounded 強制、drift 檢查
+  verifier.py          答案層引用驗證
+ingest/              parsers(PDF/DOCX/OCR/表格)→ chunker(4 策略路由)→ law_detector → SQLite + FAISS
+eval/                評估集、腳本、stats.py(bootstrap/符號檢定)、RESULTS.md
+tests/               單元測試(fake reranker + scripted LLM client)
+docs/                研究日誌、技術報告
+scripts/             replay_trace、extract_chunk_entities、inspect_index
 ```
-
-## 檢索品質評估(2026/09 新增)
-
-`tests/` 底下原本只有 API 層的 plumbing 測試(狀態碼、回傳格式對不對),沒有量測過「檢索有沒有真的撈到對的內容」——這是 RAG 系統最關鍵、卻最容易被跳過驗證的一環。
-
-- `eval/eval_questions.json`:從真實已索引的 17,152 個 chunks 裡,挑 24 題涵蓋不同主題(標示規定、添加物登錄、檢驗週期、追溯系統、裁罰基準等)的內容,**用改寫過的自然提問方式**(不是直接複製索引文字)當查詢,避免文字表面重疊讓 Recall 虛高
-- `eval/eval_retrieval.py`:直接呼叫 `app/retrieval.py` 裡正式環境在用的 `retrieve_chunks()`,量到的數字反映的是真實部署的檢索品質,不是另外寫一套簡化邏輯
-
-### Baseline 結果(BGE-M3 dense retrieval,無 metadata 過濾)
-
-| Recall@1 | Recall@3 | Recall@5 | MRR |
-|---|---|---|---|
-| 0.708 | 0.958 | 1.000 | 0.830 |
-
-### 加上 Cross-Encoder Reranking 後
-
-`eval/eval_reranking.py` 在 dense retrieval 的初篩結果(top-10)上,加一層 `BAAI/bge-reranker-base`(跟現有的 `BAAI/bge-m3` embedding 同團隊發布)重新排序——這是近年 production RAG 系統的標準兩階段做法:bi-encoder(query 和文件各自獨立編碼)負責快速從全庫撈候選,cross-encoder(query 和文件當同一個輸入一起編碼,能做 token 級別的交互注意力)負責在小範圍候選裡精排,犧牲不能預先索引全庫的代價換取更高的排序精度。
-
-| 方法 | Recall@1 | Recall@3 | Recall@5 | MRR |
-|---|---|---|---|---|
-| Baseline(僅dense retrieval) | 0.708 | 0.958 | 1.000 | 0.830 |
-| **+ Cross-Encoder Reranking** | **0.750** | **1.000** | 1.000 | **0.861** |
-
-真實、正向的結果:Recall@1 提升 4.2 個百分點、Recall@3 到 100%、MRR 提升 3.1 個百分點。這跟 Portfolio 裡其他幾個「微調反而讓結果變差」的負向案例不同——這裡驗證的是「在已經很強的 baseline 之上,加一個現在業界/學界標準的兩階段檢索架構是否真的有幫助」,結果是肯定的。
-
-### Corrective RAG:檢索結果不夠相關時,誠實拒答而不是硬答
-
-參考 Yan et al., *"Corrective Retrieval Augmented Generation"*(arXiv:2401.15884, 2024)的核心概念:傳統 RAG 不管檢索品質好壞,一律把 top-k 結果塞給 LLM 生成答案,這是常見的幻覺(hallucination)成因之一——檢索到不相關的內容,LLM 還是會努力「掰」出一個看似合理的答案。`app/corrective_retrieval.py` 用 cross-encoder reranker 的分數當簡化版的「相關性評分器」,分數低於信心閾值就回傳「沒有足夠可信的檢索結果」,而不是硬塞低相關內容給 LLM。
-
-**閾值是實測校準出來的,不是猜的**:`eval/tune_confidence_threshold.py` 跑了24題真實in-domain問題跟6題明顯跟食品法規無關的問題(所得稅申報、Unity動畫設定、颱風居家安全等),量到兩組分數有清楚間隔——
-
-| | 分數範圍 |
-|---|---|
-| In-domain(24題) | 0.994 ~ 1.000 |
-| Out-of-domain(6題) | 0.0006 ~ 0.8056 |
-
-取中點訂閾值為 0.90。`eval/eval_corrective.py` 驗證加了這道信心閘門後:
-
-| | 結果 |
-|---|---|
-| In-domain 維持信心且答對 | **24/24**(沒有因為加了把關機制而誤傷) |
-| Out-of-domain 正確拒答 | **6/6**(全部正確識別為「不該自信回答」) |
-
-這是簡化版的 CRAG(用reranker分數當評分器,沒有CRAG論文完整的網路搜尋fallback機制),但核心的「檢索結果品質把關」邏輯是一致的,而且是用真實跑出來的數字驗證過,不是紙上假設。
-
-### 如何重現
-
-```bash
-cd eval
-python eval_retrieval.py              # baseline 檢索評估
-python eval_reranking.py               # baseline vs. reranking 比較
-python tune_confidence_threshold.py    # 實測校準信心閾值
-python eval_corrective.py              # 驗證 corrective retrieval 的把關效果
-python eval_agentic.py                 # 驗證 agentic query reformulation 的效果
-python ../scripts/extract_chunk_entities.py  # 從長列舉段落抽取實體詞,建立entity boost索引
-python compare_reranker_models.py      # 比較 bge-reranker-base vs. v2-m3 的 rank-1 準確率
-python eval_tool_agent.py              # 驗證 tool-calling agent(見下方)vs. 固定重試機制
-```
-
-### Agentic Query Reformulation:誠實的負向/中性結果
-
-**Agentic RAG** 是目前(2025-2026)最主流的研究方向之一(ICML 2026 workshop 光是標題含「agentic」的投稿就有60+篇)。`corrective_retrieval.py` 原本只做「被動把關」(信心不夠就拒答),`app/agentic_retrieval.py` 把它升級成「主動採取行動」:信心不足時,用 LLM(`gpt-4o-mini`)把問題換一種更正式的說法重新表述,再檢索一次——這是 Agentic RAG 最基礎的一種行為模式(query reformulation + retry),不是完整的 multi-agent 系統,誠實地說是「最小可行版本」。
-
-用 24 題原本的評估集(baseline已經24/24信心且答對)+ 新增 8 題刻意用更口語、跟法規原文用詞差距更大的「hard」問題集測試:
-
-| 問題集 | 正確 | 觸發retry | 因retry救回 |
-|---|---|---|---|
-| eval_questions.json(24題) | 24/24 | 0 | 0(預期內,確認沒有誤傷) |
-| hard_questions.json(8題) | 6/8 | 1 | **0** |
-
-**誠實記錄兩個發現,都不是我想要的結果,但都是真的跑出來的:**
-
-1. **8題裡有1題(`如果我只是把東西重新分裝,不算是真正在做食品加工吧?`)是「confidently wrong」**——reranker給了很高的信心分數,但答案是錯的。這代表信心閘門機制有一個本質限制:它評分的是「檢索到的內容看起來像不像相關」,不是「答案對不對」,兩者不完全等價。這個問題目前的機制**偵測不到**,agentic retry完全不會被觸發,不是這次改動能解決的。
-2. 唯一真的觸發retry的那一題(`紅麴膠囊這種東西,官方是怎麼歸類的?`),LLM把它改寫成更正式的「紅麴膠囊在官方法規中屬於何種產品類別？」,但重新檢索後信心分數還是偏低,**沒有救回來**。診斷原因:gold chunk 的內容主體是「什麼是營養補充食品」的一般性定義,紅麴膠囊只是文中順帶提到的其中一個例子——問題不在於問法夠不夠正式,是這個chunk的語意重心本來就不在「紅麴膠囊」本身,單純換句話說沒辦法解決這種「答案藏在較大範疇定義裡的一個例子」的檢索粒度問題,需要更根本的作法(例如更細的chunking策略,或是先做entity extraction再檢索)。
-
-跟 Portfolio 裡其他負向結果一樣的教訓:**不是每個聽起來合理的改進方向都真的有用,誠實驗證比預設會成功更重要**。這個方向本身(agentic retry)架構上是安全的(沒有誤傷原本答對的問題),但這次具體驗證的「LLM重新表述問題」這個corrective action,在小樣本測試中沒有展現出效果——如果要繼續往這個方向做,下一步應該是先解決chunking粒度問題,而不是繼續在同一個chunk結構上做更多次retry。
-
-### 在改 chunker 之前,先量這個問題有多普遍
-
-「答案藏在定義段落列舉的例子裡」聽起來像個值得解決的問題,但改 chunking 策略是整個 ingest pipeline 最貴的改動(要重新設計切分邏輯、重跑全部 16,119 個 chunks 的 ingest)。在動手之前,先用一個簡單的啟發式規則掃過現有語料庫,量測這個模式到底有多普遍,而不是憑一個案例就直接動工:抓「定義用語」(係指、所稱、指下列等)同時出現「長列舉」(如/例如/包括後面接4項以上用頓號分隔的例子)的 chunk。
-
-**結果:16,119 個 chunks 裡只有 118 個(0.73%)符合這個模式**,而且這類 chunk 的平均長度(403字)跟全體平均(377字)差不多,不是特別長、特別容易「塞進太多資訊」的異常值。
-
-**誠實的結論**:這不是一個結構性、大範圍的問題,是一個窄範圍的邊界案例——重新設計整個 chunking 策略去解決一個影響不到1%語料的問題,投報率不高。這個啟發式規則本身也有限制(只抓得到用頓號列舉例子這種表面形式,抓不到用其他句型「藏」例子的情況,所以0.73%可能是低估),但已經足以支持一個判斷:**現階段不值得為此重寫 chunker**,先記錄成已知限制,之後如果要花更多時間,更該做的是設計一組更大的 hard 問題集,先確認這類問題實際出現的頻率是不是真的邊緣案例,再決定要不要動 chunking 邏輯。
-
-### 針對這個窄範圍問題做局部修補,不重寫 chunker(2026/09新增)
-
-上面判斷「不值得重寫chunker」,不代表這個問題就放著不管——如果修補成本夠低,還是值得做。做法是 `scripts/extract_chunk_entities.py` + `app/entity_boost.py`:從長列舉段落(`如/例如/包括` 後接3項以上頓號分隔的例子)抽出列舉的具體名詞,建立「名詞→chunk_id」的關鍵詞對照表。檢索時如果問題包含這些名詞,就把對應的chunk額外加進候選池,交給既有的cross-encoder reranker跟信心閘門去判斷該不該用——**這一層只負責「不要漏掉候選」,不繞過任何品質把關**,即使關鍵詞比對抓到不相關的chunk,一樣會被reranker評低分。
-
-**做的時候發現量測用的偵測規則本身低估了問題範圍**:原本量測「這個問題有多普遍」時,用「定義用語(係指/所稱等)+ 長列舉」兩個條件一起卡,量出0.73%(118個chunks)。但拿真正失敗的案例(紅麴膠囊,chunk 14031)回頭測,才發現它的原文用的是「包括**但不限於**」,不在原本設定的定義用語清單裡,被漏掉了——量測時的偵測條件其實是保守估計的下界。做修補時拿掉「定義用語」這個條件,只憑「長列舉」抽取,範圍變成 820 個chunks(約5.1%語料),抽出1,879個候選名詞。**這是先前用來量測「值不值得修」的規則,不等於用來「做修補」時該用的規則**——前者要保守以免高估問題嚴重性,後者可以偏寬鬆,因為抓錯了也有reranker把關,成本很低。
-
-**結果:部分修復,誠實記錄修好的部分跟沒修好的部分**:
-
-| 問題集 | 正確 | 觸發retry | 因retry救回 |
-|---|---|---|---|
-| eval_questions.json(24題) | 24/24(無變化) | 0 | 0 |
-| hard_questions.json(8題) | **7/8**(原本6/8) | 1 | **1**(原本0) |
-
-紅麴膠囊那題現在確實被「救回來」了,但精確追查機制發現這不是一個乾淨的勝利:entity boost 把 chunk 14031(正確答案)加進候選池後(原本連候選池的前10名都排不進去),搭配 agentic retry 的改寫問題,cross-encoder reranker 給 chunk 14031 的分數是 0.33,**仍然遠低於**另一個提到「紅麴」但實際上是講紅麴製品倉儲規範、答非所問的干擾chunk(分數0.99,排名第一)。系統回報「hit=True」的原因是評估用的是 **Recall@5**(gold chunk有沒有出現在回傳的前5筆裡),而不是「排名第一的是不是正確答案」——chunk 14031 排在第5名,勉強擠進回傳範圍,但reranker真正「相信」的答案排名第一其實還是錯的。
-
-**誠實的定位**:這次修補解決的是「候選池根本找不到正確答案」這個問題(候選生成階段的瓶頸),但沒有解決「reranker能不能正確判斷哪個候選才是真正相關」這個更深層的問題(排序品質階段的瓶頸)。這個排序品質問題往下追,牽出了下一個章節的發現。
-
-### reranker 模型升級:base 對這類問題有詞義混淆,換模型後全面改善(2026/09新增)
-
-往下追查「排序品質」這個瓶頸,發現真正原因不是原本以為的chunk粒度/稀釋問題,而是現有的 `bge-reranker-base` 模型本身對這類查詢有詞義混淆:紅麴膠囊那題,正確答案(chunk 14031,講「營養補充食品」定義)只拿到0.07分,但一個講「紅麴製品應**分類**分區存放」的干擾chunk(講倉儲規範,答非所問)反而拿到0.84分——reranker把「分類存放」的「分類」跟查詢裡「怎麼**歸類**」的「分類」搞混了,這是語意層面的混淆,不是chunk切得不好。
-
-換成更強的 `bge-reranker-v2-m3` 後,同一組候選,正確答案分數翻盤到0.05,干擾chunk掉到0.0005——順序整個對了。為了確認這不是單一案例湊巧,寫了 `eval/compare_reranker_models.py`,用完全相同的候選池,兩個模型分別對全部32題(24easy+8hard)做rank-1準確率比較:
-
-| Reranker | Rank-1 準確率 |
-|---|---|
-| bge-reranker-base | 22/32 = 0.688 |
-| **bge-reranker-v2-m3** | **28/32 = 0.875** |
-
-7題從錯翻對,只有1題從對翻錯——是全面性的改善,不是單一案例的巧合。換模型後,重新校準信心閾值(`tune_confidence_threshold.py`):新模型的in-domain/out-of-domain分數間隔比舊模型更乾淨(gap=0.925,舊模型是0.188),閾值從0.90調整為0.52。全部下游評估也重新跑過:
-
-| 評估 | 換模型前 | 換模型後 |
-|---|---|---|
-| Reranking(Recall@1 / MRR) | 0.750 / 0.861 | **0.917 / 0.948** |
-| Corrective RAG(in-domain / out-of-domain) | 24/24 / 6/6 | 24/24 / 6/6(無退步) |
-| Agentic RAG(hard問題正確數) | 6/8 | 6/8(組成改變,見下方) |
-
-### 一個更深的發現:排序對了,信心閘門還是不一定會通過
-
-換了reranker、確認排序邏輯修好之後,重新驗證紅麴膠囊這題,發現它**還是沒有被救回來**——但這次的原因跟之前完全不同,而且更精確。直接檢查發現:用新reranker,chunk 14031 確實在候選池裡排名第一(這點已經修好),但它的**絕對分數只有0.153**,還是低於重新校準後的閾值0.52。
-
-這揭露了信心閘門機制一個結構性的盲點:**「候選池裡排名第一」不等於「絕對分數夠有信心」**。chunk 14031 是一個列了30幾種不同「營養補充食品」品項的大定義段落,紅麴膠囊只是其中一個例子——不管reranker多強,只要整個chunk的內容有95%在講其他不相關的品項,cross-encoder算出來的「這個chunk整體跟查詢的相關程度」分數就會被稀釋,即使它相對其他候選是最好的選擇,絕對分數還是拉不上來。換句話說,信心閾值假設的是「正確答案應該要有高分」,但對這種「正確資訊被淹沒在一個大雜燴列舉段落裡」的內容,這個假設本身就不成立。
-
-原本猜測的根因是「chunk粒度」,追到這裡才發現更精確的描述是「**信心閘門用絕對分數判斷,沒辦法反映『這是候選裡最好的選擇』跟『這個選擇本身夠不夠格』是兩件不同的事**」——這是比原本的診斷更深一層,而且指出如果要真正解決,方向不是換reranker(已經換了、也確實有全面性幫助),而是信心判斷的機制本身需要改成相對排名(這個候選比其他候選好多少)而不是純絕對分數,或者還是要回到最早提過的細粒度chunking這條路。另一題「食品安全管制窗口」課程資格問題,反而在這次升級後意外被retry救回來(6/8整體持平,但組成不同)。confidently wrong的重新分裝案例仍未觸及,是完全不同的失效模式。
-
-### Tool-Calling Agent:讓 LLM 自主決策,而不是寫死的重試邏輯(2026/09 新增)
-
-上面的 Agentic Query Reformulation 是「確定性重試」:信心不足就一定執行同一個固定動作(LLM 改寫問題、重查一次),LLM 只負責改寫文字,不負責決定「該做什麼」。`app/agent.py` 改成業界標準的 OpenAI function-calling tool loop:把 `search_regulations`(信心閘門檢索)、`search_violation_cases`(違規案例)、`search_related_laws`(法條共現)包成工具(`app/agent_tools.py`),讓 LLM 自己看到每次工具呼叫回傳的信心分數,自主決定下一步——換句話說重查、換一條法規方向查、還是查案例佐證,而不是走寫死的 if/else。
-
-**harness 的職責是設邊界,不是信任 LLM 自律**:
-
-- `max_tool_calls`(預設4次)硬性上限,防止 LLM 陷入重複查詢燒 API 費用
-- **grounded 檢查是程式碼強制的,不是 prompt 請求**:迴圈結束時,只要過程中沒有任何一次 `search_regulations` 回傳 `confident=True`,不管 LLM 說了什麼,一律強制覆寫成跟 `/ask` 同一句誠實拒答訊息。System prompt 裡雖然也寫了「沒依據就承認」,但 prompt 只是請求不是保證——corrective RAG「誠實拒答」這條紀律要靠程式碼再把關一次,才能在 LLM 自主決策的迴圈裡維持跟原本單次檢索一樣的 anti-hallucination 保證
-
-跟 `eval_agentic.py` 用完全同一組問題(24題 easy + 8題 hard)測試,`hit` 定義也一致(gold chunk 有沒有出現在最終被拿去回答的 chunk 清單裡):
-
-| 問題集 | 固定重試(既有 agentic_retrieval) | Tool-Calling Agent | 平均工具呼叫次數 | 平均延遲 |
-|---|---|---|---|---|
-| eval_questions.json(24題) | **24/24** | 22/24 | 1.0 | 13.2秒/題 |
-| hard_questions.json(8題) | 6/8 | 6/8(組成不同) | 1.0 | 12.7秒/題 |
-
-**誠實記錄:這不是一個「更聰明所以更準」的升級,是一個有得有失的架構替換。**
-
-1. **平均工具呼叫次數是 1.0,不是預期中的多步驟探索**——32題裡沒有一題真的觸發第二次工具呼叫(`hit_tool_call_limit` 全部是0)。原因追查後發現:LLM 在**第一次**呼叫 `search_regulations` 時,就不是照抄使用者的原始問題字面文字當查詢,而是自己先做了一次語意濃縮/改寫(例如把「如果我又做食品添加物又做一般食品輸入,登記資料要分兩份填嗎?」濃縮成關鍵字「食品添加物 一般食品 輸入 登記資料」)。這等於把 baseline 需要「查一次信心不足→LLM改寫→再查一次」兩步才做的事,提前壓縮進第一次查詢裡完成——這是這個架構在延遲上唯一勝過 baseline 的地方(少一輪LLM往返),但也直接導致下面兩個新增的失敗案例。
-
-2. **新增了 baseline 沒有的「confidently wrong」案例,根因是查詢改寫本身**。追查 `hard_questions.json` 裡新增的那題失敗(`如果我又做食品添加物又做一般食品輸入,登記資料要分兩份填嗎?`,gold=15578):用原始問題字面文字查,gold chunk 排名第一、分數0.974;但 agent 自己濃縮的關鍵字查詢,檢索到完全不同的候選集,gold chunk 完全不在前5名裡,**信心分數反而更高**(0.978)。這是一個新的失效模式,不是既有紅麴膠囊那種「絕對分數被大雜燴段落稀釋」的問題——這裡是**語意漂移**:關鍵字式的改寫查詢,雖然看起來語意相近,實際上跟另一批不相關內容的向量距離意外地更近。信心閘門評分的是「這批檢索結果看起來像不像相關」,不是「查詢改寫有沒有偏離原意」,兩者不等價,這個機制目前偵測不到這種偏移。
-
-3. **同一個機制也帶來一個真正的正向案例**:hard set 裡的紅麴膠囊(`紅麴膠囊這種東西,官方是怎麼歸類的?`)這次**一次查詢就命中**,不需要 baseline 那套「先查一次沒信心、LLM改寫、再查一次」的兩步流程——LLM 在第一次呼叫時就自己把問題轉換成更貼近法規用語的查詢。跟第2點是同一個機制(LLM自主改寫查詢文字)的一體兩面:有時候比字面問題問得更精準,有時候語意飄走,而且**目前沒有辦法事先判斷會是哪一種**。
-
-4. **easy set 裡「製造食品要外銷的業者」那題出現了跑不同次結果不一致的情況**:diagnostic 重跑同一題,agent 的候選集跟 baseline 幾乎一樣(gold chunk 都排在第4名,同樣壓線通過Recall@5),但兩次獨立執行分別得到 hit=True 和 hit=False——這是 gold chunk 本來就卡在Recall@5邊界附近的關係,`temperature=0.1`不是0,LLM每次生成的改寫查詢字句有微小差異,足以讓邊界案例的名次跨過門檻或掉出去。**這揭露了一個 baseline 沒有的新特性:tool-calling agent 的結果不是完全確定性的**,同一題重跑可能得到不同答案,這是把「查詢文字要怎麼寫」的決定權交給 LLM 必然要付出的代價。
-
-**跟 Portfolio 裡其他負向/中性結果一樣的教訓**:「讓 LLM 自主決策」聽起來比「寫死的重試邏輯」更先進,但實測下來在這組問題上是打平偏負(24/24→22/24,8題持平但組成不同),還多了不確定性、也沒有省到成本(平均只呼叫1次工具,沒有動用到 harness 設計的多步驟探索能力)。這個架構真正的價值,目前看到的不是「更準」,是**在需要多步驟才能回答的問題上有基礎設施**(我手動測過一題資料庫覆蓋率低的邊界問題,agent 確實會依序嘗試查詢改寫→查關聯法條→換條件重查,撞到4次工具呼叫上限才作答,細節見 `app/agent.py` 的設計說明)——只是這次的32題評估集裡,法規語料覆蓋率夠高,多步驟探索的能力沒有被真正需要過。如果要讓這個架構的優勢真正發揮,下一步應該去找/構造那些baseline的固定重試也救不回來、需要換法規方向查(`search_related_laws`)或查案例佐證的問題,而不是繼續用同一組已經證明baseline表現不錯的問題集。
-
-### 如何重現(Tool-Calling Agent)
-
-```bash
-cd eval
-python eval_tool_agent.py    # 32題,每題最多4次工具呼叫,實測約 gpt-4o-mini 數元台幣以內
-```
-
-### 字面錨定一致性檢查:針對 Query Drift 提出假設、驗證假設(2026/09 新增)
-
-上面誠實記錄了 tool-calling agent 的負向結果,但沒有停在「記錄下來」——既然已經診斷出根因是「LLM 選的查詢字串偏離原始問題語意」,就值得針對這個具體根因設計一個緩解機制,而不是只記錄限制。
-
-**做法**(`app/agent_tools.py`):`search_regulations` 每次被呼叫,除了用 LLM 選的查詢字串檢索,**免費多做一次**用原始問題字面文字的檢索(純本地運算,不呼叫 LLM,不增加 API 費用)當一致性錨點。兩者對「哪個 chunk 最相關」(top-1)看法一致就信任 LLM 版本;不一致時改用字面問題的結果。概念上類似 self-consistency(Wang et al., 2022)的精神——單一條路徑不可靠時,用多條獨立路徑是否一致來判斷可信度,只是這裡比較的是兩種查詢措辭而不是多次取樣。**刻意保守**:只在字面問題本身也有信心、且兩者意見不一致時才介入,不去動字面問題沒信心的情況(那是 agentic retry 原本就有效、不該被這個機制蓋掉的場景)。
-
-用完全同一組 32 題重新驗證:
-
-| 問題集 | 加一致性檢查前 | 加一致性檢查後 | 偵測到 drift 並介入 |
-|---|---|---|---|
-| eval_questions.json(24題) | 22/24 | **24/24** | 8題 |
-| hard_questions.json(8題) | 6/8 | 6/8(組成不同) | 3題 |
-
-**easy set 完全補回來了,而且是精準命中診斷目標**:24/24,兩個先前被 query drift 拖垮的案例(「超商賣的餐盒如果有牛肉」「製造食品要外銷的業者」)這次都答對。1/3 的題目(8/24)在 LLM 選的查詢字串跟字面問題意見不一致時被一致性檢查介入,而且**介入之後全部答對**——代表這個機制不是巧合修好兩題,是系統性地在抓同一類問題。
-
-**hard set 數字沒變,但不是白做工,往下追才看得出來**:診斷案例本身(「如果我又做食品添加物又做一般食品輸入」)**確實被修好了**(drift_detected=True,gold chunk 這次排名第一)。但整體還是 6/8,因為另一題「要當食品安全管制的窗口,需要上過什麼課嗎?」這次反而答錯了,追查後發現這是**完全不同的成因**:重跑兩次同一題,LLM 兩次生成的查詢字串只差幾個字(「課程要求」vs.「需要上過什麼課」),但 gold chunk 剛好卡在 Recall@5 邊界,一次排不進前5名、一次排第5名——跟前面「製造食品要外銷的業者」是同一種「邊界名次抖動」現象,不是這次修的 query drift 問題,drift_detected 也如實顯示是 False(字面問題檢索本身沒有介入這一題)。**這個一致性檢查機制對它診斷的問題(語意飄移)是有效的,對它沒打算解決的問題(邊界排名抖動 + temperature>0 的非確定性)如實無效**,兩者不能混為一談。
-
-**代價是延遲,不是金錢**:平均延遲從 13秒/題 升到約 25秒/題,幾乎翻倍——因為兩者查詢字串不同時,cross-encoder rerank(CPU 上跑,bge-reranker-v2-m3 不小)要多做一次。這筆帳完全發生在本地運算,不呼叫 LLM,所以 API 費用沒有增加,是用延遲換正確率的純粹取捨。
-
-**這是這個方向第一次從「發現問題」走到「提出假設→驗證假設」的完整閉環**:先誠實記錄 tool-calling agent 的負向結果、診斷根因(不是隨便猜),再針對根因設計一個有清楚適用邊界的緩解機制(明確排除它不該處理的失效模式),最後用同一組評估集驗證——easy set 完全驗證了假設,hard set 的數字沒動但精確追出「這不是機制失敗,是另一種噪音蓋過了修復效果」,而不是含糊地說「沒有幫助」。
-
-```bash
-cd eval
-python eval_tool_agent_drift_check.py    # 同樣32題,驗證一致性檢查前後對照
-```
-
-### temperature=0:把「hard set 數字沒動」這個懸案徹底解決(2026/09 新增)
-
-上一節追出「食品安全管制窗口」那題答案不穩定,重跑兩次一次對一次錯,懷疑根因是 `run_agent()` 原本沿用 `settings.openai_temperature=0.1` 做查詢決策——**沒有直接跳去「跑5次取多數決」這種比較貴的統計手段掩蓋問題,而是先驗證更便宜的假設**:如果不穩定的根因就是取樣溫度,那把溫度砍到0應該能直接消除它,不需要事後用重複取樣去平均掉。
-
-把 `app/agent.py` 的 `run_agent()` 溫度參數從沿用 `settings.openai_temperature` 改成獨立預設 `0.0`(不影響 `/ask` 的最終答案生成,只影響 agent 決策查詢字串這一段)。同一組 32 題重新驗證:
-
-| 問題集 | 固定重試(原始baseline) | tool-calling agent(加一致性檢查) | + temperature=0 |
-|---|---|---|---|
-| eval_questions.json(24題) | 24/24 | 24/24 | **24/24** |
-| hard_questions.json(8題) | 6/8 | 6/8(組成不同) | **7/8** |
-| **合計** | **30/32** | 30/32 | **31/32** |
-
-假設完全驗證成功:「食品安全管制窗口」穩定答對,不再抖動。**唯一剩下的錯誤是「如果我只是把東西重新分裝」**——這題從最早的 corrective RAG 章節就開始追蹤,是結構完全不同的「confidently wrong」內容稀釋問題(答案卡在大雜燴定義段落裡,連字面問題本身查都是高信心的錯答案),不是查詢措辭或取樣隨機性的問題,這套機制從設計上就沒打算解決它,留著沒修好完全符合預期,不是遺漏。
-
-**這是整個 tool-calling agent 這條研究線第一次做出乾淨的淨提升**:31/32,超過最原始的固定重試 baseline(30/32),而且每一分提升都能精確對應到一個被診斷、被驗證的具體根因(query drift → 一致性檢查解決;取樣隨機性 → temperature=0 解決),沒有一個是「數字剛好變好但不知道為什麼」的僥倖。
-
-```bash
-cd eval
-python eval_tool_agent_drift_check.py    # 現在預設temperature=0,可重現31/32
-```
-
-## 研究歷程
-
-### 研究動機與路徑
-
-`tests/` 底下原本只有 API 層的 plumbing 測試(狀態碼、回傳格式對不對),從沒量過「檢索有沒有真的撈到對的內容」——這是這輪補強的起點。先建立 24 題自然提問的評估集跟量測管線,量出 baseline 其實已經不差(Recall@1=0.708),於是研究路徑分三步往下走:
-
-1. **在已經不錯的 baseline 上,現在業界標準的兩階段架構(dense retrieval + cross-encoder reranking)是否還有提升空間?**→ 驗證結果是肯定的,全面提升
-2. **檢索到不相關內容時,系統該不該誠實拒答,而不是硬答?**→ 參考 Corrective RAG,用校準過的信心閾值做把關,兩組問題(in-domain/out-of-domain)都拿到滿分
-3. **信心不夠時,系統能不能主動採取行動補救,而不是只會拒答?**→ 這是刻意呼應「Agentic AI 是目前最主流研究方向」這個時勢判斷去補的方向,做了 query reformulation + retry 的最小可行版本,新增 8 題刻意口語化的 hard 問題集去逼近系統的真實極限,而不是繼續在已經 24/24 的簡單題目上驗證
-
-第 3 步的結果不如預期(0/1 成功救回),但診斷根因指向 chunk 語意粒度問題,這比「假裝有效」更有價值——它把下一步該往哪裡去(chunking 策略,而不是 retry 次數)講清楚了。
-
-### 研究方法
-
-- **兩階段檢索架構驗證**:比照 production RAG 系統的標準做法(bi-encoder 全庫召回 + cross-encoder 精排),用同一組真實 API 路徑(`retrieve_chunks()`)量測,避免另外寫一套簡化邏輯量出灌水的數字
-- **閾值用分布間隔實測校準,不是猜的**:`tune_confidence_threshold.py` 分別測 in-domain(24題)跟 out-of-domain(6題)兩組分數分布,取有清楚間隔的中點,而非拍腦袋設一個看起來合理的數字
-- **用「故意設計來考倒系統」的問題集驗證極限**:`hard_questions.json` 8題刻意用更口語、跟法規原文用詞差距更大的問法,目的是在系統已經對簡單題目滿分的情況下,找出它真正的失敗模式,而不是重複驗證已知會過的案例
-- **失敗後往根因追,不是停在「沒救回來」**:唯一觸發retry的那題沒被救回來時,直接回頭比對 gold chunk 的實際內容,發現答案是嵌在較大範疇定義裡的一個例子,才確認問題出在chunk粒度而非問法正式與否
-
-### 遇到的困難
-
-- **信心閘門的本質限制,不是這次能解決的**:8題hard問題裡有1題是reranker給高分但答案錯的「confidently wrong」,retry完全不會被觸發——這暴露出「檢索內容看起來像不像相關」≠「答案對不對」,是confidence-based方法本身的天花板,誠實記錄下來而不是回頭修改評估方式讓數字好看
-- **agentic retry沒有帶來預期中的提升**:一開始預期reformulation至少能救回一部分case,實際只有1題觸發、0題救回——沒有回頭調整hard_questions.json的題目難度讓結果好看,而是把「為什麼沒救回來」的根因分析寫清楚
-
-### 時程(依實際執行順序)
-
-1. 補 24 題評估集 + `retrieve_chunks()` baseline 檢索評估
-2. Cross-Encoder Reranking 驗證(正向)
-3. Corrective RAG:閾值校準 + in/out-of-domain 驗證(正向)
-4. Agentic Query Reformulation:新增 8 題 hard 問題集 + 驗證(誠實負向,根因診斷出chunk粒度問題)
-5. 動手改 chunker 前,先用啟發式規則量測 chunk 粒度問題的普遍程度(0.73%,窄範圍邊界案例)→ 判斷現階段不值得重寫 chunking 邏輯
-6. 針對這個窄範圍問題做低成本局部修補(entity boost)→ Recall@5 從6/8回升到7/8,但精確追查發現是候選池問題解決了、排序品質問題還在,誠實記錄部分修復的範圍
-7. 往下追排序品質問題,診斷出是reranker模型本身的詞義混淆,不是chunk粒度問題 → 換更強的reranker(bge-reranker-v2-m3),32題rank-1準確率系統性驗證從0.688提升到0.875,重新校準信心閾值、重跑全部下游評估
-8. 換了reranker後紅麴膠囊那題還是沒被救回來 → 精確診斷出更深一層的原因:排名對了(rank-1)但絕對分數還是太低,信心閘門機制本身無法反映「相對最好」跟「絕對夠格」的差異,把原本「chunk粒度問題」的診斷修正得更精確
-
-## 學習筆記
-
-- **這個專案教我最重要的一件事是「不要在第一個診斷就停下來」**。紅麴膠囊那題前後改了三次:先以為是chunk粒度、做了entity boost局部修補、發現是reranker詞義混淆、換了模型後發現根本限制是「絕對分數vs相對排名」。每一次「修好了」都不是終點,都還可以再問一次「這樣真的解決了嗎,還是只是換了一種失敗方式」。
-- **量測「值不值得修」跟「怎麼修」可以用不同的標準**。量測chunk粒度問題普遍程度時,我刻意用比較嚴格的條件(避免誇大問題),但真正要修補時,我放寬了同一組規則——這兩件事的目標不一樣,用同一套標準反而兩邊都做不好。
-- **正式接進API之前,先在eval腳本裡驗證過,是這個專案最值得複製的習慣**。Corrective/Agentic RAG的整套機制,是先在eval/裡跑過24+8+32題各種組合驗證過才接進`/ask`,不是寫完程式就直接上線——這讓我在寫production code時反而更有信心,因為關鍵的判斷邏輯已經被驗證過了。
-- 如果有更多時間,我會想把「confidently wrong」那個案例也認真解決——目前這個系統對「檢索到看起來相關但答案錯的內容」完全沒有防禦力,這可能是比chunk粒度更根本的問題。
-- **「讓 LLM 自主決策」不是自動比「寫死的邏輯」更好,要實測才知道往哪個方向錯**。Tool-calling agent 上線前我確實預期它至少不會比固定重試差,結果是 24/24→22/24——不是因為 harness 設計有漏洞(grounded 檢查、工具呼叫上限都照設計運作),而是因為多給 LLM 一個「查詢文字要怎麼寫」的自由度,連帶引入了一個全新的失效模式(語意漂移導致的confidently wrong),這是純粹擴充功能清單時容易漏想的風險——多一個自由度不是只有多一種可能性變好,也是多一種可能性變差。
-- **診斷出根因之後,下一步是驗證解法,不是停在記錄限制**。字面錨定一致性檢查把 easy set 從 22/24 修回 24/24,而且是精準命中診斷出的那兩個案例,不是運氣。更有意思的是 hard set 數字沒動(6/8)反而更值得深挖:追下去才發現目標案例確實修好了,數字不動是因為另一題被完全不同的噪音源(邊界排名抖動+LLM非確定性)蓋過去——如果只看聚合數字就會誤判這個修法無效,要拆開看每一題才知道修法本身是對的,只是評估集裡混了另一個它管不到的問題。這跟紅麴膠囊案例的教訓是同一件事的不同面貌:**同一個聚合數字,可能藏著完全不同的根因,不拆開看會誤判方向**。
-- **懷疑根因是取樣隨機性時,先驗證最便宜的假設,不要直接跳去統計手段**。發現某題重跑結果不穩定時,直覺的做法是「跑5次取多數決」把不確定性平均掉,但這樣做只是把問題蓋住,沒有回答「為什麼不穩定」。先把 temperature 歸零這個更便宜、更直接的假設驗證掉之後,才發現真的就是取樣溫度的問題——一次重跑就直接解決,不需要動用更貴的重複取樣統計。這整條路徑(query drift診斷→修復→驗證→發現新噪音→診斷→temperature=0→驗證)最後讓 tool-calling agent 從落後baseline(22/24)變成真正超越baseline(31/32 vs. 30/32),每一步提升都對應到一個具體、可重現的根因,這是我對這個專案最滿意的一段研究過程。
 
 ## 文件
 
-詳細技術說明見規劃文件。
+- [docs/RESEARCH_LOG.md](docs/RESEARCH_LOG.md):依實際執行順序的完整研究紀錄,含每個負向結果與根因診斷(數字為 n=24 時期)
+- [docs/technical_report.md](docs/technical_report.md):paper 格式的技術報告
+- [eval/RESULTS.md](eval/RESULTS.md):所有評估的完整表格
+- 前端:[food-rag-ui](https://github.com/natalie930302/food-rag-ui)(React + Vite)
+
+## License
+
+MIT

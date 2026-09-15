@@ -1,7 +1,7 @@
 """API 請求與回應的 Pydantic schemas。"""
 from typing import Literal
-from pydantic import BaseModel, Field
 
+from pydantic import BaseModel, Field
 
 # ============ 請求 ============
 
@@ -27,6 +27,17 @@ class AgentAskRequest(BaseModel):
         default=4, ge=1, le=8,
         description="agent 迴圈裡最多能呼叫幾次工具,防止 LLM 陷入重複查詢的迴圈",
     )
+
+
+class QueryRequest(BaseModel):
+    """單一入口:先路由再分派(見 app/router.py)。"""
+    question: str = Field(..., min_length=1, description="使用者輸入:問題或一段待審文案")
+    force_intent: Literal["regulation_qa", "case_lookup", "ad_review", "multi_hop"] | None = Field(
+        default=None, description="跳過路由、直接指定走哪條(除錯/評估用)")
+    use_llm_router: bool = Field(
+        default=True, description="規則判不出來時是否用 LLM 分類;False 則一律走固定管線")
+    top_k: int = Field(default=8, ge=1, le=20)
+    max_tool_calls: int = Field(default=4, ge=1, le=8)
 
 
 # ============ 回應 ============
@@ -70,6 +81,14 @@ class QueryMeta(BaseModel):
     used_retry: bool | None = Field(
         default=None,
         description="是否觸發了Agentic RAG的query reformulation重試",
+    )
+    unsupported_citations: list[str] | None = Field(
+        default=None,
+        description="答案層引用驗證:答案裡引用、但檢索內容裡沒出現的條號(已重生成一次仍未修正)。空清單代表全部有依據",
+    )
+    citation_regenerated: bool | None = Field(
+        default=None,
+        description="答案是否因為引用驗證失敗而重新生成過一次",
     )
 
 
@@ -118,6 +137,10 @@ class AgentAskResponse(BaseModel):
                      "false代表answer是程式碼強制覆寫的誠實拒答訊息,不是LLM亂答",
     )
     hit_tool_call_limit: bool
+    usage: dict = Field(
+        default_factory=dict,
+        description="預算使用量:tool_calls / llm_calls / prompt_tokens / completion_tokens / elapsed_s / stop_reason",
+    )
 
 
 class FailedFile(BaseModel):
@@ -152,3 +175,27 @@ class LawRelatedResponse(BaseModel):
     law: str
     total_chunks: int
     co_cited_laws: list[RelatedLaw]
+
+
+class RouteInfo(BaseModel):
+    intent: Literal["regulation_qa", "case_lookup", "ad_review", "multi_hop"]
+    source: Literal["rules", "llm", "fallback", "forced"] = Field(
+        description="rules=關鍵字規則零成本判定;llm=規則判不出來、問了一次 gpt-4o-mini;fallback=LLM 回傳無效或未啟用")
+    reason: str = ""
+    handler: str = Field(description="實際分派到的端點邏輯:/ask、/review 或 /ask_agent")
+    router_ms: int
+
+
+class QueryResponse(BaseModel):
+    """/query 的統一回傳:三種 handler 的欄位聯集,用不到的留空。"""
+    answer: str
+    route: RouteInfo
+    sources: list[SourceChunk] = []
+    related_cases: list[ViolationCase] = []
+    verdict: Literal["low", "medium", "high"] | None = Field(default=None, description="只有 ad_review 有")
+    matched_keywords: list[str] = []
+    trace: list[AgentToolCall] = Field(default=[], description="只有 multi_hop(agent)有")
+    tool_calls_used: int | None = None
+    grounded: bool | None = None
+    usage: dict = {}
+    meta: QueryMeta

@@ -47,8 +47,7 @@ import json
 from dataclasses import dataclass, field
 
 from app.corrective_retrieval import retrieve_with_confidence_gate
-from app.retrieval import retrieve_cases, get_co_cited_laws, count_chunks_for_law
-
+from app.retrieval import count_chunks_for_law, get_co_cited_laws, retrieve_cases
 
 TOOL_SCHEMAS = [
     {
@@ -121,15 +120,19 @@ class ToolCallRecord:
     chunk_ids: list[int] = field(default_factory=list)
     result_summary: str = ""
     query_drift_detected: bool = False
+    # 給答案層引用驗證用:每個 chunk 的 text / primary_law(只在 search_regulations 有值)
+    chunks: list[dict] = field(default_factory=list)
 
 
 def execute_tool(
     db, embed_model, faiss_index, reranker, call_name: str, args: dict, original_question: str = "",
+    drift_check: bool = True, faiss_cases=None,
 ) -> tuple[str, ToolCallRecord]:
     """執行一次工具呼叫,回傳 (要塞回 messages 的 JSON 字串, 給 trace 用的記錄)。
 
     original_question:使用者最原始的問題字面文字(不是 LLM 改寫過的查詢),只有
     search_regulations 會用到,做字面錨定一致性檢查(見上方模組說明)。
+    drift_check=False 只給 eval/eval_harness_ablation.py 量「這道檢查擋掉了什麼」用。
     """
     if call_name == "search_regulations":
         filters = {"law_article": args["law_article"]} if args.get("law_article") else None
@@ -139,7 +142,7 @@ def execute_tool(
         )
 
         query_drift_detected = False
-        if original_question and llm_query.strip() != original_question.strip():
+        if drift_check and original_question and llm_query.strip() != original_question.strip():
             literal_result = retrieve_with_confidence_gate(
                 db, embed_model, faiss_index, reranker, original_question, filters=filters,
             )
@@ -169,11 +172,18 @@ def execute_tool(
             chunk_ids=[c.chunk_id for c in result.chunks],
             result_summary=f"{len(result.chunks)} chunks, confident={result.confident}, score={result.top_score}",
             query_drift_detected=query_drift_detected,
+            chunks=[{"chunk_id": c.chunk_id, "text": c.text, "primary_law": c.primary_law} for c in result.chunks],
         )
         return json.dumps(payload, ensure_ascii=False), record
 
     if call_name == "search_violation_cases":
-        cases = retrieve_cases(db, embed_model, faiss_index, args["query"], top_k=3)
+        # 案例有自己的 FAISS 索引(faiss_cases.index),不能拿法規 chunk 的索引去查——
+        # 2026/09 eval/eval_multihop.py 量到 agent 案例命中 0/17 才發現原本傳錯索引,
+        # 查到的是法規向量空間裡的鄰居再去 violations 表撈 id,結果全錯。
+        if faiss_cases is None:
+            from app.deps import get_faiss_cases
+            faiss_cases = get_faiss_cases()
+        cases = retrieve_cases(db, embed_model, faiss_cases, args["query"], top_k=3)
         payload = {
             "cases": [
                 {

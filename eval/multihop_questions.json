@@ -1,0 +1,82 @@
+[
+  {
+    "question": "網路上賣益生菌說能「提升免疫力」,這樣違反哪一條?過去實際有人因此被罰嗎、罰多少?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "健康食品的廣告如果講超過核准的保健功效,法源是哪條?台北市有開罰過的案例嗎?",
+    "gold_laws": ["健康食品管理法", "健康食品管理法第14條"], "require_case": true, "case_article": 14
+  },
+  {
+    "question": "電視購物賣葉黃素說可以「改善視力」,會依什麼規定處理?實務上罰款大概是多少?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "減肥產品廣告宣稱「一週瘦五公斤」,違規的話依據哪條?罰過的案例金額落在哪個範圍?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "廣播節目裡說某酵素可以「排毒瘦身」,法規怎麼看?有沒有實際裁罰紀錄?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "食安法第28條常常跟哪些其他條文一起被引用?那些關聯條文各自在管什麼?",
+    "gold_laws": ["食安法第22條", "食安法第28條"], "require_related": "28"
+  },
+  {
+    "question": "標示違規(第22條)通常會連動到哪些條文?罰則是哪一條?",
+    "gold_laws": ["食安法第22條", "食安法第28條", "食安法第47條", "食安法第45條"], "require_related": "22"
+  },
+  {
+    "question": "說膠原蛋白飲可以「美白抗老」,這種廣告會不會出事?有被罰過的例子嗎?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "我在臉書粉專分享自家產品「調節血糖」的顧客見證文,這算廣告嗎?有人因為這樣被罰嗎?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "宣稱「醫療效能」跟「誇張易生誤解」的罰則差在哪?從實際案例看金額差多少?",
+    "gold_laws": ["食安法第28條", "食安法第45條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "更年期保健食品廣告寫「改善熱潮紅」,合法嗎?罰過的案例大概多少錢?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "賣蝦紅素說可以「保護眼睛、抗疲勞」,依法會怎樣?北市裁罰紀錄裡有類似的嗎?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "違反第28條的罰款上限是多少?裁罰紀錄裡最高實際罰過多少?",
+    "gold_laws": ["食安法第28條", "食安法第45條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "健康食品管理法第14條跟食安法第28條差在哪?兩種案例的罰款各是多少?",
+    "gold_laws": ["食安法第28條", "健康食品管理法", "健康食品管理法第14條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "電商平台上的代言人推薦文如果誇大功效,平台或刊登者會被罰嗎?依哪條?有實際案例嗎?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "產品名稱用「纖」「孅」暗示瘦身,標示上算違規嗎?有沒有這類產品被罰過?",
+    "gold_laws": ["食安法第28條", "食安法第22條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "廣告說「無副作用」「純天然安全」算不算誇張易生誤解?過去案例怎麼罰?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "藥膳調理包廣告講「改善體質」,是食品廣告違規嗎?台北市有相關裁罰嗎?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "保健品廣告說「補腎壯陽」,違反哪些規定?類似案例罰多少?",
+    "gold_laws": ["食安法第28條"], "require_case": true, "case_article": 28
+  },
+  {
+    "question": "食安法第22條的標示規定跟第28條的廣告規定,在什麼情況下會一起被引用?",
+    "gold_laws": ["食安法第22條", "食安法第28條"], "require_related": "22"
+  }
+]

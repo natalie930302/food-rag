@@ -8,17 +8,18 @@ import re
 import time
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, Header
-from openai import OpenAI
+from fastapi import FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from openai import OpenAI
 
-from config.settings import settings, PROJECT_ROOT
-from app import deps, retrieval, llm, schemas
-from app.agentic_retrieval import retrieve_agentic
+from app import deps, llm, retrieval, schemas
 from app.agent import run_agent
-
+from app.agentic_retrieval import retrieve_agentic
+from app.router import route
+from app.verifier import feedback_for_regeneration, verify_citations
+from config.settings import PROJECT_ROOT, settings
 
 logging.basicConfig(
     level=getattr(logging, settings.log_level.upper(), logging.INFO),
@@ -119,11 +120,22 @@ def ask(req: schemas.AskRequest, x_openai_key: str | None = Header(default=None)
         # 信心不足時,誠實回報找不到可信依據,不硬答(Corrective RAG,見README)
         # 也不呼叫 LLM——省下一次呼叫的延遲跟費用,且避免LLM在沒有可信依據時自己腦補答案
         t1 = time.time()
+        unsupported: list[str] | None = None
+        regenerated = False
         if not confident:
             answer = "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
         else:
             system, user = llm.build_general_prompt(req.question, chunks, cases)
             answer = llm.call_llm(client, system, user)
+            # 答案層引用驗證(app/verifier.py):答案引用的條號必須出現在給 LLM 的 chunk 裡。
+            # 信心閘門只保證「檢索內容可信」,不保證 LLM 引用得對——這裡用程式碼再把關一次,
+            # 沒依據就帶回饋重生成一次,仍然沒依據就如實回報在 meta 裡,不默默放行。
+            check = verify_citations(answer, chunks)
+            if not check.supported:
+                answer = llm.call_llm(client, system, user + "\n\n" + feedback_for_regeneration(check))
+                regenerated = True
+                check = verify_citations(answer, chunks)
+            unsupported = [c.label for c in check.unsupported]
         llm_ms = int((time.time() - t1) * 1000)
 
         return schemas.AskResponse(
@@ -153,6 +165,8 @@ def ask(req: schemas.AskRequest, x_openai_key: str | None = Header(default=None)
                 total_chunks_searched=deps.get_faiss_chunks().ntotal,
                 confident=confident,
                 used_retry=agentic_result.used_retry,
+                unsupported_citations=unsupported,
+                citation_regenerated=regenerated,
             ),
         )
     finally:
@@ -172,6 +186,7 @@ def ask_agent(req: schemas.AgentAskRequest, x_openai_key: str | None = Header(de
             db=db, embed_model=deps.get_embed_model(), faiss_index=deps.get_faiss_chunks(),
             reranker=deps.get_reranker(), client=client,
             question=req.question, max_tool_calls=req.max_tool_calls,
+            faiss_cases=deps.get_faiss_cases(),
         )
         total_ms = int((time.time() - t0) * 1000)
 
@@ -191,13 +206,54 @@ def ask_agent(req: schemas.AgentAskRequest, x_openai_key: str | None = Header(de
                 model=settings.openai_model,
                 total_chunks_searched=deps.get_faiss_chunks().ntotal,
                 confident=result.grounded,
+                unsupported_citations=result.unsupported_citations,
+                citation_regenerated=result.citation_regenerated,
             ),
             tool_calls_used=result.tool_calls_used,
             grounded=result.grounded,
             hit_tool_call_limit=result.hit_tool_call_limit,
+            usage=result.usage.as_dict(),
         )
     finally:
         db.close()
+
+
+@app.post("/query", response_model=schemas.QueryResponse)
+def query(req: schemas.QueryRequest, x_openai_key: str | None = Header(default=None)):
+    """單一入口:先判斷意圖,再分派給 /ask、/review 或 /ask_agent 的邏輯。
+
+    只有真的需要多步檢索(法規 + 案例、關聯法條)的問題才走 agent——單跳問題上 agent 跟固定
+    管線一樣準但慢一倍(見 README §3),所以預設走便宜、確定性的那條。路由決定連同理由
+    一起回傳在 `route` 裡,方便事後檢查是不是分錯了。
+    """
+    t0 = time.time()
+    if req.force_intent:
+        intent, source, reason = req.force_intent, "forced", ""
+    else:
+        client = OpenAI(api_key=x_openai_key) if x_openai_key else deps.get_openai_client()
+        d = route(req.question, client=client, use_llm=req.use_llm_router)
+        intent, source, reason = d.intent, d.source, d.reason
+    router_ms = int((time.time() - t0) * 1000)
+
+    if intent == "ad_review":
+        r = review(schemas.ReviewRequest(ad_text=req.question, top_k=max(1, min(req.top_k, 20))), x_openai_key)
+        return schemas.QueryResponse(
+            answer=r.answer, verdict=r.verdict, matched_keywords=r.evidence.matched_keywords,
+            sources=r.evidence.laws, related_cases=r.evidence.cases, meta=r.meta,
+            route=schemas.RouteInfo(intent=intent, source=source, reason=reason, handler="/review", router_ms=router_ms),
+        )
+    if intent == "multi_hop":
+        r = ask_agent(schemas.AgentAskRequest(question=req.question, max_tool_calls=req.max_tool_calls), x_openai_key)
+        return schemas.QueryResponse(
+            answer=r.answer, trace=r.trace, tool_calls_used=r.tool_calls_used, grounded=r.grounded,
+            usage=r.usage, meta=r.meta,
+            route=schemas.RouteInfo(intent=intent, source=source, reason=reason, handler="/ask_agent", router_ms=router_ms),
+        )
+    r = ask(schemas.AskRequest(question=req.question, top_k=req.top_k, include_cases=(intent == "case_lookup")), x_openai_key)
+    return schemas.QueryResponse(
+        answer=r.answer, sources=r.sources, related_cases=r.related_cases, meta=r.meta,
+        route=schemas.RouteInfo(intent=intent, source=source, reason=reason, handler="/ask", router_ms=router_ms),
+    )
 
 
 @app.post("/review", response_model=schemas.ReviewResponse)

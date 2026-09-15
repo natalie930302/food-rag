@@ -24,6 +24,11 @@ class Settings(BaseSettings):
     embed_device: str = "cpu"
     embed_batch_size: int = 32
 
+    # Reranker(cross-encoder)裝置。4 GB 顯卡放不下 BGE-M3 + reranker 兩個 fp32 模型,
+    # 會溢出到系統記憶體反而比 CPU 慢——所以只把 reranker 放 GPU、並用 fp16(約 1.2 GB)。
+    reranker_device: str = "cpu"
+    reranker_fp16: bool = False
+
     # OCR
     tesseract_lang: str = "chi_tra+eng"
     ocr_dpi: int = 200

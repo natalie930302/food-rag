@@ -55,7 +55,11 @@ def get_reranker() -> CrossEncoder:
     compare_reranker_models.py 實測32題rank-1準確率從0.688提升到0.875,
     見 eval/results_reranker_comparison.json 與 README「reranker 模型升級」章節。
     """
-    return CrossEncoder("BAAI/bge-reranker-v2-m3", max_length=512)
+    kwargs: dict = {}
+    if settings.reranker_fp16:
+        import torch
+        kwargs["model_kwargs"] = {"torch_dtype": torch.float16}
+    return CrossEncoder("BAAI/bge-reranker-v2-m3", max_length=512, device=settings.reranker_device, **kwargs)
 
 
 @lru_cache(maxsize=1)

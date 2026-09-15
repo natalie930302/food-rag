@@ -17,6 +17,7 @@ from fastapi.staticfiles import StaticFiles
 from config.settings import settings, PROJECT_ROOT
 from app import deps, retrieval, llm, schemas
 from app.agentic_retrieval import retrieve_agentic
+from app.agent import run_agent
 
 
 logging.basicConfig(
@@ -153,6 +154,47 @@ def ask(req: schemas.AskRequest, x_openai_key: str | None = Header(default=None)
                 confident=confident,
                 used_retry=agentic_result.used_retry,
             ),
+        )
+    finally:
+        db.close()
+
+
+@app.post("/ask_agent", response_model=schemas.AgentAskResponse)
+def ask_agent(req: schemas.AgentAskRequest, x_openai_key: str | None = Header(default=None)):
+    """跟 /ask 用同一套檢索/信心閘門邏輯,差別是讓 LLM 自己決定要不要重查、
+    查哪個工具,而不是走 /ask 裡固定的「一次重試」流程。見 app/agent.py 說明。
+    """
+    db = deps.get_db()
+    try:
+        t0 = time.time()
+        client = OpenAI(api_key=x_openai_key) if x_openai_key else deps.get_openai_client()
+        result = run_agent(
+            db=db, embed_model=deps.get_embed_model(), faiss_index=deps.get_faiss_chunks(),
+            reranker=deps.get_reranker(), client=client,
+            question=req.question, max_tool_calls=req.max_tool_calls,
+        )
+        total_ms = int((time.time() - t0) * 1000)
+
+        return schemas.AgentAskResponse(
+            answer=result.answer,
+            trace=[
+                schemas.AgentToolCall(
+                    name=r.name, arguments=r.arguments, confident=r.confident,
+                    top_score=r.top_score, chunk_ids=r.chunk_ids,
+                    result_summary=r.result_summary,
+                    query_drift_detected=r.query_drift_detected,
+                ) for r in result.trace
+            ],
+            meta=schemas.QueryMeta(
+                # 檢索跟LLM決策在迴圈裡交錯執行,拆不出各自的耗時,全部算進llm_ms
+                retrieval_ms=0, llm_ms=total_ms,
+                model=settings.openai_model,
+                total_chunks_searched=deps.get_faiss_chunks().ntotal,
+                confident=result.grounded,
+            ),
+            tool_calls_used=result.tool_calls_used,
+            grounded=result.grounded,
+            hit_tool_call_limit=result.hit_tool_call_limit,
         )
     finally:
         db.close()

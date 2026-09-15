@@ -21,6 +21,14 @@ class ReviewRequest(BaseModel):
     top_k: int = Field(default=5, ge=1, le=20)
 
 
+class AgentAskRequest(BaseModel):
+    question: str = Field(..., min_length=1, description="使用者問題")
+    max_tool_calls: int = Field(
+        default=4, ge=1, le=8,
+        description="agent 迴圈裡最多能呼叫幾次工具,防止 LLM 陷入重複查詢的迴圈",
+    )
+
+
 # ============ 回應 ============
 
 class SourceChunk(BaseModel):
@@ -83,6 +91,33 @@ class ReviewResponse(BaseModel):
     answer: str
     evidence: ReviewEvidence
     meta: QueryMeta
+
+
+class AgentToolCall(BaseModel):
+    name: str
+    arguments: dict
+    confident: bool | None
+    top_score: float | None
+    chunk_ids: list[int]
+    result_summary: str
+    query_drift_detected: bool = Field(
+        default=False,
+        description="LLM改寫的查詢跟原始問題字面文字檢索結果top-1不一致,已改用字面文字結果",
+    )
+
+
+class AgentAskResponse(BaseModel):
+    answer: str
+    trace: list[AgentToolCall] = Field(
+        description="這次回答呼叫了哪些工具、每次呼叫的信心分數,供除錯與評估用",
+    )
+    meta: QueryMeta
+    tool_calls_used: int
+    grounded: bool = Field(
+        description="迴圈裡有沒有任何一次工具呼叫回傳confident=True。"
+                     "false代表answer是程式碼強制覆寫的誠實拒答訊息,不是LLM亂答",
+    )
+    hit_tool_call_limit: bool
 
 
 class FailedFile(BaseModel):

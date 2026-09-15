@@ -1,0 +1,710 @@
+[
+  {
+    "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
+    "gold_chunk_id": 4936,
+    "source": "manual"
+  },
+  {
+    "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
+    "gold_chunk_id": 15667,
+    "source": "manual"
+  },
+  {
+    "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
+    "gold_chunk_id": 113,
+    "source": "manual"
+  },
+  {
+    "question": "台灣有可能進口到帶有狂牛症風險的牛肉產品嗎?",
+    "gold_chunk_id": 2420,
+    "source": "manual"
+  },
+  {
+    "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
+    "gold_chunk_id": 4354,
+    "source": "manual"
+  },
+  {
+    "question": "賣給餐飲業者的業務用奶精,也要照規定標示品名嗎?",
+    "gold_chunk_id": 4852,
+    "source": "manual"
+  },
+  {
+    "question": "農產品如果是別人分裝後驗證的,標示追溯來源時要寫誰的資訊?",
+    "gold_chunk_id": 5227,
+    "source": "manual"
+  },
+  {
+    "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
+    "gold_chunk_id": 13493,
+    "source": "manual"
+  },
+  {
+    "question": "食用油脂原料的檢驗可以用週期性輪替的方式做嗎?",
+    "gold_chunk_id": 14083,
+    "source": "manual"
+  },
+  {
+    "question": "便利商店賣金針、蘿蔔乾這類產品,可以用週期性輪替檢驗嗎?",
+    "gold_chunk_id": 14103,
+    "source": "manual"
+  },
+  {
+    "question": "包裝奶精的品名標示新規定,有給業者緩衝期嗎?",
+    "gold_chunk_id": 4861,
+    "source": "manual"
+  },
+  {
+    "question": "洗碗精配方裡的水算不算是主要成分?",
+    "gold_chunk_id": 5857,
+    "source": "manual"
+  },
+  {
+    "question": "冬青葉泡的茶湯,可以加進其他茶飲一起賣嗎?",
+    "gold_chunk_id": 2648,
+    "source": "manual"
+  },
+  {
+    "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
+    "gold_chunk_id": 15569,
+    "source": "manual"
+  },
+  {
+    "question": "濃縮果汁還原後算出來超過100%的原汁含有率,該怎麼標示?",
+    "gold_chunk_id": 5266,
+    "source": "manual"
+  },
+  {
+    "question": "超商賣的餐盒如果有牛肉,需要標示牛肉的原產地嗎?",
+    "gold_chunk_id": 5399,
+    "source": "manual"
+  },
+  {
+    "question": "粥品裡額外加的水,需要寫在內容物標示裡嗎?",
+    "gold_chunk_id": 117,
+    "source": "manual"
+  },
+  {
+    "question": "食品用整箱方式批發賣給中盤商,標示要標在箱子上還是個別包裝上?",
+    "gold_chunk_id": 5801,
+    "source": "manual"
+  },
+  {
+    "question": "如果我賣的食品品項有被公告要用電子發票,那我賣的非食品部分也要開電子發票嗎?",
+    "gold_chunk_id": 15854,
+    "source": "manual"
+  },
+  {
+    "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
+    "gold_chunk_id": 6172,
+    "source": "manual"
+  },
+  {
+    "question": "用咖啡葉做的茶飲,需要標示咖啡因含量嗎?",
+    "gold_chunk_id": 2660,
+    "source": "manual"
+  },
+  {
+    "question": "『非登不可』平台上的產品登錄資訊,規定多久要更新一次?",
+    "gold_chunk_id": 5847,
+    "source": "manual"
+  },
+  {
+    "question": "食品裡面附玩具一起賣,為什麼需要標示警語?",
+    "gold_chunk_id": 5082,
+    "source": "manual"
+  },
+  {
+    "question": "裁罰基準裡講的資力加權倍數,『所有違規產品』具體是指什麼?",
+    "gold_chunk_id": 13157,
+    "source": "manual"
+  },
+  {
+    "question": "食品中有哪些可能會影響健康的危險因素呢？",
+    "gold_chunk_id": 15187,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "食品業者的管制小組需要幾個成員？",
+    "gold_chunk_id": 15075,
+    "source": "synthetic",
+    "kind": "guide",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我買的果汁標示原汁含量是55%，這樣算不算真的天然果汁呢？",
+    "gold_chunk_id": 397,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我買了大包裝的食品，想要自己分裝賣，這樣合法嗎？",
+    "gold_chunk_id": 6,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我想加註填充材料，該如何標示呢？",
+    "gold_chunk_id": 5893,
+    "source": "synthetic",
+    "kind": "guide",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我在進口食品後，還需要負責追蹤嗎？",
+    "gold_chunk_id": 15914,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我已經有自己的編碼系統，還需要再建立新的產品編碼嗎？",
+    "gold_chunk_id": 16017,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問這次的罰款標準是怎麼制定的呢？",
+    "gold_chunk_id": 13155,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問乙酸的使用濃度上限是多少？",
+    "gold_chunk_id": 15391,
+    "source": "synthetic",
+    "kind": "standard",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "我想知道食品的檢驗報告要多少錢？",
+    "gold_chunk_id": 3489,
+    "source": "synthetic",
+    "kind": "standard",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果食品是用塑膠盒和膠膜包裝的，那算不算散裝？",
+    "gold_chunk_id": 463,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "我可以在產品包裝上寫不會影響血糖嗎？",
+    "gold_chunk_id": 529,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我想要出口食品，檢驗報告算不算強制檢驗呢？",
+    "gold_chunk_id": 14099,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問塑膠食品包裝的印刷要注意什麼？",
+    "gold_chunk_id": 14612,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問水產品的定義是什麼呢？",
+    "gold_chunk_id": 3286,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "輸入的食用油脂如果存了半年，還需要再檢驗一次嗎？",
+    "gold_chunk_id": 14087,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "在製作食用油時添加的助劑需要記錄嗎？",
+    "gold_chunk_id": 15869,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "可以請你解釋一下什麼是危害分析嗎？",
+    "gold_chunk_id": 15188,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我在超市買到冷凍海產，誰要負責標示呢？",
+    "gold_chunk_id": 460,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問食品添加物廠需要什麼樣的衛生管理人員資格呢？",
+    "gold_chunk_id": 14603,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我做食品代工的話，是否需要保存產品的來源資料呢？",
+    "gold_chunk_id": 16091,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我有牛樟芝的健康食品，還需要做什麼檢查嗎？",
+    "gold_chunk_id": 5387,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問運送食品的公司需要登記嗎？",
+    "gold_chunk_id": 15635,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我進口食品再自己加工，還需要登記嗎？",
+    "gold_chunk_id": 15577,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "我想知道人造奶油的油脂含量要多少才符合規定？",
+    "gold_chunk_id": 1825,
+    "source": "synthetic",
+    "kind": "guide",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我有發酵粉和植物油粉，標示內容要怎麼處理？",
+    "gold_chunk_id": 86,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我用番茄萃取物做產品，標示要怎麼寫呢？",
+    "gold_chunk_id": 87,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "製作餅乾時可以用什麼名稱標示小蘇打嗎?",
+    "gold_chunk_id": 161,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問海鮮商品的冰包裝有沒有標示規定呢？",
+    "gold_chunk_id": 422,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "食品添加物的檢驗報告需要哪些檢驗標準和實驗室嗎？",
+    "gold_chunk_id": 15677,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "我想知道馬鈴薯的重金屬檢驗規定是什麼？",
+    "gold_chunk_id": 3339,
+    "source": "synthetic",
+    "kind": "standard",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我賣給餐廳的產品，還需要標示過敏原嗎？",
+    "gold_chunk_id": 335,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我從國外進口一種飲品，標示的產地是在哪裡呢？",
+    "gold_chunk_id": 222,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "我想知道綜合維生素的標示要求是什麼？",
+    "gold_chunk_id": 444,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我已經有食品添加物的許可證，還需要再登錄嗎？",
+    "gold_chunk_id": 15640,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問牛肉裡面允許的加保利殘留量是多少呢？",
+    "gold_chunk_id": 2374,
+    "source": "synthetic",
+    "kind": "standard",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我的產品是全裸麥的話，能不能叫全麥呢？",
+    "gold_chunk_id": 411,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問益達胺這個農藥在胡椒上的殘留量是多少？",
+    "gold_chunk_id": 2945,
+    "source": "synthetic",
+    "kind": "standard",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "我想知道檢測李斯特菌的PCR產物大小是多少？",
+    "gold_chunk_id": 12930,
+    "source": "synthetic",
+    "kind": "guide",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "未發酵的乳類飲品是用什麼材料做的呢？",
+    "gold_chunk_id": 15126,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "我想知道哪裡可以查找食品相關的法規呢？",
+    "gold_chunk_id": 5020,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我在餐廳使用進口食品，標示上需要寫些什麼呢？",
+    "gold_chunk_id": 419,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "我想知道碘的使用濃度限制是什麼？",
+    "gold_chunk_id": 15393,
+    "source": "synthetic",
+    "kind": "standard",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問食品業者登記是一定要做的嗎？什麼時候開始的？",
+    "gold_chunk_id": 15492,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "請問食品裡的銅成分一天最多可以攝取多少？",
+    "gold_chunk_id": 3615,
+    "source": "synthetic",
+    "kind": "guide",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我在三月退貨，應該怎麼報告這筆交易？",
+    "gold_chunk_id": 15998,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "我想知道像免疫球蛋白這些東西，能不能當作營養素來標示呢？",
+    "gold_chunk_id": 293,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "如果我想購買特殊配方食品，有什麼需要注意的嗎？",
+    "gold_chunk_id": 984,
+    "source": "synthetic",
+    "kind": "guide",
+    "batch": "generated_questions.json"
+  },
+  {
+    "question": "進口的肉類產品包裝上需要有中文標籤嗎?",
+    "gold_chunk_id": 15,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我在網路上訂購食品，多久會收到貨呢？",
+    "gold_chunk_id": 1309,
+    "source": "synthetic",
+    "kind": "guide",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "我想知道文件保存五年的規定是怎麼算的，什麼時候開始算呢？",
+    "gold_chunk_id": 16077,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "豆腐裡面如果加了消泡劑，要怎麼標示呢？",
+    "gold_chunk_id": 171,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我在登錄平台遇到錯誤，可以怎麼反映問題？",
+    "gold_chunk_id": 15495,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "為什麼進口食品的業者要自己建立追蹤系統呢？",
+    "gold_chunk_id": 15915,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我的食品公司被驗證了，但後來違反了食安法，會怎麼處理？",
+    "gold_chunk_id": 15434,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "請問驗證的收費流程是怎麼樣的？",
+    "gold_chunk_id": 15471,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我用豬油，肉品種類要怎麼選呢？",
+    "gold_chunk_id": 15992,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "牛的哪個部位會有牛海綿狀腦病的病原呢？",
+    "gold_chunk_id": 2402,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "我想知道進口的自有品牌美耐皿產品要怎麼登錄材質？",
+    "gold_chunk_id": 15692,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "我想知道餐盒食品需要做哪些檢驗呢？",
+    "gold_chunk_id": 13607,
+    "source": "synthetic",
+    "kind": "guide",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "請問如果是完整包裝的生鮮食品，標示上需要注意什麼呢？",
+    "gold_chunk_id": 10,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "沙茶醬的油跟固形物是怎麼分類的呢？",
+    "gold_chunk_id": 147,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我有調合油，品名要怎麼標示才符合規定呢？",
+    "gold_chunk_id": 875,
+    "source": "synthetic",
+    "kind": "guide",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我想知道哪些澱粉產品需要驗證，該怎麼查?",
+    "gold_chunk_id": 15453,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我賣的禮盒裡有不同有效日期的產品，該怎麼標示？",
+    "gold_chunk_id": 241,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "我可以在食品包裝上用英文字母標示重量和容量嗎？",
+    "gold_chunk_id": 140,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "我可以把一般食品標示為保健食品嗎？",
+    "gold_chunk_id": 485,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我有一種果汁，主要是葡萄，這樣的標示合不合法呢？",
+    "gold_chunk_id": 393,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "我想進口食品添加物，有什麼特別的注意事項嗎？",
+    "gold_chunk_id": 15646,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "請問碳酸飲料的外包裝需要標示氮氣或液態氮嗎？",
+    "gold_chunk_id": 122,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "請問黑木耳和香菇需要按照什麼標準來標示嗎?",
+    "gold_chunk_id": 405,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果飲料裡面有香料和乳糖，我需要標示過敏原嗎？",
+    "gold_chunk_id": 180,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "請問冷凍蔬菜產品要有營養標示嗎？",
+    "gold_chunk_id": 252,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我在國外買的添加物是藥品，回台灣能用嗎？",
+    "gold_chunk_id": 6183,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "雞蛋產品需要標示生產系統嗎？",
+    "gold_chunk_id": 214,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果產品裡面有香料，這些香料需要詳細列出嗎？",
+    "gold_chunk_id": 440,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我標示產品為「北蟲草」，這樣會不會違法呢？",
+    "gold_chunk_id": 409,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我在產品裡加了二氧化碳，包裝上需要標示嗎？",
+    "gold_chunk_id": 123,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "我如果要進口茶葉，需滿足什麼條件呢？",
+    "gold_chunk_id": 13998,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "我可以把我的產品名稱改成營養素的名字嗎?",
+    "gold_chunk_id": 34,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我有多家店，文件該怎麼保存呢？",
+    "gold_chunk_id": 16085,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "請問牛海綿狀腦病的風險等級是怎麼劃分的呢？",
+    "gold_chunk_id": 2404,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "如果我賣茶包，是否需要標示營養成分呢？",
+    "gold_chunk_id": 256,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  },
+  {
+    "question": "我們是一家小型食品進口商，應該怎麼建立追蹤系統?",
+    "gold_chunk_id": 15929,
+    "source": "synthetic",
+    "kind": "qa",
+    "batch": "generated_questions_b2.json"
+  }
+]

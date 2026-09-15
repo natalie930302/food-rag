@@ -4,66 +4,50 @@
 實際部署在用的 retrieve_chunks(),而不是另外寫一套簡化邏輯,量到的數字才真正
 反映線上系統的檢索品質。
 
-評估集(eval/eval_questions.json)是從真實已索引的17,152個chunks裡,挑24個跨
-不同主題(標示、添加物登錄、檢驗週期、追溯系統、裁罰基準等)的QA內容,用
-「改寫過的自然提問方式」而非直接複製原文——如果直接用索引裡的原文當查詢,
-會因為文字重疊度過高而讓Recall虛高,測不出真正的語意檢索能力。
+評估集:
+  - eval_questions.json:24 題手寫,從真實已索引的 chunks 裡挑跨主題的內容,用
+    「改寫過的自然提問方式」而非直接複製原文(避免文字重疊讓 Recall 虛高)
+  - eval_questions_v2.json(2026/09 擴大版):上面 24 題 + LLM 生成、自動過濾、
+    人工抽查的合成題,每題標 source=manual/synthetic,報告分開列
 
-指標: Recall@1 / Recall@3 / Recall@5 / MRR,跟 civil-law-qa-bot 用同一套方法論。
+指標:Recall@1 / Recall@3 / Recall@5 / MRR,每個都附 95% bootstrap CI(eval/stats.py)。
+
+用法:python eval/eval_retrieval.py [--questions eval_questions.json]
 """
-import json
+import argparse
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from app.deps import get_embed_model, get_faiss_chunks, get_db
+from app.deps import get_db, get_embed_model, get_faiss_chunks
 from app.retrieval import retrieve_chunks
+from eval.common import aggregate_by_source, load_questions, print_table, rank_of, save_json
 
-with open(Path(__file__).parent / "eval_questions.json", encoding="utf-8") as f:
-    eval_qs = json.load(f)
+ap = argparse.ArgumentParser()
+ap.add_argument("--questions", default=None)
+args = ap.parse_args()
+
+eval_qs = load_questions(args.questions)
 
 print("載入 BGE-M3 embedding 模型與 FAISS 索引...")
 model = get_embed_model()
 index = get_faiss_chunks()
 db = get_db()
 
-recall_at = {1: 0, 3: 0, 5: 0}
-rr_sum = 0.0
-n = len(eval_qs)
-misses = []
-
+records = []
 for q in eval_qs:
     results = retrieve_chunks(db, model, index, q["question"], filters=None, top_k=10)
-    ranked_ids = [r.chunk_id for r in results]
-    gold = q["gold_chunk_id"]
+    rank = rank_of([r.chunk_id for r in results], q["gold_chunk_id"])
+    records.append({"question": q["question"], "gold": q["gold_chunk_id"], "source": q["source"], "rank": rank})
 
-    if gold in ranked_ids:
-        rank_pos = ranked_ids.index(gold) + 1
-        rr_sum += 1.0 / rank_pos
-        for k in recall_at:
-            if rank_pos <= k:
-                recall_at[k] += 1
-    else:
-        misses.append(q["question"])
+by_source = aggregate_by_source(records)
+print_table(f"Baseline:BGE-M3 dense retrieval,無 rerank(n={len(records)},全庫 {index.ntotal} chunks)", by_source)
 
-print(f"\n=== food-rag 檢索評估(n={n}, 全庫17,152個chunks,無metadata過濾) ===")
-for k in recall_at:
-    print(f"Recall@{k}: {recall_at[k]}/{n} = {recall_at[k]/n:.3f}")
-print(f"MRR: {rr_sum/n:.3f}")
-
+misses = [r["question"] for r in records if r["rank"] is None]
 if misses:
-    print(f"\n完全沒撈到gold chunk的問題({len(misses)}題):")
+    print(f"\n前 10 名完全沒撈到 gold chunk 的問題({len(misses)} 題):")
     for m in misses:
         print(f"  - {m}")
 
-result = {
-    "n": n,
-    "recall@1": recall_at[1] / n,
-    "recall@3": recall_at[3] / n,
-    "recall@5": recall_at[5] / n,
-    "mrr": rr_sum / n,
-}
-with open(Path(__file__).parent / "results.json", "w", encoding="utf-8") as f:
-    json.dump(result, f, ensure_ascii=False, indent=2)
-print("\n已儲存至 eval/results.json")
+save_json("results.json", {"config": "dense_only", "summary": by_source, "per_question": records})

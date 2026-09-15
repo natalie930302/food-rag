@@ -1,4 +1,4 @@
-.PHONY: install unzip ingest parse build-index run run-prod test stats failed clean help
+.PHONY: install unzip ingest parse build-index run run-prod test lint eval eval-retrieval eval-agent eval-harness eval-report stats failed clean help
 
 help:
 	@echo "Available commands:"
@@ -13,6 +13,9 @@ help:
 	@echo "  make stats       - 印出索引統計"
 	@echo "  make failed      - 印出無法處理的檔案清單"
 	@echo "  make test        - 跑 pytest"
+	@echo "  make lint        - ruff 靜態檢查"
+	@echo "  make eval        - 重跑全部檢索/agent 評估並產出 eval/RESULTS.md"
+	@echo "  make eval-harness - 多步問題集 + harness 消融(較貴)"
 	@echo "  make clean       - 清掉 data/index 與 data/processed"
 
 install:
@@ -51,3 +54,29 @@ test:
 clean:
 	rm -rf data/index/* data/processed/* data/converted/*
 	@echo "Cleaned data/index, data/processed, data/converted"
+
+lint:
+	ruff check app ingest eval tests scripts
+
+# 重跑全部檢索評估並產出 eval/RESULTS.md(需要 data/index/ 與 OPENAI_API_KEY;
+# agent 相關評估會呼叫 gpt-4o-mini,100 題約數十元台幣)
+eval: eval-retrieval eval-agent eval-report
+
+eval-retrieval:
+	python eval/eval_retrieval.py
+	python eval/eval_reranking.py
+	python eval/tune_confidence_threshold.py
+	python eval/eval_corrective.py
+
+eval-agent:
+	python eval/eval_agentic.py
+	python eval/eval_tool_agent_drift_check.py
+	python eval/eval_citation_verifier.py
+
+# harness 專屬評估:多步問題集 + 消融(較貴,約 1.5 小時、gpt-4o-mini 數十元台幣)
+eval-harness:
+	python eval/eval_multihop.py
+	python eval/eval_harness_ablation.py
+
+eval-report:
+	python eval/summarize.py

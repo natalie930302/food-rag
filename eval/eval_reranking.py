@@ -8,74 +8,82 @@ production RAG 系統的標準做法(dense retrieval 先撈出候選,rerank 再�
 先撈 top-N 候選(快、可預先索引全庫),再用 cross-encoder 對這N個候選重新排序
 (慢、只做在候選集上)。
 
-用的 reranker 是 BAAI/bge-reranker-v2-m3(2026/09 從 bge-reranker-base 換過來——
-compare_reranker_models.py 實測 32 題 rank-1 準確率從 0.688 提升到 0.875,是全面性
-的改善,不是單一案例湊巧,詳見 README「reranker 模型升級」章節)。
+這支腳本同時比較三個配置(同一組候選池,只有排序方式不同,才是公平比較):
+  1. dense only(baseline)
+  2. + bge-reranker-base(2026/09 之前用的模型)
+  3. + bge-reranker-v2-m3(現行模型;compare_reranker_models.py 當初診斷出 base
+     對「分類存放」vs「怎麼歸類」這類詞義有混淆,換模型後修好)
 
-baseline的Recall@5已經到1.000(24題全部都在top5),reranking能改善的空間主要在
-Recall@1跟MRR——看cross-encoder精排能不能把原本排在第2-5名的正確答案挪到第1名。
+每個指標附 95% bootstrap CI,配置之間做 paired bootstrap + 精確符號檢定——
+早期 24 題版本的「Recall@1 0.708→0.750」只是多對 1 題,這裡把「差距有多可信」
+一起量出來,不再只看點估計。
+
+用法:python eval/eval_reranking.py [--questions eval_questions.json] [--skip-base]
 """
-import json
+import argparse
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from app.deps import get_embed_model, get_faiss_chunks, get_db
-from app.retrieval import retrieve_chunks
 from sentence_transformers import CrossEncoder
 
-with open(Path(__file__).parent / "eval_questions.json", encoding="utf-8") as f:
-    eval_qs = json.load(f)
+from app.deps import get_db, get_embed_model, get_faiss_chunks
+from app.retrieval import retrieve_chunks
+from eval.common import aggregate_by_source, compare, load_questions, print_comparison, print_table, rank_of, save_json
 
-print("載入 BGE-M3 embedding 模型、FAISS 索引、bge-reranker-v2-m3...")
+ap = argparse.ArgumentParser()
+ap.add_argument("--questions", default=None)
+ap.add_argument("--skip-base", action="store_true", help="不跑舊的 bge-reranker-base(省時間)")
+args = ap.parse_args()
+
+eval_qs = load_questions(args.questions)
+TOP_N_CANDIDATES = 10  # dense retrieval 先撈的候選數,reranker 只對這些重排
+
+print("載入 BGE-M3 embedding 模型、FAISS 索引...")
 model = get_embed_model()
 index = get_faiss_chunks()
 db = get_db()
-reranker = CrossEncoder("BAAI/bge-reranker-v2-m3", max_length=512)
 
-TOP_N_CANDIDATES = 10  # dense retrieval先撈的候選數,reranker只對這些重排
+rerankers = {}
+if not args.skip_base:
+    print("載入 bge-reranker-base ...")
+    rerankers["rerank_base"] = CrossEncoder("BAAI/bge-reranker-base", max_length=512)
+print("載入 bge-reranker-v2-m3 ...")
+rerankers["rerank_v2m3"] = CrossEncoder("BAAI/bge-reranker-v2-m3", max_length=512)
 
-
-def evaluate(use_rerank: bool, name: str):
-    recall_at = {1: 0, 3: 0, 5: 0}
-    rr_sum = 0.0
-    n = len(eval_qs)
-
-    for q in eval_qs:
-        results = retrieve_chunks(db, model, index, q["question"], filters=None, top_k=TOP_N_CANDIDATES)
-        gold = q["gold_chunk_id"]
-
-        if use_rerank and results:
-            pairs = [[q["question"], r.text] for r in results]
-            scores = reranker.predict(pairs)
-            reranked = sorted(zip(results, scores), key=lambda x: -x[1])
-            ranked_ids = [r.chunk_id for r, _ in reranked]
+# 候選池只算一次,三個配置共用
+records = {"dense_only": [], **{k: [] for k in rerankers}}
+for q in eval_qs:
+    cands = retrieve_chunks(db, model, index, q["question"], filters=None, top_k=TOP_N_CANDIDATES)
+    base = {"question": q["question"], "gold": q["gold_chunk_id"], "source": q["source"]}
+    records["dense_only"].append({**base, "rank": rank_of([c.chunk_id for c in cands], q["gold_chunk_id"])})
+    for name, rr in rerankers.items():
+        if cands:
+            scores = rr.predict([[q["question"], c.text] for c in cands])
+            ranked = [c.chunk_id for c, _ in sorted(zip(cands, scores), key=lambda x: -x[1])]
         else:
-            ranked_ids = [r.chunk_id for r in results]
+            ranked = []
+        records[name].append({**base, "rank": rank_of(ranked, q["gold_chunk_id"])})
 
-        if gold in ranked_ids:
-            rank_pos = ranked_ids.index(gold) + 1
-            rr_sum += 1.0 / rank_pos
-            for k in recall_at:
-                if rank_pos <= k:
-                    recall_at[k] += 1
+summary, comparisons = {}, {}
+for name, recs in records.items():
+    summary[name] = aggregate_by_source(recs)
+    print_table(name, summary[name])
 
-    print(f"\n=== {name} ===")
-    for k in recall_at:
-        print(f"Recall@{k}: {recall_at[k]}/{n} = {recall_at[k]/n:.3f}")
-    print(f"MRR: {rr_sum/n:.3f}")
-    return {"recall@1": recall_at[1]/n, "recall@3": recall_at[3]/n, "recall@5": recall_at[5]/n, "mrr": rr_sum/n}
+print("\n=== 配置之間的 paired 比較(同一組題目)===")
+pairs = [("dense_only", "rerank_v2m3")]
+if "rerank_base" in records:
+    pairs = [("dense_only", "rerank_base"), ("rerank_base", "rerank_v2m3"), ("dense_only", "rerank_v2m3")]
+for a, b in pairs:
+    for metric in ("recall@1", "mrr"):
+        cmp = compare(records[a], records[b], metric)
+        comparisons[f"{a}->{b}:{metric}"] = cmp
+        print_comparison(f"{a} → {b}", cmp)
 
-
-baseline_result = evaluate(use_rerank=False, name="Baseline(僅dense retrieval,無rerank)")
-rerank_result = evaluate(use_rerank=True, name="加上 cross-encoder rerank 後")
-
-print("\n=== 比較 ===")
-for k in ["recall@1", "recall@3", "recall@5", "mrr"]:
-    b, r = baseline_result[k], rerank_result[k]
-    print(f"{k}: baseline={b:.3f}  +rerank={r:.3f}  差異={r-b:+.3f}")
-
-with open(Path(__file__).parent / "results_rerank.json", "w", encoding="utf-8") as f:
-    json.dump({"baseline": baseline_result, "with_reranking": rerank_result}, f, ensure_ascii=False, indent=2)
-print("\n已儲存至 eval/results_rerank.json")
+save_json("results_rerank.json", {
+    "top_n_candidates": TOP_N_CANDIDATES,
+    "summary": summary,
+    "comparisons": comparisons,
+    "per_question": records,
+})

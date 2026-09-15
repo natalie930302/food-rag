@@ -1,7 +1,1033 @@
 {
-  "in_domain_correct_and_confident": 24,
-  "in_domain_total": 24,
-  "in_domain_wrongly_rejected": 0,
-  "out_domain_correctly_rejected": 6,
-  "out_domain_total": 6
+  "summary": {
+    "threshold": 0.52,
+    "in_domain": {
+      "all": {
+        "count": 96,
+        "total": 108,
+        "rate": 0.8888888888888888,
+        "ci95": [
+          0.8240740740740741,
+          0.9444444444444444
+        ]
+      },
+      "manual": {
+        "count": 24,
+        "total": 24,
+        "rate": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "synthetic": {
+        "count": 72,
+        "total": 84,
+        "rate": 0.8571428571428571,
+        "ci95": [
+          0.7738095238095238,
+          0.9285714285714286
+        ]
+      },
+      "wrongly_rejected": 8,
+      "confident_but_miss": 4
+    },
+    "out_domain": {
+      "count": 20,
+      "total": 20,
+      "rate": 1.0,
+      "ci95": [
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "in_domain": [
+    {
+      "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
+      "gold": 4936,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9999345541000366,
+      "hit": true
+    },
+    {
+      "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
+      "gold": 15667,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9995471835136414,
+      "hit": true
+    },
+    {
+      "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
+      "gold": 113,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9905374646186829,
+      "hit": true
+    },
+    {
+      "question": "台灣有可能進口到帶有狂牛症風險的牛肉產品嗎?",
+      "gold": 2420,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9842400550842285,
+      "hit": true
+    },
+    {
+      "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
+      "gold": 4354,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.990587592124939,
+      "hit": true
+    },
+    {
+      "question": "賣給餐飲業者的業務用奶精,也要照規定標示品名嗎?",
+      "gold": 4852,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9993453621864319,
+      "hit": true
+    },
+    {
+      "question": "農產品如果是別人分裝後驗證的,標示追溯來源時要寫誰的資訊?",
+      "gold": 5227,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9918579459190369,
+      "hit": true
+    },
+    {
+      "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
+      "gold": 13493,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9987322688102722,
+      "hit": true
+    },
+    {
+      "question": "食用油脂原料的檢驗可以用週期性輪替的方式做嗎?",
+      "gold": 14083,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9996824264526367,
+      "hit": true
+    },
+    {
+      "question": "便利商店賣金針、蘿蔔乾這類產品,可以用週期性輪替檢驗嗎?",
+      "gold": 14103,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9885231852531433,
+      "hit": true
+    },
+    {
+      "question": "包裝奶精的品名標示新規定,有給業者緩衝期嗎?",
+      "gold": 4861,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9982981085777283,
+      "hit": true
+    },
+    {
+      "question": "洗碗精配方裡的水算不算是主要成分?",
+      "gold": 5857,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.998835027217865,
+      "hit": true
+    },
+    {
+      "question": "冬青葉泡的茶湯,可以加進其他茶飲一起賣嗎?",
+      "gold": 2648,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9994427561759949,
+      "hit": true
+    },
+    {
+      "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
+      "gold": 15569,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9969473481178284,
+      "hit": true
+    },
+    {
+      "question": "濃縮果汁還原後算出來超過100%的原汁含有率,該怎麼標示?",
+      "gold": 5266,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9994733929634094,
+      "hit": true
+    },
+    {
+      "question": "超商賣的餐盒如果有牛肉,需要標示牛肉的原產地嗎?",
+      "gold": 5399,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9992390871047974,
+      "hit": true
+    },
+    {
+      "question": "粥品裡額外加的水,需要寫在內容物標示裡嗎?",
+      "gold": 117,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9962813258171082,
+      "hit": true
+    },
+    {
+      "question": "食品用整箱方式批發賣給中盤商,標示要標在箱子上還是個別包裝上?",
+      "gold": 5801,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9968358874320984,
+      "hit": true
+    },
+    {
+      "question": "如果我賣的食品品項有被公告要用電子發票,那我賣的非食品部分也要開電子發票嗎?",
+      "gold": 15854,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9995392560958862,
+      "hit": true
+    },
+    {
+      "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
+      "gold": 6172,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9968840479850769,
+      "hit": true
+    },
+    {
+      "question": "用咖啡葉做的茶飲,需要標示咖啡因含量嗎?",
+      "gold": 2660,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9997530579566956,
+      "hit": true
+    },
+    {
+      "question": "『非登不可』平台上的產品登錄資訊,規定多久要更新一次?",
+      "gold": 5847,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9978960752487183,
+      "hit": true
+    },
+    {
+      "question": "食品裡面附玩具一起賣,為什麼需要標示警語?",
+      "gold": 5082,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9991484880447388,
+      "hit": true
+    },
+    {
+      "question": "裁罰基準裡講的資力加權倍數,『所有違規產品』具體是指什麼?",
+      "gold": 13157,
+      "source": "manual",
+      "confident": true,
+      "top_score": 0.9991318583488464,
+      "hit": true
+    },
+    {
+      "question": "食品中有哪些可能會影響健康的危險因素呢？",
+      "gold": 15187,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.8956677317619324,
+      "hit": true
+    },
+    {
+      "question": "食品業者的管制小組需要幾個成員？",
+      "gold": 15075,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9988036155700684,
+      "hit": true
+    },
+    {
+      "question": "如果我買的果汁標示原汁含量是55%，這樣算不算真的天然果汁呢？",
+      "gold": 397,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9985266923904419,
+      "hit": true
+    },
+    {
+      "question": "如果我買了大包裝的食品，想要自己分裝賣，這樣合法嗎？",
+      "gold": 6,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.8355826139450073,
+      "hit": true
+    },
+    {
+      "question": "如果我想加註填充材料，該如何標示呢？",
+      "gold": 5893,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9640510082244873,
+      "hit": false
+    },
+    {
+      "question": "如果我在進口食品後，還需要負責追蹤嗎？",
+      "gold": 15914,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9845911264419556,
+      "hit": true
+    },
+    {
+      "question": "如果我已經有自己的編碼系統，還需要再建立新的產品編碼嗎？",
+      "gold": 16017,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9400643706321716,
+      "hit": true
+    },
+    {
+      "question": "請問這次的罰款標準是怎麼制定的呢？",
+      "gold": 13155,
+      "source": "synthetic",
+      "confident": false,
+      "top_score": 0.12147645652294159,
+      "hit": false
+    },
+    {
+      "question": "請問乙酸的使用濃度上限是多少？",
+      "gold": 15391,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.6953937411308289,
+      "hit": true
+    },
+    {
+      "question": "我想知道食品的檢驗報告要多少錢？",
+      "gold": 3489,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9003455638885498,
+      "hit": false
+    },
+    {
+      "question": "如果食品是用塑膠盒和膠膜包裝的，那算不算散裝？",
+      "gold": 463,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9971287846565247,
+      "hit": true
+    },
+    {
+      "question": "我可以在產品包裝上寫不會影響血糖嗎？",
+      "gold": 529,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9938777089118958,
+      "hit": true
+    },
+    {
+      "question": "如果我想要出口食品，檢驗報告算不算強制檢驗呢？",
+      "gold": 14099,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9811844229698181,
+      "hit": true
+    },
+    {
+      "question": "請問塑膠食品包裝的印刷要注意什麼？",
+      "gold": 14612,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9918808341026306,
+      "hit": true
+    },
+    {
+      "question": "請問水產品的定義是什麼呢？",
+      "gold": 3286,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9570508599281311,
+      "hit": true
+    },
+    {
+      "question": "輸入的食用油脂如果存了半年，還需要再檢驗一次嗎？",
+      "gold": 14087,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9991796612739563,
+      "hit": true
+    },
+    {
+      "question": "在製作食用油時添加的助劑需要記錄嗎？",
+      "gold": 15869,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9761714339256287,
+      "hit": true
+    },
+    {
+      "question": "可以請你解釋一下什麼是危害分析嗎？",
+      "gold": 15188,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.946373701095581,
+      "hit": true
+    },
+    {
+      "question": "如果我在超市買到冷凍海產，誰要負責標示呢？",
+      "gold": 460,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9962215423583984,
+      "hit": true
+    },
+    {
+      "question": "請問食品添加物廠需要什麼樣的衛生管理人員資格呢？",
+      "gold": 14603,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9889025092124939,
+      "hit": true
+    },
+    {
+      "question": "如果我做食品代工的話，是否需要保存產品的來源資料呢？",
+      "gold": 16091,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9984366297721863,
+      "hit": true
+    },
+    {
+      "question": "如果我有牛樟芝的健康食品，還需要做什麼檢查嗎？",
+      "gold": 5387,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9577025771141052,
+      "hit": true
+    },
+    {
+      "question": "請問運送食品的公司需要登記嗎？",
+      "gold": 15635,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9548789858818054,
+      "hit": true
+    },
+    {
+      "question": "如果我進口食品再自己加工，還需要登記嗎？",
+      "gold": 15577,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9909591674804688,
+      "hit": true
+    },
+    {
+      "question": "我想知道人造奶油的油脂含量要多少才符合規定？",
+      "gold": 1825,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9788020849227905,
+      "hit": true
+    },
+    {
+      "question": "如果我有發酵粉和植物油粉，標示內容要怎麼處理？",
+      "gold": 86,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9584720730781555,
+      "hit": true
+    },
+    {
+      "question": "如果我用番茄萃取物做產品，標示要怎麼寫呢？",
+      "gold": 87,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9920161962509155,
+      "hit": true
+    },
+    {
+      "question": "製作餅乾時可以用什麼名稱標示小蘇打嗎?",
+      "gold": 161,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9946211576461792,
+      "hit": true
+    },
+    {
+      "question": "請問海鮮商品的冰包裝有沒有標示規定呢？",
+      "gold": 422,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9987292885780334,
+      "hit": true
+    },
+    {
+      "question": "食品添加物的檢驗報告需要哪些檢驗標準和實驗室嗎？",
+      "gold": 15677,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9992407560348511,
+      "hit": true
+    },
+    {
+      "question": "我想知道馬鈴薯的重金屬檢驗規定是什麼？",
+      "gold": 3339,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9051669239997864,
+      "hit": true
+    },
+    {
+      "question": "如果我賣給餐廳的產品，還需要標示過敏原嗎？",
+      "gold": 335,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.982745349407196,
+      "hit": true
+    },
+    {
+      "question": "如果我從國外進口一種飲品，標示的產地是在哪裡呢？",
+      "gold": 222,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9705584049224854,
+      "hit": true
+    },
+    {
+      "question": "我想知道綜合維生素的標示要求是什麼？",
+      "gold": 444,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9187155365943909,
+      "hit": true
+    },
+    {
+      "question": "如果我已經有食品添加物的許可證，還需要再登錄嗎？",
+      "gold": 15640,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9971097111701965,
+      "hit": true
+    },
+    {
+      "question": "請問牛肉裡面允許的加保利殘留量是多少呢？",
+      "gold": 2374,
+      "source": "synthetic",
+      "confident": false,
+      "top_score": 0.1729186475276947,
+      "hit": false
+    },
+    {
+      "question": "如果我的產品是全裸麥的話，能不能叫全麥呢？",
+      "gold": 411,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9939299821853638,
+      "hit": true
+    },
+    {
+      "question": "請問益達胺這個農藥在胡椒上的殘留量是多少？",
+      "gold": 2945,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.7524375915527344,
+      "hit": true
+    },
+    {
+      "question": "我想知道檢測李斯特菌的PCR產物大小是多少？",
+      "gold": 12930,
+      "source": "synthetic",
+      "confident": false,
+      "top_score": 0.49299356341362,
+      "hit": false
+    },
+    {
+      "question": "未發酵的乳類飲品是用什麼材料做的呢？",
+      "gold": 15126,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9921374917030334,
+      "hit": true
+    },
+    {
+      "question": "我想知道哪裡可以查找食品相關的法規呢？",
+      "gold": 5020,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9765085577964783,
+      "hit": false
+    },
+    {
+      "question": "如果我在餐廳使用進口食品，標示上需要寫些什麼呢？",
+      "gold": 419,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9935221076011658,
+      "hit": true
+    },
+    {
+      "question": "我想知道碘的使用濃度限制是什麼？",
+      "gold": 15393,
+      "source": "synthetic",
+      "confident": false,
+      "top_score": 0.40520384907722473,
+      "hit": false
+    },
+    {
+      "question": "請問食品業者登記是一定要做的嗎？什麼時候開始的？",
+      "gold": 15492,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9932448267936707,
+      "hit": true
+    },
+    {
+      "question": "請問食品裡的銅成分一天最多可以攝取多少？",
+      "gold": 3615,
+      "source": "synthetic",
+      "confident": false,
+      "top_score": 0.4964364171028137,
+      "hit": false
+    },
+    {
+      "question": "如果我在三月退貨，應該怎麼報告這筆交易？",
+      "gold": 15998,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.985993504524231,
+      "hit": true
+    },
+    {
+      "question": "我想知道像免疫球蛋白這些東西，能不能當作營養素來標示呢？",
+      "gold": 293,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9903338551521301,
+      "hit": true
+    },
+    {
+      "question": "如果我想購買特殊配方食品，有什麼需要注意的嗎？",
+      "gold": 984,
+      "source": "synthetic",
+      "confident": false,
+      "top_score": 0.4094586968421936,
+      "hit": false
+    },
+    {
+      "question": "進口的肉類產品包裝上需要有中文標籤嗎?",
+      "gold": 15,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9975232481956482,
+      "hit": true
+    },
+    {
+      "question": "如果我在網路上訂購食品，多久會收到貨呢？",
+      "gold": 1309,
+      "source": "synthetic",
+      "confident": false,
+      "top_score": 0.07861681282520294,
+      "hit": false
+    },
+    {
+      "question": "我想知道文件保存五年的規定是怎麼算的，什麼時候開始算呢？",
+      "gold": 16077,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.997326135635376,
+      "hit": true
+    },
+    {
+      "question": "豆腐裡面如果加了消泡劑，要怎麼標示呢？",
+      "gold": 171,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9952074885368347,
+      "hit": true
+    },
+    {
+      "question": "如果我在登錄平台遇到錯誤，可以怎麼反映問題？",
+      "gold": 15495,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9450696110725403,
+      "hit": true
+    },
+    {
+      "question": "為什麼進口食品的業者要自己建立追蹤系統呢？",
+      "gold": 15915,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9998340606689453,
+      "hit": true
+    },
+    {
+      "question": "如果我的食品公司被驗證了，但後來違反了食安法，會怎麼處理？",
+      "gold": 15434,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9979760050773621,
+      "hit": true
+    },
+    {
+      "question": "請問驗證的收費流程是怎麼樣的？",
+      "gold": 15471,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9966059923171997,
+      "hit": true
+    },
+    {
+      "question": "如果我用豬油，肉品種類要怎麼選呢？",
+      "gold": 15992,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9863255620002747,
+      "hit": true
+    },
+    {
+      "question": "牛的哪個部位會有牛海綿狀腦病的病原呢？",
+      "gold": 2402,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9990993738174438,
+      "hit": true
+    },
+    {
+      "question": "我想知道進口的自有品牌美耐皿產品要怎麼登錄材質？",
+      "gold": 15692,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9985622763633728,
+      "hit": true
+    },
+    {
+      "question": "我想知道餐盒食品需要做哪些檢驗呢？",
+      "gold": 13607,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9945598244667053,
+      "hit": true
+    },
+    {
+      "question": "請問如果是完整包裝的生鮮食品，標示上需要注意什麼呢？",
+      "gold": 10,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9929167032241821,
+      "hit": true
+    },
+    {
+      "question": "沙茶醬的油跟固形物是怎麼分類的呢？",
+      "gold": 147,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.992671012878418,
+      "hit": true
+    },
+    {
+      "question": "如果我有調合油，品名要怎麼標示才符合規定呢？",
+      "gold": 875,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9975746273994446,
+      "hit": false
+    },
+    {
+      "question": "如果我想知道哪些澱粉產品需要驗證，該怎麼查?",
+      "gold": 15453,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9222624897956848,
+      "hit": true
+    },
+    {
+      "question": "如果我賣的禮盒裡有不同有效日期的產品，該怎麼標示？",
+      "gold": 241,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9798665046691895,
+      "hit": true
+    },
+    {
+      "question": "我可以在食品包裝上用英文字母標示重量和容量嗎？",
+      "gold": 140,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9928043484687805,
+      "hit": true
+    },
+    {
+      "question": "我可以把一般食品標示為保健食品嗎？",
+      "gold": 485,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9967643022537231,
+      "hit": true
+    },
+    {
+      "question": "如果我有一種果汁，主要是葡萄，這樣的標示合不合法呢？",
+      "gold": 393,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9382367730140686,
+      "hit": true
+    },
+    {
+      "question": "我想進口食品添加物，有什麼特別的注意事項嗎？",
+      "gold": 15646,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9745591878890991,
+      "hit": true
+    },
+    {
+      "question": "請問碳酸飲料的外包裝需要標示氮氣或液態氮嗎？",
+      "gold": 122,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.999620795249939,
+      "hit": true
+    },
+    {
+      "question": "請問黑木耳和香菇需要按照什麼標準來標示嗎?",
+      "gold": 405,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9926797151565552,
+      "hit": true
+    },
+    {
+      "question": "如果飲料裡面有香料和乳糖，我需要標示過敏原嗎？",
+      "gold": 180,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9991801381111145,
+      "hit": true
+    },
+    {
+      "question": "請問冷凍蔬菜產品要有營養標示嗎？",
+      "gold": 252,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9989520311355591,
+      "hit": true
+    },
+    {
+      "question": "如果我在國外買的添加物是藥品，回台灣能用嗎？",
+      "gold": 6183,
+      "source": "synthetic",
+      "confident": false,
+      "top_score": 0.06835874915122986,
+      "hit": false
+    },
+    {
+      "question": "雞蛋產品需要標示生產系統嗎？",
+      "gold": 214,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9995239973068237,
+      "hit": true
+    },
+    {
+      "question": "如果產品裡面有香料，這些香料需要詳細列出嗎？",
+      "gold": 440,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.98350590467453,
+      "hit": true
+    },
+    {
+      "question": "如果我標示產品為「北蟲草」，這樣會不會違法呢？",
+      "gold": 409,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.999745786190033,
+      "hit": true
+    },
+    {
+      "question": "如果我在產品裡加了二氧化碳，包裝上需要標示嗎？",
+      "gold": 123,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9982176423072815,
+      "hit": true
+    },
+    {
+      "question": "我如果要進口茶葉，需滿足什麼條件呢？",
+      "gold": 13998,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.7089908123016357,
+      "hit": true
+    },
+    {
+      "question": "我可以把我的產品名稱改成營養素的名字嗎?",
+      "gold": 34,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.8537244200706482,
+      "hit": true
+    },
+    {
+      "question": "如果我有多家店，文件該怎麼保存呢？",
+      "gold": 16085,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.8983611464500427,
+      "hit": true
+    },
+    {
+      "question": "請問牛海綿狀腦病的風險等級是怎麼劃分的呢？",
+      "gold": 2404,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9988160133361816,
+      "hit": true
+    },
+    {
+      "question": "如果我賣茶包，是否需要標示營養成分呢？",
+      "gold": 256,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9948174357414246,
+      "hit": true
+    },
+    {
+      "question": "我們是一家小型食品進口商，應該怎麼建立追蹤系統?",
+      "gold": 15929,
+      "source": "synthetic",
+      "confident": true,
+      "top_score": 0.9977585077285767,
+      "hit": true
+    }
+  ],
+  "out_domain": [
+    {
+      "question": "台灣的所得稅申報期限是什麼時候?",
+      "confident": false,
+      "top_score": 0.05924380570650101,
+      "correctly_rejected": true
+    },
+    {
+      "question": "Unity 遊戲引擎裡要怎麼設定角色的動畫過渡?",
+      "confident": false,
+      "top_score": 0.00037564177182503045,
+      "correctly_rejected": true
+    },
+    {
+      "question": "颱風來的時候要注意哪些居家安全事項?",
+      "confident": false,
+      "top_score": 0.032335929572582245,
+      "correctly_rejected": true
+    },
+    {
+      "question": "貓咪大概多久需要施打一次疫苗?",
+      "confident": false,
+      "top_score": 0.003967115189880133,
+      "correctly_rejected": true
+    },
+    {
+      "question": "台北到高雄搭高鐵大概要多久時間?",
+      "confident": false,
+      "top_score": 0.002062364714220166,
+      "correctly_rejected": true
+    },
+    {
+      "question": "護照到期了要怎麼申請換發?",
+      "confident": false,
+      "top_score": 0.04609449952840805,
+      "correctly_rejected": true
+    },
+    {
+      "question": "勞基法規定的特休假天數怎麼算?",
+      "confident": false,
+      "top_score": 0.0028459569439291954,
+      "correctly_rejected": true
+    },
+    {
+      "question": "機車強制險一年大概多少錢?",
+      "confident": false,
+      "top_score": 0.008663010783493519,
+      "correctly_rejected": true
+    },
+    {
+      "question": "Python 的 list 跟 tuple 差在哪裡?",
+      "confident": false,
+      "top_score": 0.00015533789701294154,
+      "correctly_rejected": true
+    },
+    {
+      "question": "房屋租賃契約公證要準備什麼文件?",
+      "confident": false,
+      "top_score": 0.4004450738430023,
+      "correctly_rejected": true
+    },
+    {
+      "question": "小孩幾歲可以開始學游泳比較好?",
+      "confident": false,
+      "top_score": 0.0005702037014998496,
+      "correctly_rejected": true
+    },
+    {
+      "question": "信用卡繳款逾期會影響信用評分嗎?",
+      "confident": false,
+      "top_score": 0.00034113856963813305,
+      "correctly_rejected": true
+    },
+    {
+      "question": "iPhone 電池健康度低於多少建議更換?",
+      "confident": false,
+      "top_score": 0.00011118157999590039,
+      "correctly_rejected": true
+    },
+    {
+      "question": "汽車定期保養大概多久要換一次機油?",
+      "confident": false,
+      "top_score": 0.0012635629391297698,
+      "correctly_rejected": true
+    },
+    {
+      "question": "大學推甄的備審資料通常要放哪些內容?",
+      "confident": false,
+      "top_score": 0.03300595283508301,
+      "correctly_rejected": true
+    },
+    {
+      "question": "登山遇到失溫要怎麼緊急處理?",
+      "confident": false,
+      "top_score": 0.00039084022864699364,
+      "correctly_rejected": true
+    },
+    {
+      "question": "藥局買的成藥可以跟處方藥一起吃嗎?",
+      "confident": false,
+      "top_score": 0.004058225080370903,
+      "correctly_rejected": true
+    },
+    {
+      "question": "化妝品標示的保存期限跟開封後使用期限有什麼不同?",
+      "confident": false,
+      "top_score": 0.23834441602230072,
+      "correctly_rejected": true
+    },
+    {
+      "question": "餐廳員工的加班費要怎麼算才合法?",
+      "confident": false,
+      "top_score": 0.0035983796697109938,
+      "correctly_rejected": true
+    },
+    {
+      "question": "寵物飼料的成分標示有規定要寫什麼嗎?",
+      "confident": false,
+      "top_score": 0.013221203349530697,
+      "correctly_rejected": true
+    }
+  ]
 }

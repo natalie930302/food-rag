@@ -1,0 +1,722 @@
+[
+  {
+    "question": "我想知道食品的原產地該怎麼標示才算正確呢？",
+    "gold_chunk_id": 5204,
+    "kind": "qa",
+    "document": "原產地標示Q&A修正對照表",
+    "answer_span": "「原產地(國)」之標示,以標示出原產國為原則,如擬標示至更明確之地點,例如台灣嘉義,或欲提供更多產品消費訊息,給消費者參考,當予肯定,惟其內容應正確無誤。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "食品中有哪些可能會影響健康的危險因素呢？",
+    "gold_chunk_id": 15187,
+    "kind": "qa",
+    "document": "食品業者之HACCP實務執行QA問答集",
+    "answer_span": "危害係指食品中可能影響消費者飲食安全或疾病之生物 、化學或物理性因子或物質",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "食品業者的管制小組需要幾個成員？",
+    "gold_chunk_id": 15075,
+    "kind": "guide",
+    "document": "食品安全管制系統準則條文 (2)",
+    "answer_span": "管制小組成員，應由食品業者之負責人或其指定人員及專門職業人員、品質管制人員、生產部(線)幹部、衛生管理人員或其他幹部人員組成，至少三人。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "如果我買的果汁標示原汁含量是55%，這樣算不算真的天然果汁呢？",
+    "gold_chunk_id": 397,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "倘該產品依前述計算方式所得之原汁含有率確實為 55%,且確實使用濃縮蔬菜汁做為原料,則標示「原汁含有率 55%」、「還原蔬菜汁」，尚屬適法。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "我可以在產品裡加多少維生素D嗎？",
+    "gold_chunk_id": 4518,
+    "kind": "guide",
+    "document": "112年度國產維生素類錠狀膠囊狀食品手冊(先跳過)",
+    "answer_span": "每一種使用量除以用量標準所得之數值總和不得大於1。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "我想知道美國對於嬰兒食品的安全標準是什麼？",
+    "gold_chunk_id": 3317,
+    "kind": "guide",
+    "document": "食品中檢出三聚氰胺之管理指引",
+    "answer_span": "故針對嬰兒之 TDI 設定為每日每公斤體重 0.063 毫克。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "如果我買了大包裝的食品，想要自己分裝賣，這樣合法嗎？",
+    "gold_chunk_id": 6,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "倘下游業者或消費者購入後自行拆包販售無標示之小包裝產品,則針對小包裝產品標示之法律責任,由行為人負責。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "如果我想加註填充材料，該如何標示呢？",
+    "gold_chunk_id": 5893,
+    "kind": "guide",
+    "document": "食品器具容器包裝塑膠類材質名稱標示原則(108.12.10修正)",
+    "answer_span": "惟如欲自願性加註,則應以下列方式擇一進行加註",
+    "source": "synthetic",
+    "lcs_with_chunk": 6
+  },
+  {
+    "question": "請問樹番茄使用的殺蟎劑是什麼？",
+    "gold_chunk_id": 3135,
+    "kind": "standard",
+    "document": "(中文版)農藥殘留容許量標準附表一至附表五_1131300473",
+    "answer_span": "殺蟎劑Tebufenpyrad",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "我想知道施得圃這個農藥對不同作物的使用限制是什麼？",
+    "gold_chunk_id": 3019,
+    "kind": "standard",
+    "document": "(中文版)農藥殘留容許量標準附表一至附表五_1131300473",
+    "answer_span": "Pendimethalin 施得圃 甜椒 0.05 殺草劑Pendimethalin 施得圃 番茄 0.05 殺草劑Pendimethalin 施得圃 辣椒 0.05 殺草劑",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "我想知道還原果汁的標示規定是什麼？",
+    "gold_chunk_id": 399,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "故「宣稱含果蔬汁之市售包裝飲料標示規定問答集」之 Q27「另可自願依中華民國國家標準 CNS2377 號規定,於產品主展示面標示「還原果(蔬菜)汁」字樣。」仍適用。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "如果我在進口食品後，還需要負責追蹤嗎？",
+    "gold_chunk_id": 15914,
+    "kind": "qa",
+    "document": "應建立食品追溯追蹤系統之食品業者修正規定QA問答集",
+    "answer_span": "應建立食品追溯追蹤制度並強制上傳非追不可系統",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "如果我已經有自己的編碼系統，還需要再建立新的產品編碼嗎？",
+    "gold_chunk_id": 16017,
+    "kind": "qa",
+    "document": "應建立食品追溯追蹤系統之食品業者修正規定QA問答集",
+    "answer_span": "爰業者製造及出貨產品,仍請建立該產品之產品自編碼,以符電子",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "我想知道純氯化鈉有哪些要求呢？",
+    "gold_chunk_id": 14020,
+    "kind": "qa",
+    "document": "應訂定食品安全監測計畫與應辦理檢驗之食品業者、最低檢驗週期及其他相關事項QA問答集",
+    "answer_span": "純氯化鈉(未加碘,純度 99.5%及以上)",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "我想知道普克利這個殺菌劑在蔬果上的使用量是多少？",
+    "gold_chunk_id": 3051,
+    "kind": "standard",
+    "document": "(中文版)農藥殘留容許量標準附表一至附表五_1131300473",
+    "answer_span": "普克利 其他(蔬果類)* 0.01* 殺菌劑Propiconazole",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "請問這次的罰款標準是怎麼制定的呢？",
+    "gold_chunk_id": 13155,
+    "kind": "qa",
+    "document": "食品安全衛生管理法第四十四條第一項罰鍰裁罰標準問答集",
+    "answer_span": "為強化食品衛生管理體系,提供民眾更完善之食品安全環境...針對違反食安法第 44 條第 1 項各款行為者,按其違規態樣予以類型化後,分別擬具本裁罰標準之附表裁處罰鍰基準。",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "請問乙酸的使用濃度上限是多少？",
+    "gold_chunk_id": 15391,
+    "kind": "standard",
+    "document": "食品用洗潔劑衛生標準",
+    "answer_span": "686 ppm",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "我想知道玻璃滴管大約有多長？",
+    "gold_chunk_id": 8847,
+    "kind": "guide",
+    "document": "食品中戴奧辛呋喃及多氯聯苯之檢驗方法(修正總說明及修正對照表)",
+    "answer_span": "長度約23 cm。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "我想知道做DNA檢測需要哪些設備？",
+    "gold_chunk_id": 11948,
+    "kind": "guide",
+    "document": "食品微生物之檢驗方法－沙門氏桿菌之檢驗方法",
+    "answer_span": "2.2.2. 高壓滅菌釜。2.2.3. 生物安全操作櫃(Biological safety cabinet, BSC):第二等級(class II) (含)以上者。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "我想知道食品的檢驗報告要多少錢？",
+    "gold_chunk_id": 3489,
+    "kind": "standard",
+    "document": "1081303879_食品及食品添加物查驗登記審查費及證書費收費標準",
+    "answer_span": "正本每件新臺幣一千元,副本每份新臺幣一百元。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "如果我想檢測貝類的毒性，應該怎麼做呢？",
+    "gold_chunk_id": 9596,
+    "kind": "guide",
+    "document": "食品中海洋生物毒素之檢驗方法－麻痺性貝毒之檢驗(一)",
+    "answer_span": "分別檢測貝肉和中腸腺的毒性。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "如果食品是用塑膠盒和膠膜包裝的，那算不算散裝？",
+    "gold_chunk_id": 463,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "如產品以塑膠盒裝,膠膜密封,符合「包裝食品」之定義,則屬包裝食品。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "我可以在產品包裝上寫不會影響血糖嗎？",
+    "gold_chunk_id": 529,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "產品外包裝標示「不會造成血糖升高」、「不會讓血糖快速飆高」，涉及生理功能，恐有違反前開法規之虞。",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "我想知道食品器具的保存年限是多久呢？",
+    "gold_chunk_id": 10234,
+    "kind": "guide",
+    "document": "食品器具、容器、包裝檢驗方法－塑膠類之檢驗公告",
+    "answer_span": "自即日生效。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "如果我進口的產品還沒賣，如何在店裡銷售呢？",
+    "gold_chunk_id": 16065,
+    "kind": "qa",
+    "document": "應建立食品追溯追蹤系統之食品業者修正規定QA問答集",
+    "answer_span": "行為不涉及不同事業體間之產品所有權轉移,而係直接藉由同一事業體之營業場所或獨立門市出貨給消費者,則可視為販售予一般消費者。",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "如果我想要出口食品，檢驗報告算不算強制檢驗呢？",
+    "gold_chunk_id": 14099,
+    "kind": "qa",
+    "document": "應訂定食品安全監測計畫與應辦理檢驗之食品業者、最低檢驗週期及其他相關事項QA問答集",
+    "answer_span": "則該次抽驗可視為當次應檢頻率之強制檢驗。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "請問塑膠食品包裝的印刷要注意什麼？",
+    "gold_chunk_id": 14612,
+    "kind": "qa",
+    "document": "「食品良好衛生規範準則」Q&A問答集(112年7月修訂)",
+    "answer_span": "應避免油墨移轉或附著於食品接觸面。",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "請問殺力松的安全使用濃度是多少？",
+    "gold_chunk_id": 9287,
+    "kind": "guide",
+    "document": "食品中殘留農藥檢驗方法－多重殘留分析方法(修正總說明及修正對照表)",
+    "answer_span": "0.01 | 0.02 | 0.03",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "請問水產品的定義是什麼呢？",
+    "gold_chunk_id": 3286,
+    "kind": "qa",
+    "document": "食品中微生物衛生標準Q&A",
+    "answer_span": "「水產品(aquatic products)」係廣義包括魚、蝦、貝類、甲殼類等水產動物",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "輸入的食用油脂如果存了半年，還需要再檢驗一次嗎？",
+    "gold_chunk_id": 14087,
+    "kind": "qa",
+    "document": "應訂定食品安全監測計畫與應辦理檢驗之食品業者、最低檢驗週期及其他相關事項QA問答集",
+    "answer_span": "輸入半年後之庫存食用油脂產品,尚無需強制檢驗第2次。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "在製作食用油時添加的助劑需要記錄嗎？",
+    "gold_chunk_id": 15869,
+    "kind": "qa",
+    "document": "應建立食品追溯追蹤系統之食品業者修正規定QA問答集",
+    "answer_span": "該等物質鼓勵製造業者得依「食品及其相關產品追溯追蹤管理辦法」第 4 條規定,自願性留存相關資料備查。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "可以請你解釋一下什麼是危害分析嗎？",
+    "gold_chunk_id": 15188,
+    "kind": "qa",
+    "document": "食品業者之HACCP實務執行QA問答集",
+    "answer_span": "危害分析係指依據已查證之產品描述 、產品預定用途與現場相符之加工流程圖為基礎,、 並在已確定之製造及衛生作業標準下,、 考慮食品自原材料驗收 、 製造 、 加工 、 調配 、 包裝 、 運送 、 貯存等可能影響產品安全之各種危害。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "我想知道怎麼製作CIN培養基，有什麼材料呢？",
+    "gold_chunk_id": 13430,
+    "kind": "guide",
+    "document": "食品微生物之檢驗方法－耶辛尼氏腸炎桿菌之檢驗",
+    "answer_span": "CIN 培養基 (Cefsulodimirgasan novobiocih agar,CIN) 基礎培養基 (basql ffedium & &iR (peptone) 20.0 g 酵母抽出物 (yeast. extract) 2.0g 甘露獲釀 (iiarinit01) 20.0g 丙碳酸銷息 (Sodium pyruvate) 2.0g 氣化名 (NaC1) 1.09 硫酸釦 (MOS0i.7H0) > 10 ma/nL 1.0 mb 洋菜 (agar) 12.0g 蒸餾水 756 m.",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "如果我在超市買到冷凍海產，誰要負責標示呢？",
+    "gold_chunk_id": 460,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "食品外包裝之標示,應由將該食品進行完整包裝之廠商負責",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "請問有哪些工具可以用來滅菌呢？",
+    "gold_chunk_id": 12092,
+    "kind": "guide",
+    "document": "食品微生物之檢驗方法－產氣莢膜桿菌之檢驗(檢驗方法)",
+    "answer_span": "剪刀、藥勺、小刀及鑷子:可滅菌。",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "我想知道鐵葉綠素鈉的外觀是什麼樣的？",
+    "gold_chunk_id": 4131,
+    "kind": "guide",
+    "document": "附表二__食品添加物規格_113.1.1施行(1120810修)",
+    "answer_span": "墨綠色結晶性粉末,無臭或略具特異臭。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "南非的食品進口量是多少呢？",
+    "gold_chunk_id": 6132,
+    "kind": "guide",
+    "document": "(附表)107年乳製品輸入紀錄-檢證範圍",
+    "answer_span": "11,353.56",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "我該如何調製1 N的氫氧化鈉溶液呢？",
+    "gold_chunk_id": 11105,
+    "kind": "guide",
+    "document": "食品器具、容器、包裝檢驗方法－金屬合金類(與食品直接接觸面為金屬合金者)(檢驗方法)",
+    "answer_span": "稱取氫氧化鈉4 g, 以去離子水溶解使成100 mL。",
+    "source": "synthetic",
+    "lcs_with_chunk": 6
+  },
+  {
+    "question": "請問食品添加物廠需要什麼樣的衛生管理人員資格呢？",
+    "gold_chunk_id": 14603,
+    "kind": "qa",
+    "document": "「食品良好衛生規範準則」Q&A問答集(112年7月修訂)",
+    "answer_span": "有關食品衛生管理人員之資格,已規定於食品製造工廠衛生管理人員設置辦法",
+    "source": "synthetic",
+    "lcs_with_chunk": 6
+  },
+  {
+    "question": "請問藍莓裡面使用的殺菌劑標準是什麼？",
+    "gold_chunk_id": 2985,
+    "kind": "standard",
+    "document": "(中文版)農藥殘留容許量標準附表一至附表五_1131300473",
+    "answer_span": "藍莓 0.4 殺菌劑Metconazole 滅特座",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "我想知道檢驗食品中的阪崎腸桿菌需要哪些設備？",
+    "gold_chunk_id": 12819,
+    "kind": "guide",
+    "document": "食品微生物之檢驗方法－阪崎腸桿菌之檢驗(修正總說明及修正對照表)",
+    "answer_span": "2.2.1. 生物安全操作櫃(Biological safety cabinet, BSC):第二等級 (class II)(含)以上者。 2.2.2. 乾熱滅菌器。 2.2.3. 高壓滅菌釜。 2.2.4. 攪拌均質器(Blender)或鐵胃 (Stomacher):適用於無菌操作者。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "如果我做食品代工的話，是否需要保存產品的來源資料呢？",
+    "gold_chunk_id": 16091,
+    "kind": "qa",
+    "document": "食品業者應保存產品原材料、半成品及成品來源文件之種類與期間 QA問答集",
+    "answer_span": "故食品代工業者亦屬食品業者,應依本規定辦理。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "如果我有牛樟芝的健康食品，還需要做什麼檢查嗎？",
+    "gold_chunk_id": 5387,
+    "kind": "qa",
+    "document": "牛樟芝食品管理及標示相關規定問答集",
+    "answer_span": "故該產品尚不違反備查相關規定。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "請問運送食品的公司需要登記嗎？",
+    "gold_chunk_id": 15635,
+    "kind": "qa",
+    "document": "食品業者登錄Q&A問答集(112.08.17)",
+    "answer_span": "是。B公司從事食品運送行為,屬本辦法規範對象。應依法辦理食品業者登錄。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "維生素B6在進口時有什麼規定嗎？",
+    "gold_chunk_id": 6107,
+    "kind": "guide",
+    "document": "附件2-輸入規定508貨品分類號列表",
+    "answer_span": "維生素B6及其衍生物 Vitamin B6 and its derivatives | 809 |",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "如果我進口食品再自己加工，還需要登記嗎？",
+    "gold_chunk_id": 15577,
+    "kind": "qa",
+    "document": "食品業者登錄Q&A問答集(112.08.17)",
+    "answer_span": "若業者輸入食品後自行加工,則該業者同時具有輸入及製造加工行為",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "我想知道人造奶油的油脂含量要多少才符合規定？",
+    "gold_chunk_id": 1825,
+    "kind": "guide",
+    "document": "113年-食品標示法規手冊",
+    "answer_span": "油脂含量達百分之八十以上者。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "我想了解怎麼製作檢量線，有什麼步驟嗎？",
+    "gold_chunk_id": 8794,
+    "kind": "guide",
+    "document": "食品中動物用藥殘留量檢驗方法－抗生素及其代謝物多重殘留分析",
+    "answer_span": "就各抗生素與內部標準品波峰面積比，與對應之各抗生素濃度，分別製作基質匹配檢量線。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "如果我有發酵粉和植物油粉，標示內容要怎麼處理？",
+    "gold_chunk_id": 86,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "綜合蔬果發酵粉、植物油粉，應依上開規定如實展開標示其各別原料名稱",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "如果我用番茄萃取物做產品，標示要怎麼寫呢？",
+    "gold_chunk_id": 87,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "食品應如實標示內容物及食品添加物名稱;其為二種以上混合物時,應依其含量多寡由高至低分別標示之。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "請問殺蟎劑的使用量對於不同水果有什麼差異?",
+    "gold_chunk_id": 3110,
+    "kind": "standard",
+    "document": "(中文版)農藥殘留容許量標準附表一至附表五_1131300473",
+    "answer_span": "殺蟎劑Spirodiclofen 賜派芬 龍眼 0.5 殺蟎劑Spirodiclofen 賜派芬 檸檬 0.5 殺蟎劑Spirodiclofen 賜派芬 蘋果 0.8 殺蟎劑Spirodiclofen 賜派芬 櫻桃 0.8",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "製作餅乾時可以用什麼名稱標示小蘇打嗎?",
+    "gold_chunk_id": 161,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "食品添加物如屬甜味劑、抗氧化劑及防腐劑,應依前揭標準之名稱及用途名稱同時標示之。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "請問海鮮商品的冰包裝有沒有標示規定呢？",
+    "gold_chunk_id": 422,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "目前尚無針對產品包冰方式訂定相關標示規定",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "食品添加物的檢驗報告需要哪些檢驗標準和實驗室嗎？",
+    "gold_chunk_id": 15677,
+    "kind": "qa",
+    "document": "食品業者登錄Q&A問答集(112.08.17)",
+    "answer_span": "檢驗方法應以中央主關機關訂定之檢驗方法或國際間認可之檢驗方法(如JECFA、美國FCC 方法)為之。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "請問螳螂藥對哪些農作物的使用限制是什麼？",
+    "gold_chunk_id": 2989,
+    "kind": "standard",
+    "document": "(中文版)農藥殘留容許量標準附表一至附表五_1131300473",
+    "answer_span": "殺蟲劑Methomyl 納乃得 果菜類 1.0 殺蟲劑Methomyl 納乃得 芫荽 1.0 殺蟲剂Methomyl 納乃得 柑桔類 1.0 殺蟲劑Methomyl 納乃得 風茹草 1.0",
+    "source": "synthetic",
+    "lcs_with_chunk": 0
+  },
+  {
+    "question": "我想知道馬鈴薯的重金屬檢驗規定是什麼？",
+    "gold_chunk_id": 3339,
+    "kind": "standard",
+    "document": "食品中污染物質及毒素衛生標準ＱA (1)",
+    "answer_span": "生鮮馬鈴薯、山藥等塊根及塊莖類作物之重金屬,應依附表一中之「根菜及塊莖類」適用。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "如果我賣給餐廳的產品，還需要標示過敏原嗎？",
+    "gold_chunk_id": 335,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "故產品倘非於市面上直接販售予一般消費者,得不依前開公告規定辦理標示。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "如果我從國外進口一種飲品，標示的產地是在哪裡呢？",
+    "gold_chunk_id": 222,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "沖泡飲品倘在 B 國僅作包裝動作,依前開規定不認定為實質轉型。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "請問有哪一些防腐劑可以使用在食品中呢？",
+    "gold_chunk_id": 8735,
+    "kind": "guide",
+    "document": "食品中抗氧化劑之檢驗方法－多重分析方法",
+    "answer_span": "二丁基羥基甲苯 (BHT), 沒食子酸辛酯 (OG), 沒食子酸十二酯 (DG)",
+    "source": "synthetic",
+    "lcs_with_chunk": 1
+  },
+  {
+    "question": "我該怎麼處理魚肉樣本來檢測一氧化碳的含量？",
+    "gold_chunk_id": 13395,
+    "kind": "guide",
+    "document": "魚肉中一氧化碳之檢驗方法",
+    "answer_span": "取切塊之魚肉 約 60 g, 精確稱定 , 加 入 4C 冰 水 120 g, 於冷卻 狀態下低速 均質 1 分 鐘 , 供作檢體溶液 。",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "我想知道綜合維生素的標示要求是什麼？",
+    "gold_chunk_id": 444,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "食品添加物之容器或外包裝,應標示產品之使用範圍、用量標準及使用限制。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "如果我已經有食品添加物的許可證，還需要再登錄嗎？",
+    "gold_chunk_id": 15640,
+    "kind": "qa",
+    "document": "食品業者登錄Q&A問答集(112.08.17)",
+    "answer_span": "是。但已辦理食品添加物查驗登記者,其查驗登記產品資料會由衛生福利部資料庫移轉至食品藥物業者登錄平台。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "請問最近有關素食標示的規定有沒有更新？",
+    "gold_chunk_id": 4838,
+    "kind": "guide",
+    "document": "修正包裝食品宣稱為素食之標示規定公告掃描檔",
+    "answer_span": "修正 「 包裝食品宣稱為素食之標示 規定 」, 並自即日生效 。",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "請問牛肉裡面允許的加保利殘留量是多少呢？",
+    "gold_chunk_id": 2374,
+    "kind": "standard",
+    "document": "動物產品中農藥殘留容許量標準_1121302471",
+    "answer_span": "肌肉 | 牛、山羊、 綿羊 | 0.2",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "請問布瑞莫這個殺菌劑對哪些水果適用呢？",
+    "gold_chunk_id": 2721,
+    "kind": "standard",
+    "document": "(中文版)農藥殘留容許量標準附表一至附表五_1131300473",
+    "answer_span": "Bupirimate 布瑞莫 西瓜 1.0 殺菌劑Bupirimate 布瑞莫 洋香瓜 1.0 殺菌劑Bupirimate 布瑞莫 香瓜 1.0 殺菌劑Bupirimate 布瑞莫 梨果類 2.0 殺菌劑",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "如果我的產品是全裸麥的話，能不能叫全麥呢？",
+    "gold_chunk_id": 411,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "產品如確實使用全裸麥、全小麥或全大麥作為原料,且其佔配方總重量百分比 51%以上,則產品品名得以標示為「全○○」。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "請問益達胺這個農藥在胡椒上的殘留量是多少？",
+    "gold_chunk_id": 2945,
+    "kind": "standard",
+    "document": "(中文版)農藥殘留容許量標準附表一至附表五_1131300473",
+    "answer_span": "0.05 殺蟲劑Imidacloprid",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "我想知道檢測李斯特菌的PCR產物大小是多少？",
+    "gold_chunk_id": 12930,
+    "kind": "guide",
+    "document": "食品微生物之檢驗方法－食品中單核球增多性李斯特菌之檢驗",
+    "answer_span": "PCR增幅產物大小163 bp",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  },
+  {
+    "question": "未發酵的乳類飲品是用什麼材料做的呢？",
+    "gold_chunk_id": 15126,
+    "kind": "qa",
+    "document": "乳品加工食品業應符合食品安全管制系統準則之規定QA問答集",
+    "answer_span": "以乳粉或濃縮乳,得混合生乳、鮮乳或保久乳為原料,並占總內容物含量 50%以上",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "我想知道哪裡可以查找食品相關的法規呢？",
+    "gold_chunk_id": 5020,
+    "kind": "qa",
+    "document": "包裝食品營養宣稱應遵行事項問答集(113.9.26修正) (1)",
+    "answer_span": "全國法規資料庫 http://law.moj.gov.tw/",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "如果我在餐廳使用進口食品，標示上需要寫些什麼呢？",
+    "gold_chunk_id": 419,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "食品及食品原料之容器或外包裝,應以中文及通用符號,明顯標示下列事項:品名、內容物名稱、淨重、容量或數量、食品添加物名稱、製造廠商或國內負責廠商名稱、電話號碼及地址、原產地(國)、有效日期、營養標示、含基因改造食品原料、其他經中央主管機關公告之事項。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "如果我賣散裝茶葉，是否需要標示原產地呢？",
+    "gold_chunk_id": 7072,
+    "kind": "guide",
+    "document": "113年度食品標示法規說明會講義電子檔",
+    "answer_span": "販售散裝的茶葉 , 無論是否具有公司 登記或商業登記 , 可未品 zth , 具 公司 登記或商業登記之業者販售散裝 茶葉 , 都應標示品名及原產地 。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "我想知道碘的使用濃度限制是什麼？",
+    "gold_chunk_id": 15393,
+    "kind": "standard",
+    "document": "食品用洗潔劑衛生標準",
+    "answer_span": "可滴定碘 25 ppm",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "食品中黴菌毒素的檢驗方法有沒有更新過呢？",
+    "gold_chunk_id": 9788,
+    "kind": "guide",
+    "document": "食品中黴菌毒素檢驗方法－棒麴毒素之檢驗公告",
+    "answer_span": "修正 「 食品中黴菌毒素 檢驗 方法一棒移天素之檢驗 」,並自中華民國一百十一年一月一日生效。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "請問食品業者登記是一定要做的嗎？什麼時候開始的？",
+    "gold_chunk_id": 15492,
+    "kind": "qa",
+    "document": "食品業者登錄Q&A問答集(112.08.17)",
+    "answer_span": "自103年起陸續公告製造加工業、餐飲業、輸入業、販售業及物流業等指定規模之食品業者須依法登錄。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "請問食品裡的銅成分一天最多可以攝取多少？",
+    "gold_chunk_id": 3615,
+    "kind": "guide",
+    "document": "附表一__食品添加物使用範圍及限量_113年1月1日施行_(1120810修)",
+    "answer_span": "其銅之總含量不得高於 8 mg。",
+    "source": "synthetic",
+    "lcs_with_chunk": 2
+  },
+  {
+    "question": "我想知道這種甜味劑的主要成分是什麼？",
+    "gold_chunk_id": 4214,
+    "kind": "guide",
+    "document": "附表二__食品添加物規格_113.1.1施行(1120810修)",
+    "answer_span": "本品含 C H O NNaS 98 %以上(120 °C乾燥 47 4 3小時後定量)。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "如果我在三月退貨，應該怎麼報告這筆交易？",
+    "gold_chunk_id": 15998,
+    "kind": "qa",
+    "document": "應建立食品追溯追蹤系統之食品業者修正規定QA問答集",
+    "answer_span": "原材料 3 月退貨,請至源頭 2 月收貨資料之退貨欄位申報該筆原材料退貨資料。",
+    "source": "synthetic",
+    "lcs_with_chunk": 3
+  },
+  {
+    "question": "我想知道像免疫球蛋白這些東西，能不能當作營養素來標示呢？",
+    "gold_chunk_id": 293,
+    "kind": "qa",
+    "document": "113年-食品標示問答集彙整手冊(未整理到)",
+    "answer_span": "倘非屬「包裝食品營養標示應遵行事項」之問答集所列營養素範疇,不得標示於營養標示欄位內。",
+    "source": "synthetic",
+    "lcs_with_chunk": 5
+  },
+  {
+    "question": "如果我想購買特殊配方食品，有什麼需要注意的嗎？",
+    "gold_chunk_id": 984,
+    "kind": "guide",
+    "document": "113年-食品標示法規指引手冊",
+    "answer_span": "本品屬特定疾病配方食品,不適合一般人食用,須經醫師或營養師指導使用",
+    "source": "synthetic",
+    "lcs_with_chunk": 4
+  }
+]

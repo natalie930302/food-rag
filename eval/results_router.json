@@ -1,0 +1,1554 @@
+{
+  "n": 166,
+  "accuracy": {
+    "point": 0.9759036144578314,
+    "ci95": [
+      0.9518072289156626,
+      0.9939759036144579
+    ]
+  },
+  "per_intent": {
+    "regulation_qa": {
+      "n": 123,
+      "recall": 0.975609756097561
+    },
+    "case_lookup": {
+      "n": 8,
+      "recall": 0.875
+    },
+    "ad_review": {
+      "n": 10,
+      "recall": 1.0
+    },
+    "multi_hop": {
+      "n": 25,
+      "recall": 1.0
+    }
+  },
+  "confusion": {
+    "regulation_qa": {
+      "regulation_qa": 120,
+      "case_lookup": 1,
+      "ad_review": 1,
+      "multi_hop": 1
+    },
+    "case_lookup": {
+      "case_lookup": 7,
+      "multi_hop": 1
+    },
+    "ad_review": {
+      "ad_review": 10
+    },
+    "multi_hop": {
+      "multi_hop": 25
+    }
+  },
+  "by_source": {
+    "rules": {
+      "n": 61,
+      "accuracy": 1.0
+    },
+    "llm": {
+      "n": 105,
+      "accuracy": 0.9619047619047619
+    }
+  },
+  "harmful_errors": 0,
+  "wasteful_errors": 2,
+  "per_question": [
+    {
+      "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "台灣有可能進口到帶有狂牛症風險的牛肉產品嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "賣給餐飲業者的業務用奶精,也要照規定標示品名嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "農產品如果是別人分裝後驗證的,標示追溯來源時要寫誰的資訊?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示追溯來源的規定",
+      "correct": true
+    },
+    {
+      "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "食用油脂原料的檢驗可以用週期性輪替的方式做嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "便利商店賣金針、蘿蔔乾這類產品,可以用週期性輪替檢驗嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "包裝奶精的品名標示新規定,有給業者緩衝期嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "洗碗精配方裡的水算不算是主要成分?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "冬青葉泡的茶湯,可以加進其他茶飲一起賣嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "濃縮果汁還原後算出來超過100%的原汁含有率,該怎麼標示?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "超商賣的餐盒如果有牛肉,需要標示牛肉的原產地嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "粥品裡額外加的水,需要寫在內容物標示裡嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "食品用整箱方式批發賣給中盤商,標示要標在箱子上還是個別包裝上?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示要求的具體規定",
+      "correct": true
+    },
+    {
+      "question": "如果我賣的食品品項有被公告要用電子發票,那我賣的非食品部分也要開電子發票嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問產品成分報告的定義",
+      "correct": true
+    },
+    {
+      "question": "用咖啡葉做的茶飲,需要標示咖啡因含量嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "『非登不可』平台上的產品登錄資訊,規定多久要更新一次?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "食品裡面附玩具一起賣,為什麼需要標示警語?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "裁罰基準裡講的資力加權倍數,『所有違規產品』具體是指什麼?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問規定內容的具體定義",
+      "correct": true
+    },
+    {
+      "question": "食品中有哪些可能會影響健康的危險因素呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問食品中可能影響健康的危險因素",
+      "correct": true
+    },
+    {
+      "question": "食品業者的管制小組需要幾個成員？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢特定規定的成員數量",
+      "correct": true
+    },
+    {
+      "question": "如果我買的果汁標示原汁含量是55%，這樣算不算真的天然果汁呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢果汁標示是否符合天然果汁的規定",
+      "correct": true
+    },
+    {
+      "question": "如果我買了大包裝的食品，想要自己分裝賣，這樣合法嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問分裝食品的合法性",
+      "correct": true
+    },
+    {
+      "question": "如果我想加註填充材料，該如何標示呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示規定的具體做法",
+      "correct": true
+    },
+    {
+      "question": "如果我在進口食品後，還需要負責追蹤嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢進口食品的追蹤責任",
+      "correct": true
+    },
+    {
+      "question": "如果我已經有自己的編碼系統，還需要再建立新的產品編碼嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問是否需要建立新的產品編碼",
+      "correct": true
+    },
+    {
+      "question": "請問這次的罰款標準是怎麼制定的呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "case_lookup",
+      "source": "llm",
+      "reason": "查詢過去的罰款標準",
+      "correct": false
+    },
+    {
+      "question": "請問乙酸的使用濃度上限是多少？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問特定物質的使用規定",
+      "correct": true
+    },
+    {
+      "question": "我想知道食品的檢驗報告要多少錢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問食品檢驗報告的費用",
+      "correct": true
+    },
+    {
+      "question": "如果食品是用塑膠盒和膠膜包裝的，那算不算散裝？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問食品包裝是否算散裝的規定",
+      "correct": true
+    },
+    {
+      "question": "我可以在產品包裝上寫不會影響血糖嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "ad_review",
+      "source": "llm",
+      "reason": "輸入本身像文案,想知道能不能這樣寫",
+      "correct": false
+    },
+    {
+      "question": "如果我想要出口食品，檢驗報告算不算強制檢驗呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問檢驗報告是否為強制檢驗",
+      "correct": true
+    },
+    {
+      "question": "請問塑膠食品包裝的印刷要注意什麼？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問塑膠食品包裝的印刷規定",
+      "correct": true
+    },
+    {
+      "question": "請問水產品的定義是什麼呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問水產品的定義",
+      "correct": true
+    },
+    {
+      "question": "輸入的食用油脂如果存了半年，還需要再檢驗一次嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢食用油脂存放後是否需要再檢驗的規定",
+      "correct": true
+    },
+    {
+      "question": "在製作食用油時添加的助劑需要記錄嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問助劑是否需要記錄的規定",
+      "correct": true
+    },
+    {
+      "question": "可以請你解釋一下什麼是危害分析嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問某個規定的定義",
+      "correct": true
+    },
+    {
+      "question": "如果我在超市買到冷凍海產，誰要負責標示呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示責任的法規",
+      "correct": true
+    },
+    {
+      "question": "請問食品添加物廠需要什麼樣的衛生管理人員資格呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問特定規定的內容",
+      "correct": true
+    },
+    {
+      "question": "如果我做食品代工的話，是否需要保存產品的來源資料呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問是否需要保存產品來源資料的規定",
+      "correct": true
+    },
+    {
+      "question": "如果我有牛樟芝的健康食品，還需要做什麼檢查嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問健康食品的檢查要求",
+      "correct": true
+    },
+    {
+      "question": "請問運送食品的公司需要登記嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問運送食品公司的登記規定",
+      "correct": true
+    },
+    {
+      "question": "如果我進口食品再自己加工，還需要登記嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問進口食品加工後的登記要求",
+      "correct": true
+    },
+    {
+      "question": "我想知道人造奶油的油脂含量要多少才符合規定？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢人造奶油的油脂含量規定",
+      "correct": true
+    },
+    {
+      "question": "如果我有發酵粉和植物油粉，標示內容要怎麼處理？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示內容的處理方式",
+      "correct": true
+    },
+    {
+      "question": "如果我用番茄萃取物做產品，標示要怎麼寫呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示要求，涉及法規查詢",
+      "correct": true
+    },
+    {
+      "question": "製作餅乾時可以用什麼名稱標示小蘇打嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "請問海鮮商品的冰包裝有沒有標示規定呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問特定商品的標示規定",
+      "correct": true
+    },
+    {
+      "question": "食品添加物的檢驗報告需要哪些檢驗標準和實驗室嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問食品添加物檢驗報告的標準和實驗室要求",
+      "correct": true
+    },
+    {
+      "question": "我想知道馬鈴薯的重金屬檢驗規定是什麼？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢特定食品的檢驗規定",
+      "correct": true
+    },
+    {
+      "question": "如果我賣給餐廳的產品，還需要標示過敏原嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示過敏原的規定",
+      "correct": true
+    },
+    {
+      "question": "如果我從國外進口一種飲品，標示的產地是在哪裡呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示產地的規定",
+      "correct": true
+    },
+    {
+      "question": "我想知道綜合維生素的標示要求是什麼？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示要求的具體規定",
+      "correct": true
+    },
+    {
+      "question": "如果我已經有食品添加物的許可證，還需要再登錄嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問是否需要再登錄的法規問題",
+      "correct": true
+    },
+    {
+      "question": "請問牛肉裡面允許的加保利殘留量是多少呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢牛肉中加保利的允許殘留量",
+      "correct": true
+    },
+    {
+      "question": "如果我的產品是全裸麥的話，能不能叫全麥呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問產品名稱是否符合規定",
+      "correct": true
+    },
+    {
+      "question": "請問益達胺這個農藥在胡椒上的殘留量是多少？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢農藥殘留量的法規",
+      "correct": true
+    },
+    {
+      "question": "我想知道檢測李斯特菌的PCR產物大小是多少？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢特定檢測規定",
+      "correct": true
+    },
+    {
+      "question": "未發酵的乳類飲品是用什麼材料做的呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問未發酵乳類飲品的材料屬於法規範疇",
+      "correct": true
+    },
+    {
+      "question": "我想知道哪裡可以查找食品相關的法規呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢法規來源的問題",
+      "correct": true
+    },
+    {
+      "question": "如果我在餐廳使用進口食品，標示上需要寫些什麼呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問進口食品標示要求",
+      "correct": true
+    },
+    {
+      "question": "我想知道碘的使用濃度限制是什麼？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢碘的使用濃度限制",
+      "correct": true
+    },
+    {
+      "question": "請問食品業者登記是一定要做的嗎？什麼時候開始的？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問食品業者登記的必要性及開始時間",
+      "correct": true
+    },
+    {
+      "question": "請問食品裡的銅成分一天最多可以攝取多少？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問食品中銅成分的攝取上限",
+      "correct": true
+    },
+    {
+      "question": "如果我在三月退貨，應該怎麼報告這筆交易？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "multi_hop",
+      "source": "llm",
+      "reason": "需要查詢退貨報告的規定和相關案例",
+      "correct": false
+    },
+    {
+      "question": "我想知道像免疫球蛋白這些東西，能不能當作營養素來標示呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示規定是否允許",
+      "correct": true
+    },
+    {
+      "question": "如果我想購買特殊配方食品，有什麼需要注意的嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問特殊配方食品的注意事項，涉及法規查詢",
+      "correct": true
+    },
+    {
+      "question": "進口的肉類產品包裝上需要有中文標籤嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "如果我在網路上訂購食品，多久會收到貨呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問食品訂購的交貨時間",
+      "correct": true
+    },
+    {
+      "question": "我想知道文件保存五年的規定是怎麼算的，什麼時候開始算呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問文件保存期限的規定及計算方式",
+      "correct": true
+    },
+    {
+      "question": "豆腐裡面如果加了消泡劑，要怎麼標示呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示規定",
+      "correct": true
+    },
+    {
+      "question": "如果我在登錄平台遇到錯誤，可以怎麼反映問題？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問登錄平台的問題反映方式",
+      "correct": true
+    },
+    {
+      "question": "為什麼進口食品的業者要自己建立追蹤系統呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問進口食品業者建立追蹤系統的原因，涉及法規要求",
+      "correct": true
+    },
+    {
+      "question": "如果我的食品公司被驗證了，但後來違反了食安法，會怎麼處理？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問違反食安法的處理方式",
+      "correct": true
+    },
+    {
+      "question": "請問驗證的收費流程是怎麼樣的？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問特定規定的流程",
+      "correct": true
+    },
+    {
+      "question": "如果我用豬油，肉品種類要怎麼選呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問豬油使用的肉品種類規定",
+      "correct": true
+    },
+    {
+      "question": "牛的哪個部位會有牛海綿狀腦病的病原呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問特定疾病相關的食品安全規定",
+      "correct": true
+    },
+    {
+      "question": "我想知道進口的自有品牌美耐皿產品要怎麼登錄材質？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢進口自有品牌美耐皿產品的登錄規定",
+      "correct": true
+    },
+    {
+      "question": "我想知道餐盒食品需要做哪些檢驗呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問餐盒食品的檢驗規定",
+      "correct": true
+    },
+    {
+      "question": "請問如果是完整包裝的生鮮食品，標示上需要注意什麼呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示要求的具體規定",
+      "correct": true
+    },
+    {
+      "question": "沙茶醬的油跟固形物是怎麼分類的呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢沙茶醬的成分分類規定",
+      "correct": true
+    },
+    {
+      "question": "如果我有調合油，品名要怎麼標示才符合規定呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示規定的具體要求",
+      "correct": true
+    },
+    {
+      "question": "如果我想知道哪些澱粉產品需要驗證，該怎麼查?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "如果我賣的禮盒裡有不同有效日期的產品，該怎麼標示？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示規定",
+      "correct": true
+    },
+    {
+      "question": "我可以在食品包裝上用英文字母標示重量和容量嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢標示規定",
+      "correct": true
+    },
+    {
+      "question": "我可以把一般食品標示為保健食品嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示規定是否允許",
+      "correct": true
+    },
+    {
+      "question": "如果我有一種果汁，主要是葡萄，這樣的標示合不合法呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示合法性",
+      "correct": true
+    },
+    {
+      "question": "我想進口食品添加物，有什麼特別的注意事項嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問進口食品添加物的注意事項",
+      "correct": true
+    },
+    {
+      "question": "請問碳酸飲料的外包裝需要標示氮氣或液態氮嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢碳酸飲料外包裝標示要求",
+      "correct": true
+    },
+    {
+      "question": "請問黑木耳和香菇需要按照什麼標準來標示嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "如果飲料裡面有香料和乳糖，我需要標示過敏原嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示過敏原的規定",
+      "correct": true
+    },
+    {
+      "question": "請問冷凍蔬菜產品要有營養標示嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問冷凍蔬菜產品是否需要營養標示",
+      "correct": true
+    },
+    {
+      "question": "如果我在國外買的添加物是藥品，回台灣能用嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問添加物的使用規定",
+      "correct": true
+    },
+    {
+      "question": "雞蛋產品需要標示生產系統嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示要求的具體規定",
+      "correct": true
+    },
+    {
+      "question": "如果產品裡面有香料，這些香料需要詳細列出嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢香料標示規定",
+      "correct": true
+    },
+    {
+      "question": "如果我標示產品為「北蟲草」，這樣會不會違法呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問標示是否違法",
+      "correct": true
+    },
+    {
+      "question": "如果我在產品裡加了二氧化碳，包裝上需要標示嗎？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問是否需要標示二氧化碳的規定",
+      "correct": true
+    },
+    {
+      "question": "我如果要進口茶葉，需滿足什麼條件呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "查詢進口茶葉的相關規定",
+      "correct": true
+    },
+    {
+      "question": "我可以把我的產品名稱改成營養素的名字嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "如果我有多家店，文件該怎麼保存呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問文件保存的規定",
+      "correct": true
+    },
+    {
+      "question": "請問牛海綿狀腦病的風險等級是怎麼劃分的呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問風險等級劃分的規定",
+      "correct": true
+    },
+    {
+      "question": "如果我賣茶包，是否需要標示營養成分呢？",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問是否需要標示營養成分",
+      "correct": true
+    },
+    {
+      "question": "我們是一家小型食品進口商，應該怎麼建立追蹤系統?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問如何建立追蹤系統，涉及法規要求",
+      "correct": true
+    },
+    {
+      "question": "廠商只是把幾種原料包在一起、包裝完全沒變,這樣算是有動到食品的製程嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "如果我只是把東西重新分裝,不算是真正在做食品加工吧?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "紅麴膠囊這種東西,官方是怎麼歸類的?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問官方對紅麴膠囊的歸類",
+      "correct": true
+    },
+    {
+      "question": "營養標示上寫的份數,可以有小數點嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "如果我又做食品添加物又做一般食品輸入,登記資料要分兩份填嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "自己工廠內部用的半成品,沒有拿出去賣,也要跟政府報備嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "得了B肝的人還能在食品業工作嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "要當食品安全管制的窗口,需要上過什麼課嗎?",
+      "intent": "regulation_qa",
+      "set": "single-hop",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "網路上賣益生菌說能「提升免疫力」,這樣違反哪一條?過去實際有人因此被罰嗎、罰多少?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "健康食品的廣告如果講超過核准的保健功效,法源是哪條?台北市有開罰過的案例嗎?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "電視購物賣葉黃素說可以「改善視力」,會依什麼規定處理?實務上罰款大概是多少?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "llm",
+      "reason": "同時要法規依據「和」實際案例/罰款金額",
+      "correct": true
+    },
+    {
+      "question": "減肥產品廣告宣稱「一週瘦五公斤」,違規的話依據哪條?罰過的案例金額落在哪個範圍?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "廣播節目裡說某酵素可以「排毒瘦身」,法規怎麼看?有沒有實際裁罰紀錄?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "食安法第28條常常跟哪些其他條文一起被引用?那些關聯條文各自在管什麼?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "問到法條之間的關聯,只有 agent 的 search_related_laws 能查",
+      "correct": true
+    },
+    {
+      "question": "標示違規(第22條)通常會連動到哪些條文?罰則是哪一條?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "問到法條之間的關聯,只有 agent 的 search_related_laws 能查",
+      "correct": true
+    },
+    {
+      "question": "說膠原蛋白飲可以「美白抗老」,這種廣告會不會出事?有被罰過的例子嗎?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "llm",
+      "reason": "同時詢問廣告合規性和過去的罰款案例",
+      "correct": true
+    },
+    {
+      "question": "我在臉書粉專分享自家產品「調節血糖」的顧客見證文,這算廣告嗎?有人因為這樣被罰嗎?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "llm",
+      "reason": "詢問廣告性質及相關罰款案例",
+      "correct": true
+    },
+    {
+      "question": "宣稱「醫療效能」跟「誇張易生誤解」的罰則差在哪?從實際案例看金額差多少?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "更年期保健食品廣告寫「改善熱潮紅」,合法嗎?罰過的案例大概多少錢?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "賣蝦紅素說可以「保護眼睛、抗疲勞」,依法會怎樣?北市裁罰紀錄裡有類似的嗎?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "llm",
+      "reason": "同時要法規依據和實際案例/罰款金額",
+      "correct": true
+    },
+    {
+      "question": "違反第28條的罰款上限是多少?裁罰紀錄裡最高實際罰過多少?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "健康食品管理法第14條跟食安法第28條差在哪?兩種案例的罰款各是多少?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "電商平台上的代言人推薦文如果誇大功效,平台或刊登者會被罰嗎?依哪條?有實際案例嗎?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "產品名稱用「纖」「孅」暗示瘦身,標示上算違規嗎?有沒有這類產品被罰過?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "llm",
+      "reason": "同時詢問標示是否違規和過去的罰款案例",
+      "correct": true
+    },
+    {
+      "question": "廣告說「無副作用」「純天然安全」算不算誇張易生誤解?過去案例怎麼罰?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "llm",
+      "reason": "同時詢問廣告內容的合規性和過去的罰款案例",
+      "correct": true
+    },
+    {
+      "question": "藥膳調理包廣告講「改善體質」,是食品廣告違規嗎?台北市有相關裁罰嗎?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "llm",
+      "reason": "同時詢問廣告規範和相關裁罰案例",
+      "correct": true
+    },
+    {
+      "question": "保健品廣告說「補腎壯陽」,違反哪些規定?類似案例罰多少?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "食安法第22條的標示規定跟第28條的廣告規定,在什麼情況下會一起被引用?",
+      "intent": "multi_hop",
+      "set": "multi-hop",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "問到法條之間的關聯,只有 agent 的 search_related_laws 能查",
+      "correct": true
+    },
+    {
+      "question": "本產品有效改善高血壓,三天見效",
+      "intent": "ad_review",
+      "set": "router-set",
+      "predicted": "ad_review",
+      "source": "llm",
+      "reason": "輸入本身像文案,不是問句",
+      "correct": true
+    },
+    {
+      "question": "喝了這瓶膠原蛋白,一週肌膚回到二十歲!",
+      "intent": "ad_review",
+      "set": "router-set",
+      "predicted": "ad_review",
+      "source": "llm",
+      "reason": "輸入本身像文案,涉及宣稱效果",
+      "correct": true
+    },
+    {
+      "question": "幫我審這段文案:天然酵素,排毒瘦身,無副作用",
+      "intent": "ad_review",
+      "set": "router-set",
+      "predicted": "ad_review",
+      "source": "rules",
+      "reason": "使用者拿文案來審",
+      "correct": true
+    },
+    {
+      "question": "「補腦益智、增強記憶力」這句放在包裝上可以嗎?",
+      "intent": "ad_review",
+      "set": "router-set",
+      "predicted": "ad_review",
+      "source": "rules",
+      "reason": "使用者拿文案來審",
+      "correct": true
+    },
+    {
+      "question": "葉黃素軟膠囊——守護視力、告別乾澀,醫師推薦",
+      "intent": "ad_review",
+      "set": "router-set",
+      "predicted": "ad_review",
+      "source": "llm",
+      "reason": "輸入本身像文案,想知道能不能這樣寫",
+      "correct": true
+    },
+    {
+      "question": "我們廣告想寫「有助於維持免疫系統正常運作」,這樣寫可以嗎?",
+      "intent": "ad_review",
+      "set": "router-set",
+      "predicted": "ad_review",
+      "source": "rules",
+      "reason": "使用者拿文案來審",
+      "correct": true
+    },
+    {
+      "question": "益生菌 X 幫你調整體質、遠離過敏",
+      "intent": "ad_review",
+      "set": "router-set",
+      "predicted": "ad_review",
+      "source": "llm",
+      "reason": "輸入本身像文案,想知道能不能這樣寫",
+      "correct": true
+    },
+    {
+      "question": "這則廣告有問題嗎:純天然草本,降血糖不用吃藥",
+      "intent": "ad_review",
+      "set": "router-set",
+      "predicted": "ad_review",
+      "source": "rules",
+      "reason": "使用者拿文案來審",
+      "correct": true
+    },
+    {
+      "question": "檢查這段:本品經臨床實證,可預防骨質疏鬆",
+      "intent": "ad_review",
+      "set": "router-set",
+      "predicted": "ad_review",
+      "source": "rules",
+      "reason": "使用者拿文案來審",
+      "correct": true
+    },
+    {
+      "question": "「輕鬆瘦,躺著也能燃脂」——這句話可以放在網頁上嗎?",
+      "intent": "ad_review",
+      "set": "router-set",
+      "predicted": "ad_review",
+      "source": "rules",
+      "reason": "使用者拿文案來審",
+      "correct": true
+    },
+    {
+      "question": "最近有哪些葉黃素廣告被罰?",
+      "intent": "case_lookup",
+      "set": "router-set",
+      "predicted": "case_lookup",
+      "source": "llm",
+      "reason": "只想找過去的裁罰案例、罰款紀錄",
+      "correct": true
+    },
+    {
+      "question": "台北市今年罰過哪些減肥產品的廣告?",
+      "intent": "case_lookup",
+      "set": "router-set",
+      "predicted": "case_lookup",
+      "source": "llm",
+      "reason": "只想找過去的裁罰案例",
+      "correct": true
+    },
+    {
+      "question": "電視購物的保健食品廣告有裁罰紀錄嗎?",
+      "intent": "case_lookup",
+      "set": "router-set",
+      "predicted": "case_lookup",
+      "source": "llm",
+      "reason": "尋找過去的裁罰案例",
+      "correct": true
+    },
+    {
+      "question": "有沒有膠原蛋白飲被開罰的案例?",
+      "intent": "case_lookup",
+      "set": "router-set",
+      "predicted": "case_lookup",
+      "source": "llm",
+      "reason": "只想找過去的裁罰案例、罰款紀錄",
+      "correct": true
+    },
+    {
+      "question": "健康食品廣告違規的處分案例,罰款大概都多少?",
+      "intent": "case_lookup",
+      "set": "router-set",
+      "predicted": "multi_hop",
+      "source": "llm",
+      "reason": "同時要法規依據和實際案例/罰款金額",
+      "correct": false
+    },
+    {
+      "question": "廣播電台宣播的食品廣告被罰過嗎?",
+      "intent": "case_lookup",
+      "set": "router-set",
+      "predicted": "case_lookup",
+      "source": "llm",
+      "reason": "只想找過去的裁罰案例",
+      "correct": true
+    },
+    {
+      "question": "找一下網紅代言保健品被裁罰的紀錄",
+      "intent": "case_lookup",
+      "set": "router-set",
+      "predicted": "case_lookup",
+      "source": "llm",
+      "reason": "只想找過去的裁罰案例、罰款紀錄",
+      "correct": true
+    },
+    {
+      "question": "更年期保健品的廣告有被罰的案例嗎?",
+      "intent": "case_lookup",
+      "set": "router-set",
+      "predicted": "case_lookup",
+      "source": "llm",
+      "reason": "尋找過去的裁罰案例",
+      "correct": true
+    },
+    {
+      "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
+      "intent": "regulation_qa",
+      "set": "router-set",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "真空包裝豆干要符合什麼規定?",
+      "intent": "regulation_qa",
+      "set": "router-set",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "食品業者登錄是強制的嗎?",
+      "intent": "regulation_qa",
+      "set": "router-set",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "我想進口茶葉,需要辦什麼登記?",
+      "intent": "regulation_qa",
+      "set": "router-set",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "營養標示的份數可以有小數點嗎?",
+      "intent": "regulation_qa",
+      "set": "router-set",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "餐盒食品要做哪些檢驗?",
+      "intent": "regulation_qa",
+      "set": "router-set",
+      "predicted": "regulation_qa",
+      "source": "llm",
+      "reason": "詢問特定規定的檢驗要求",
+      "correct": true
+    },
+    {
+      "question": "冷凍蔬菜要不要營養標示?",
+      "intent": "regulation_qa",
+      "set": "router-set",
+      "predicted": "regulation_qa",
+      "source": "rules",
+      "reason": "單純問規定",
+      "correct": true
+    },
+    {
+      "question": "食安法第22條的標示規定跟第28條的廣告規定,什麼情況會一起被引用?",
+      "intent": "multi_hop",
+      "set": "router-set",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "問到法條之間的關聯,只有 agent 的 search_related_laws 能查",
+      "correct": true
+    },
+    {
+      "question": "標示違規通常會連動到哪些條文?罰則是哪一條?",
+      "intent": "multi_hop",
+      "set": "router-set",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "問到法條之間的關聯,只有 agent 的 search_related_laws 能查",
+      "correct": true
+    },
+    {
+      "question": "宣稱能改善視力違反哪條?罰過的案例大概多少錢?",
+      "intent": "multi_hop",
+      "set": "router-set",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    },
+    {
+      "question": "臉書分享顧客見證文算廣告嗎?有人因為這樣被罰嗎?",
+      "intent": "multi_hop",
+      "set": "router-set",
+      "predicted": "multi_hop",
+      "source": "llm",
+      "reason": "同時要法規依據「和」實際案例/罰款金額",
+      "correct": true
+    },
+    {
+      "question": "違反第28條的罰款上限是多少?實際最高罰過多少?",
+      "intent": "multi_hop",
+      "set": "router-set",
+      "predicted": "multi_hop",
+      "source": "rules",
+      "reason": "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索",
+      "correct": true
+    }
+  ]
+}

@@ -34,6 +34,14 @@ def test_query_validates_request_before_touching_models():
     assert c.post("/query", json={"question": "x", "max_seconds": 1}).status_code == 422  # 低於下限 5
 
 
+def test_api_prefix_is_an_alias_for_the_same_routes():
+    """後端直接供應前端 build 時,前端打的是 /api/...;必須跟 /... 行為一致(不是 404/405)。"""
+    c = _client()
+    assert c.post("/api/query", json={}).status_code == 422
+    assert c.post("/api/query", json={"question": "x", "force_intent": "nope"}).status_code == 422
+    assert c.get("/api/stats").status_code == 404      # 舊端點在別名下一樣不存在
+
+
 def test_openapi_lists_only_two_feature_endpoints():
     paths = _client().get("/openapi.json").json()["paths"]
     feature = {p for p in paths if p in ("/query", "/health")}

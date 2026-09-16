@@ -244,6 +244,16 @@ def serve_file(file_path: str):
     return FileResponse(full_path, filename=full_path.name)
 
 
+@app.middleware("http")
+async def strip_api_prefix(request, call_next):
+    """前端不管由 Vite dev server(proxy /api → 8000 並去掉前綴)還是由本服務直接供應(下方 StaticFiles),
+    都打 /api/...;這裡把前綴去掉,讓兩種部署方式打到同一組路由,不必維護兩份路徑。"""
+    path = request.scope.get("path", "")
+    if path == "/api" or path.startswith("/api/"):
+        request.scope["path"] = path[4:] or "/"
+    return await call_next(request)
+
+
 _UI_DIST = PROJECT_ROOT / "ui_dist"
 if not _UI_DIST.exists():
     _UI_DIST = PROJECT_ROOT.parent / "food-rag-ui" / "dist"

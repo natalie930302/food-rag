@@ -7,11 +7,11 @@
       0.8611111111111112,
       0.9629629629629629
     ],
-    "drift_detected_count": 25,
+    "drift_detected_count": 24,
     "avg_tool_calls": 1.07,
     "multi_step_count": 3,
     "hit_tool_call_limit": 2,
-    "avg_latency_s": 31.5,
+    "avg_latency_s": 18.6,
     "per_question": [
       {
         "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
@@ -25,11 +25,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 33.8
+        "elapsed_s": 29.1
       },
       {
         "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
-        "gold": 15667,
+        "gold": 15700,
         "source": "manual",
         "hit": true,
         "grounded": true,
@@ -39,7 +39,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 41.0
+        "elapsed_s": 23.1
       },
       {
         "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
@@ -53,7 +53,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 21.3
+        "elapsed_s": 17.2
       },
       {
         "question": "台灣有可能進口到帶有狂牛症風險的牛肉產品嗎?",
@@ -67,11 +67,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 22.6
+        "elapsed_s": 18.3
       },
       {
         "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
-        "gold": 4354,
+        "gold": 4353,
         "source": "manual",
         "hit": true,
         "grounded": true,
@@ -81,7 +81,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 43.8
+        "elapsed_s": 30.5
       },
       {
         "question": "賣給餐飲業者的業務用奶精,也要照規定標示品名嗎?",
@@ -95,7 +95,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 21.9
+        "elapsed_s": 15.9
       },
       {
         "question": "農產品如果是別人分裝後驗證的,標示追溯來源時要寫誰的資訊?",
@@ -109,11 +109,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 19.0
+        "elapsed_s": 14.9
       },
       {
         "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
-        "gold": 13493,
+        "gold": 13609,
         "source": "manual",
         "hit": true,
         "grounded": true,
@@ -123,7 +123,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.5
+        "elapsed_s": 17.9
       },
       {
         "question": "食用油脂原料的檢驗可以用週期性輪替的方式做嗎?",
@@ -137,7 +137,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 29.3
+        "elapsed_s": 18.6
       },
       {
         "question": "便利商店賣金針、蘿蔔乾這類產品,可以用週期性輪替檢驗嗎?",
@@ -151,7 +151,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 45.0
+        "elapsed_s": 30.0
       },
       {
         "question": "包裝奶精的品名標示新規定,有給業者緩衝期嗎?",
@@ -165,7 +165,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 28.8
+        "elapsed_s": 14.4
       },
       {
         "question": "洗碗精配方裡的水算不算是主要成分?",
@@ -179,7 +179,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 34.7
+        "elapsed_s": 17.3
       },
       {
         "question": "冬青葉泡的茶湯,可以加進其他茶飲一起賣嗎?",
@@ -193,11 +193,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 21.1
+        "elapsed_s": 14.2
       },
       {
         "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
-        "gold": 15569,
+        "gold": 15602,
         "source": "manual",
         "hit": true,
         "grounded": true,
@@ -207,7 +207,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 19.1
+        "elapsed_s": 13.8
       },
       {
         "question": "濃縮果汁還原後算出來超過100%的原汁含有率,該怎麼標示?",
@@ -221,7 +221,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 22.9
+        "elapsed_s": 14.8
       },
       {
         "question": "超商賣的餐盒如果有牛肉,需要標示牛肉的原產地嗎?",
@@ -235,7 +235,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 35.3
+        "elapsed_s": 20.4
       },
       {
         "question": "粥品裡額外加的水,需要寫在內容物標示裡嗎?",
@@ -249,7 +249,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.4
+        "elapsed_s": 17.5
       },
       {
         "question": "食品用整箱方式批發賣給中盤商,標示要標在箱子上還是個別包裝上?",
@@ -263,7 +263,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 23.5
+        "elapsed_s": 13.4
       },
       {
         "question": "如果我賣的食品品項有被公告要用電子發票,那我賣的非食品部分也要開電子發票嗎?",
@@ -277,11 +277,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 24.9
+        "elapsed_s": 15.9
       },
       {
         "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
-        "gold": 6172,
+        "gold": 6173,
         "source": "manual",
         "hit": true,
         "grounded": true,
@@ -291,7 +291,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 24.8
+        "elapsed_s": 15.0
       },
       {
         "question": "用咖啡葉做的茶飲,需要標示咖啡因含量嗎?",
@@ -305,7 +305,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 35.5
+        "elapsed_s": 20.0
       },
       {
         "question": "『非登不可』平台上的產品登錄資訊,規定多久要更新一次?",
@@ -319,7 +319,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 25.2
+        "elapsed_s": 15.8
       },
       {
         "question": "食品裡面附玩具一起賣,為什麼需要標示警語?",
@@ -333,7 +333,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.8
+        "elapsed_s": 17.0
       },
       {
         "question": "裁罰基準裡講的資力加權倍數,『所有違規產品』具體是指什麼?",
@@ -347,7 +347,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 33.1
+        "elapsed_s": 18.6
       },
       {
         "question": "食品中有哪些可能會影響健康的危險因素呢？",
@@ -361,7 +361,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.1
+        "elapsed_s": 16.8
       },
       {
         "question": "食品業者的管制小組需要幾個成員？",
@@ -375,7 +375,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 28.9
+        "elapsed_s": 16.8
       },
       {
         "question": "如果我買的果汁標示原汁含量是55%，這樣算不算真的天然果汁呢？",
@@ -389,7 +389,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 22.8
+        "elapsed_s": 14.4
       },
       {
         "question": "如果我買了大包裝的食品，想要自己分裝賣，這樣合法嗎？",
@@ -403,7 +403,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 33.0
+        "elapsed_s": 18.6
       },
       {
         "question": "如果我想加註填充材料，該如何標示呢？",
@@ -417,7 +417,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.3
+        "elapsed_s": 17.3
       },
       {
         "question": "如果我在進口食品後，還需要負責追蹤嗎？",
@@ -431,7 +431,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.2
+        "elapsed_s": 17.7
       },
       {
         "question": "如果我已經有自己的編碼系統，還需要再建立新的產品編碼嗎？",
@@ -445,7 +445,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.4
+        "elapsed_s": 17.3
       },
       {
         "question": "請問這次的罰款標準是怎麼制定的呢？",
@@ -459,7 +459,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 36.0
+        "elapsed_s": 18.7
       },
       {
         "question": "請問乙酸的使用濃度上限是多少？",
@@ -473,7 +473,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.9
+        "elapsed_s": 18.1
       },
       {
         "question": "我想知道食品的檢驗報告要多少錢？",
@@ -487,7 +487,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 22.4
+        "elapsed_s": 14.4
       },
       {
         "question": "如果食品是用塑膠盒和膠膜包裝的，那算不算散裝？",
@@ -501,7 +501,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 32.7
+        "elapsed_s": 17.8
       },
       {
         "question": "我可以在產品包裝上寫不會影響血糖嗎？",
@@ -515,7 +515,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 29.8
+        "elapsed_s": 17.7
       },
       {
         "question": "如果我想要出口食品，檢驗報告算不算強制檢驗呢？",
@@ -529,7 +529,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 23.7
+        "elapsed_s": 13.7
       },
       {
         "question": "請問塑膠食品包裝的印刷要注意什麼？",
@@ -543,7 +543,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.9
+        "elapsed_s": 20.0
       },
       {
         "question": "請問水產品的定義是什麼呢？",
@@ -557,7 +557,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 46.3
+        "elapsed_s": 25.5
       },
       {
         "question": "輸入的食用油脂如果存了半年，還需要再檢驗一次嗎？",
@@ -571,7 +571,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 32.2
+        "elapsed_s": 17.9
       },
       {
         "question": "在製作食用油時添加的助劑需要記錄嗎？",
@@ -585,7 +585,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 34.3
+        "elapsed_s": 17.8
       },
       {
         "question": "可以請你解釋一下什麼是危害分析嗎？",
@@ -599,7 +599,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 34.2
+        "elapsed_s": 18.0
       },
       {
         "question": "如果我在超市買到冷凍海產，誰要負責標示呢？",
@@ -613,7 +613,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 27.3
+        "elapsed_s": 17.2
       },
       {
         "question": "請問食品添加物廠需要什麼樣的衛生管理人員資格呢？",
@@ -627,11 +627,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 43.4
+        "elapsed_s": 25.4
       },
       {
         "question": "如果我做食品代工的話，是否需要保存產品的來源資料呢？",
-        "gold": 16091,
+        "gold": 16092,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -641,7 +641,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.1
+        "elapsed_s": 17.7
       },
       {
         "question": "如果我有牛樟芝的健康食品，還需要做什麼檢查嗎？",
@@ -655,25 +655,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 36.9
+        "elapsed_s": 21.4
       },
       {
         "question": "請問運送食品的公司需要登記嗎？",
-        "gold": 15635,
-        "source": "synthetic",
-        "hit": true,
-        "grounded": true,
-        "query_drift_detected": true,
-        "tool_calls_used": 1,
-        "hit_tool_call_limit": false,
-        "tools": [
-          "search_regulations"
-        ],
-        "elapsed_s": 15.9
-      },
-      {
-        "question": "如果我進口食品再自己加工，還需要登記嗎？",
-        "gold": 15577,
+        "gold": 15668,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -683,7 +669,21 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 27.8
+        "elapsed_s": 13.9
+      },
+      {
+        "question": "如果我進口食品再自己加工，還需要登記嗎？",
+        "gold": 15610,
+        "source": "synthetic",
+        "hit": true,
+        "grounded": true,
+        "query_drift_detected": false,
+        "tool_calls_used": 1,
+        "hit_tool_call_limit": false,
+        "tools": [
+          "search_regulations"
+        ],
+        "elapsed_s": 16.7
       },
       {
         "question": "我想知道人造奶油的油脂含量要多少才符合規定？",
@@ -697,7 +697,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.0
+        "elapsed_s": 16.8
       },
       {
         "question": "如果我有發酵粉和植物油粉，標示內容要怎麼處理？",
@@ -711,7 +711,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 40.7
+        "elapsed_s": 22.5
       },
       {
         "question": "如果我用番茄萃取物做產品，標示要怎麼寫呢？",
@@ -725,7 +725,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 32.3
+        "elapsed_s": 18.3
       },
       {
         "question": "製作餅乾時可以用什麼名稱標示小蘇打嗎?",
@@ -739,7 +739,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 33.3
+        "elapsed_s": 18.5
       },
       {
         "question": "請問海鮮商品的冰包裝有沒有標示規定呢？",
@@ -753,11 +753,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.5
+        "elapsed_s": 18.2
       },
       {
         "question": "食品添加物的檢驗報告需要哪些檢驗標準和實驗室嗎？",
-        "gold": 15677,
+        "gold": 15710,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -767,7 +767,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 40.6
+        "elapsed_s": 22.9
       },
       {
         "question": "我想知道馬鈴薯的重金屬檢驗規定是什麼？",
@@ -781,7 +781,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 41.7
+        "elapsed_s": 24.1
       },
       {
         "question": "如果我賣給餐廳的產品，還需要標示過敏原嗎？",
@@ -795,7 +795,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.8
+        "elapsed_s": 19.4
       },
       {
         "question": "如果我從國外進口一種飲品，標示的產地是在哪裡呢？",
@@ -809,7 +809,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 29.7
+        "elapsed_s": 16.5
       },
       {
         "question": "我想知道綜合維生素的標示要求是什麼？",
@@ -823,11 +823,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 38.4
+        "elapsed_s": 23.5
       },
       {
         "question": "如果我已經有食品添加物的許可證，還需要再登錄嗎？",
-        "gold": 15640,
+        "gold": 15673,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -837,7 +837,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 43.8
+        "elapsed_s": 24.3
       },
       {
         "question": "請問牛肉裡面允許的加保利殘留量是多少呢？",
@@ -854,7 +854,7 @@
           "search_regulations",
           "search_regulations"
         ],
-        "elapsed_s": 61.9
+        "elapsed_s": 36.6
       },
       {
         "question": "如果我的產品是全裸麥的話，能不能叫全麥呢？",
@@ -868,11 +868,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.6
+        "elapsed_s": 17.0
       },
       {
         "question": "請問益達胺這個農藥在胡椒上的殘留量是多少？",
-        "gold": 2945,
+        "gold": 2956,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -882,7 +882,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.8
+        "elapsed_s": 18.5
       },
       {
         "question": "我想知道檢測李斯特菌的PCR產物大小是多少？",
@@ -896,7 +896,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.5
+        "elapsed_s": 16.6
       },
       {
         "question": "未發酵的乳類飲品是用什麼材料做的呢？",
@@ -910,11 +910,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.8
+        "elapsed_s": 17.3
       },
       {
         "question": "我想知道哪裡可以查找食品相關的法規呢？",
-        "gold": 5020,
+        "gold": 5023,
         "source": "synthetic",
         "hit": false,
         "grounded": true,
@@ -924,7 +924,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 21.4
+        "elapsed_s": 13.0
       },
       {
         "question": "如果我在餐廳使用進口食品，標示上需要寫些什麼呢？",
@@ -938,7 +938,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 29.7
+        "elapsed_s": 16.6
       },
       {
         "question": "我想知道碘的使用濃度限制是什麼？",
@@ -952,11 +952,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 29.0
+        "elapsed_s": 17.6
       },
       {
         "question": "請問食品業者登記是一定要做的嗎？什麼時候開始的？",
-        "gold": 15492,
+        "gold": 15525,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -966,7 +966,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.0
+        "elapsed_s": 17.9
       },
       {
         "question": "請問食品裡的銅成分一天最多可以攝取多少？",
@@ -980,7 +980,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 28.6
+        "elapsed_s": 16.0
       },
       {
         "question": "如果我在三月退貨，應該怎麼報告這筆交易？",
@@ -994,7 +994,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.2
+        "elapsed_s": 16.6
       },
       {
         "question": "我想知道像免疫球蛋白這些東西，能不能當作營養素來標示呢？",
@@ -1008,7 +1008,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 34.2
+        "elapsed_s": 19.5
       },
       {
         "question": "如果我想購買特殊配方食品，有什麼需要注意的嗎？",
@@ -1022,7 +1022,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.4
+        "elapsed_s": 18.3
       },
       {
         "question": "進口的肉類產品包裝上需要有中文標籤嗎?",
@@ -1036,7 +1036,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 27.7
+        "elapsed_s": 15.6
       },
       {
         "question": "如果我在網路上訂購食品，多久會收到貨呢？",
@@ -1052,11 +1052,11 @@
           "search_related_laws",
           "search_regulations"
         ],
-        "elapsed_s": 31.9
+        "elapsed_s": 18.4
       },
       {
         "question": "我想知道文件保存五年的規定是怎麼算的，什麼時候開始算呢？",
-        "gold": 16077,
+        "gold": 16078,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -1066,7 +1066,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 23.8
+        "elapsed_s": 14.8
       },
       {
         "question": "豆腐裡面如果加了消泡劑，要怎麼標示呢？",
@@ -1080,11 +1080,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 32.6
+        "elapsed_s": 18.8
       },
       {
         "question": "如果我在登錄平台遇到錯誤，可以怎麼反映問題？",
-        "gold": 15495,
+        "gold": 15528,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -1094,7 +1094,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 11.3
+        "elapsed_s": 8.2
       },
       {
         "question": "為什麼進口食品的業者要自己建立追蹤系統呢？",
@@ -1108,7 +1108,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 27.3
+        "elapsed_s": 16.6
       },
       {
         "question": "如果我的食品公司被驗證了，但後來違反了食安法，會怎麼處理？",
@@ -1122,7 +1122,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 22.7
+        "elapsed_s": 14.5
       },
       {
         "question": "請問驗證的收費流程是怎麼樣的？",
@@ -1136,7 +1136,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 33.1
+        "elapsed_s": 19.3
       },
       {
         "question": "如果我用豬油，肉品種類要怎麼選呢？",
@@ -1150,7 +1150,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.2
+        "elapsed_s": 18.0
       },
       {
         "question": "牛的哪個部位會有牛海綿狀腦病的病原呢？",
@@ -1164,11 +1164,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 20.0
+        "elapsed_s": 13.2
       },
       {
         "question": "我想知道進口的自有品牌美耐皿產品要怎麼登錄材質？",
-        "gold": 15692,
+        "gold": 15725,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -1178,11 +1178,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 25.0
+        "elapsed_s": 15.4
       },
       {
         "question": "我想知道餐盒食品需要做哪些檢驗呢？",
-        "gold": 13607,
+        "gold": 13590,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -1192,7 +1192,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 27.2
+        "elapsed_s": 16.0
       },
       {
         "question": "請問如果是完整包裝的生鮮食品，標示上需要注意什麼呢？",
@@ -1206,7 +1206,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 42.1
+        "elapsed_s": 23.9
       },
       {
         "question": "沙茶醬的油跟固形物是怎麼分類的呢？",
@@ -1220,7 +1220,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 44.0
+        "elapsed_s": 24.1
       },
       {
         "question": "如果我有調合油，品名要怎麼標示才符合規定呢？",
@@ -1234,7 +1234,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.9
+        "elapsed_s": 19.2
       },
       {
         "question": "如果我想知道哪些澱粉產品需要驗證，該怎麼查?",
@@ -1248,7 +1248,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.3
+        "elapsed_s": 17.7
       },
       {
         "question": "如果我賣的禮盒裡有不同有效日期的產品，該怎麼標示？",
@@ -1262,7 +1262,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 33.0
+        "elapsed_s": 20.0
       },
       {
         "question": "我可以在食品包裝上用英文字母標示重量和容量嗎？",
@@ -1276,7 +1276,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 29.8
+        "elapsed_s": 17.9
       },
       {
         "question": "我可以把一般食品標示為保健食品嗎？",
@@ -1290,7 +1290,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 26.4
+        "elapsed_s": 16.4
       },
       {
         "question": "如果我有一種果汁，主要是葡萄，這樣的標示合不合法呢？",
@@ -1304,11 +1304,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 32.2
+        "elapsed_s": 18.9
       },
       {
         "question": "我想進口食品添加物，有什麼特別的注意事項嗎？",
-        "gold": 15646,
+        "gold": 15679,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -1318,7 +1318,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 46.3
+        "elapsed_s": 25.6
       },
       {
         "question": "請問碳酸飲料的外包裝需要標示氮氣或液態氮嗎？",
@@ -1332,7 +1332,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 48.7
+        "elapsed_s": 26.6
       },
       {
         "question": "請問黑木耳和香菇需要按照什麼標準來標示嗎?",
@@ -1346,7 +1346,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.9
+        "elapsed_s": 17.4
       },
       {
         "question": "如果飲料裡面有香料和乳糖，我需要標示過敏原嗎？",
@@ -1360,7 +1360,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.6
+        "elapsed_s": 18.0
       },
       {
         "question": "請問冷凍蔬菜產品要有營養標示嗎？",
@@ -1374,14 +1374,14 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 53.2
+        "elapsed_s": 28.7
       },
       {
         "question": "如果我在國外買的添加物是藥品，回台灣能用嗎？",
-        "gold": 6183,
+        "gold": 6184,
         "source": "synthetic",
         "hit": false,
-        "grounded": false,
+        "grounded": true,
         "query_drift_detected": false,
         "tool_calls_used": 4,
         "hit_tool_call_limit": true,
@@ -1389,9 +1389,9 @@
           "search_regulations",
           "search_related_laws",
           "search_regulations",
-          "search_violation_cases"
+          "search_regulations"
         ],
-        "elapsed_s": 44.9
+        "elapsed_s": 36.6
       },
       {
         "question": "雞蛋產品需要標示生產系統嗎？",
@@ -1405,7 +1405,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 31.9
+        "elapsed_s": 17.6
       },
       {
         "question": "如果產品裡面有香料，這些香料需要詳細列出嗎？",
@@ -1419,7 +1419,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 38.5
+        "elapsed_s": 19.4
       },
       {
         "question": "如果我標示產品為「北蟲草」，這樣會不會違法呢？",
@@ -1433,7 +1433,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 32.2
+        "elapsed_s": 17.4
       },
       {
         "question": "如果我在產品裡加了二氧化碳，包裝上需要標示嗎？",
@@ -1447,7 +1447,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.9
+        "elapsed_s": 18.1
       },
       {
         "question": "我如果要進口茶葉，需滿足什麼條件呢？",
@@ -1461,7 +1461,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 29.9
+        "elapsed_s": 18.1
       },
       {
         "question": "我可以把我的產品名稱改成營養素的名字嗎?",
@@ -1475,11 +1475,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 37.3
+        "elapsed_s": 21.7
       },
       {
         "question": "如果我有多家店，文件該怎麼保存呢？",
-        "gold": 16085,
+        "gold": 16086,
         "source": "synthetic",
         "hit": true,
         "grounded": true,
@@ -1489,7 +1489,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 16.4
+        "elapsed_s": 11.0
       },
       {
         "question": "請問牛海綿狀腦病的風險等級是怎麼劃分的呢？",
@@ -1503,7 +1503,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 28.0
+        "elapsed_s": 17.1
       },
       {
         "question": "如果我賣茶包，是否需要標示營養成分呢？",
@@ -1517,7 +1517,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 34.7
+        "elapsed_s": 18.2
       },
       {
         "question": "我們是一家小型食品進口商，應該怎麼建立追蹤系統?",
@@ -1531,12 +1531,12 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 25.4
+        "elapsed_s": 14.7
       }
     ],
     "vs_fixed_retry": {
-      "baseline_correct": 100,
-      "n_plus": 0,
+      "baseline_correct": 99,
+      "n_plus": 1,
       "n_minus": 1,
       "p_value": 1.0
     }
@@ -1546,28 +1546,31 @@
     "total": 8,
     "rate": 0.75,
     "ci95": [
-      0.5,
+      0.375,
       1.0
     ],
-    "drift_detected_count": 3,
-    "avg_tool_calls": 1.0,
-    "multi_step_count": 0,
-    "hit_tool_call_limit": 0,
-    "avg_latency_s": 32.9,
+    "drift_detected_count": 1,
+    "avg_tool_calls": 1.38,
+    "multi_step_count": 1,
+    "hit_tool_call_limit": 1,
+    "avg_latency_s": 17.2,
     "per_question": [
       {
         "question": "廠商只是把幾種原料包在一起、包裝完全沒變,這樣算是有動到食品的製程嗎?",
         "gold": 15840,
         "source": "manual",
-        "hit": true,
-        "grounded": true,
-        "query_drift_detected": true,
-        "tool_calls_used": 1,
-        "hit_tool_call_limit": false,
+        "hit": false,
+        "grounded": false,
+        "query_drift_detected": false,
+        "tool_calls_used": 4,
+        "hit_tool_call_limit": true,
         "tools": [
+          "search_regulations",
+          "search_related_laws",
+          "search_regulations",
           "search_regulations"
         ],
-        "elapsed_s": 29.6
+        "elapsed_s": 4.7
       },
       {
         "question": "如果我只是把東西重新分裝,不算是真正在做食品加工吧?",
@@ -1581,7 +1584,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 25.7
+        "elapsed_s": 15.7
       },
       {
         "question": "紅麴膠囊這種東西,官方是怎麼歸類的?",
@@ -1595,11 +1598,11 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 29.7
+        "elapsed_s": 17.6
       },
       {
         "question": "營養標示上寫的份數,可以有小數點嗎?",
-        "gold": 4917,
+        "gold": 4911,
         "source": "manual",
         "hit": true,
         "grounded": true,
@@ -1609,21 +1612,21 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 41.0
+        "elapsed_s": 23.0
       },
       {
         "question": "如果我又做食品添加物又做一般食品輸入,登記資料要分兩份填嗎?",
-        "gold": 15578,
+        "gold": 15611,
         "source": "manual",
         "hit": true,
         "grounded": true,
-        "query_drift_detected": true,
+        "query_drift_detected": false,
         "tool_calls_used": 1,
         "hit_tool_call_limit": false,
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 39.5
+        "elapsed_s": 21.9
       },
       {
         "question": "自己工廠內部用的半成品,沒有拿出去賣,也要跟政府報備嗎?",
@@ -1637,7 +1640,7 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 39.1
+        "elapsed_s": 21.4
       },
       {
         "question": "得了B肝的人還能在食品業工作嗎?",
@@ -1651,13 +1654,13 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 30.7
+        "elapsed_s": 17.5
       },
       {
         "question": "要當食品安全管制的窗口,需要上過什麼課嗎?",
         "gold": 15184,
         "source": "manual",
-        "hit": false,
+        "hit": true,
         "grounded": true,
         "query_drift_detected": false,
         "tool_calls_used": 1,
@@ -1665,13 +1668,13 @@
         "tools": [
           "search_regulations"
         ],
-        "elapsed_s": 28.2
+        "elapsed_s": 15.8
       }
     ],
     "vs_fixed_retry": {
-      "baseline_correct": 6,
+      "baseline_correct": 7,
       "n_plus": 0,
-      "n_minus": 0,
+      "n_minus": 1,
       "p_value": 1.0
     }
   }

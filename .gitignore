@@ -38,3 +38,10 @@ data/index/*
 # 模型快取
 .cache/
 ~/.cache/
+
+# 重建索引前的備份
+data/*_backup_*/
+eval/*.json.bak
+.env.*
+!.env.example
+eval/results_exam_partial.json

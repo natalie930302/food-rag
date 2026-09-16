@@ -2,7 +2,7 @@
   "summary": {
     "n_questions": 108,
     "n_answered": 100,
-    "n_with_citations": 89,
+    "n_with_citations": 88,
     "unsupported_before": {
       "count": 0,
       "rate": 0.0,
@@ -190,8 +190,8 @@
       "unsupported_after": [],
       "regenerated": false,
       "context_laws": [
-        "食安法第21條",
-        "食安法第28條"
+        "食安法第28條",
+        "食安法第59條"
       ]
     },
     {
@@ -213,7 +213,7 @@
       "source": "manual",
       "confident": true,
       "citations": [
-        "食品安全衛生管理法第8條",
+        "第4條",
         "食品安全衛生管理法第48條"
       ],
       "unsupported_before": [],
@@ -286,8 +286,7 @@
       "source": "manual",
       "confident": true,
       "citations": [
-        "食品安全衛生管理法第9條",
-        "食安法第3條"
+        "食品安全衛生管理法第3條"
       ],
       "unsupported_before": [],
       "unsupported_after": [],
@@ -377,7 +376,8 @@
       "source": "synthetic",
       "confident": true,
       "citations": [
-        "食品安全衛生管理法第8條"
+        "食品安全衛生管理法第8條",
+        "第6條"
       ],
       "unsupported_before": [],
       "unsupported_after": [],
@@ -407,9 +407,7 @@
       "question": "如果我買的果汁標示原汁含量是55%，這樣算不算真的天然果汁呢？",
       "source": "synthetic",
       "confident": true,
-      "citations": [
-        "食品安全衛生管理法第28條"
-      ],
+      "citations": [],
       "unsupported_before": [],
       "unsupported_after": [],
       "regenerated": false,
@@ -420,8 +418,7 @@
       "source": "synthetic",
       "confident": true,
       "citations": [
-        "食品安全衛生管理法第22條",
-        "食品安全衛生管理法第8條"
+        "食品安全衛生管理法第22條"
       ],
       "unsupported_before": [],
       "unsupported_after": [],
@@ -435,9 +432,7 @@
       "question": "如果我想加註填充材料，該如何標示呢？",
       "source": "synthetic",
       "confident": true,
-      "citations": [
-        "食品安全衛生管理法第26條"
-      ],
+      "citations": [],
       "unsupported_before": [],
       "unsupported_after": [],
       "regenerated": false,
@@ -450,8 +445,7 @@
       "source": "synthetic",
       "confident": true,
       "citations": [
-        "食品安全衛生管理法第30條",
-        "食品安全衛生管理法第9條"
+        "食品安全衛生管理法第30條"
       ],
       "unsupported_before": [],
       "unsupported_after": [],
@@ -602,7 +596,8 @@
       "source": "synthetic",
       "confident": true,
       "citations": [
-        "食品安全衛生管理法第9條"
+        "食品安全衛生管理法第8條",
+        "第4條"
       ],
       "unsupported_before": [],
       "unsupported_after": [],
@@ -662,6 +657,7 @@
       "source": "synthetic",
       "confident": true,
       "citations": [
+        "食品安全衛生管理法第3條",
         "食品安全衛生管理法第9條"
       ],
       "unsupported_before": [],
@@ -675,9 +671,7 @@
       "question": "如果我有牛樟芝的健康食品，還需要做什麼檢查嗎？",
       "source": "synthetic",
       "confident": true,
-      "citations": [
-        "食品安全衛生管理法第22條"
-      ],
+      "citations": [],
       "unsupported_before": [],
       "unsupported_after": [],
       "regenerated": false,
@@ -932,8 +926,7 @@
       "unsupported_after": [],
       "regenerated": false,
       "context_laws": [
-        "食安法第8條",
-        "食安法第9條"
+        "食安法第8條"
       ]
     },
     {
@@ -1032,7 +1025,9 @@
       "source": "synthetic",
       "confident": true,
       "citations": [
-        "食品安全衛生管理法第9條"
+        "食品安全衛生管理法第9條",
+        "食品安全衛生管理法第8條",
+        "第12條"
       ],
       "unsupported_before": [],
       "unsupported_after": [],
@@ -1076,7 +1071,8 @@
       "confident": true,
       "citations": [
         "食品安全衛生管理法第9條",
-        "食品安全衛生管理法第32條"
+        "第5條",
+        "食品安全衛生管理法第48條"
       ],
       "unsupported_before": [],
       "unsupported_after": [],
@@ -1208,7 +1204,8 @@
       "source": "synthetic",
       "confident": true,
       "citations": [
-        "食品安全衛生管理法第22條"
+        "食品安全衛生管理法第22條",
+        "第9條"
       ],
       "unsupported_before": [],
       "unsupported_after": [],
@@ -1273,7 +1270,9 @@
       "question": "如果我有一種果汁，主要是葡萄，這樣的標示合不合法呢？",
       "source": "synthetic",
       "confident": true,
-      "citations": [],
+      "citations": [
+        "食品安全衛生管理法第28條"
+      ],
       "unsupported_before": [],
       "unsupported_after": [],
       "regenerated": false,
@@ -1455,7 +1454,9 @@
       "question": "請問牛海綿狀腦病的風險等級是怎麼劃分的呢？",
       "source": "synthetic",
       "confident": true,
-      "citations": [],
+      "citations": [
+        "食品安全衛生管理法第15條"
+      ],
       "unsupported_before": [],
       "unsupported_after": [],
       "regenerated": false,

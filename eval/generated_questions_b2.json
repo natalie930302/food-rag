@@ -19,12 +19,13 @@
   },
   {
     "question": "我想知道文件保存五年的規定是怎麼算的，什麼時候開始算呢？",
-    "gold_chunk_id": 16077,
+    "gold_chunk_id": 16078,
     "kind": "qa",
     "document": "食品業者應保存產品原材料、半成品及成品來源文件之種類與期間 QA問答集",
     "answer_span": "計算基準是由收貨日起。(輸入食品係由海關放行日期起)",
     "source": "synthetic",
-    "lcs_with_chunk": 4
+    "lcs_with_chunk": 4,
+    "gold_chunk_id_old": 16077
   },
   {
     "question": "豆腐裡面如果加了消泡劑，要怎麼標示呢？",
@@ -37,30 +38,33 @@
   },
   {
     "question": "我可以用什麼藥劑來處理十字花科的蔬菜？",
-    "gold_chunk_id": 3008,
+    "gold_chunk_id": 3019,
     "kind": "standard",
     "document": "(中文版)農藥殘留容許量標準附表一至附表五_1131300473",
     "answer_span": "Oxine-copper 快得寧十字花科蔬菜 2.0 殺菌劑",
     "source": "synthetic",
-    "lcs_with_chunk": 4
+    "lcs_with_chunk": 4,
+    "gold_chunk_id_old": 3008
   },
   {
     "question": "如果我在登錄平台遇到錯誤，可以怎麼反映問題？",
-    "gold_chunk_id": 15495,
+    "gold_chunk_id": 15528,
     "kind": "qa",
     "document": "食品業者登錄Q&A問答集(112.08.17)",
     "answer_span": "業者亦可以將所遇到的系統錯誤問題,截取畫面後連同聯繫人聯絡資訊(...)以E-mail或線上客服方式提供予食品藥物業者登錄平台服務人員(...)",
     "source": "synthetic",
-    "lcs_with_chunk": 4
+    "lcs_with_chunk": 4,
+    "gold_chunk_id_old": 15495
   },
   {
     "question": "我想知道檢測食品中藥物殘留的具體方法是什麼呢？",
-    "gold_chunk_id": 8271,
+    "gold_chunk_id": 8275,
     "kind": "guide",
     "document": "食品中動物用藥殘留量檢驗方法－安巴素之檢驗",
     "answer_span": "檢驗方法 : 高效液相層析法 (high performance liquid chromatography, HPLC)。”}   2.1.1 高效液相層析儀 : 具 有 280nm 波長之紫外光檢出器。",
     "source": "synthetic",
-    "lcs_with_chunk": 3
+    "lcs_with_chunk": 3,
+    "gold_chunk_id_old": 8271
   },
   {
     "question": "為什麼進口食品的業者要自己建立追蹤系統呢？",
@@ -73,12 +77,13 @@
   },
   {
     "question": "我想知道水浴的溫度範圍是怎樣的？",
-    "gold_chunk_id": 10344,
+    "gold_chunk_id": 10284,
     "kind": "guide",
     "document": "食品器具、容器、包裝檢驗方法－未以塑膠淋膜紙類製品之檢驗(修正總說明及修正對照表)",
     "answer_span": "溫差在 ±1°C以內者。",
     "source": "synthetic",
-    "lcs_with_chunk": 2
+    "lcs_with_chunk": 2,
+    "gold_chunk_id_old": 10344
   },
   {
     "question": "如果我的食品公司被驗證了，但後來違反了食安法，會怎麼處理？",
@@ -145,21 +150,23 @@
   },
   {
     "question": "我想知道進口的自有品牌美耐皿產品要怎麼登錄材質？",
-    "gold_chunk_id": 15692,
+    "gold_chunk_id": 15725,
     "kind": "qa",
     "document": "食品業者登錄Q&A問答集(112.08.17)",
     "answer_span": "由「材質查詢」點選三聚氰胺-甲醛樹脂等。",
     "source": "synthetic",
-    "lcs_with_chunk": 4
+    "lcs_with_chunk": 4,
+    "gold_chunk_id_old": 15692
   },
   {
     "question": "我想知道餐盒食品需要做哪些檢驗呢？",
-    "gold_chunk_id": 13607,
+    "gold_chunk_id": 13590,
     "kind": "guide",
     "document": "應訂定食品安全監測計畫與應辦理檢驗之食品業者、最低檢驗週期及其他相關事項",
     "answer_span": "餐盒食品產品應就其成品檢驗相關衛生標準或其他依衛生安全風險擇定之衛生管理項目。",
     "source": "synthetic",
-    "lcs_with_chunk": 4
+    "lcs_with_chunk": 4,
+    "gold_chunk_id_old": 13607
   },
   {
     "question": "請問如果是完整包裝的生鮮食品，標示上需要注意什麼呢？",
@@ -208,12 +215,13 @@
   },
   {
     "question": "我想知道冷凍火雞肉的分類是什麼？",
-    "gold_chunk_id": 6339,
+    "gold_chunk_id": 6358,
     "kind": "guide",
     "document": "附件2-貨品分類表",
     "answer_span": "冷凍火雞肉,未切成塊者 Meat of turkeys, not cut in pieces, frozen",
     "source": "synthetic",
-    "lcs_with_chunk": 5
+    "lcs_with_chunk": 5,
+    "gold_chunk_id_old": 6339
   },
   {
     "question": "如果我有調合油，品名要怎麼標示才符合規定呢？",
@@ -298,39 +306,43 @@
   },
   {
     "question": "如果我想檢測食品中的仙人掌桿菌，應該用什麼方法呢？",
-    "gold_chunk_id": 11201,
+    "gold_chunk_id": 11181,
     "kind": "guide",
     "document": "食品微生物之檢驗方法－仙人掌桿菌之檢驗(修正總說明及修正對照表)",
     "answer_span": "本方法適用於仙人掌桿菌菌種及其腹瀉型毒素基因(nheA、hblD、cytK)、嘔吐型毒素基因(ces)之鑑別。",
     "source": "synthetic",
-    "lcs_with_chunk": 5
+    "lcs_with_chunk": 5,
+    "gold_chunk_id_old": 11201
   },
   {
     "question": "我想進口食品添加物，有什麼特別的注意事項嗎？",
-    "gold_chunk_id": 15646,
+    "gold_chunk_id": 15679,
     "kind": "qa",
     "document": "食品業者登錄Q&A問答集(112.08.17)",
     "answer_span": "輸入單方食品添加物(香料除外)需於輸入我國前,申請查驗登記取得許可證。",
     "source": "synthetic",
-    "lcs_with_chunk": 5
+    "lcs_with_chunk": 5,
+    "gold_chunk_id_old": 15646
   },
   {
     "question": "請問芬瑞莫這種殺菌劑可以用在哪些水果上？",
-    "gold_chunk_id": 2860,
+    "gold_chunk_id": 2871,
     "kind": "standard",
     "document": "(中文版)農藥殘留容許量標準附表一至附表五_1131300473",
     "answer_span": "芬瑞莫 其他梨果類(櫻 0.5 殺菌劑桃除外)Fenarimol 芬瑞莫 甜椒 0.5 殺菌劑",
     "source": "synthetic",
-    "lcs_with_chunk": 3
+    "lcs_with_chunk": 3,
+    "gold_chunk_id_old": 2860
   },
   {
     "question": "我想知道食品的原產地可以怎麼標示呢？",
-    "gold_chunk_id": 5178,
+    "gold_chunk_id": 5177,
     "kind": "qa",
     "document": "原產地標示Q&A(1040812修訂).",
     "answer_span": "原產地標示方式可以下列兩種方式標示: 1. 紫米(台灣)、大麥(美國)、小麥(澳洲)、燕麥(澳洲)、小米(美國)。 2. 內容物:紫米、大麥、小麥、燕麥、小米; 原產地:台灣、澳洲、美國。",
     "source": "synthetic",
-    "lcs_with_chunk": 3
+    "lcs_with_chunk": 3,
+    "gold_chunk_id_old": 5178
   },
   {
     "question": "請問碳酸飲料的外包裝需要標示氮氣或液態氮嗎？",
@@ -370,12 +382,13 @@
   },
   {
     "question": "如果我在國外買的添加物是藥品，回台灣能用嗎？",
-    "gold_chunk_id": 6183,
+    "gold_chunk_id": 6184,
     "kind": "qa",
     "document": "輸入複方食品添加物應檢附產品成分報告及官方衛生證明QA",
     "answer_span": "所詢產品如於原產國確屬「藥品」或「藥用輔料」管理,",
     "source": "synthetic",
-    "lcs_with_chunk": 3
+    "lcs_with_chunk": 3,
+    "gold_chunk_id_old": 6183
   },
   {
     "question": "雞蛋產品需要標示生產系統嗎？",
@@ -478,12 +491,13 @@
   },
   {
     "question": "如果我有多家店，文件該怎麼保存呢？",
-    "gold_chunk_id": 16085,
+    "gold_chunk_id": 16086,
     "kind": "qa",
     "document": "食品業者應保存產品原材料、半成品及成品來源文件之種類與期間 QA問答集",
     "answer_span": "倘各營業門市隸屬同一事業主體,則該來源相關文件可逕依業者內部規定保存於指定處",
     "source": "synthetic",
-    "lcs_with_chunk": 3
+    "lcs_with_chunk": 3,
+    "gold_chunk_id_old": 16085
   },
   {
     "question": "請問牛海綿狀腦病的風險等級是怎麼劃分的呢？",

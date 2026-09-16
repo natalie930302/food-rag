@@ -2,12 +2,12 @@
   "n": 20,
   "baseline": {
     "reg_hit": {
-      "count": 14,
+      "count": 13,
       "total": 20,
-      "rate": 0.7,
+      "rate": 0.65,
       "ci95": [
-        0.5,
-        0.9
+        0.45,
+        0.85
       ]
     },
     "case_hit": {
@@ -40,12 +40,12 @@
   },
   "agent": {
     "reg_hit": {
-      "count": 10,
+      "count": 8,
       "total": 20,
-      "rate": 0.5,
+      "rate": 0.4,
       "ci95": [
-        0.3,
-        0.7
+        0.2,
+        0.6
       ]
     },
     "case_hit": {
@@ -67,25 +67,25 @@
       ]
     },
     "full_hit": {
-      "count": 8,
+      "count": 6,
       "total": 20,
-      "rate": 0.4,
+      "rate": 0.3,
       "ci95": [
-        0.2,
-        0.6
+        0.1,
+        0.5
       ]
     }
   },
   "sign_test_full_hit": {
-    "n_plus": 2,
-    "n_minus": 4,
-    "p_value": 0.6875
+    "n_plus": 1,
+    "n_minus": 5,
+    "p_value": 0.21875
   },
-  "agent_avg_tool_calls": 2.15,
-  "agent_multi_step_count": 18,
+  "agent_avg_tool_calls": 2.25,
+  "agent_multi_step_count": 19,
   "avg_latency_s": {
-    "baseline": 24.9,
-    "agent": 29.6
+    "baseline": 13.7,
+    "agent": 18.4
   },
   "per_question": [
     {
@@ -99,8 +99,7 @@
           "食安法第22條",
           "食安法第28條",
           "食安法第45條",
-          "食安法第52條",
-          "食安法第7條"
+          "食安法第52條"
         ]
       },
       "agent": {
@@ -118,10 +117,10 @@
         "usage": {
           "tool_calls": 2,
           "llm_calls": 2,
-          "prompt_tokens": 2437,
+          "prompt_tokens": 2435,
           "completion_tokens": 84,
-          "total_tokens": 2521,
-          "elapsed_s": 30.13,
+          "total_tokens": 2519,
+          "elapsed_s": 16.29,
           "stop_reason": "answered"
         }
       }
@@ -168,10 +167,10 @@
         "usage": {
           "tool_calls": 2,
           "llm_calls": 3,
-          "prompt_tokens": 9904,
-          "completion_tokens": 566,
-          "total_tokens": 10470,
-          "elapsed_s": 35.5,
+          "prompt_tokens": 10475,
+          "completion_tokens": 504,
+          "total_tokens": 10979,
+          "elapsed_s": 19.04,
           "stop_reason": "answered"
         }
       }
@@ -184,13 +183,8 @@
         "related_hit": null,
         "full_hit": true,
         "laws_found": [
-          "食安法第15條",
           "食安法第21條",
-          "食安法第22條",
-          "食安法第28條",
-          "食安法第44條",
-          "食安法第49條",
-          "食安法第52條"
+          "食安法第28條"
         ]
       },
       "agent": {
@@ -211,11 +205,11 @@
         ],
         "usage": {
           "tool_calls": 2,
-          "llm_calls": 2,
-          "prompt_tokens": 4411,
-          "completion_tokens": 320,
-          "total_tokens": 4731,
-          "elapsed_s": 33.77,
+          "llm_calls": 3,
+          "prompt_tokens": 6988,
+          "completion_tokens": 295,
+          "total_tokens": 7283,
+          "elapsed_s": 19.33,
           "stop_reason": "answered"
         }
       }
@@ -260,10 +254,10 @@
         "usage": {
           "tool_calls": 2,
           "llm_calls": 2,
-          "prompt_tokens": 3653,
-          "completion_tokens": 304,
-          "total_tokens": 3957,
-          "elapsed_s": 30.96,
+          "prompt_tokens": 3777,
+          "completion_tokens": 342,
+          "total_tokens": 4119,
+          "elapsed_s": 18.76,
           "stop_reason": "answered"
         }
       }
@@ -271,11 +265,15 @@
     {
       "question": "廣播節目裡說某酵素可以「排毒瘦身」,法規怎麼看?有沒有實際裁罰紀錄?",
       "baseline": {
-        "reg_hit": false,
+        "reg_hit": true,
         "case_hit": true,
         "related_hit": null,
-        "full_hit": false,
-        "laws_found": []
+        "full_hit": true,
+        "laws_found": [
+          "食安法第28條",
+          "食安法第45條",
+          "食安法第7條"
+        ]
       },
       "agent": {
         "reg_hit": false,
@@ -292,10 +290,10 @@
         "usage": {
           "tool_calls": 2,
           "llm_calls": 2,
-          "prompt_tokens": 2477,
-          "completion_tokens": 404,
-          "total_tokens": 2881,
-          "elapsed_s": 23.96,
+          "prompt_tokens": 2476,
+          "completion_tokens": 389,
+          "total_tokens": 2865,
+          "elapsed_s": 15.2,
           "stop_reason": "answered"
         }
       }
@@ -303,19 +301,11 @@
     {
       "question": "食安法第28條常常跟哪些其他條文一起被引用?那些關聯條文各自在管什麼?",
       "baseline": {
-        "reg_hit": true,
+        "reg_hit": false,
         "case_hit": null,
         "related_hit": false,
         "full_hit": false,
-        "laws_found": [
-          "健康食品管理法",
-          "食安法第11條",
-          "食安法第22條",
-          "食安法第28條",
-          "食安法第2條",
-          "食安法第45條",
-          "食安法第52條"
-        ]
+        "laws_found": []
       },
       "agent": {
         "reg_hit": false,
@@ -332,9 +322,9 @@
           "tool_calls": 1,
           "llm_calls": 2,
           "prompt_tokens": 1457,
-          "completion_tokens": 312,
-          "total_tokens": 1769,
-          "elapsed_s": 3.84,
+          "completion_tokens": 399,
+          "total_tokens": 1856,
+          "elapsed_s": 4.65,
           "stop_reason": "answered"
         }
       }
@@ -369,11 +359,11 @@
         "laws_found": [],
         "usage": {
           "tool_calls": 2,
-          "llm_calls": 3,
-          "prompt_tokens": 3280,
-          "completion_tokens": 272,
-          "total_tokens": 3552,
-          "elapsed_s": 4.25,
+          "llm_calls": 2,
+          "prompt_tokens": 2568,
+          "completion_tokens": 279,
+          "total_tokens": 2847,
+          "elapsed_s": 3.6,
           "stop_reason": "answered"
         }
       }
@@ -392,19 +382,20 @@
         "case_hit": true,
         "related_hit": null,
         "full_hit": false,
-        "tool_calls_used": 1,
+        "tool_calls_used": 2,
         "tools": [
+          "search_regulations",
           "search_violation_cases"
         ],
         "grounded": false,
         "laws_found": [],
         "usage": {
-          "tool_calls": 1,
+          "tool_calls": 2,
           "llm_calls": 2,
-          "prompt_tokens": 2387,
-          "completion_tokens": 332,
-          "total_tokens": 2719,
-          "elapsed_s": 4.02,
+          "prompt_tokens": 2540,
+          "completion_tokens": 371,
+          "total_tokens": 2911,
+          "elapsed_s": 26.11,
           "stop_reason": "answered"
         }
       }
@@ -436,10 +427,10 @@
         "usage": {
           "tool_calls": 2,
           "llm_calls": 2,
-          "prompt_tokens": 3827,
-          "completion_tokens": 291,
-          "total_tokens": 4118,
-          "elapsed_s": 40.65,
+          "prompt_tokens": 3734,
+          "completion_tokens": 285,
+          "total_tokens": 4019,
+          "elapsed_s": 23.06,
           "stop_reason": "answered"
         }
       }
@@ -472,10 +463,10 @@
         "usage": {
           "tool_calls": 2,
           "llm_calls": 2,
-          "prompt_tokens": 3181,
-          "completion_tokens": 404,
-          "total_tokens": 3585,
-          "elapsed_s": 4.83,
+          "prompt_tokens": 3227,
+          "completion_tokens": 391,
+          "total_tokens": 3618,
+          "elapsed_s": 4.66,
           "stop_reason": "answered"
         }
       }
@@ -503,17 +494,20 @@
         "grounded": true,
         "laws_found": [
           "健康食品管理法",
-          "食安法第21條",
-          "食安法第2條",
-          "食安法第3條"
+          "健康食品管理法第0條",
+          "食安法第14條",
+          "食安法第15條",
+          "食安法第16條",
+          "食安法第17條",
+          "食安法第21條"
         ],
         "usage": {
           "tool_calls": 3,
           "llm_calls": 3,
-          "prompt_tokens": 5743,
-          "completion_tokens": 403,
-          "total_tokens": 6146,
-          "elapsed_s": 61.9,
+          "prompt_tokens": 6533,
+          "completion_tokens": 365,
+          "total_tokens": 6898,
+          "elapsed_s": 34.25,
           "stop_reason": "answered"
         }
       }
@@ -528,29 +522,24 @@
         "laws_found": []
       },
       "agent": {
-        "reg_hit": true,
+        "reg_hit": false,
         "case_hit": true,
         "related_hit": null,
-        "full_hit": true,
-        "tool_calls_used": 3,
+        "full_hit": false,
+        "tool_calls_used": 2,
         "tools": [
           "search_regulations",
-          "search_violation_cases",
-          "search_regulations"
+          "search_violation_cases"
         ],
-        "grounded": true,
-        "laws_found": [
-          "食安法第21條",
-          "食安法第28條",
-          "食安法第7條"
-        ],
+        "grounded": false,
+        "laws_found": [],
         "usage": {
-          "tool_calls": 3,
-          "llm_calls": 3,
-          "prompt_tokens": 6088,
-          "completion_tokens": 339,
-          "total_tokens": 6427,
-          "elapsed_s": 75.29,
+          "tool_calls": 2,
+          "llm_calls": 2,
+          "prompt_tokens": 2401,
+          "completion_tokens": 295,
+          "total_tokens": 2696,
+          "elapsed_s": 23.95,
           "stop_reason": "answered"
         }
       }
@@ -558,14 +547,11 @@
     {
       "question": "違反第28條的罰款上限是多少?裁罰紀錄裡最高實際罰過多少?",
       "baseline": {
-        "reg_hit": true,
+        "reg_hit": false,
         "case_hit": true,
         "related_hit": null,
-        "full_hit": true,
-        "laws_found": [
-          "食安法第44條",
-          "食安法第45條"
-        ]
+        "full_hit": false,
+        "laws_found": []
       },
       "agent": {
         "reg_hit": false,
@@ -584,10 +570,10 @@
         "usage": {
           "tool_calls": 4,
           "llm_calls": 4,
-          "prompt_tokens": 5711,
+          "prompt_tokens": 5879,
           "completion_tokens": 140,
-          "total_tokens": 5851,
-          "elapsed_s": 4.45,
+          "total_tokens": 6019,
+          "elapsed_s": 7.17,
           "stop_reason": "tool_calls"
         }
       }
@@ -640,10 +626,10 @@
         "usage": {
           "tool_calls": 2,
           "llm_calls": 2,
-          "prompt_tokens": 6491,
-          "completion_tokens": 384,
-          "total_tokens": 6875,
-          "elapsed_s": 50.78,
+          "prompt_tokens": 6487,
+          "completion_tokens": 421,
+          "total_tokens": 6908,
+          "elapsed_s": 29.94,
           "stop_reason": "answered"
         }
       }
@@ -662,20 +648,21 @@
         "case_hit": true,
         "related_hit": null,
         "full_hit": false,
-        "tool_calls_used": 2,
+        "tool_calls_used": 3,
         "tools": [
           "search_regulations",
-          "search_violation_cases"
+          "search_violation_cases",
+          "search_related_laws"
         ],
         "grounded": false,
         "laws_found": [],
         "usage": {
-          "tool_calls": 2,
-          "llm_calls": 2,
-          "prompt_tokens": 2430,
-          "completion_tokens": 96,
-          "total_tokens": 2526,
-          "elapsed_s": 29.08,
+          "tool_calls": 3,
+          "llm_calls": 3,
+          "prompt_tokens": 4600,
+          "completion_tokens": 349,
+          "total_tokens": 4949,
+          "elapsed_s": 19.8,
           "stop_reason": "answered"
         }
       }
@@ -714,10 +701,10 @@
         "usage": {
           "tool_calls": 2,
           "llm_calls": 2,
-          "prompt_tokens": 3767,
-          "completion_tokens": 429,
-          "total_tokens": 4196,
-          "elapsed_s": 48.46,
+          "prompt_tokens": 3764,
+          "completion_tokens": 460,
+          "total_tokens": 4224,
+          "elapsed_s": 28.75,
           "stop_reason": "answered"
         }
       }
@@ -752,10 +739,10 @@
         "usage": {
           "tool_calls": 2,
           "llm_calls": 2,
-          "prompt_tokens": 4541,
-          "completion_tokens": 413,
-          "total_tokens": 4954,
-          "elapsed_s": 27.71,
+          "prompt_tokens": 4654,
+          "completion_tokens": 358,
+          "total_tokens": 5012,
+          "elapsed_s": 19.58,
           "stop_reason": "answered"
         }
       }
@@ -790,10 +777,10 @@
         "usage": {
           "tool_calls": 2,
           "llm_calls": 2,
-          "prompt_tokens": 3715,
-          "completion_tokens": 392,
-          "total_tokens": 4107,
-          "elapsed_s": 25.8,
+          "prompt_tokens": 3800,
+          "completion_tokens": 388,
+          "total_tokens": 4188,
+          "elapsed_s": 15.87,
           "stop_reason": "answered"
         }
       }
@@ -807,33 +794,36 @@
         "full_hit": true,
         "laws_found": [
           "健康食品管理法",
+          "食安法第23條",
           "食安法第28條"
         ]
       },
       "agent": {
-        "reg_hit": true,
+        "reg_hit": false,
         "case_hit": true,
         "related_hit": null,
-        "full_hit": true,
-        "tool_calls_used": 3,
+        "full_hit": false,
+        "tool_calls_used": 4,
         "tools": [
           "search_regulations",
           "search_violation_cases",
+          "search_related_laws",
           "search_regulations"
         ],
         "grounded": true,
         "laws_found": [
-          "食安法第28條",
-          "食安法第7條"
+          "食安法第22條",
+          "食安法第23條",
+          "食安法第26條"
         ],
         "usage": {
-          "tool_calls": 3,
-          "llm_calls": 3,
-          "prompt_tokens": 5802,
-          "completion_tokens": 408,
-          "total_tokens": 6210,
-          "elapsed_s": 51.04,
-          "stop_reason": "answered"
+          "tool_calls": 4,
+          "llm_calls": 5,
+          "prompt_tokens": 9503,
+          "completion_tokens": 657,
+          "total_tokens": 10160,
+          "elapsed_s": 28.87,
+          "stop_reason": "tool_calls"
         }
       }
     },
@@ -864,9 +854,9 @@
           "tool_calls": 2,
           "llm_calls": 2,
           "prompt_tokens": 1739,
-          "completion_tokens": 268,
-          "total_tokens": 2007,
-          "elapsed_s": 3.38,
+          "completion_tokens": 227,
+          "total_tokens": 1966,
+          "elapsed_s": 3.43,
           "stop_reason": "answered"
         }
       }

@@ -6,8 +6,9 @@
   },
   {
     "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
-    "gold_chunk_id": 15667,
-    "source": "manual"
+    "gold_chunk_id": 15700,
+    "source": "manual",
+    "gold_chunk_id_old": 15667
   },
   {
     "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
@@ -21,8 +22,9 @@
   },
   {
     "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
-    "gold_chunk_id": 4354,
-    "source": "manual"
+    "gold_chunk_id": 4353,
+    "source": "manual",
+    "gold_chunk_id_old": 4354
   },
   {
     "question": "賣給餐飲業者的業務用奶精,也要照規定標示品名嗎?",
@@ -36,8 +38,9 @@
   },
   {
     "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
-    "gold_chunk_id": 13493,
-    "source": "manual"
+    "gold_chunk_id": 13609,
+    "source": "manual",
+    "gold_chunk_id_old": 13493
   },
   {
     "question": "食用油脂原料的檢驗可以用週期性輪替的方式做嗎?",
@@ -66,8 +69,9 @@
   },
   {
     "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
-    "gold_chunk_id": 15569,
-    "source": "manual"
+    "gold_chunk_id": 15602,
+    "source": "manual",
+    "gold_chunk_id_old": 15569
   },
   {
     "question": "濃縮果汁還原後算出來超過100%的原汁含有率,該怎麼標示?",
@@ -96,8 +100,9 @@
   },
   {
     "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
-    "gold_chunk_id": 6172,
-    "source": "manual"
+    "gold_chunk_id": 6173,
+    "source": "manual",
+    "gold_chunk_id_old": 6172
   },
   {
     "question": "用咖啡葉做的茶飲,需要標示咖啡因含量嗎?",
@@ -261,10 +266,11 @@
   },
   {
     "question": "如果我做食品代工的話，是否需要保存產品的來源資料呢？",
-    "gold_chunk_id": 16091,
+    "gold_chunk_id": 16092,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions.json"
+    "batch": "generated_questions.json",
+    "gold_chunk_id_old": 16091
   },
   {
     "question": "如果我有牛樟芝的健康食品，還需要做什麼檢查嗎？",
@@ -275,17 +281,19 @@
   },
   {
     "question": "請問運送食品的公司需要登記嗎？",
-    "gold_chunk_id": 15635,
+    "gold_chunk_id": 15668,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions.json"
+    "batch": "generated_questions.json",
+    "gold_chunk_id_old": 15635
   },
   {
     "question": "如果我進口食品再自己加工，還需要登記嗎？",
-    "gold_chunk_id": 15577,
+    "gold_chunk_id": 15610,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions.json"
+    "batch": "generated_questions.json",
+    "gold_chunk_id_old": 15577
   },
   {
     "question": "我想知道人造奶油的油脂含量要多少才符合規定？",
@@ -324,10 +332,11 @@
   },
   {
     "question": "食品添加物的檢驗報告需要哪些檢驗標準和實驗室嗎？",
-    "gold_chunk_id": 15677,
+    "gold_chunk_id": 15710,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions.json"
+    "batch": "generated_questions.json",
+    "gold_chunk_id_old": 15677
   },
   {
     "question": "我想知道馬鈴薯的重金屬檢驗規定是什麼？",
@@ -359,10 +368,11 @@
   },
   {
     "question": "如果我已經有食品添加物的許可證，還需要再登錄嗎？",
-    "gold_chunk_id": 15640,
+    "gold_chunk_id": 15673,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions.json"
+    "batch": "generated_questions.json",
+    "gold_chunk_id_old": 15640
   },
   {
     "question": "請問牛肉裡面允許的加保利殘留量是多少呢？",
@@ -380,10 +390,11 @@
   },
   {
     "question": "請問益達胺這個農藥在胡椒上的殘留量是多少？",
-    "gold_chunk_id": 2945,
+    "gold_chunk_id": 2956,
     "source": "synthetic",
     "kind": "standard",
-    "batch": "generated_questions.json"
+    "batch": "generated_questions.json",
+    "gold_chunk_id_old": 2945
   },
   {
     "question": "我想知道檢測李斯特菌的PCR產物大小是多少？",
@@ -401,10 +412,11 @@
   },
   {
     "question": "我想知道哪裡可以查找食品相關的法規呢？",
-    "gold_chunk_id": 5020,
+    "gold_chunk_id": 5023,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions.json"
+    "batch": "generated_questions.json",
+    "gold_chunk_id_old": 5020
   },
   {
     "question": "如果我在餐廳使用進口食品，標示上需要寫些什麼呢？",
@@ -422,10 +434,11 @@
   },
   {
     "question": "請問食品業者登記是一定要做的嗎？什麼時候開始的？",
-    "gold_chunk_id": 15492,
+    "gold_chunk_id": 15525,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions.json"
+    "batch": "generated_questions.json",
+    "gold_chunk_id_old": 15492
   },
   {
     "question": "請問食品裡的銅成分一天最多可以攝取多少？",
@@ -471,10 +484,11 @@
   },
   {
     "question": "我想知道文件保存五年的規定是怎麼算的，什麼時候開始算呢？",
-    "gold_chunk_id": 16077,
+    "gold_chunk_id": 16078,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions_b2.json"
+    "batch": "generated_questions_b2.json",
+    "gold_chunk_id_old": 16077
   },
   {
     "question": "豆腐裡面如果加了消泡劑，要怎麼標示呢？",
@@ -485,10 +499,11 @@
   },
   {
     "question": "如果我在登錄平台遇到錯誤，可以怎麼反映問題？",
-    "gold_chunk_id": 15495,
+    "gold_chunk_id": 15528,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions_b2.json"
+    "batch": "generated_questions_b2.json",
+    "gold_chunk_id_old": 15495
   },
   {
     "question": "為什麼進口食品的業者要自己建立追蹤系統呢？",
@@ -527,17 +542,19 @@
   },
   {
     "question": "我想知道進口的自有品牌美耐皿產品要怎麼登錄材質？",
-    "gold_chunk_id": 15692,
+    "gold_chunk_id": 15725,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions_b2.json"
+    "batch": "generated_questions_b2.json",
+    "gold_chunk_id_old": 15692
   },
   {
     "question": "我想知道餐盒食品需要做哪些檢驗呢？",
-    "gold_chunk_id": 13607,
+    "gold_chunk_id": 13590,
     "source": "synthetic",
     "kind": "guide",
-    "batch": "generated_questions_b2.json"
+    "batch": "generated_questions_b2.json",
+    "gold_chunk_id_old": 13607
   },
   {
     "question": "請問如果是完整包裝的生鮮食品，標示上需要注意什麼呢？",
@@ -597,10 +614,11 @@
   },
   {
     "question": "我想進口食品添加物，有什麼特別的注意事項嗎？",
-    "gold_chunk_id": 15646,
+    "gold_chunk_id": 15679,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions_b2.json"
+    "batch": "generated_questions_b2.json",
+    "gold_chunk_id_old": 15646
   },
   {
     "question": "請問碳酸飲料的外包裝需要標示氮氣或液態氮嗎？",
@@ -632,10 +650,11 @@
   },
   {
     "question": "如果我在國外買的添加物是藥品，回台灣能用嗎？",
-    "gold_chunk_id": 6183,
+    "gold_chunk_id": 6184,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions_b2.json"
+    "batch": "generated_questions_b2.json",
+    "gold_chunk_id_old": 6183
   },
   {
     "question": "雞蛋產品需要標示生產系統嗎？",
@@ -681,10 +700,11 @@
   },
   {
     "question": "如果我有多家店，文件該怎麼保存呢？",
-    "gold_chunk_id": 16085,
+    "gold_chunk_id": 16086,
     "source": "synthetic",
     "kind": "qa",
-    "batch": "generated_questions_b2.json"
+    "batch": "generated_questions_b2.json",
+    "gold_chunk_id_old": 16085
   },
   {
     "question": "請問牛海綿狀腦病的風險等級是怎麼劃分的呢？",

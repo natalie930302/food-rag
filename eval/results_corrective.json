@@ -48,15 +48,15 @@
       "gold": 4936,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9999345541000366,
+      "top_score": 1.0,
       "hit": true
     },
     {
       "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
-      "gold": 15667,
+      "gold": 15700,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9995471835136414,
+      "top_score": 0.99951171875,
       "hit": true
     },
     {
@@ -64,7 +64,7 @@
       "gold": 113,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9905374646186829,
+      "top_score": 0.99072265625,
       "hit": true
     },
     {
@@ -72,15 +72,15 @@
       "gold": 2420,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9842400550842285,
+      "top_score": 0.984375,
       "hit": true
     },
     {
       "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
-      "gold": 4354,
+      "gold": 4353,
       "source": "manual",
       "confident": true,
-      "top_score": 0.990587592124939,
+      "top_score": 0.99072265625,
       "hit": true
     },
     {
@@ -88,7 +88,7 @@
       "gold": 4852,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9993453621864319,
+      "top_score": 0.99951171875,
       "hit": true
     },
     {
@@ -96,15 +96,15 @@
       "gold": 5227,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9918579459190369,
+      "top_score": 0.99169921875,
       "hit": true
     },
     {
       "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
-      "gold": 13493,
+      "gold": 13609,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9987322688102722,
+      "top_score": 0.99853515625,
       "hit": true
     },
     {
@@ -112,7 +112,7 @@
       "gold": 14083,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9996824264526367,
+      "top_score": 0.99951171875,
       "hit": true
     },
     {
@@ -120,7 +120,7 @@
       "gold": 14103,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9885231852531433,
+      "top_score": 0.98876953125,
       "hit": true
     },
     {
@@ -128,7 +128,7 @@
       "gold": 4861,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9982981085777283,
+      "top_score": 0.99853515625,
       "hit": true
     },
     {
@@ -136,7 +136,7 @@
       "gold": 5857,
       "source": "manual",
       "confident": true,
-      "top_score": 0.998835027217865,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
@@ -144,15 +144,15 @@
       "gold": 2648,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9994427561759949,
+      "top_score": 0.99951171875,
       "hit": true
     },
     {
       "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
-      "gold": 15569,
+      "gold": 15602,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9969473481178284,
+      "top_score": 0.9970703125,
       "hit": true
     },
     {
@@ -160,7 +160,7 @@
       "gold": 5266,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9994733929634094,
+      "top_score": 0.99951171875,
       "hit": true
     },
     {
@@ -168,7 +168,7 @@
       "gold": 5399,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9992390871047974,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
@@ -176,7 +176,7 @@
       "gold": 117,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9962813258171082,
+      "top_score": 0.99609375,
       "hit": true
     },
     {
@@ -184,7 +184,7 @@
       "gold": 5801,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9968358874320984,
+      "top_score": 0.9970703125,
       "hit": true
     },
     {
@@ -192,15 +192,15 @@
       "gold": 15854,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9995392560958862,
+      "top_score": 0.99951171875,
       "hit": true
     },
     {
       "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
-      "gold": 6172,
+      "gold": 6173,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9968840479850769,
+      "top_score": 0.9970703125,
       "hit": true
     },
     {
@@ -208,7 +208,7 @@
       "gold": 2660,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9997530579566956,
+      "top_score": 0.99951171875,
       "hit": true
     },
     {
@@ -216,7 +216,7 @@
       "gold": 5847,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9978960752487183,
+      "top_score": 0.998046875,
       "hit": true
     },
     {
@@ -224,7 +224,7 @@
       "gold": 5082,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9991484880447388,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
@@ -232,7 +232,7 @@
       "gold": 13157,
       "source": "manual",
       "confident": true,
-      "top_score": 0.9991318583488464,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
@@ -240,7 +240,7 @@
       "gold": 15187,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.8956677317619324,
+      "top_score": 0.8955078125,
       "hit": true
     },
     {
@@ -248,7 +248,7 @@
       "gold": 15075,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9988036155700684,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
@@ -256,7 +256,7 @@
       "gold": 397,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9985266923904419,
+      "top_score": 0.99853515625,
       "hit": true
     },
     {
@@ -264,7 +264,7 @@
       "gold": 6,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.8355826139450073,
+      "top_score": 0.8359375,
       "hit": true
     },
     {
@@ -272,7 +272,7 @@
       "gold": 5893,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9640510082244873,
+      "top_score": 0.96435546875,
       "hit": false
     },
     {
@@ -280,7 +280,7 @@
       "gold": 15914,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9845911264419556,
+      "top_score": 0.98486328125,
       "hit": true
     },
     {
@@ -288,7 +288,7 @@
       "gold": 16017,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9400643706321716,
+      "top_score": 0.9404296875,
       "hit": true
     },
     {
@@ -296,7 +296,7 @@
       "gold": 13155,
       "source": "synthetic",
       "confident": false,
-      "top_score": 0.12147645652294159,
+      "top_score": 0.1217041015625,
       "hit": false
     },
     {
@@ -304,7 +304,7 @@
       "gold": 15391,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.6953937411308289,
+      "top_score": 0.69580078125,
       "hit": true
     },
     {
@@ -312,7 +312,7 @@
       "gold": 3489,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9003455638885498,
+      "top_score": 0.900390625,
       "hit": false
     },
     {
@@ -320,7 +320,7 @@
       "gold": 463,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9971287846565247,
+      "top_score": 0.9970703125,
       "hit": true
     },
     {
@@ -328,7 +328,7 @@
       "gold": 529,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9938777089118958,
+      "top_score": 0.99365234375,
       "hit": true
     },
     {
@@ -336,7 +336,7 @@
       "gold": 14099,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9811844229698181,
+      "top_score": 0.98095703125,
       "hit": true
     },
     {
@@ -344,7 +344,7 @@
       "gold": 14612,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9918808341026306,
+      "top_score": 0.99169921875,
       "hit": true
     },
     {
@@ -352,7 +352,7 @@
       "gold": 3286,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9570508599281311,
+      "top_score": 0.95703125,
       "hit": true
     },
     {
@@ -360,7 +360,7 @@
       "gold": 14087,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9991796612739563,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
@@ -368,7 +368,7 @@
       "gold": 15869,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9761714339256287,
+      "top_score": 0.97607421875,
       "hit": true
     },
     {
@@ -376,7 +376,7 @@
       "gold": 15188,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.946373701095581,
+      "top_score": 0.9462890625,
       "hit": true
     },
     {
@@ -384,7 +384,7 @@
       "gold": 460,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9962215423583984,
+      "top_score": 0.99609375,
       "hit": true
     },
     {
@@ -392,15 +392,15 @@
       "gold": 14603,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9889025092124939,
+      "top_score": 0.98876953125,
       "hit": true
     },
     {
       "question": "如果我做食品代工的話，是否需要保存產品的來源資料呢？",
-      "gold": 16091,
+      "gold": 16092,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9984366297721863,
+      "top_score": 0.99853515625,
       "hit": true
     },
     {
@@ -408,23 +408,23 @@
       "gold": 5387,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9577025771141052,
+      "top_score": 0.95751953125,
       "hit": true
     },
     {
       "question": "請問運送食品的公司需要登記嗎？",
-      "gold": 15635,
+      "gold": 15668,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9548789858818054,
+      "top_score": 0.95458984375,
       "hit": true
     },
     {
       "question": "如果我進口食品再自己加工，還需要登記嗎？",
-      "gold": 15577,
+      "gold": 15610,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9909591674804688,
+      "top_score": 0.99072265625,
       "hit": true
     },
     {
@@ -432,7 +432,7 @@
       "gold": 1825,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9788020849227905,
+      "top_score": 0.97900390625,
       "hit": true
     },
     {
@@ -440,7 +440,7 @@
       "gold": 86,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9584720730781555,
+      "top_score": 0.95849609375,
       "hit": true
     },
     {
@@ -448,7 +448,7 @@
       "gold": 87,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9920161962509155,
+      "top_score": 0.9921875,
       "hit": true
     },
     {
@@ -456,7 +456,7 @@
       "gold": 161,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9946211576461792,
+      "top_score": 0.99462890625,
       "hit": true
     },
     {
@@ -464,15 +464,15 @@
       "gold": 422,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9987292885780334,
+      "top_score": 0.99853515625,
       "hit": true
     },
     {
       "question": "食品添加物的檢驗報告需要哪些檢驗標準和實驗室嗎？",
-      "gold": 15677,
+      "gold": 15710,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9992407560348511,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
@@ -480,7 +480,7 @@
       "gold": 3339,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9051669239997864,
+      "top_score": 0.9052734375,
       "hit": true
     },
     {
@@ -488,7 +488,7 @@
       "gold": 335,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.982745349407196,
+      "top_score": 0.98291015625,
       "hit": true
     },
     {
@@ -496,7 +496,7 @@
       "gold": 222,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9705584049224854,
+      "top_score": 0.970703125,
       "hit": true
     },
     {
@@ -504,15 +504,15 @@
       "gold": 444,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9187155365943909,
+      "top_score": 0.91845703125,
       "hit": true
     },
     {
       "question": "如果我已經有食品添加物的許可證，還需要再登錄嗎？",
-      "gold": 15640,
+      "gold": 15673,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9971097111701965,
+      "top_score": 0.9970703125,
       "hit": true
     },
     {
@@ -520,7 +520,7 @@
       "gold": 2374,
       "source": "synthetic",
       "confident": false,
-      "top_score": 0.1729186475276947,
+      "top_score": 0.1728515625,
       "hit": false
     },
     {
@@ -528,15 +528,15 @@
       "gold": 411,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9939299821853638,
+      "top_score": 0.994140625,
       "hit": true
     },
     {
       "question": "請問益達胺這個農藥在胡椒上的殘留量是多少？",
-      "gold": 2945,
+      "gold": 2956,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.7524375915527344,
+      "top_score": 0.7529296875,
       "hit": true
     },
     {
@@ -544,7 +544,7 @@
       "gold": 12930,
       "source": "synthetic",
       "confident": false,
-      "top_score": 0.49299356341362,
+      "top_score": 0.4931640625,
       "hit": false
     },
     {
@@ -552,15 +552,15 @@
       "gold": 15126,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9921374917030334,
+      "top_score": 0.9921875,
       "hit": true
     },
     {
       "question": "我想知道哪裡可以查找食品相關的法規呢？",
-      "gold": 5020,
+      "gold": 5023,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9765085577964783,
+      "top_score": 0.9736328125,
       "hit": false
     },
     {
@@ -568,7 +568,7 @@
       "gold": 419,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9935221076011658,
+      "top_score": 0.99365234375,
       "hit": true
     },
     {
@@ -576,15 +576,15 @@
       "gold": 15393,
       "source": "synthetic",
       "confident": false,
-      "top_score": 0.40520384907722473,
+      "top_score": 0.405517578125,
       "hit": false
     },
     {
       "question": "請問食品業者登記是一定要做的嗎？什麼時候開始的？",
-      "gold": 15492,
+      "gold": 15525,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9932448267936707,
+      "top_score": 0.9931640625,
       "hit": true
     },
     {
@@ -592,7 +592,7 @@
       "gold": 3615,
       "source": "synthetic",
       "confident": false,
-      "top_score": 0.4964364171028137,
+      "top_score": 0.497314453125,
       "hit": false
     },
     {
@@ -600,7 +600,7 @@
       "gold": 15998,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.985993504524231,
+      "top_score": 0.98583984375,
       "hit": true
     },
     {
@@ -608,7 +608,7 @@
       "gold": 293,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9903338551521301,
+      "top_score": 0.990234375,
       "hit": true
     },
     {
@@ -616,7 +616,7 @@
       "gold": 984,
       "source": "synthetic",
       "confident": false,
-      "top_score": 0.4094586968421936,
+      "top_score": 0.40869140625,
       "hit": false
     },
     {
@@ -624,7 +624,7 @@
       "gold": 15,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9975232481956482,
+      "top_score": 0.99755859375,
       "hit": true
     },
     {
@@ -632,15 +632,15 @@
       "gold": 1309,
       "source": "synthetic",
       "confident": false,
-      "top_score": 0.07861681282520294,
+      "top_score": 0.078369140625,
       "hit": false
     },
     {
       "question": "我想知道文件保存五年的規定是怎麼算的，什麼時候開始算呢？",
-      "gold": 16077,
+      "gold": 16078,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.997326135635376,
+      "top_score": 0.99755859375,
       "hit": true
     },
     {
@@ -648,15 +648,15 @@
       "gold": 171,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9952074885368347,
+      "top_score": 0.9951171875,
       "hit": true
     },
     {
       "question": "如果我在登錄平台遇到錯誤，可以怎麼反映問題？",
-      "gold": 15495,
+      "gold": 15528,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9450696110725403,
+      "top_score": 0.94482421875,
       "hit": true
     },
     {
@@ -664,7 +664,7 @@
       "gold": 15915,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9998340606689453,
+      "top_score": 1.0,
       "hit": true
     },
     {
@@ -672,7 +672,7 @@
       "gold": 15434,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9979760050773621,
+      "top_score": 0.998046875,
       "hit": true
     },
     {
@@ -680,7 +680,7 @@
       "gold": 15471,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9966059923171997,
+      "top_score": 0.99658203125,
       "hit": true
     },
     {
@@ -688,7 +688,7 @@
       "gold": 15992,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9863255620002747,
+      "top_score": 0.986328125,
       "hit": true
     },
     {
@@ -696,23 +696,23 @@
       "gold": 2402,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9990993738174438,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
       "question": "我想知道進口的自有品牌美耐皿產品要怎麼登錄材質？",
-      "gold": 15692,
+      "gold": 15725,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9985622763633728,
+      "top_score": 0.99853515625,
       "hit": true
     },
     {
       "question": "我想知道餐盒食品需要做哪些檢驗呢？",
-      "gold": 13607,
+      "gold": 13590,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9945598244667053,
+      "top_score": 0.99462890625,
       "hit": true
     },
     {
@@ -720,7 +720,7 @@
       "gold": 10,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9929167032241821,
+      "top_score": 0.9931640625,
       "hit": true
     },
     {
@@ -728,7 +728,7 @@
       "gold": 147,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.992671012878418,
+      "top_score": 0.99267578125,
       "hit": true
     },
     {
@@ -736,7 +736,7 @@
       "gold": 875,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9975746273994446,
+      "top_score": 0.99755859375,
       "hit": false
     },
     {
@@ -744,7 +744,7 @@
       "gold": 15453,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9222624897956848,
+      "top_score": 0.92236328125,
       "hit": true
     },
     {
@@ -752,7 +752,7 @@
       "gold": 241,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9798665046691895,
+      "top_score": 0.97998046875,
       "hit": true
     },
     {
@@ -760,7 +760,7 @@
       "gold": 140,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9928043484687805,
+      "top_score": 0.99267578125,
       "hit": true
     },
     {
@@ -768,7 +768,7 @@
       "gold": 485,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9967643022537231,
+      "top_score": 0.99658203125,
       "hit": true
     },
     {
@@ -776,15 +776,15 @@
       "gold": 393,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9382367730140686,
+      "top_score": 0.93798828125,
       "hit": true
     },
     {
       "question": "我想進口食品添加物，有什麼特別的注意事項嗎？",
-      "gold": 15646,
+      "gold": 15679,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9745591878890991,
+      "top_score": 0.974609375,
       "hit": true
     },
     {
@@ -792,7 +792,7 @@
       "gold": 122,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.999620795249939,
+      "top_score": 0.99951171875,
       "hit": true
     },
     {
@@ -800,7 +800,7 @@
       "gold": 405,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9926797151565552,
+      "top_score": 0.99267578125,
       "hit": true
     },
     {
@@ -808,7 +808,7 @@
       "gold": 180,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9991801381111145,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
@@ -816,15 +816,15 @@
       "gold": 252,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9989520311355591,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
       "question": "如果我在國外買的添加物是藥品，回台灣能用嗎？",
-      "gold": 6183,
+      "gold": 6184,
       "source": "synthetic",
       "confident": false,
-      "top_score": 0.06835874915122986,
+      "top_score": 0.06842041015625,
       "hit": false
     },
     {
@@ -832,7 +832,7 @@
       "gold": 214,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9995239973068237,
+      "top_score": 0.99951171875,
       "hit": true
     },
     {
@@ -840,7 +840,7 @@
       "gold": 440,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.98350590467453,
+      "top_score": 0.9833984375,
       "hit": true
     },
     {
@@ -848,7 +848,7 @@
       "gold": 409,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.999745786190033,
+      "top_score": 0.99951171875,
       "hit": true
     },
     {
@@ -856,7 +856,7 @@
       "gold": 123,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9982176423072815,
+      "top_score": 0.998046875,
       "hit": true
     },
     {
@@ -864,7 +864,7 @@
       "gold": 13998,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.7089908123016357,
+      "top_score": 0.708984375,
       "hit": true
     },
     {
@@ -872,15 +872,15 @@
       "gold": 34,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.8537244200706482,
+      "top_score": 0.853515625,
       "hit": true
     },
     {
       "question": "如果我有多家店，文件該怎麼保存呢？",
-      "gold": 16085,
+      "gold": 16086,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.8983611464500427,
+      "top_score": 0.8984375,
       "hit": true
     },
     {
@@ -888,7 +888,7 @@
       "gold": 2404,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9988160133361816,
+      "top_score": 0.9990234375,
       "hit": true
     },
     {
@@ -896,7 +896,7 @@
       "gold": 256,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9948174357414246,
+      "top_score": 0.99462890625,
       "hit": true
     },
     {
@@ -904,7 +904,7 @@
       "gold": 15929,
       "source": "synthetic",
       "confident": true,
-      "top_score": 0.9977585077285767,
+      "top_score": 0.99755859375,
       "hit": true
     }
   ],
@@ -912,121 +912,121 @@
     {
       "question": "台灣的所得稅申報期限是什麼時候?",
       "confident": false,
-      "top_score": 0.05924380570650101,
+      "top_score": 0.059326171875,
       "correctly_rejected": true
     },
     {
       "question": "Unity 遊戲引擎裡要怎麼設定角色的動畫過渡?",
       "confident": false,
-      "top_score": 0.00037564177182503045,
+      "top_score": 0.00037550926208496094,
       "correctly_rejected": true
     },
     {
       "question": "颱風來的時候要注意哪些居家安全事項?",
       "confident": false,
-      "top_score": 0.032335929572582245,
+      "top_score": 0.0323486328125,
       "correctly_rejected": true
     },
     {
       "question": "貓咪大概多久需要施打一次疫苗?",
       "confident": false,
-      "top_score": 0.003967115189880133,
+      "top_score": 0.00395965576171875,
       "correctly_rejected": true
     },
     {
       "question": "台北到高雄搭高鐵大概要多久時間?",
       "confident": false,
-      "top_score": 0.002062364714220166,
+      "top_score": 0.0020503997802734375,
       "correctly_rejected": true
     },
     {
       "question": "護照到期了要怎麼申請換發?",
       "confident": false,
-      "top_score": 0.04609449952840805,
+      "top_score": 0.04620361328125,
       "correctly_rejected": true
     },
     {
       "question": "勞基法規定的特休假天數怎麼算?",
       "confident": false,
-      "top_score": 0.0028459569439291954,
+      "top_score": 0.00284576416015625,
       "correctly_rejected": true
     },
     {
       "question": "機車強制險一年大概多少錢?",
       "confident": false,
-      "top_score": 0.008663010783493519,
+      "top_score": 0.00864410400390625,
       "correctly_rejected": true
     },
     {
       "question": "Python 的 list 跟 tuple 差在哪裡?",
       "confident": false,
-      "top_score": 0.00015533789701294154,
+      "top_score": 0.00015592575073242188,
       "correctly_rejected": true
     },
     {
       "question": "房屋租賃契約公證要準備什麼文件?",
       "confident": false,
-      "top_score": 0.4004450738430023,
+      "top_score": 0.400390625,
       "correctly_rejected": true
     },
     {
       "question": "小孩幾歲可以開始學游泳比較好?",
       "confident": false,
-      "top_score": 0.0005702037014998496,
+      "top_score": 0.0005679130554199219,
       "correctly_rejected": true
     },
     {
       "question": "信用卡繳款逾期會影響信用評分嗎?",
       "confident": false,
-      "top_score": 0.00034113856963813305,
+      "top_score": 0.00034332275390625,
       "correctly_rejected": true
     },
     {
       "question": "iPhone 電池健康度低於多少建議更換?",
       "confident": false,
-      "top_score": 0.00011118157999590039,
+      "top_score": 0.00011146068572998047,
       "correctly_rejected": true
     },
     {
       "question": "汽車定期保養大概多久要換一次機油?",
       "confident": false,
-      "top_score": 0.0012635629391297698,
+      "top_score": 0.0012645721435546875,
       "correctly_rejected": true
     },
     {
       "question": "大學推甄的備審資料通常要放哪些內容?",
       "confident": false,
-      "top_score": 0.03300595283508301,
+      "top_score": 0.03289794921875,
       "correctly_rejected": true
     },
     {
       "question": "登山遇到失溫要怎麼緊急處理?",
       "confident": false,
-      "top_score": 0.00039084022864699364,
+      "top_score": 0.0003905296325683594,
       "correctly_rejected": true
     },
     {
       "question": "藥局買的成藥可以跟處方藥一起吃嗎?",
       "confident": false,
-      "top_score": 0.004058225080370903,
+      "top_score": 0.004039764404296875,
       "correctly_rejected": true
     },
     {
       "question": "化妝品標示的保存期限跟開封後使用期限有什麼不同?",
       "confident": false,
-      "top_score": 0.23834441602230072,
+      "top_score": 0.23876953125,
       "correctly_rejected": true
     },
     {
       "question": "餐廳員工的加班費要怎麼算才合法?",
       "confident": false,
-      "top_score": 0.0035983796697109938,
+      "top_score": 0.0036067962646484375,
       "correctly_rejected": true
     },
     {
       "question": "寵物飼料的成分標示有規定要寫什麼嗎?",
       "confident": false,
-      "top_score": 0.013221203349530697,
+      "top_score": 0.013275146484375,
       "correctly_rejected": true
     }
   ]

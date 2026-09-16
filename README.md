@@ -330,7 +330,7 @@ curl localhost:8000/health
 `/laws/{article}/related` 與 `/files/{path}` 是給前端用的資料端點,不是功能。
 
 ```bash
-make test     # 84 個單元測試,不需要模型或 API key
+make test     # 146 個單元測試,不需要模型或 API key
 make lint
 make eval     # 重跑全部評估 → eval/RESULTS.md(需要索引與 API key)
 python scripts/replay_trace.py eval/results_tool_agent_drift_check.json --miss   # 逐步回放答錯的題

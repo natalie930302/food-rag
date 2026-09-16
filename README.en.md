@@ -369,7 +369,7 @@ Whichever path is taken, the response has one shape (`app/harness.py`):
 `/laws/{article}/related` and `/files/{path}` are data endpoints for the UI, not features.
 
 ```bash
-make test     # 84 unit tests; no models or API key needed
+make test     # 146 unit tests; no models or API key needed
 make lint
 make eval     # rerun all evaluations → eval/RESULTS.md (needs index + API key)
 python scripts/replay_trace.py eval/results_tool_agent_drift_check.json --miss   # step-by-step replay of misses

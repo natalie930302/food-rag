@@ -6,7 +6,7 @@
 歷史脈絡(見 docs/RESEARCH_LOG.md):最早的 tool-calling agent 在 24 題上是 22/24,
 比固定重試(24/24)差,診斷出 query drift 後加一致性檢查回到 24/24,再把決策
 temperature 歸零後 hard set 從 6/8 到 7/8。這支腳本現在跑的是最終版本;
-results_tool_agent.json 保留最早版本的數字不覆蓋,方便對照。
+最早版本的數字見 docs/RESEARCH_LOG.md(舊腳本 eval_tool_agent.py 已移除)。
 
 用法:python eval/eval_tool_agent_drift_check.py [--questions eval_questions.json]
      每題最多 4 次工具呼叫,100 題約 gpt-4o-mini 數十元台幣、延遲約 20-30 秒/題

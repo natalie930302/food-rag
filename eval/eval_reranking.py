@@ -11,7 +11,7 @@ production RAG 系統的標準做法(dense retrieval 先撈出候選,rerank 再�
 這支腳本同時比較三個配置(同一組候選池,只有排序方式不同,才是公平比較):
   1. dense only(baseline)
   2. + bge-reranker-base(2026/09 之前用的模型)
-  3. + bge-reranker-v2-m3(現行模型;compare_reranker_models.py 當初診斷出 base
+  3. + bge-reranker-v2-m3(現行模型;早期的 compare_reranker_models.py(已移除,結果存於 results_reranker_comparison.json)當初診斷出 base
      對「分類存放」vs「怎麼歸類」這類詞義有混淆,換模型後修好)
 
 每個指標附 95% bootstrap CI,配置之間做 paired bootstrap + 精確符號檢定——

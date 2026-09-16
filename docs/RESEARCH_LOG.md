@@ -1,5 +1,7 @@
 # 研究日誌:檢索品質評估與 Agentic RAG 實驗(2026/09)
 
+> 文中提到的 `compare_reranker_models.py`、`eval_hard_baseline.py`、`eval_tool_agent.py` 為早期腳本,已由 `eval/eval_reranking.py`、`eval/eval_agentic.py`、`eval/eval_tool_agent_drift_check.py` 取代並移除;其數字保留於本文與 `eval/results_reranker_comparison.json`。
+>
 > 這份文件是 README 原本的完整研究紀錄,依實際執行順序保留每一步的假設、結果、
 > 診斷與修正,**包含所有負向結果**。README 首頁只放最終的總表跟關鍵發現。
 >

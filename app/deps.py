@@ -52,8 +52,8 @@ def get_reranker() -> CrossEncoder:
     """單例載入 cross-encoder reranker,用於 corrective/agentic retrieval。
 
     2026/09 從 bge-reranker-base 換成 bge-reranker-v2-m3:
-    compare_reranker_models.py 實測32題rank-1準確率從0.688提升到0.875,
-    見 eval/results_reranker_comparison.json 與 README「reranker 模型升級」章節。
+    早期以 32 題比較 rank-1 準確率從 0.688 提升到 0.875(該腳本已由 eval/eval_reranking.py 取代),
+    見 eval/results_reranker_comparison.json、eval/results_rerank.json 與 README §1。
     """
     kwargs: dict = {}
     if settings.reranker_fp16:

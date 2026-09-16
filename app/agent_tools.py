@@ -19,7 +19,7 @@ harness 的核心差異(LLM 驅動控制流程,不是寫死的 if/else)。
 
 ## 字面錨定一致性檢查(2026/09 新增,見 README「Query Drift 緩解」章節)
 
-eval/eval_tool_agent.py 實測發現一個新失效模式:LLM 幫 search_regulations 選的
+早期 tool-agent 評估(見 docs/RESEARCH_LOG.md)實測發現一個新失效模式:LLM 幫 search_regulations 選的
 查詢字串(通常是濃縮過的關鍵字,不是原始問題全文)有時候會語意飄移,檢索到
 完全不相關的候選集,而且信心分數比用原始問題字面文字查還高(「食品添加物
 輸入登記」那題:字面問題查詢 gold chunk 排名第一分數0.974,LLM濃縮的關鍵字

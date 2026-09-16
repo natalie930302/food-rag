@@ -1,7 +1,7 @@
 """集中管理所有設定,從 .env 讀取。"""
 from pathlib import Path
-from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).parent.parent.resolve()
 
@@ -13,8 +13,12 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # OpenAI
+    # LLM(OpenAI 相容 API)。換供應商只要改 base_url + model,不用動任何程式碼:
+    #   OpenAI  : OPENAI_BASE_URL 留空,OPENAI_MODEL=gpt-4o-mini
+    #   Gemini  : OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/,OPENAI_MODEL=gemini-2.5-flash
+    #   Ollama  : OPENAI_BASE_URL=http://localhost:11434/v1,OPENAI_MODEL=<本地模型>
     openai_api_key: str = ""
+    openai_base_url: str | None = None
     openai_model: str = "gpt-4o-mini"
     openai_temperature: float = 0.1
     openai_max_tokens: int = 1500

@@ -137,8 +137,8 @@ def build_review_prompt(
     )
     return system, user
 
-def call_llm(client: OpenAI, system: str, user: str) -> str:
-    """呼叫 OpenAI,回傳回答字串。"""
+def call_llm(client: OpenAI, system: str, user: str, ctx=None) -> str:
+    """呼叫 OpenAI,回傳回答字串。ctx(app.harness.RunContext)給了就累計 token 用量。"""
     if os.getenv("LLM_DEBUG", "").lower() in ("1", "true"):
         print("\n" + "="*60)
         print("[SYSTEM]\n" + system)
@@ -154,6 +154,8 @@ def call_llm(client: OpenAI, system: str, user: str) -> str:
             {"role": "user", "content": user},
         ],
     )
+    if ctx is not None:
+        ctx.record_llm(resp)
     return resp.choices[0].message.content or ""
 
 
@@ -215,7 +217,12 @@ def detect_risk_keywords(text: str) -> list[str]:
     return list(dict.fromkeys(found))  # 去重保序
 
 
-_VERDICT_LINE = re.compile(r"VERDICT:\s*(高風險|有疑慮|合規)")
+# 2026/09:原本只認 "VERDICT: 高風險"(半形冒號、無粗體)。實測 LLM 會輸出 "**VERDICT:** 高風險"、
+# "VERDICT:高風險"、"VERDICT 高風險",都抓不到 → 等級退回關鍵字規則,出現「內文說違反第 28 條、
+# 等級卻是 low」的矛盾。放寬格式,並在完全沒有 VERDICT 行時,用報告內文的違規措辭推最低等級。
+_VERDICT_LINE = re.compile(r"VERDICT\s*[:：]?\s*\**\s*(高風險|有疑慮|合規)")
+_REPORT_HIGH_CUES = ("涉及醫療效能", "宣稱醫療效能", "醫療效能之", "違反第28條", "違反食安法第28條", "違反《食品安全衛生管理法》第28條")
+_REPORT_MEDIUM_CUES = ("誇張", "易生誤解", "有疑慮", "違反")
 _LLM_TO_LEVEL = {"高風險": "high", "有疑慮": "medium", "合規": "low"}
 _LEVEL_ORDER = {"low": 0, "medium": 1, "high": 2}
 
@@ -230,7 +237,14 @@ def infer_verdict(matched_keywords: list[str], answer: str, ad_text: str = "") -
         kw_level = "low"
 
     m = _VERDICT_LINE.search(answer)
-    llm_level = _LLM_TO_LEVEL.get(m.group(1), "low") if m else "low"
+    if m:
+        llm_level = _LLM_TO_LEVEL.get(m.group(1), "low")
+    elif any(c in answer for c in _REPORT_HIGH_CUES):
+        llm_level = "high"      # 報告內文明說涉及醫療效能/違反 28 條,等級不能是 low
+    elif any(c in answer for c in _REPORT_MEDIUM_CUES):
+        llm_level = "medium"
+    else:
+        llm_level = "low"
 
     combined = max(kw_level, llm_level, key=lambda x: _LEVEL_ORDER[x])
 

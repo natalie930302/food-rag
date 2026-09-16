@@ -66,7 +66,7 @@ def get_reranker() -> CrossEncoder:
 def get_openai_client() -> OpenAI:
     if not settings.openai_api_key:
         raise RuntimeError("OPENAI_API_KEY 未設定,請編輯 .env")
-    return OpenAI(api_key=settings.openai_api_key)
+    return OpenAI(api_key=settings.openai_api_key, base_url=settings.openai_base_url or None)
 
 
 def preload_all():

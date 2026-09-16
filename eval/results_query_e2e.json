@@ -1,0 +1,5769 @@
+{
+  "by_set": {
+    "single-hop": {
+      "n": 108,
+      "refused": 3,
+      "unsupported_citation_cases": 0,
+      "citation_regenerated": 1,
+      "avg_llm_calls": 1.87,
+      "avg_tokens": 3453,
+      "avg_elapsed_s": 10.9,
+      "hit": {
+        "count": 101,
+        "total": 108,
+        "rate": 0.9351851851851852,
+        "ci95": [
+          0.8888888888888888,
+          0.9814814814814815
+        ]
+      }
+    },
+    "hard": {
+      "n": 8,
+      "refused": 0,
+      "unsupported_citation_cases": 0,
+      "citation_regenerated": 0,
+      "avg_llm_calls": 1.38,
+      "avg_tokens": 3485,
+      "avg_elapsed_s": 12.4,
+      "hit": {
+        "count": 6,
+        "total": 8,
+        "rate": 0.75,
+        "ci95": [
+          0.5,
+          1.0
+        ]
+      }
+    },
+    "multi-hop": {
+      "n": 20,
+      "refused": 10,
+      "unsupported_citation_cases": 0,
+      "citation_regenerated": 1,
+      "avg_llm_calls": 2.7,
+      "avg_tokens": 4455,
+      "avg_elapsed_s": 18.4,
+      "hit": {
+        "count": 3,
+        "total": 20,
+        "rate": 0.15,
+        "ci95": [
+          0.0,
+          0.3
+        ]
+      }
+    },
+    "router-set": {
+      "n": 30,
+      "refused": 12,
+      "unsupported_citation_cases": 0,
+      "citation_regenerated": 0,
+      "avg_llm_calls": 1.83,
+      "avg_tokens": 3813,
+      "avg_elapsed_s": 9.6
+    },
+    "ood": {
+      "n": 20,
+      "refused": 20,
+      "unsupported_citation_cases": 0,
+      "citation_regenerated": 0,
+      "avg_llm_calls": 2.1,
+      "avg_tokens": 525,
+      "avg_elapsed_s": 14.7
+    }
+  },
+  "by_handler": {
+    "regulation": {
+      "n": 141,
+      "refused": 23,
+      "unsupported_citation_cases": 0,
+      "citation_regenerated": 1,
+      "avg_llm_calls": 1.74,
+      "avg_tokens": 2893,
+      "avg_elapsed_s": 11.5,
+      "hit": {
+        "count": 105,
+        "total": 113,
+        "rate": 0.9292035398230089,
+        "ci95": [
+          0.8761061946902655,
+          0.9734513274336283
+        ]
+      }
+    },
+    "review": {
+      "n": 11,
+      "refused": 0,
+      "unsupported_citation_cases": 0,
+      "citation_regenerated": 0,
+      "avg_llm_calls": 1.45,
+      "avg_tokens": 6871,
+      "avg_elapsed_s": 3.5,
+      "hit": {
+        "count": 1,
+        "total": 1,
+        "rate": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "agent": {
+      "n": 34,
+      "refused": 22,
+      "unsupported_citation_cases": 0,
+      "citation_regenerated": 1,
+      "avg_llm_calls": 3.03,
+      "avg_tokens": 3862,
+      "avg_elapsed_s": 17.0,
+      "hit": {
+        "count": 4,
+        "total": 22,
+        "rate": 0.18181818181818182,
+        "ci95": [
+          0.045454545454545456,
+          0.36363636363636365
+        ]
+      }
+    }
+  },
+  "routing_accuracy": 0.9666666666666667,
+  "per_question": [
+    {
+      "set": "single-hop",
+      "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2973,
+        "completion_tokens": 72,
+        "total_tokens": 3045,
+        "elapsed_s": 14.77,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.8
+    },
+    {
+      "set": "single-hop",
+      "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2920,
+        "completion_tokens": 71,
+        "total_tokens": 2991,
+        "elapsed_s": 12.76,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 12.8
+    },
+    {
+      "set": "single-hop",
+      "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3389,
+        "completion_tokens": 76,
+        "total_tokens": 3465,
+        "elapsed_s": 9.14,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.1
+    },
+    {
+      "set": "single-hop",
+      "question": "台灣有可能進口到帶有狂牛症風險的牛肉產品嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3180,
+        "completion_tokens": 172,
+        "total_tokens": 3352,
+        "elapsed_s": 9.03,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.0
+    },
+    {
+      "set": "single-hop",
+      "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3139,
+        "completion_tokens": 88,
+        "total_tokens": 3227,
+        "elapsed_s": 14.87,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.9
+    },
+    {
+      "set": "single-hop",
+      "question": "賣給餐飲業者的業務用奶精,也要照規定標示品名嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2015,
+        "completion_tokens": 90,
+        "total_tokens": 2105,
+        "elapsed_s": 8.46,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.5
+    },
+    {
+      "set": "single-hop",
+      "question": "農產品如果是別人分裝後驗證的,標示追溯來源時要寫誰的資訊?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2836,
+        "completion_tokens": 91,
+        "total_tokens": 2927,
+        "elapsed_s": 9.41,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.4
+    },
+    {
+      "set": "single-hop",
+      "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3396,
+        "completion_tokens": 153,
+        "total_tokens": 3549,
+        "elapsed_s": 8.44,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.4
+    },
+    {
+      "set": "single-hop",
+      "question": "食用油脂原料的檢驗可以用週期性輪替的方式做嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 4472,
+        "completion_tokens": 112,
+        "total_tokens": 4584,
+        "elapsed_s": 9.19,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.2
+    },
+    {
+      "set": "single-hop",
+      "question": "便利商店賣金針、蘿蔔乾這類產品,可以用週期性輪替檢驗嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 4424,
+        "completion_tokens": 153,
+        "total_tokens": 4577,
+        "elapsed_s": 13.76,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 13.8
+    },
+    {
+      "set": "single-hop",
+      "question": "包裝奶精的品名標示新規定,有給業者緩衝期嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2019,
+        "completion_tokens": 98,
+        "total_tokens": 2117,
+        "elapsed_s": 8.79,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.8
+    },
+    {
+      "set": "single-hop",
+      "question": "洗碗精配方裡的水算不算是主要成分?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3177,
+        "completion_tokens": 73,
+        "total_tokens": 3250,
+        "elapsed_s": 8.95,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.0
+    },
+    {
+      "set": "single-hop",
+      "question": "冬青葉泡的茶湯,可以加進其他茶飲一起賣嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2201,
+        "completion_tokens": 133,
+        "total_tokens": 2334,
+        "elapsed_s": 4.99,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 5.0
+    },
+    {
+      "set": "single-hop",
+      "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2202,
+        "completion_tokens": 158,
+        "total_tokens": 2360,
+        "elapsed_s": 6.03,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 6.0
+    },
+    {
+      "set": "single-hop",
+      "question": "濃縮果汁還原後算出來超過100%的原汁含有率,該怎麼標示?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2876,
+        "completion_tokens": 121,
+        "total_tokens": 2997,
+        "elapsed_s": 7.38,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 7.4
+    },
+    {
+      "set": "single-hop",
+      "question": "超商賣的餐盒如果有牛肉,需要標示牛肉的原產地嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3530,
+        "completion_tokens": 103,
+        "total_tokens": 3633,
+        "elapsed_s": 9.84,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.8
+    },
+    {
+      "set": "single-hop",
+      "question": "粥品裡額外加的水,需要寫在內容物標示裡嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3623,
+        "completion_tokens": 68,
+        "total_tokens": 3691,
+        "elapsed_s": 8.74,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.7
+    },
+    {
+      "set": "single-hop",
+      "question": "食品用整箱方式批發賣給中盤商,標示要標在箱子上還是個別包裝上?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3123,
+        "completion_tokens": 81,
+        "total_tokens": 3204,
+        "elapsed_s": 7.33,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 7.3
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我賣的食品品項有被公告要用電子發票,那我賣的非食品部分也要開電子發票嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2350,
+        "completion_tokens": 112,
+        "total_tokens": 2462,
+        "elapsed_s": 7.77,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 7.8
+    },
+    {
+      "set": "single-hop",
+      "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2493,
+        "completion_tokens": 82,
+        "total_tokens": 2575,
+        "elapsed_s": 8.72,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.7
+    },
+    {
+      "set": "single-hop",
+      "question": "用咖啡葉做的茶飲,需要標示咖啡因含量嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3204,
+        "completion_tokens": 91,
+        "total_tokens": 3295,
+        "elapsed_s": 9.81,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.8
+    },
+    {
+      "set": "single-hop",
+      "question": "『非登不可』平台上的產品登錄資訊,規定多久要更新一次?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2693,
+        "completion_tokens": 94,
+        "total_tokens": 2787,
+        "elapsed_s": 7.27,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 7.3
+    },
+    {
+      "set": "single-hop",
+      "question": "食品裡面附玩具一起賣,為什麼需要標示警語?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3258,
+        "completion_tokens": 125,
+        "total_tokens": 3383,
+        "elapsed_s": 8.98,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.0
+    },
+    {
+      "set": "single-hop",
+      "question": "裁罰基準裡講的資力加權倍數,『所有違規產品』具體是指什麼?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 6732,
+        "completion_tokens": 131,
+        "total_tokens": 6863,
+        "elapsed_s": 11.1,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.1
+    },
+    {
+      "set": "single-hop",
+      "question": "食品中有哪些可能會影響健康的危險因素呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3443,
+        "completion_tokens": 247,
+        "total_tokens": 3690,
+        "elapsed_s": 10.89,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.9
+    },
+    {
+      "set": "single-hop",
+      "question": "食品業者的管制小組需要幾個成員？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3421,
+        "completion_tokens": 99,
+        "total_tokens": 3520,
+        "elapsed_s": 9.43,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.4
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我買的果汁標示原汁含量是55%，這樣算不算真的天然果汁呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3454,
+        "completion_tokens": 140,
+        "total_tokens": 3594,
+        "elapsed_s": 8.2,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.2
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我買了大包裝的食品，想要自己分裝賣，這樣合法嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3146,
+        "completion_tokens": 220,
+        "total_tokens": 3366,
+        "elapsed_s": 10.48,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.5
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我想加註填充材料，該如何標示呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3987,
+        "completion_tokens": 211,
+        "total_tokens": 4198,
+        "elapsed_s": 9.74,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.7
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我在進口食品後，還需要負責追蹤嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2938,
+        "completion_tokens": 120,
+        "total_tokens": 3058,
+        "elapsed_s": 9.64,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.6
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我已經有自己的編碼系統，還需要再建立新的產品編碼嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3058,
+        "completion_tokens": 90,
+        "total_tokens": 3148,
+        "elapsed_s": 9.81,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.8
+    },
+    {
+      "set": "single-hop",
+      "question": "請問這次的罰款標準是怎麼制定的呢？",
+      "expected_intent": null,
+      "intent": "case_lookup",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": true,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "retrieve_cases",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 4,
+        "tool_calls": 0,
+        "prompt_tokens": 9740,
+        "completion_tokens": 516,
+        "total_tokens": 10256,
+        "elapsed_s": 22.93,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 22.9
+    },
+    {
+      "set": "single-hop",
+      "question": "請問乙酸的使用濃度上限是多少？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3905,
+        "completion_tokens": 27,
+        "total_tokens": 3932,
+        "elapsed_s": 9.78,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.8
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道食品的檢驗報告要多少錢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 1863,
+        "completion_tokens": 83,
+        "total_tokens": 1946,
+        "elapsed_s": 7.96,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.0
+    },
+    {
+      "set": "single-hop",
+      "question": "如果食品是用塑膠盒和膠膜包裝的，那算不算散裝？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3715,
+        "completion_tokens": 113,
+        "total_tokens": 3828,
+        "elapsed_s": 9.65,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.6
+    },
+    {
+      "set": "single-hop",
+      "question": "我可以在產品包裝上寫不會影響血糖嗎？",
+      "expected_intent": null,
+      "intent": "ad_review",
+      "route_source": "llm",
+      "handler": "review",
+      "hit": true,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "high",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 6349,
+        "completion_tokens": 312,
+        "total_tokens": 6661,
+        "elapsed_s": 5.35,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 5.4
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我想要出口食品，檢驗報告算不算強制檢驗呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3040,
+        "completion_tokens": 223,
+        "total_tokens": 3263,
+        "elapsed_s": 8.26,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.3
+    },
+    {
+      "set": "single-hop",
+      "question": "請問塑膠食品包裝的印刷要注意什麼？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3163,
+        "completion_tokens": 341,
+        "total_tokens": 3504,
+        "elapsed_s": 11.63,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.6
+    },
+    {
+      "set": "single-hop",
+      "question": "請問水產品的定義是什麼呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3224,
+        "completion_tokens": 74,
+        "total_tokens": 3298,
+        "elapsed_s": 13.18,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 13.2
+    },
+    {
+      "set": "single-hop",
+      "question": "輸入的食用油脂如果存了半年，還需要再檢驗一次嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3291,
+        "completion_tokens": 87,
+        "total_tokens": 3378,
+        "elapsed_s": 9.92,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.9
+    },
+    {
+      "set": "single-hop",
+      "question": "在製作食用油時添加的助劑需要記錄嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2101,
+        "completion_tokens": 94,
+        "total_tokens": 2195,
+        "elapsed_s": 9.94,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.9
+    },
+    {
+      "set": "single-hop",
+      "question": "可以請你解釋一下什麼是危害分析嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3404,
+        "completion_tokens": 383,
+        "total_tokens": 3787,
+        "elapsed_s": 10.96,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.0
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我在超市買到冷凍海產，誰要負責標示呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3717,
+        "completion_tokens": 135,
+        "total_tokens": 3852,
+        "elapsed_s": 9.15,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.1
+    },
+    {
+      "set": "single-hop",
+      "question": "請問食品添加物廠需要什麼樣的衛生管理人員資格呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3216,
+        "completion_tokens": 261,
+        "total_tokens": 3477,
+        "elapsed_s": 14.12,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.1
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我做食品代工的話，是否需要保存產品的來源資料呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3395,
+        "completion_tokens": 104,
+        "total_tokens": 3499,
+        "elapsed_s": 9.81,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.8
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我有牛樟芝的健康食品，還需要做什麼檢查嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2792,
+        "completion_tokens": 156,
+        "total_tokens": 2948,
+        "elapsed_s": 11.82,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.8
+    },
+    {
+      "set": "single-hop",
+      "question": "請問運送食品的公司需要登記嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2475,
+        "completion_tokens": 77,
+        "total_tokens": 2552,
+        "elapsed_s": 5.96,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 6.0
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我進口食品再自己加工，還需要登記嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2588,
+        "completion_tokens": 94,
+        "total_tokens": 2682,
+        "elapsed_s": 9.51,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.5
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道人造奶油的油脂含量要多少才符合規定？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3697,
+        "completion_tokens": 50,
+        "total_tokens": 3747,
+        "elapsed_s": 8.9,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.9
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我有發酵粉和植物油粉，標示內容要怎麼處理？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3493,
+        "completion_tokens": 271,
+        "total_tokens": 3764,
+        "elapsed_s": 14.16,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.2
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我用番茄萃取物做產品，標示要怎麼寫呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3243,
+        "completion_tokens": 193,
+        "total_tokens": 3436,
+        "elapsed_s": 10.89,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.9
+    },
+    {
+      "set": "single-hop",
+      "question": "製作餅乾時可以用什麼名稱標示小蘇打嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3445,
+        "completion_tokens": 102,
+        "total_tokens": 3547,
+        "elapsed_s": 9.71,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.7
+    },
+    {
+      "set": "single-hop",
+      "question": "請問海鮮商品的冰包裝有沒有標示規定呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2626,
+        "completion_tokens": 135,
+        "total_tokens": 2761,
+        "elapsed_s": 10.15,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.1
+    },
+    {
+      "set": "single-hop",
+      "question": "食品添加物的檢驗報告需要哪些檢驗標準和實驗室嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3974,
+        "completion_tokens": 192,
+        "total_tokens": 4166,
+        "elapsed_s": 14.39,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.4
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道馬鈴薯的重金屬檢驗規定是什麼？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 4039,
+        "completion_tokens": 192,
+        "total_tokens": 4231,
+        "elapsed_s": 13.53,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 13.5
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我賣給餐廳的產品，還需要標示過敏原嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 1990,
+        "completion_tokens": 168,
+        "total_tokens": 2158,
+        "elapsed_s": 10.11,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.1
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我從國外進口一種飲品，標示的產地是在哪裡呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3750,
+        "completion_tokens": 197,
+        "total_tokens": 3947,
+        "elapsed_s": 10.06,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.1
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道綜合維生素的標示要求是什麼？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2727,
+        "completion_tokens": 364,
+        "total_tokens": 3091,
+        "elapsed_s": 14.21,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.2
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我已經有食品添加物的許可證，還需要再登錄嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2699,
+        "completion_tokens": 107,
+        "total_tokens": 2806,
+        "elapsed_s": 13.73,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 13.7
+    },
+    {
+      "set": "single-hop",
+      "question": "請問牛肉裡面允許的加保利殘留量是多少呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 17.62,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 17.6
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我的產品是全裸麥的話，能不能叫全麥呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 4543,
+        "completion_tokens": 132,
+        "total_tokens": 4675,
+        "elapsed_s": 9.6,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.6
+    },
+    {
+      "set": "single-hop",
+      "question": "請問益達胺這個農藥在胡椒上的殘留量是多少？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 4772,
+        "completion_tokens": 32,
+        "total_tokens": 4804,
+        "elapsed_s": 9.92,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.9
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道檢測李斯特菌的PCR產物大小是多少？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 0,
+        "prompt_tokens": 4152,
+        "completion_tokens": 65,
+        "total_tokens": 4217,
+        "elapsed_s": 17.11,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 17.1
+    },
+    {
+      "set": "single-hop",
+      "question": "未發酵的乳類飲品是用什麼材料做的呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2552,
+        "completion_tokens": 109,
+        "total_tokens": 2661,
+        "elapsed_s": 10.22,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.2
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道哪裡可以查找食品相關的法規呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 1953,
+        "completion_tokens": 91,
+        "total_tokens": 2044,
+        "elapsed_s": 5.84,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 5.8
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我在餐廳使用進口食品，標示上需要寫些什麼呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3545,
+        "completion_tokens": 268,
+        "total_tokens": 3813,
+        "elapsed_s": 10.33,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.3
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道碘的使用濃度限制是什麼？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 0,
+        "prompt_tokens": 3434,
+        "completion_tokens": 120,
+        "total_tokens": 3554,
+        "elapsed_s": 16.84,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.8
+    },
+    {
+      "set": "single-hop",
+      "question": "請問食品業者登記是一定要做的嗎？什麼時候開始的？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2832,
+        "completion_tokens": 93,
+        "total_tokens": 2925,
+        "elapsed_s": 8.83,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.8
+    },
+    {
+      "set": "single-hop",
+      "question": "請問食品裡的銅成分一天最多可以攝取多少？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 0,
+        "prompt_tokens": 4604,
+        "completion_tokens": 84,
+        "total_tokens": 4688,
+        "elapsed_s": 16.87,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.9
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我在三月退貨，應該怎麼報告這筆交易？",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 1,
+        "prompt_tokens": 3206,
+        "completion_tokens": 220,
+        "total_tokens": 3426,
+        "elapsed_s": 20.89,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 20.9
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道像免疫球蛋白這些東西，能不能當作營養素來標示呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3646,
+        "completion_tokens": 139,
+        "total_tokens": 3785,
+        "elapsed_s": 10.27,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.3
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我想購買特殊配方食品，有什麼需要注意的嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 0,
+        "prompt_tokens": 4047,
+        "completion_tokens": 362,
+        "total_tokens": 4409,
+        "elapsed_s": 19.28,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 19.3
+    },
+    {
+      "set": "single-hop",
+      "question": "進口的肉類產品包裝上需要有中文標籤嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3185,
+        "completion_tokens": 107,
+        "total_tokens": 3292,
+        "elapsed_s": 8.25,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.2
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我在網路上訂購食品，多久會收到貨呢？",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 6,
+        "tool_calls": 4,
+        "prompt_tokens": 4325,
+        "completion_tokens": 114,
+        "total_tokens": 4439,
+        "elapsed_s": 35.27,
+        "stop_reason": "tool_calls"
+      },
+      "elapsed_s": 35.3
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道文件保存五年的規定是怎麼算的，什麼時候開始算呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2518,
+        "completion_tokens": 67,
+        "total_tokens": 2585,
+        "elapsed_s": 8.98,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.0
+    },
+    {
+      "set": "single-hop",
+      "question": "豆腐裡面如果加了消泡劑，要怎麼標示呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 4331,
+        "completion_tokens": 84,
+        "total_tokens": 4415,
+        "elapsed_s": 10.33,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.3
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我在登錄平台遇到錯誤，可以怎麼反映問題？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 1992,
+        "completion_tokens": 166,
+        "total_tokens": 2158,
+        "elapsed_s": 5.52,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 5.5
+    },
+    {
+      "set": "single-hop",
+      "question": "為什麼進口食品的業者要自己建立追蹤系統呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2991,
+        "completion_tokens": 289,
+        "total_tokens": 3280,
+        "elapsed_s": 10.23,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.2
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我的食品公司被驗證了，但後來違反了食安法，會怎麼處理？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2963,
+        "completion_tokens": 177,
+        "total_tokens": 3140,
+        "elapsed_s": 7.72,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 7.7
+    },
+    {
+      "set": "single-hop",
+      "question": "請問驗證的收費流程是怎麼樣的？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2399,
+        "completion_tokens": 172,
+        "total_tokens": 2571,
+        "elapsed_s": 11.13,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.1
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我用豬油，肉品種類要怎麼選呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3194,
+        "completion_tokens": 80,
+        "total_tokens": 3274,
+        "elapsed_s": 10.18,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.2
+    },
+    {
+      "set": "single-hop",
+      "question": "牛的哪個部位會有牛海綿狀腦病的病原呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2992,
+        "completion_tokens": 144,
+        "total_tokens": 3136,
+        "elapsed_s": 7.42,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 7.4
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道進口的自有品牌美耐皿產品要怎麼登錄材質？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3161,
+        "completion_tokens": 215,
+        "total_tokens": 3376,
+        "elapsed_s": 10.31,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.3
+    },
+    {
+      "set": "single-hop",
+      "question": "我想知道餐盒食品需要做哪些檢驗呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3454,
+        "completion_tokens": 145,
+        "total_tokens": 3599,
+        "elapsed_s": 9.74,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.7
+    },
+    {
+      "set": "single-hop",
+      "question": "請問如果是完整包裝的生鮮食品，標示上需要注意什麼呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3717,
+        "completion_tokens": 267,
+        "total_tokens": 3984,
+        "elapsed_s": 13.26,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 13.3
+    },
+    {
+      "set": "single-hop",
+      "question": "沙茶醬的油跟固形物是怎麼分類的呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 4103,
+        "completion_tokens": 192,
+        "total_tokens": 4295,
+        "elapsed_s": 12.65,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 12.7
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我有調合油，品名要怎麼標示才符合規定呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3072,
+        "completion_tokens": 245,
+        "total_tokens": 3317,
+        "elapsed_s": 11.09,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.1
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我想知道哪些澱粉產品需要驗證，該怎麼查?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 4236,
+        "completion_tokens": 240,
+        "total_tokens": 4476,
+        "elapsed_s": 10.11,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.1
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我賣的禮盒裡有不同有效日期的產品，該怎麼標示？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3125,
+        "completion_tokens": 85,
+        "total_tokens": 3210,
+        "elapsed_s": 10.89,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.9
+    },
+    {
+      "set": "single-hop",
+      "question": "我可以在食品包裝上用英文字母標示重量和容量嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3649,
+        "completion_tokens": 130,
+        "total_tokens": 3779,
+        "elapsed_s": 9.39,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.4
+    },
+    {
+      "set": "single-hop",
+      "question": "我可以把一般食品標示為保健食品嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3361,
+        "completion_tokens": 130,
+        "total_tokens": 3491,
+        "elapsed_s": 9.27,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.3
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我有一種果汁，主要是葡萄，這樣的標示合不合法呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 4194,
+        "completion_tokens": 179,
+        "total_tokens": 4373,
+        "elapsed_s": 11.16,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.2
+    },
+    {
+      "set": "single-hop",
+      "question": "我想進口食品添加物，有什麼特別的注意事項嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3761,
+        "completion_tokens": 255,
+        "total_tokens": 4016,
+        "elapsed_s": 14.95,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.0
+    },
+    {
+      "set": "single-hop",
+      "question": "請問碳酸飲料的外包裝需要標示氮氣或液態氮嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3080,
+        "completion_tokens": 97,
+        "total_tokens": 3177,
+        "elapsed_s": 14.39,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.4
+    },
+    {
+      "set": "single-hop",
+      "question": "請問黑木耳和香菇需要按照什麼標準來標示嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2906,
+        "completion_tokens": 120,
+        "total_tokens": 3026,
+        "elapsed_s": 8.63,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.6
+    },
+    {
+      "set": "single-hop",
+      "question": "如果飲料裡面有香料和乳糖，我需要標示過敏原嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3593,
+        "completion_tokens": 135,
+        "total_tokens": 3728,
+        "elapsed_s": 10.14,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.1
+    },
+    {
+      "set": "single-hop",
+      "question": "請問冷凍蔬菜產品要有營養標示嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3070,
+        "completion_tokens": 186,
+        "total_tokens": 3256,
+        "elapsed_s": 15.64,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.6
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我在國外買的添加物是藥品，回台灣能用嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 17.72,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 17.7
+    },
+    {
+      "set": "single-hop",
+      "question": "雞蛋產品需要標示生產系統嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 4410,
+        "completion_tokens": 142,
+        "total_tokens": 4552,
+        "elapsed_s": 9.66,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.7
+    },
+    {
+      "set": "single-hop",
+      "question": "如果產品裡面有香料，這些香料需要詳細列出嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3546,
+        "completion_tokens": 102,
+        "total_tokens": 3648,
+        "elapsed_s": 10.76,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.8
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我標示產品為「北蟲草」，這樣會不會違法呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3643,
+        "completion_tokens": 176,
+        "total_tokens": 3819,
+        "elapsed_s": 11.11,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.1
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我在產品裡加了二氧化碳，包裝上需要標示嗎？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3547,
+        "completion_tokens": 121,
+        "total_tokens": 3668,
+        "elapsed_s": 10.81,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.8
+    },
+    {
+      "set": "single-hop",
+      "question": "我如果要進口茶葉，需滿足什麼條件呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3974,
+        "completion_tokens": 99,
+        "total_tokens": 4073,
+        "elapsed_s": 10.72,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.7
+    },
+    {
+      "set": "single-hop",
+      "question": "我可以把我的產品名稱改成營養素的名字嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2303,
+        "completion_tokens": 250,
+        "total_tokens": 2553,
+        "elapsed_s": 11.67,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.7
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我有多家店，文件該怎麼保存呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 1945,
+        "completion_tokens": 132,
+        "total_tokens": 2077,
+        "elapsed_s": 6.75,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 6.8
+    },
+    {
+      "set": "single-hop",
+      "question": "請問牛海綿狀腦病的風險等級是怎麼劃分的呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3430,
+        "completion_tokens": 195,
+        "total_tokens": 3625,
+        "elapsed_s": 10.09,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.1
+    },
+    {
+      "set": "single-hop",
+      "question": "如果我賣茶包，是否需要標示營養成分呢？",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3006,
+        "completion_tokens": 199,
+        "total_tokens": 3205,
+        "elapsed_s": 10.78,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.8
+    },
+    {
+      "set": "single-hop",
+      "question": "我們是一家小型食品進口商，應該怎麼建立追蹤系統?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2920,
+        "completion_tokens": 295,
+        "total_tokens": 3215,
+        "elapsed_s": 8.05,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.1
+    },
+    {
+      "set": "hard",
+      "question": "廠商只是把幾種原料包在一起、包裝完全沒變,這樣算是有動到食品的製程嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 4279,
+        "completion_tokens": 138,
+        "total_tokens": 4417,
+        "elapsed_s": 9.83,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.8
+    },
+    {
+      "set": "hard",
+      "question": "如果我只是把東西重新分裝,不算是真正在做食品加工吧?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3227,
+        "completion_tokens": 187,
+        "total_tokens": 3414,
+        "elapsed_s": 9.79,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.8
+    },
+    {
+      "set": "hard",
+      "question": "紅麴膠囊這種東西,官方是怎麼歸類的?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 0,
+        "prompt_tokens": 2818,
+        "completion_tokens": 98,
+        "total_tokens": 2916,
+        "elapsed_s": 18.3,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 18.3
+    },
+    {
+      "set": "hard",
+      "question": "營養標示上寫的份數,可以有小數點嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2423,
+        "completion_tokens": 83,
+        "total_tokens": 2506,
+        "elapsed_s": 11.89,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.9
+    },
+    {
+      "set": "hard",
+      "question": "如果我又做食品添加物又做一般食品輸入,登記資料要分兩份填嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3103,
+        "completion_tokens": 74,
+        "total_tokens": 3177,
+        "elapsed_s": 12.62,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 12.6
+    },
+    {
+      "set": "hard",
+      "question": "自己工廠內部用的半成品,沒有拿出去賣,也要跟政府報備嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3509,
+        "completion_tokens": 179,
+        "total_tokens": 3688,
+        "elapsed_s": 11.46,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.5
+    },
+    {
+      "set": "hard",
+      "question": "得了B肝的人還能在食品業工作嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3753,
+        "completion_tokens": 107,
+        "total_tokens": 3860,
+        "elapsed_s": 9.02,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.0
+    },
+    {
+      "set": "hard",
+      "question": "要當食品安全管制的窗口,需要上過什麼課嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3769,
+        "completion_tokens": 130,
+        "total_tokens": 3899,
+        "elapsed_s": 16.5,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.5
+    },
+    {
+      "set": "multi-hop",
+      "question": "網路上賣益生菌說能「提升免疫力」,這樣違反哪一條?過去實際有人因此被罰嗎、罰多少?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 2435,
+        "completion_tokens": 84,
+        "total_tokens": 2519,
+        "elapsed_s": 16.66,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.7
+    },
+    {
+      "set": "multi-hop",
+      "question": "健康食品的廣告如果講超過核准的保健功效,法源是哪條?台北市有開罰過的案例嗎?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": true,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 2,
+        "prompt_tokens": 9874,
+        "completion_tokens": 510,
+        "total_tokens": 10384,
+        "elapsed_s": 21.34,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 21.3
+    },
+    {
+      "set": "multi-hop",
+      "question": "電視購物賣葉黃素說可以「改善視力」,會依什麼規定處理?實務上罰款大概是多少?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 4,
+        "tool_calls": 2,
+        "prompt_tokens": 6988,
+        "completion_tokens": 295,
+        "total_tokens": 7283,
+        "elapsed_s": 21.28,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 21.3
+    },
+    {
+      "set": "multi-hop",
+      "question": "減肥產品廣告宣稱「一週瘦五公斤」,違規的話依據哪條?罰過的案例金額落在哪個範圍?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 3031,
+        "completion_tokens": 335,
+        "total_tokens": 3366,
+        "elapsed_s": 14.76,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.8
+    },
+    {
+      "set": "multi-hop",
+      "question": "廣播節目裡說某酵素可以「排毒瘦身」,法規怎麼看?有沒有實際裁罰紀錄?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 2476,
+        "completion_tokens": 455,
+        "total_tokens": 2931,
+        "elapsed_s": 16.1,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.1
+    },
+    {
+      "set": "multi-hop",
+      "question": "食安法第28條常常跟哪些其他條文一起被引用?那些關聯條文各自在管什麼?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_related_laws",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 1,
+        "prompt_tokens": 1457,
+        "completion_tokens": 290,
+        "total_tokens": 1747,
+        "elapsed_s": 3.8,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 3.8
+    },
+    {
+      "set": "multi-hop",
+      "question": "標示違規(第22條)通常會連動到哪些條文?罰則是哪一條?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 2678,
+        "completion_tokens": 255,
+        "total_tokens": 2933,
+        "elapsed_s": 18.83,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 18.8
+    },
+    {
+      "set": "multi-hop",
+      "question": "說膠原蛋白飲可以「美白抗老」,這種廣告會不會出事?有被罰過的例子嗎?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 2,
+        "prompt_tokens": 2540,
+        "completion_tokens": 371,
+        "total_tokens": 2911,
+        "elapsed_s": 26.95,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 27.0
+    },
+    {
+      "set": "multi-hop",
+      "question": "我在臉書粉專分享自家產品「調節血糖」的顧客見證文,這算廣告嗎?有人因為這樣被罰嗎?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 2,
+        "prompt_tokens": 3734,
+        "completion_tokens": 287,
+        "total_tokens": 4021,
+        "elapsed_s": 24.52,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 24.5
+    },
+    {
+      "set": "multi-hop",
+      "question": "宣稱「醫療效能」跟「誇張易生誤解」的罰則差在哪?從實際案例看金額差多少?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_violation_cases",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 3227,
+        "completion_tokens": 422,
+        "total_tokens": 3649,
+        "elapsed_s": 4.48,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 4.5
+    },
+    {
+      "set": "multi-hop",
+      "question": "更年期保健食品廣告寫「改善熱潮紅」,合法嗎?罰過的案例大概多少錢?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 3,
+        "prompt_tokens": 6533,
+        "completion_tokens": 381,
+        "total_tokens": 6914,
+        "elapsed_s": 33.68,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 33.7
+    },
+    {
+      "set": "multi-hop",
+      "question": "賣蝦紅素說可以「保護眼睛、抗疲勞」,依法會怎樣?北市裁罰紀錄裡有類似的嗎?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 2,
+        "prompt_tokens": 2401,
+        "completion_tokens": 305,
+        "total_tokens": 2706,
+        "elapsed_s": 25.21,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 25.2
+    },
+    {
+      "set": "multi-hop",
+      "question": "違反第28條的罰款上限是多少?裁罰紀錄裡最高實際罰過多少?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 4,
+        "tool_calls": 4,
+        "prompt_tokens": 5879,
+        "completion_tokens": 140,
+        "total_tokens": 6019,
+        "elapsed_s": 3.85,
+        "stop_reason": "tool_calls"
+      },
+      "elapsed_s": 3.9
+    },
+    {
+      "set": "multi-hop",
+      "question": "健康食品管理法第14條跟食安法第28條差在哪?兩種案例的罰款各是多少?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 6487,
+        "completion_tokens": 403,
+        "total_tokens": 6890,
+        "elapsed_s": 29.47,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 29.5
+    },
+    {
+      "set": "multi-hop",
+      "question": "電商平台上的代言人推薦文如果誇大功效,平台或刊登者會被罰嗎?依哪條?有實際案例嗎?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 2470,
+        "completion_tokens": 361,
+        "total_tokens": 2831,
+        "elapsed_s": 19.97,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 20.0
+    },
+    {
+      "set": "multi-hop",
+      "question": "產品名稱用「纖」「孅」暗示瘦身,標示上算違規嗎?有沒有這類產品被罰過?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": true,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 2,
+        "prompt_tokens": 3764,
+        "completion_tokens": 463,
+        "total_tokens": 4227,
+        "elapsed_s": 29.63,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 29.6
+    },
+    {
+      "set": "multi-hop",
+      "question": "廣告說「無副作用」「純天然安全」算不算誇張易生誤解?過去案例怎麼罰?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 2,
+        "prompt_tokens": 4655,
+        "completion_tokens": 403,
+        "total_tokens": 5058,
+        "elapsed_s": 18.85,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 18.9
+    },
+    {
+      "set": "multi-hop",
+      "question": "藥膳調理包廣告講「改善體質」,是食品廣告違規嗎?台北市有相關裁罰嗎?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 2,
+        "prompt_tokens": 3800,
+        "completion_tokens": 403,
+        "total_tokens": 4203,
+        "elapsed_s": 16.77,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.8
+    },
+    {
+      "set": "multi-hop",
+      "question": "保健品廣告說「補腎壯陽」,違反哪些規定?類似案例罰多少?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 4,
+        "tool_calls": 4,
+        "prompt_tokens": 6399,
+        "completion_tokens": 137,
+        "total_tokens": 6536,
+        "elapsed_s": 18.91,
+        "stop_reason": "tool_calls"
+      },
+      "elapsed_s": 18.9
+    },
+    {
+      "set": "multi-hop",
+      "question": "食安法第22條的標示規定跟第28條的廣告規定,在什麼情況下會一起被引用?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": false,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_related_laws",
+        "tool:search_related_laws",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 1739,
+        "completion_tokens": 235,
+        "total_tokens": 1974,
+        "elapsed_s": 3.61,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 3.6
+    },
+    {
+      "set": "router-set",
+      "question": "本產品有效改善高血壓,三天見效",
+      "expected_intent": "ad_review",
+      "intent": "ad_review",
+      "route_source": "llm",
+      "handler": "review",
+      "hit": null,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "high",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 6914,
+        "completion_tokens": 296,
+        "total_tokens": 7210,
+        "elapsed_s": 4.07,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 4.1
+    },
+    {
+      "set": "router-set",
+      "question": "喝了這瓶膠原蛋白,一週肌膚回到二十歲!",
+      "expected_intent": "ad_review",
+      "intent": "ad_review",
+      "route_source": "llm",
+      "handler": "review",
+      "hit": null,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "high",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 7664,
+        "completion_tokens": 229,
+        "total_tokens": 7893,
+        "elapsed_s": 4.48,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 4.5
+    },
+    {
+      "set": "router-set",
+      "question": "幫我審這段文案:天然酵素,排毒瘦身,無副作用",
+      "expected_intent": "ad_review",
+      "intent": "ad_review",
+      "route_source": "rules",
+      "handler": "review",
+      "hit": null,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "high",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 6687,
+        "completion_tokens": 272,
+        "total_tokens": 6959,
+        "elapsed_s": 3.18,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 3.2
+    },
+    {
+      "set": "router-set",
+      "question": "「補腦益智、增強記憶力」這句放在包裝上可以嗎?",
+      "expected_intent": "ad_review",
+      "intent": "ad_review",
+      "route_source": "rules",
+      "handler": "review",
+      "hit": null,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "medium",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 5939,
+        "completion_tokens": 230,
+        "total_tokens": 6169,
+        "elapsed_s": 3.04,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 3.0
+    },
+    {
+      "set": "router-set",
+      "question": "葉黃素軟膠囊——守護視力、告別乾澀,醫師推薦",
+      "expected_intent": "ad_review",
+      "intent": "ad_review",
+      "route_source": "llm",
+      "handler": "review",
+      "hit": null,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "medium",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 7272,
+        "completion_tokens": 266,
+        "total_tokens": 7538,
+        "elapsed_s": 3.47,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 3.5
+    },
+    {
+      "set": "router-set",
+      "question": "我們廣告想寫「有助於維持免疫系統正常運作」,這樣寫可以嗎?",
+      "expected_intent": "ad_review",
+      "intent": "ad_review",
+      "route_source": "rules",
+      "handler": "review",
+      "hit": null,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "low",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 6176,
+        "completion_tokens": 130,
+        "total_tokens": 6306,
+        "elapsed_s": 2.05,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 2.1
+    },
+    {
+      "set": "router-set",
+      "question": "益生菌 X 幫你調整體質、遠離過敏",
+      "expected_intent": "ad_review",
+      "intent": "ad_review",
+      "route_source": "llm",
+      "handler": "review",
+      "hit": null,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "high",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 6519,
+        "completion_tokens": 284,
+        "total_tokens": 6803,
+        "elapsed_s": 3.98,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 4.0
+    },
+    {
+      "set": "router-set",
+      "question": "這則廣告有問題嗎:純天然草本,降血糖不用吃藥",
+      "expected_intent": "ad_review",
+      "intent": "ad_review",
+      "route_source": "rules",
+      "handler": "review",
+      "hit": null,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "high",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 6557,
+        "completion_tokens": 224,
+        "total_tokens": 6781,
+        "elapsed_s": 3.2,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 3.2
+    },
+    {
+      "set": "router-set",
+      "question": "檢查這段:本品經臨床實證,可預防骨質疏鬆",
+      "expected_intent": "ad_review",
+      "intent": "ad_review",
+      "route_source": "rules",
+      "handler": "review",
+      "hit": null,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "high",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 5946,
+        "completion_tokens": 253,
+        "total_tokens": 6199,
+        "elapsed_s": 2.66,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 2.7
+    },
+    {
+      "set": "router-set",
+      "question": "「輕鬆瘦,躺著也能燃脂」——這句話可以放在網頁上嗎?",
+      "expected_intent": "ad_review",
+      "intent": "ad_review",
+      "route_source": "rules",
+      "handler": "review",
+      "hit": null,
+      "refused": false,
+      "confident": null,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": "high",
+      "trace": [
+        "route",
+        "keyword_scan",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations",
+        "verdict"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 6784,
+        "completion_tokens": 281,
+        "total_tokens": 7065,
+        "elapsed_s": 3.11,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 3.1
+    },
+    {
+      "set": "router-set",
+      "question": "最近有哪些葉黃素廣告被罰?",
+      "expected_intent": "case_lookup",
+      "intent": "case_lookup",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "retrieve_cases",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 14.94,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.9
+    },
+    {
+      "set": "router-set",
+      "question": "台北市今年罰過哪些減肥產品的廣告?",
+      "expected_intent": "case_lookup",
+      "intent": "case_lookup",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "retrieve_cases",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 15.17,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.2
+    },
+    {
+      "set": "router-set",
+      "question": "電視購物的保健食品廣告有裁罰紀錄嗎?",
+      "expected_intent": "case_lookup",
+      "intent": "case_lookup",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "retrieve_cases",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 16.71,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.7
+    },
+    {
+      "set": "router-set",
+      "question": "有沒有膠原蛋白飲被開罰的案例?",
+      "expected_intent": "case_lookup",
+      "intent": "case_lookup",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "retrieve_cases",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 23.71,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 23.7
+    },
+    {
+      "set": "router-set",
+      "question": "健康食品廣告違規的處分案例,罰款大概都多少?",
+      "expected_intent": "case_lookup",
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 1,
+        "prompt_tokens": 2167,
+        "completion_tokens": 265,
+        "total_tokens": 2432,
+        "elapsed_s": 3.99,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 4.0
+    },
+    {
+      "set": "router-set",
+      "question": "廣播電台宣播的食品廣告被罰過嗎?",
+      "expected_intent": "case_lookup",
+      "intent": "case_lookup",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "retrieve_cases",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 15.95,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.9
+    },
+    {
+      "set": "router-set",
+      "question": "找一下網紅代言保健品被裁罰的紀錄",
+      "expected_intent": "case_lookup",
+      "intent": "case_lookup",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "retrieve_cases",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 15.97,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.0
+    },
+    {
+      "set": "router-set",
+      "question": "更年期保健品的廣告有被罰的案例嗎?",
+      "expected_intent": "case_lookup",
+      "intent": "case_lookup",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "retrieve_cases",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 15.5,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.5
+    },
+    {
+      "set": "router-set",
+      "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
+      "expected_intent": "regulation_qa",
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3389,
+        "completion_tokens": 78,
+        "total_tokens": 3467,
+        "elapsed_s": 9.01,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.0
+    },
+    {
+      "set": "router-set",
+      "question": "真空包裝豆干要符合什麼規定?",
+      "expected_intent": "regulation_qa",
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2883,
+        "completion_tokens": 403,
+        "total_tokens": 3286,
+        "elapsed_s": 10.59,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 10.6
+    },
+    {
+      "set": "router-set",
+      "question": "食品業者登錄是強制的嗎?",
+      "expected_intent": "regulation_qa",
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2022,
+        "completion_tokens": 68,
+        "total_tokens": 2090,
+        "elapsed_s": 11.35,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.3
+    },
+    {
+      "set": "router-set",
+      "question": "我想進口茶葉,需要辦什麼登記?",
+      "expected_intent": "regulation_qa",
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2813,
+        "completion_tokens": 160,
+        "total_tokens": 2973,
+        "elapsed_s": 8.11,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.1
+    },
+    {
+      "set": "router-set",
+      "question": "營養標示的份數可以有小數點嗎?",
+      "expected_intent": "regulation_qa",
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 2737,
+        "completion_tokens": 64,
+        "total_tokens": 2801,
+        "elapsed_s": 12.18,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 12.2
+    },
+    {
+      "set": "router-set",
+      "question": "餐盒食品要做哪些檢驗?",
+      "expected_intent": "regulation_qa",
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 3450,
+        "completion_tokens": 166,
+        "total_tokens": 3616,
+        "elapsed_s": 9.39,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 9.4
+    },
+    {
+      "set": "router-set",
+      "question": "冷凍蔬菜要不要營養標示?",
+      "expected_intent": "regulation_qa",
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 3232,
+        "completion_tokens": 154,
+        "total_tokens": 3386,
+        "elapsed_s": 14.93,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.9
+    },
+    {
+      "set": "router-set",
+      "question": "食安法第22條的標示規定跟第28條的廣告規定,什麼情況會一起被引用?",
+      "expected_intent": "multi_hop",
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_related_laws",
+        "tool:search_related_laws",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 1735,
+        "completion_tokens": 278,
+        "total_tokens": 2013,
+        "elapsed_s": 2.94,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 2.9
+    },
+    {
+      "set": "router-set",
+      "question": "標示違規通常會連動到哪些條文?罰則是哪一條?",
+      "expected_intent": "multi_hop",
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_related_laws",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 3,
+        "tool_calls": 2,
+        "prompt_tokens": 3263,
+        "completion_tokens": 294,
+        "total_tokens": 3557,
+        "elapsed_s": 3.9,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 3.9
+    },
+    {
+      "set": "router-set",
+      "question": "宣稱能改善視力違反哪條?罰過的案例大概多少錢?",
+      "expected_intent": "multi_hop",
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": null,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 3409,
+        "completion_tokens": 288,
+        "total_tokens": 3697,
+        "elapsed_s": 13.96,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.0
+    },
+    {
+      "set": "router-set",
+      "question": "臉書分享顧客見證文算廣告嗎?有人因為這樣被罰嗎?",
+      "expected_intent": "multi_hop",
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 5,
+        "tool_calls": 4,
+        "prompt_tokens": 5847,
+        "completion_tokens": 140,
+        "total_tokens": 5987,
+        "elapsed_s": 33.55,
+        "stop_reason": "tool_calls"
+      },
+      "elapsed_s": 33.5
+    },
+    {
+      "set": "router-set",
+      "question": "違反第28條的罰款上限是多少?實際最高罰過多少?",
+      "expected_intent": "multi_hop",
+      "intent": "multi_hop",
+      "route_source": "rules",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 4,
+        "tool_calls": 4,
+        "prompt_tokens": 6024,
+        "completion_tokens": 140,
+        "total_tokens": 6164,
+        "elapsed_s": 4.29,
+        "stop_reason": "tool_calls"
+      },
+      "elapsed_s": 4.3
+    },
+    {
+      "set": "ood",
+      "question": "台灣的所得稅申報期限是什麼時候?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 8.36,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 8.4
+    },
+    {
+      "set": "ood",
+      "question": "Unity 遊戲引擎裡要怎麼設定角色的動畫過渡?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 14.59,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.6
+    },
+    {
+      "set": "ood",
+      "question": "颱風來的時候要注意哪些居家安全事項?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 583,
+        "completion_tokens": 23,
+        "total_tokens": 606,
+        "elapsed_s": 2.13,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 2.1
+    },
+    {
+      "set": "ood",
+      "question": "貓咪大概多久需要施打一次疫苗?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 16.59,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.6
+    },
+    {
+      "set": "ood",
+      "question": "台北到高雄搭高鐵大概要多久時間?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 582,
+        "completion_tokens": 23,
+        "total_tokens": 605,
+        "elapsed_s": 1.52,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 1.5
+    },
+    {
+      "set": "ood",
+      "question": "護照到期了要怎麼申請換發?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 5,
+        "tool_calls": 3,
+        "prompt_tokens": 2772,
+        "completion_tokens": 87,
+        "total_tokens": 2859,
+        "elapsed_s": 29.02,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 29.0
+    },
+    {
+      "set": "ood",
+      "question": "勞基法規定的特休假天數怎麼算?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 15.81,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.8
+    },
+    {
+      "set": "ood",
+      "question": "機車強制險一年大概多少錢?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 581,
+        "completion_tokens": 23,
+        "total_tokens": 604,
+        "elapsed_s": 1.81,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 1.8
+    },
+    {
+      "set": "ood",
+      "question": "Python 的 list 跟 tuple 差在哪裡?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 15.67,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.7
+    },
+    {
+      "set": "ood",
+      "question": "房屋租賃契約公證要準備什麼文件?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 5,
+        "tool_calls": 3,
+        "prompt_tokens": 2868,
+        "completion_tokens": 90,
+        "total_tokens": 2958,
+        "elapsed_s": 22.16,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 22.2
+    },
+    {
+      "set": "ood",
+      "question": "小孩幾歲可以開始學游泳比較好?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 15.09,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.1
+    },
+    {
+      "set": "ood",
+      "question": "信用卡繳款逾期會影響信用評分嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 11.64,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 11.6
+    },
+    {
+      "set": "ood",
+      "question": "iPhone 電池健康度低於多少建議更換?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 15.54,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.5
+    },
+    {
+      "set": "ood",
+      "question": "汽車定期保養大概多久要換一次機油?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 15.56,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.6
+    },
+    {
+      "set": "ood",
+      "question": "大學推甄的備審資料通常要放哪些內容?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 5,
+        "tool_calls": 3,
+        "prompt_tokens": 2787,
+        "completion_tokens": 89,
+        "total_tokens": 2876,
+        "elapsed_s": 32.34,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 32.3
+    },
+    {
+      "set": "ood",
+      "question": "登山遇到失溫要怎麼緊急處理?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 16.06,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.1
+    },
+    {
+      "set": "ood",
+      "question": "藥局買的成藥可以跟處方藥一起吃嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 15.33,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 15.3
+    },
+    {
+      "set": "ood",
+      "question": "化妝品標示的保存期限跟開封後使用期限有什麼不同?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "llm",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 14.69,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.7
+    },
+    {
+      "set": "ood",
+      "question": "餐廳員工的加班費要怎麼算才合法?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 14.53,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 14.5
+    },
+    {
+      "set": "ood",
+      "question": "寵物飼料的成分標示有規定要寫什麼嗎?",
+      "expected_intent": null,
+      "intent": "regulation_qa",
+      "route_source": "rules",
+      "handler": "regulation",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "retrieve",
+        "retry",
+        "refuse"
+      ],
+      "usage": {
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 16.22,
+        "stop_reason": "answered"
+      },
+      "elapsed_s": 16.2
+    }
+  ]
+}

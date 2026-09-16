@@ -46,6 +46,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 
+from app.agentic_retrieval import reformulate_query
 from app.corrective_retrieval import retrieve_with_confidence_gate
 from app.retrieval import count_chunks_for_law, get_co_cited_laws, retrieve_cases
 
@@ -120,19 +121,23 @@ class ToolCallRecord:
     chunk_ids: list[int] = field(default_factory=list)
     result_summary: str = ""
     query_drift_detected: bool = False
+    retry_used: bool = False          # 工具內建的 LLM 改寫重試有沒有被觸發(2026/09 修正,見 execute_tool)
     # 給答案層引用驗證用:每個 chunk 的 text / primary_law(只在 search_regulations 有值)
     chunks: list[dict] = field(default_factory=list)
 
 
 def execute_tool(
     db, embed_model, faiss_index, reranker, call_name: str, args: dict, original_question: str = "",
-    drift_check: bool = True, faiss_cases=None,
+    drift_check: bool = True, faiss_cases=None, client=None, tool_retry: bool = True,
 ) -> tuple[str, ToolCallRecord]:
     """執行一次工具呼叫,回傳 (要塞回 messages 的 JSON 字串, 給 trace 用的記錄)。
 
     original_question:使用者最原始的問題字面文字(不是 LLM 改寫過的查詢),只有
     search_regulations 會用到,做字面錨定一致性檢查(見上方模組說明)。
     drift_check=False 只給 eval/eval_harness_ablation.py 量「這道檢查擋掉了什麼」用。
+    client / tool_retry:search_regulations 信心不足時,用跟固定管線同一套「LLM 改寫問題重查一次」
+    (app/agentic_retrieval.reformulate_query)。2026/09 multi-hop 評估追出 agent 輸給固定管線的根因之一
+    就是這裡:固定管線有這次重試、agent 的工具沒有,LLM 又常常不自己重試——工具先天少一次機會。
     """
     if call_name == "search_regulations":
         filters = {"law_article": args["law_article"]} if args.get("law_article") else None
@@ -154,6 +159,17 @@ def execute_tool(
                 query_drift_detected = True
                 result = literal_result
 
+        retry_used = False
+        if not result.confident and tool_retry and client is not None:
+            base = original_question or llm_query
+            reformulated = reformulate_query(client, base)
+            retry_result = retrieve_with_confidence_gate(
+                db, embed_model, faiss_index, reranker, reformulated, filters=filters,
+            )
+            retry_used = True
+            if retry_result.confident:
+                result = retry_result
+
         payload = {
             "confident": result.confident,
             "top_score": result.top_score,
@@ -164,6 +180,8 @@ def execute_tool(
         }
         if query_drift_detected:
             payload["note"] = "你的查詢字串跟原始問題字面文字檢索結果不一致,已改用原始問題字面文字的檢索結果。"
+        elif retry_used and result.confident:
+            payload["note"] = "第一次檢索信心不足,系統已自動改寫問題重查一次並找到可信內容。"
         elif not result.confident:
             payload["note"] = "信心分數過低,不可當作回答依據,請換句話說重新查詢或改用其他工具。"
         record = ToolCallRecord(
@@ -171,7 +189,7 @@ def execute_tool(
             confident=result.confident, top_score=result.top_score,
             chunk_ids=[c.chunk_id for c in result.chunks],
             result_summary=f"{len(result.chunks)} chunks, confident={result.confident}, score={result.top_score}",
-            query_drift_detected=query_drift_detected,
+            query_drift_detected=query_drift_detected, retry_used=retry_used,
             chunks=[{"chunk_id": c.chunk_id, "text": c.text, "primary_law": c.primary_law} for c in result.chunks],
         )
         return json.dumps(payload, ensure_ascii=False), record

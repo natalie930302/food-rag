@@ -152,8 +152,11 @@ def run_agent_route(ctx: RunContext, db, client, question: str, max_tool_calls: 
     r = run_agent(db, deps.get_embed_model(), deps.get_faiss_chunks(), deps.get_reranker(), client,
                   question, max_tool_calls=max_tool_calls, faiss_cases=deps.get_faiss_cases())
     for rec in r.trace:
+        detail = rec.result_summary + (" [工具內改寫重查]" if rec.retry_used else "")
+        if rec.arguments.get("forced"):
+            detail += " [harness 強制補查法規]"
         ctx.step(f"tool:{rec.name}", confident=rec.confident, top_score=rec.top_score, chunk_ids=rec.chunk_ids,
-                 query_drift_detected=rec.query_drift_detected, arguments=rec.arguments, detail=rec.result_summary)
+                 query_drift_detected=rec.query_drift_detected, arguments=rec.arguments, detail=detail)
     ctx.tool_calls += r.usage.tool_calls
     ctx.llm_calls += r.usage.llm_calls
     ctx.prompt_tokens += r.usage.prompt_tokens

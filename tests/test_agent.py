@@ -77,8 +77,9 @@ def test_grounded_answer_is_kept(tool_exec):
 
 
 def test_no_tool_call_at_all_is_not_grounded(tool_exec):
+    # force_regulation 關掉:這裡只驗證「沒依據就覆寫」;強制補查法規的行為在 test_agent_fixes.py 驗
     client = ScriptedClient([_resp(content="不用查我就知道")])
-    r = ag.run_agent(None, None, None, None, client, "問題")
+    r = ag.run_agent(None, None, None, None, client, "問題", force_regulation=False)
     assert r.grounded is False and r.answer == ag.NO_EVIDENCE_ANSWER
     assert tool_exec == []
 
@@ -119,7 +120,7 @@ def test_over_limit_tool_call_gets_error_message_not_execution(tool_exec):
 
 def test_decision_temperature_defaults_to_zero(tool_exec):
     client = ScriptedClient([_resp(content="x")])
-    ag.run_agent(None, None, None, None, client, "問題")
+    ag.run_agent(None, None, None, None, client, "問題", force_regulation=False)
     assert client.kwargs_log[0]["temperature"] == 0.0
 
 

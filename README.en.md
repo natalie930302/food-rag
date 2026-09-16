@@ -17,7 +17,7 @@ are reported as they happened.**
 |---|---|---|
 | Does two-stage retrieval (dense → rerank) help? | **Depends on the reranker.** `bge-reranker-base` gives no significant gain (p = 1.00); `bge-reranker-v2-m3` does (Recall@1 +0.11 [+0.04, +0.19], p = 0.008) | [§1](#1-retrieval-two-stage-is-not-automatically-better) |
 | Does the system refuse when retrieval is unreliable? | Yes. At threshold 0.52, 20/20 out-of-domain questions are refused; the cost is 8/108 in-domain false refusals | [§2](#2-confidence-gate-the-clean-threshold-was-a-small-sample-artefact) |
-| Is "let the LLM decide" better than a fixed retry? | **No.** Single-hop 99 vs 99/108; even on the 20 multi-hop questions built for it, 6 vs 10 (p = 0.22). Its only win is the related-articles tool the baseline lacks (3/3) | [§3](#3-agent-fixed-retry-vs-tool-calling-harness), [§5](#5-multi-hop-when-the-agent-actually-matters) |
+| Is "let the LLM decide" better than a fixed retry? | **Not on single-hop** (99 vs 99/108). On the 20 multi-hop questions built for it, the first measurement lost (6 vs 10); two design asymmetries were traced and fixed, after which it leads **13 vs 9** (p = 0.22, too few questions for significance) and has a capability the baseline lacks (related-article lookup) | [§3](#3-agent-fixed-retry-vs-tool-calling-harness), [§5](#5-multi-hop-when-the-agent-actually-matters--diagnose-fix-remeasure) |
 | What does each harness boundary actually block? | Ablation says: only the drift check (30 → 27/32 when off); the forced refusal and the citation check caught nothing on this set — insurance, not gain | [§4](#4-harness-ablation-why-each-boundary-exists) |
 | Does RAG actually beat the closed-book LLM? | **Yes — measured on external questions for the first time**: 260 national dietitian-exam questions, closed-book 66.9 % → RAG + fallback 80.0 % (+0.13 [+0.09, +0.17], p < 0.001); regulation questions 62.3 % → 83.6 % | [§6](#6-national-exam-the-only-eval-set-we-did-not-write-ourselves) |
 | When should the agent be used at all? | `/query` routes first: rule layer 100 %, overall 97.6 %, only multi-hop goes to the agent, 0 harmful misroutes | [§7](#7-router-a-new-failure-point-measured) |
@@ -135,18 +135,18 @@ Same questions, same hit definition (is the gold chunk among the chunks finally 
 | Set | Fixed retry (fixed pipeline) | Tool-calling agent (agent path) | flipped right / wrong | sign test p |
 |---|---|---|---|---|
 | main (108) | 99/108 = 0.917 [0.861, 0.963] | 99/108 = 0.917 [0.861, 0.963] | 1 / 1 | 1.000 |
-| hard (8) | 7/8 = 0.875 [0.625, 1.000] | 6/8 = 0.750 [0.375, 1.000] | 0 / 1 | 1.000 |
+| hard (8) | 7/8 = 0.875 [0.625, 1.000] | 7/8 = 0.875 [0.625, 1.000] | 0 / 0 | 1.000 |
 
 - **The fixed rewrite-and-retry does help at n = 108**: 8 retries triggered, 3 rescued. The earlier negative result
   ("1 triggered, 0 rescued" on the 8-question hard set) was a sample-size artefact.
 - **The agent ties on single-hop questions; it is not better.** Only 3 of 108 questions used more than one tool call;
-  the literal-anchor drift check intervened on 24; latency is 18.6 s/question (reranker on GPU; the fixed pipeline ~11 s).
+  the literal-anchor drift check intervened on 25; latency is 20.5 s/question (reranker on GPU; the fixed pipeline ~11 s). These are the numbers after the two fixes of §5 — single-hop did not regress.
   The earlier "31/32 beats 30/32" conclusion does not survive n = 108 (99 vs 99).
 - Both systems have **confidently-wrong** cases (fixed retry: 6 + 1) that no confidence mechanism can detect.
 - Conclusion: the agent's extra freedom (choosing its own query strings and how many calls to make) buys latency, not
-  accuracy, on single-hop questions. Its value can only be measured on multi-hop questions (§5) — and there it does not
-  win either; only the related-articles tool is uniquely its own. That is why `/query` routes only multi-hop questions
-  to the agent and everything else to the fixed pipeline (§7).
+  accuracy, on single-hop questions. Its value can only be measured on multi-hop questions (§5) — where the first
+  measurement lost and only a diagnosed fix put it ahead (still not significantly). That is why `/query` routes only
+  multi-hop questions to the agent and everything else to the fixed pipeline (§7).
 
 ### 4. Harness ablation: why each boundary exists
 
@@ -171,6 +171,8 @@ Three honest conclusions — one positive, one "redundant", one "not measurable 
 - **temperature = 0 cannot be shown in one run**: 0.1 also scores 30/32. The earlier "same question, different result on
   rerun" flakiness is a variance effect that needs repeated runs; a single ablation cannot see it.
 
+The two boundaries added after the multi-hop fix (tool-level retry, forced regulation lookup, §5) are wired into the same ablation script (`no_tool_retry` / `no_force_regulation`) but have not been run yet.
+
 **The answer-level citation check is the same kind of result** (`eval/eval_citation_verifier.py`): 100 of 108 questions
 passed the gate and got an answer, 88 answers cite article numbers, and **0/100** cited an article absent from the
 context before any regeneration — the regenerate-with-feedback path never fired. The prompt's "do not invent article
@@ -179,39 +181,55 @@ set**; the forced refusal and the citation check are code-level insurance that t
 but that is exactly what catches the regression when either changes. This is more honest than "all four boundaries
 matter", and more useful: it says what the harness's cost (an extra rerank and an extra check per question) buys.
 
-### 5. Multi-hop: when the agent actually matters
+### 5. Multi-hop: when the agent actually matters — diagnose, fix, remeasure
 
 Single-hop questions cannot show the agent's value (§3), so 20 hand-written questions require "regulation + case" or
 "regulation + related article" (`eval/multihop_questions.json`). The hit is split into three components; all required
-components must be met for a full hit:
+components must be met for a full hit.
 
-| Component | baseline (fixed pipeline: fixed retry + keyword-triggered case lookup) | tool-calling agent |
+**First measurement (before the fix): the agent loses to the fixed pipeline + keyword rules**
+
+| Component | baseline (fixed pipeline + keyword-triggered case lookup) | tool-calling agent |
 |---|---|---|
-| reg_hit (right regulation) | **13/20 = 0.650 [0.450, 0.850]** | 8/20 = 0.400 [0.200, 0.600] |
-| case_hit (right case; required by 17) | 16/17 = 0.941 [0.824, 1.000] | 15/17 = 0.882 [0.706, 1.000] |
+| reg_hit (right regulation) | 13/20 | 8/20 |
+| case_hit (right case; required by 17) | 16/17 | 15/17 |
 | related_hit (related articles; required by 3) | 0/3 (no such tool) | **3/3** |
-| **full_hit** | **10/20 = 0.500 [0.300, 0.700]** | 6/20 = 0.300 [0.100, 0.500] |
+| **full_hit** | **10/20** | 6/20 |
 
-Flipped 1 right / 5 wrong, sign test p = 0.219; the agent averaged 2.25 tool calls and used more than one on 19/20
-questions — the harness was genuinely exercised this time.
+Flipped 1 right / 5 wrong, p = 0.219. On the case hop the keyword trigger does as well as the LLM deciding; the agent
+loses on the **regulation hop**.
 
-**Honest conclusion: even on the questions designed for it, the agent does not beat "fixed pipeline + keyword rules".**
-Breaking it down explains why:
+**Tracing the cause found two design asymmetries, not a flaw in the agent idea:**
 
-- For the case hop, the fixed pipeline's keyword trigger (query cases if the question mentions penalties / cases) does as well as the
-  LLM deciding to (16 vs 15).
-- For the regulation hop the agent loses 5 questions: the LLM's condensed queries drift more in multi-step settings
-  (§3's query drift amplified), and on 2 questions it skipped `search_regulations` entirely and only queried cases, so
-  the harness correctly refused as ungrounded.
-- The agent's only irreplaceable capability is `search_related_laws` (3/3): the baseline simply cannot do it.
+1. The fixed pipeline's regulation retrieval is "search → if unconfident, let the LLM rewrite and search again"; the
+   agent's `search_regulations` tool only searched once and left the retry to the LLM's judgement — which it rarely
+   exercised. The tool had one fewer chance than the baseline by construction.
+2. The system prompt says "call `search_regulations` at least once before answering"; on 2/20 questions the LLM skipped
+   straight to cases and answered, and the grounding boundary correctly refused. The rule lived only in the prompt —
+   violating the project's own principle that a prompt is a request and code is the guarantee.
 
-The first run of this set scored 0/17 on cases; tracing it revealed that `search_violation_cases` was searching the
-regulation-chunk FAISS index instead of the case index — a real bug that had been hiding for months and that only a
-multi-hop set could expose. Fixed, with a regression test.
+Each fix is a dozen lines (`app/agent.py` boundaries 5 and 6, both switchable for ablation): the tool now performs the
+same rewrite-and-retry; and when the LLM tries to answer without ever having searched regulations, the harness runs one
+search with the original question and lets it answer again. The first run of this set also exposed a real bug —
+`search_violation_cases` was querying the wrong FAISS index (0/17 case hits) — fixed with a regression test.
 
-The next step is clear, and it is not "make the agent smarter": build the case and related-law lookups as a
-**rule-triggered deterministic multi-step pipeline** and compare again. If it ties, the agent's remaining value in this
-domain is exploring unknown tool combinations; if the agent wins, that is the evidence it needs to exist.
+**Remeasured after the fix (same questions):**
+
+| Component | baseline | agent (before) | **agent (after)** |
+|---|---|---|---|
+| reg_hit | 12/20 = 0.600 [0.400, 0.800] | 8/20 | **15/20 = 0.750 [0.550, 0.900]** |
+| case_hit | 16/17 | 15/17 | 15/17 |
+| related_hit | 0/3 | 3/3 | **3/3** |
+| **full_hit** | 9/20 = 0.450 [0.250, 0.650] | 6/20 | **13/20 = 0.650 [0.450, 0.850]** |
+
+Flipped 5 right / 1 wrong, p = 0.219; the agent averaged 2.40 tool calls and used more than one on 20/20 questions;
+latency baseline 15.0 s / agent 26.2 s.
+
+**Honest conclusion**: the direction reversed — with the two defects fixed, the agent leads by 4 on the set built for
+it, and the gain is exactly on the diagnosed hop (regulation 8 → 15). But the n = 20 CI is ±20 points and p = 0.22, so
+"significantly better" cannot be claimed; the baseline itself drifts between 9 and 10 across runs (LLM-rewrite
+non-determinism). What does hold: **the agent no longer trails, it has a capability the baseline lacks (related-article
+lookup), and it costs 1.7× the latency**. Proving significance needs 50–60 multi-hop questions.
 
 ### 6. National exam: the only eval set we did not write ourselves
 

@@ -33,6 +33,9 @@ CONFIGS = {
     "no_grounding": {"enforce_grounding": False},
     "no_drift_check": {"drift_check": False},
     "temp_0.1": {"temperature": 0.1},
+    # 2026/09 multi-hop 評估後補的兩道修正(見 app/agent.py 邊界 5、6);關掉 = 修正前的行為
+    "no_tool_retry": {"tool_retry": False},
+    "no_force_regulation": {"force_regulation": False},
 }
 
 ap = argparse.ArgumentParser()

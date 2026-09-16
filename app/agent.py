@@ -23,6 +23,13 @@ harness 的職責是設邊界,不是信任 LLM 自律。四道邊界,每一道�
   4. 答案層引用驗證(verify_answer):答案裡引用的每個「第 N 條」必須出現在檢索到的
      chunk 裡,否則帶著回饋重生成一次;還是不行就把沒依據的引用標記在結果裡。
      這是信心閘門管不到的那一層——檢索內容可信,不代表 LLM 引用得對(app/verifier.py)
+
+2026/09 multi-hop 評估後補的兩道修正(agent 輸給固定管線的根因,不是 agent 概念的錯):
+  5. 工具內建重試(tool_retry):search_regulations 信心不足時自動做跟固定管線同一套「LLM 改寫
+     重查一次」——原本這件事交給 LLM 自己判斷,它常常不做,工具先天比固定管線少一次機會
+  6. 程式碼強制「先查法規」(force_regulation):system prompt 第 1 條寫「回答前至少呼叫一次
+     search_regulations」,實測有 2/20 題 LLM 直接跳過去查案例就作答 → 被 grounded 邊界拒答。
+     prompt 是請求不是保證:LLM 要作答卻從沒查過法規時,harness 自己用原始問題查一次再讓它答
 """
 from __future__ import annotations
 
@@ -121,6 +128,8 @@ def run_agent(
     drift_check: bool = True,
     verify_answer: bool = True,
     faiss_cases=None,
+    tool_retry: bool = True,
+    force_regulation: bool = True,
 ) -> AgentResult:
     # temperature 預設 0,不是 settings.openai_temperature(0.1)——diagnostic 發現
     # 8 題 hard 問題裡有題目重跑 2 次得到不同的查詢字串,導致命中/沒命中不一致
@@ -137,6 +146,7 @@ def run_agent(
     usage = AgentUsage()
     grounded = False
     hit_limit = False
+    forced_regulation_done = False
     t0 = time.time()
 
     while True:
@@ -153,6 +163,31 @@ def run_agent(
         msg = resp.choices[0].message
 
         if not msg.tool_calls:
+            # 邊界 6:LLM 要作答,但整段過程沒有任何一次 search_regulations → 程式碼補查一次
+            if (force_regulation and not forced_regulation_done and not over
+                    and not any(r.name == "search_regulations" for r in trace)):
+                forced_regulation_done = True
+                result_json, record = execute_tool(
+                    db, embed_model, faiss_index, reranker, "search_regulations",
+                    {"query": question, "forced": True},
+                    original_question=question, drift_check=drift_check, faiss_cases=faiss_cases,
+                    client=client, tool_retry=tool_retry,
+                )
+                trace.append(record)
+                usage.tool_calls += 1
+                if record.retry_used:
+                    usage.llm_calls += 1
+                if record.confident:
+                    grounded = True
+                if msg.content:
+                    messages.append({"role": "assistant", "content": msg.content})
+                messages.append({
+                    "role": "user",
+                    "content": "系統提醒:你尚未查詢法規就要作答。系統已用原始問題呼叫 search_regulations,結果如下,"
+                               "請只根據可信(confident=true)的內容作答;沒有可信依據就誠實拒答。\n" + result_json,
+                })
+                continue
+
             answer = msg.content or NO_EVIDENCE_ANSWER
             usage.elapsed_s = time.time() - t0
             if over:
@@ -193,9 +228,12 @@ def run_agent(
             result_json, record = execute_tool(
                 db, embed_model, faiss_index, reranker, tc.function.name, args,
                 original_question=question, drift_check=drift_check, faiss_cases=faiss_cases,
+                client=client, tool_retry=tool_retry,
             )
             trace.append(record)
             usage.tool_calls += 1
+            if record.retry_used:
+                usage.llm_calls += 1          # 工具內的改寫重試也算一次 LLM 呼叫
             if record.confident:
                 grounded = True
             messages.append({"role": "tool", "tool_call_id": tc.id, "content": result_json})

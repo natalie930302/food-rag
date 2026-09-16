@@ -6,19 +6,20 @@
 
 以食藥署法規/指引/問答集(16,119 個 chunks)與台北市違規廣告裁罰公告(400 筆)為語料的
 問答 API:**本地 BGE-M3 embedding + FAISS → cross-encoder reranking → 信心閘門 → 雲端 LLM**,
-外加一個有邊界的 tool-calling agent(`/ask_agent`)。重點不是功能清單,是**每個元件都有量化證據、
+外加一個有邊界的 tool-calling agent(只在 `/query` 判定為多步問題時啟用)。重點不是功能清單,是**每個元件都有量化證據、
 每個「提升」都附信賴區間、負向結果照實記錄**。
 
 ## 30 秒看懂
 
 | 問題 | 答案 | 證據 |
 |---|---|---|
-| 兩階段檢索(dense → rerank)有用嗎? | **看 reranker**。`bge-reranker-base` 沒有顯著幫助(p=0.82);`bge-reranker-v2-m3` 有(Recall@1 +0.12 [+0.05, +0.19],p=0.004) | [§檢索](#1-檢索兩階段架構不是自動有效) |
+| 兩階段檢索(dense → rerank)有用嗎? | **看 reranker**。`bge-reranker-base` 沒有顯著幫助(p=1.00);`bge-reranker-v2-m3` 有(Recall@1 +0.11 [+0.04, +0.19],p=0.008) | [§檢索](#1-檢索兩階段架構不是自動有效) |
 | 檢索結果不可信時系統會拒答嗎? | 會。閾值 0.52 下 out-of-domain 20/20 正確拒答,代價是 in-domain 誤拒 8/108 | [§信心閘門](#2-信心閘門乾淨的閾值是小樣本假象) |
-| 「讓 LLM 自主決策」比固定重試好嗎? | **沒有**。單跳 99 vs 100/108;連為它設計的 20 題 multi-hop 也是 8 vs 10(p=0.69),唯一贏的是 baseline 沒有的關聯法條工具(3/3) | [§Agent](#3-agent固定重試-vs-tool-calling-harness)、[§Multi-hop](#5-multi-hopagent-什麼時候才真的有用) |
-| harness 的每道邊界各擋掉什麼? | 消融量出來:只有 drift 檢查有效(關掉 31→27/32);grounded 強制與引用驗證在這組題目上一個都沒攔到,是保險不是提升 | [§消融](#4-harness-消融每道邊界的存在理由) |
-| 那什麼時候該用 agent? | `/query` 先分流:規則層 100%、整體 97.6%,只把 multi-hop 交給 agent,漏掉案例的有害錯誤 0 題 | [§Router](#6-router單一入口的新失效點量出來) |
-| 評估集夠大嗎? | 24 題手寫 → **108 題**(+84 題 LLM 生成、人工審查),外加 8 題 hard、20 題 out-of-domain、20 題 multi-hop | [eval/](eval/) |
+| 「讓 LLM 自主決策」比固定重試好嗎? | **沒有**。單跳 99 vs 99/108;連為它設計的 20 題 multi-hop 也是 6 vs 10(p=0.22),唯一贏的是 baseline 沒有的關聯法條工具(3/3) | [§Agent](#3-agent固定重試-vs-tool-calling-harness)、[§Multi-hop](#5-multi-hopagent-什麼時候才真的有用) |
+| harness 的每道邊界各擋掉什麼? | 消融量出來:只有 drift 檢查有效(關掉 30→27/32);grounded 強制與引用驗證在這組題目上一個都沒攔到,是保險不是提升 | [§消融](#4-harness-消融每道邊界的存在理由) |
+| RAG 真的比閉卷 LLM 好嗎? | **是,在外部題目上第一次量到**:260 題營養師國考,閉卷 66.9% → RAG+fallback 80.0%(+0.13 [+0.09, +0.17],p<0.001);法規類 62.3% → 83.6% | [§國考題](#6-國考題唯一題目與答案都不是我們寫的評估集) |
+| 那什麼時候該用 agent? | `/query` 先分流:規則層 100%、整體 97.6%,只把 multi-hop 交給 agent,漏掉案例的有害錯誤 0 題 | [§Router](#7-router單一入口的新失效點量出來) |
+| 評估集夠大嗎? | 24 題手寫 → **108 題**(+84 題 LLM 生成、人工審查),外加 8 題 hard、20 題 out-of-domain、20 題 multi-hop、**260 題國考單選題(官方答案)** | [eval/](eval/) |
 
 ## 架構
 
@@ -33,11 +34,11 @@ flowchart LR
     subgraph router["/query:單一入口"]
         Q0[問題或文案] --> RT{router<br/>規則層 → LLM 層}
         RT -- regulation_qa / case_lookup --> Q
-        RT -- ad_review --> REV[/review<br/>廣告審稿/]
+        RT -- ad_review --> REV[審稿路徑<br/>關鍵字掃描 · 保證第 28 條 · 案例 · verdict]
         RT -- multi_hop --> Q2
     end
 
-    subgraph pipe["/ask:固定管線"]
+    subgraph pipe["固定管線(regulation_qa / case_lookup)"]
         Q[問題] --> D[dense retrieval<br/>top-10] --> B[entity boost<br/>列舉名詞 → chunk]
         B --> RR[bge-reranker-v2-m3<br/>cross-encoder]
         RR --> G{信心閘門<br/>top-1 ≥ 0.52?}
@@ -48,7 +49,7 @@ flowchart LR
         V -- 是 --> A
     end
 
-    subgraph agent["/ask_agent:tool-calling harness"]
+    subgraph agent["agent 路徑(multi_hop):tool-calling loop"]
         Q2[問題] --> LLM[gpt-4o-mini<br/>function calling]
         LLM <--> T1[search_regulations<br/>= 上面的 D→B→RR→G]
         LLM <--> T2[search_violation_cases]
@@ -64,8 +65,9 @@ flowchart LR
     DB --> T3
 ```
 
-`/ask` 是確定性管線(信心不足就固定做一次改寫重試);`/ask_agent` 把同一套檢索包成工具交給 LLM
-決定控制流,harness 用程式碼強制邊界——**prompt 是請求,程式碼才是保證**。
+固定管線是確定性的(信心不足就固定做一次改寫重試);agent 路徑把同一套檢索包成工具交給 LLM
+決定控制流。三條路徑共用同一層 harness(`app/harness.py`):同一種 trace、usage、拒答契約、引用驗證,
+邊界由程式碼強制——**prompt 是請求,程式碼才是保證**。
 
 `/query` 是單一入口:先用零成本的關鍵字規則判意圖,判不出來才問一次 gpt-4o-mini(結構化 JSON、temperature 0),
 然後**只把真的需要多步檢索的問題交給 agent**——單跳問題上 agent 跟固定管線一樣準但慢一倍(§3),所以預設走便宜、
@@ -82,18 +84,18 @@ flowchart LR
 
 | 配置 | Recall@1 | Recall@3 | MRR |
 |---|---|---|---|
-| BGE-M3 dense only | 0.713 [0.630, 0.796] | 0.861 [0.796, 0.926] | 0.796 [0.732, 0.858] |
+| BGE-M3 dense only | 0.722 [0.639, 0.806] | 0.861 [0.796, 0.926] | 0.800 [0.736, 0.862] |
 | + bge-reranker-base | 0.731 [0.648, 0.815] | 0.935 [0.889, 0.972] | 0.826 [0.767, 0.883] |
 | **+ bge-reranker-v2-m3** | **0.833 [0.759, 0.898]** | 0.907 [0.852, 0.954] | **0.874 [0.818, 0.926]** |
 
 | 比較(Recall@1) | Δ [95% CI] | 翻對 / 翻錯 | 符號檢定 p |
 |---|---|---|---|
-| dense → +base | +0.019 [−0.056, +0.093] | 10 / 8 | 0.815 |
+| dense → +base | +0.009 [−0.065, +0.083] | 9 / 8 | 1.000 |
 | +base → +v2-m3 | **+0.102 [+0.037, +0.176]** | 13 / 2 | **0.007** |
-| dense → +v2-m3 | **+0.120 [+0.046, +0.194]** | 16 / 3 | **0.004** |
+| dense → +v2-m3 | **+0.111 [+0.037, +0.185]** | 15 / 3 | **0.008** |
 
 **這推翻了早期的結論。** 24 題時 `bge-reranker-base` 的 Recall@1 從 0.708 到 0.750,當時寫成「全面提升」——
-其實只是多對 1 題;108 題上它翻對 10 題、翻錯 8 題,跟沒加一樣。真正有效的是換成更強的 reranker,
+其實只是多對 1 題;108 題上它翻對 9 題、翻錯 8 題,跟沒加一樣。真正有效的是換成更強的 reranker,
 而那個決定當初是從一個具體失敗案例(「分類存放」vs「怎麼歸類」的詞義混淆)追出來的,見
 [研究日誌](docs/RESEARCH_LOG.md)「reranker 模型升級」一節。手寫題(n=24)與合成題(n=84)分開看趨勢一致,
 但手寫題 Recall@1 更高(0.917 vs 0.810)——合成題並沒有比較簡單,反而更難,見 [eval/RESULTS.md](eval/RESULTS.md)。
@@ -123,43 +125,43 @@ confidence-based 方法的結構性盲點,信心閘門偵測不到。out-of-doma
 
 同一組題目、同樣的 hit 定義(gold chunk 有沒有在最後拿去回答的 chunk 裡):
 
-| 問題集 | 固定重試(`/ask`) | Tool-calling agent(`/ask_agent`) | 翻對 / 翻錯 | 符號檢定 p |
+| 問題集 | 固定重試(固定管線) | Tool-calling agent(agent 路徑) | 翻對 / 翻錯 | 符號檢定 p |
 |---|---|---|---|---|
-| 主評估集(108) | **100/108 = 0.926 [0.870, 0.972]** | 99/108 = 0.917 [0.861, 0.963] | 0 / 1 | 1.000 |
-| hard(8) | 6/8 = 0.750 [0.500, 1.000] | 6/8 = 0.750 [0.500, 1.000] | 0 / 0 | 1.000 |
+| 主評估集(108) | 99/108 = 0.917 [0.861, 0.963] | 99/108 = 0.917 [0.861, 0.963] | 1 / 1 | 1.000 |
+| hard(8) | 7/8 = 0.875 [0.625, 1.000] | 6/8 = 0.750 [0.375, 1.000] | 0 / 1 | 1.000 |
 
-- **固定重試在 108 題上確實有用**:8 題觸發改寫重試、4 題救回——先前 8 題 hard set 上「1 題觸發、0 題救回」的負向結論,
+- **固定重試在 108 題上確實有用**:8 題觸發改寫重試、3 題救回——先前 8 題 hard set 上「1 題觸發、0 題救回」的負向結論,
   是樣本太小看不到效果
-- **agent 在單跳問題上打平,沒有更好**:108 題裡只有 3 題用了 >1 次工具;字面錨定 drift 檢查介入了 25 題(LLM 改寫的查詢
-  跟原始問題 top-1 不一致);延遲 31.5 秒/題(固定管線先前在同機器量到約 13 秒)。早期 32 題上「31/32 超越 30/32」的結論,
-  在 108 題上不成立(99 vs 100,差 1 題)
-- 兩邊都有 **confidently wrong**(固定重試 5+2 題):閘門給高分、答案卻錯,信心機制偵測不到
+- **agent 在單跳問題上打平,沒有更好**:108 題裡只有 3 題用了 >1 次工具;字面錨定 drift 檢查介入了 24 題(LLM 改寫的查詢
+  跟原始問題 top-1 不一致);延遲 18.6 秒/題(reranker 在 GPU;固定管線約 11 秒)。早期 32 題上「31/32 超越 30/32」的結論,
+  在 108 題上不成立(99 vs 99)
+- 兩邊都有 **confidently wrong**(固定重試 6+1 題):閘門給高分、答案卻錯,信心機制偵測不到
 - 結論:agent 多出來的自由度(自己決定查詢字串、查幾次)在單跳問題上沒有換到準確率,只換到延遲。它的價值只能在
   需要多步的問題上量(§5)——量的結果也沒有贏,只有關聯法條這一項是它獨有的。這是 `/query` 只把 multi-hop
-  交給 agent、其餘一律走固定管線的依據(§6)
+  交給 agent、其餘一律走固定管線的依據(§7)
 
 ### 4. Harness 消融:每道邊界的存在理由
 
-把 `/ask_agent` 的每道邊界各關掉一次,同一組題目(24 手寫 + 8 hard 量命中率;20 out-of-domain 量「沒依據卻硬答」):
+把 agent 路徑的每道邊界各關掉一次,同一組題目(24 手寫 + 8 hard 量命中率;20 out-of-domain 量「沒依據卻硬答」):
 
 | 配置 | 關掉的東西 | in-domain 命中 | OOD 沒依據卻硬答 | 秒/題 |
 |---|---|---|---|---|
-| full | — | **31/32 = 0.969 [0.906, 1.000]** | 0/20 | 18.6 |
-| no_grounding | 不強制覆寫沒依據的答案 | 30/32 = 0.938 [0.844, 1.000] | **0/20** | 19.3 |
-| no_drift_check | 不用字面問題當一致性錨點 | **27/32 = 0.844 [0.719, 0.969]** | 0/20 | 11.4 |
-| temp_0.1 | 決策溫度回到 0.1 | 31/32 = 0.969 [0.906, 1.000] | 0/20 | 18.3 |
+| full | — | **30/32 = 0.938 [0.844, 1.000]** | 0/20 | 18.6 |
+| no_grounding | 不強制覆寫沒依據的答案 | 31/32 = 0.969 [0.906, 1.000] | **0/20** | 18.9 |
+| no_drift_check | 不用字面問題當一致性錨點 | **27/32 = 0.844 [0.719, 0.969]** | 0/20 | 10.8 |
+| temp_0.1 | 決策溫度回到 0.1 | 30/32 = 0.938 [0.844, 1.000] | 0/20 | 19.8 |
 
 三個誠實的結論,一個正向、一個「多餘」、一個「一次跑不出來」:
 
-- **drift 檢查是真的在擋東西**:關掉後掉 4 題(31 → 27),掉的正是 query drift 那類案例(「超商餐盒牛肉」「食品添加物輸入登記」);
+- **drift 檢查是真的在擋東西**:關掉後掉 3 題(30 → 27),掉的正是 query drift 那類案例(「超商餐盒牛肉」「食品添加物輸入登記」);
   代價是每題多 7 秒(再 rerank 一次)
 - **grounded 強制覆寫在這組題目上是多餘的**:關掉之後 gpt-4o-mini 對 20 題 OOD 全部自己用不同措辭拒答了(第一版腳本只比對
   拒答句字面,誤計成 19/20 硬答;改用語意判斷後是 0/20)。這條邊界的價值是「保證」而不是「量得到的提升」——prompt 這次守住了,
   不代表下一個模型或下一版 prompt 也會,所以留著,但誠實標示它在本評估集上沒有攔到任何東西
-- **temperature=0 的效果一次跑不出來**:0.1 這次也是 31/32。早期發現的「同題重跑結果不一致」是抖動,要多次重跑才量得到,
+- **temperature=0 的效果一次跑不出來**:0.1 這次也是 30/32。早期發現的「同題重跑結果不一致」是抖動,要多次重跑才量得到,
   單次消融看不出差別,如實記錄
 
-**答案層引用驗證也是同一類結果**(`eval/eval_citation_verifier.py`):108 題裡 100 題通過信心閘門並生成答案,89 題答案含條號,
+**答案層引用驗證也是同一類結果**(`eval/eval_citation_verifier.py`):108 題裡 100 題通過信心閘門並生成答案,88 題答案含條號,
 驗證前就 **0/100** 引用了 context 裡沒有的條號——重生成機制一次都沒觸發。prompt 裡的「不得捏造條號」在 gpt-4o-mini 上守住了。
 所以四道邊界裡,**只有 drift 檢查在這組評估集上有量得到的效果**;grounded 強制覆寫與引用驗證是程式碼層的保險,
 在目前的模型 + prompt 組合下沒有被用到,但換模型或改 prompt 時就是它們在擋。這個結論比「四道邊界都很重要」誠實,
@@ -170,19 +172,19 @@ confidence-based 方法的結構性盲點,信心閘門偵測不到。out-of-doma
 單跳題組測不出 agent 的價值(§3),所以另外手寫 20 題需要「法規 + 案例」或「法規 + 關聯法條」的問題
 (`eval/multihop_questions.json`)。命中拆成三個元件,全部達成才算 full_hit:
 
-| 元件 | baseline(`/ask` 邏輯:固定重試 + 關鍵字觸發查案例) | tool-calling agent |
+| 元件 | baseline(固定管線:固定重試 + 關鍵字觸發查案例) | tool-calling agent |
 |---|---|---|
-| reg_hit(法規查對) | **14/20 = 0.700 [0.500, 0.900]** | 10/20 = 0.500 [0.300, 0.700] |
+| reg_hit(法規查對) | **13/20 = 0.650 [0.450, 0.850]** | 8/20 = 0.400 [0.200, 0.600] |
 | case_hit(案例查對,17 題要求) | 16/17 = 0.941 [0.824, 1.000] | 15/17 = 0.882 [0.706, 1.000] |
 | related_hit(關聯法條,3 題要求) | 0/3(沒有這個工具) | **3/3** |
-| **full_hit** | **10/20 = 0.500 [0.300, 0.700]** | 8/20 = 0.400 [0.200, 0.600] |
+| **full_hit** | **10/20 = 0.500 [0.300, 0.700]** | 6/20 = 0.300 [0.100, 0.500] |
 
-翻對 2 / 翻錯 4,符號檢定 p = 0.688;agent 平均 2.15 次工具呼叫、18/20 題用了 >1 次(harness 這次真的被用到了)。
+翻對 1 / 翻錯 5,符號檢定 p = 0.219;agent 平均 2.25 次工具呼叫、19/20 題用了 >1 次(harness 這次真的被用到了)。
 
 **誠實的結論:即使在為 agent 設計的題組上,它也沒有贏過「固定管線 + 關鍵字規則」。** 拆開看才知道為什麼:
 
-- 案例這一跳,`/ask` 的關鍵字觸發(問題含「罰/案例/裁處」就查案例)跟 LLM 自己決定去查,效果一樣(16 vs 15)
-- 法規這一跳 agent 反而輸 4 題:多步時 LLM 濃縮的查詢字串更容易飄(§3 的 query drift 在多步場景放大),而且有 2 題它
+- 案例這一跳,固定管線的關鍵字觸發(問題含「罰/案例/裁處」就查案例)跟 LLM 自己決定去查,效果一樣(16 vs 15)
+- 法規這一跳 agent 反而輸 5 題:多步時 LLM 濃縮的查詢字串更容易飄(§3 的 query drift 在多步場景放大),而且有 2 題它
   直接跳過 `search_regulations` 只查案例,harness 因此判定 ungrounded 而拒答
 - agent 唯一無可取代的是 `search_related_laws`(3/3):baseline 沒有這個能力
 
@@ -192,7 +194,28 @@ confidence-based 方法的結構性盲點,信心閘門偵測不到。out-of-doma
 下一步很明確,而且不是「讓 agent 更聰明」:把案例與關聯法條查詢做成**規則觸發的確定性多步管線**,再跟 agent 比一次。
 如果打平,agent 在這個領域就只剩「探索未知工具組合」的價值;如果 agent 贏,才是它該存在的證據。
 
-### 6. Router:單一入口的新失效點,量出來
+### 6. 國考題:唯一「題目與答案都不是我們寫的」評估集
+
+前面所有題組都有一個共同弱點:題目是我們自己寫的或 LLM 生成的,量的是「有沒有撈到 gold chunk」。
+這一組不一樣:**考選部「營養師」國考「食品衛生與安全」109–114 年的 260 題單選題,配官方標準答案**
+(`scripts/build_exam_set.py` 從考選部考畢試題平台抓取、解析;試題依《著作權法》第 9 條不受著作權保護)。
+量的是**最終答案對不對**。三個系統同一組題,拒答計為答錯;「法規類」是可重現的關鍵字啟發式分組,不做人工篩選:
+
+| 組別 | n | 閉卷 gpt-4o-mini | RAG(信心不足即拒答) | **RAG + 閉卷 fallback** | RAG 作答數 / 作答時正確率 | Δ(fallback − 閉卷)[95% CI] | 翻對 / 翻錯 | p |
+|---|---|---|---|---|---|---|---|---|
+| 全部 | 260 | 0.669 [0.612, 0.727] | 0.369 [0.312, 0.427] | **0.800 [0.750, 0.846]** | 112 / 0.857 | **+0.131 [+0.088, +0.173]** | 36 / 2 | <0.001 |
+| 法規類 | 122 | 0.623 [0.533, 0.705] | 0.582 [0.492, 0.664] | **0.836 [0.770, 0.902]** | 82 / 0.866 | **+0.213 [+0.131, +0.295]** | 28 / 2 | <0.001 |
+| 其他(微生物/毒理/加工) | 138 | 0.710 [0.630, 0.783] | 0.181 [0.116, 0.246] | 0.768 [0.696, 0.833] | 30 / 0.833 | +0.058 [+0.022, +0.101] | 8 / 0 | 0.008 |
+
+(隨機猜測 = 0.25;380 次 LLM 呼叫、247k tokens,約 NT$1.5)
+
+這是整個專案裡**唯一一次 RAG 對閉卷 LLM 有顯著、大幅的提升**,而且提升的地方正是它該提升的地方:法規類題目
+閉卷 62%,加上檢索 84%(翻對 28 題、翻錯 2 題);非法規類只有 +6%,因為語料裡本來就沒有微生物學。信心閘門的行為也對:
+260 題只作答 112 題,作答時 86% 正確;其餘拒答交給閉卷——「有依據才答、沒依據不硬答」在外部題目上成立。
+兩個誠實的註腳:法規類仍有 16% 答錯(閉卷與 RAG 都錯的題目,多半是語料沒涵蓋的細節數字);「法規類」的分組是啟發式,
+會把少數非法規題算進來,也會漏掉少數法規題,但這比人工挑題可重現。
+
+### 7. Router:單一入口的新失效點,量出來
 
 `/query` 的路由器是新增的失效點,所以單獨評估(`eval/eval_router.py`)。標籤集不用另外標:108+8 題單跳 → `regulation_qa`、
 20 題 multi-hop → `multi_hop`,再加 30 題手寫的審稿/案例/邊界題,共 166 題。
@@ -235,13 +258,27 @@ make unzip && make ingest       # 第一次會下載 BGE-M3(~2.3 GB)
 make run                        # http://localhost:8000/docs
 ```
 
+對外只有兩個功能端點——**所有問答、審稿、多步問題都從 `/query` 進**,`/health` 看系統狀態:
+
 ```bash
-curl -X POST localhost:8000/ask       -H "Content-Type: application/json" -d '{"question": "真空包裝豆干要符合什麼規定?"}'
-curl -X POST localhost:8000/ask_agent -H "Content-Type: application/json" -d '{"question": "廣告說能提升免疫力,違反哪條?有案例嗎?"}'
-curl -X POST localhost:8000/review    -H "Content-Type: application/json" -d '{"ad_text": "本產品有效改善高血壓"}'
+curl -X POST localhost:8000/query -H "Content-Type: application/json" -d '{"question": "真空包裝豆干要符合什麼規定?"}'
+curl -X POST localhost:8000/query -H "Content-Type: application/json" -d '{"question": "廣告說能提升免疫力,違反哪條?有案例嗎?"}'
+curl -X POST localhost:8000/query -H "Content-Type: application/json" -d '{"question": "本產品有效改善高血壓,三天見效"}'
+curl -X POST localhost:8000/query -H "Content-Type: application/json" -d '{"question": "本產品有效改善高血壓", "force_intent": "ad_review"}'
+curl localhost:8000/health
 ```
 
-回應的 `meta` 帶 `confident` / `used_retry` / `unsupported_citations`;`/ask_agent` 另外回 `trace`(每步工具、查詢、信心分數、是否觸發 drift 介入)與 `usage`(token / 秒數 / 停止原因)。
+不管走哪條路徑,回傳都是同一種格式(`app/harness.py`):
+
+| 欄位 | 內容 |
+|---|---|
+| `route` | 判定的意圖、是規則還是 LLM 判的、理由、實際走的 handler(regulation / review / agent) |
+| `trace` | 每一步:`retrieve` / `retry` / `retrieve_cases` / `generate` / `verify_citations` / `refuse`、審稿的 `keyword_scan` / `verdict`、agent 的 `tool:search_regulations`……,各帶耗時、信心分數、chunk id、是否觸發 drift 介入 |
+| `usage` | LLM 呼叫次數、工具呼叫次數、prompt / completion token、秒數、停止原因(answered / tool_calls / tokens / seconds) |
+| `meta` | `confident`、`used_retry`、`refused`(拒答契約)、`unsupported_citations`(引用驗證)、`grounded`、`hit_tool_call_limit` |
+| `verdict` | 只有審稿有:low / medium / high,以 LLM 報告的結論為準、關鍵字規則當保險 |
+
+`/laws/{article}/related` 與 `/files/{path}` 是給前端用的資料端點,不是功能。
 
 ```bash
 make test     # 84 個單元測試,不需要模型或 API key
@@ -254,11 +291,15 @@ python scripts/replay_trace.py eval/results_tool_agent_drift_check.json --miss  
 
 ```
 app/                 FastAPI + 檢索/agent 邏輯
+  main.py              只有 /query 與 /health 兩個功能端點
+  router.py            意圖路由:規則層 → LLM 層
+  handlers.py          三條執行路徑(固定管線 / 審稿 / agent),共用同一個 RunContext
+  harness.py           統一的 trace、usage、拒答契約、引用驗證
   retrieval.py         SQL 預過濾 + FAISS 搜尋、案例檢索、法條共現
   corrective_retrieval.py  信心閘門(+ entity boost 併入候選)
   agentic_retrieval.py     固定重試(信心不足 → LLM 改寫重查)
-  agent.py / agent_tools.py  tool-calling harness:預算、grounded 強制、drift 檢查
-  verifier.py          答案層引用驗證
+  agent.py / agent_tools.py  tool-calling loop:預算、grounded 強制、drift 檢查
+  verifier.py          答案層引用驗證(條號必須出現在檢索內容裡)
 ingest/              parsers(PDF/DOCX/OCR/表格)→ chunker(4 策略路由)→ law_detector → SQLite + FAISS
 eval/                評估集、腳本、stats.py(bootstrap/符號檢定)、RESULTS.md
 tests/               單元測試(fake reranker + scripted LLM client)

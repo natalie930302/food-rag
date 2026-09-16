@@ -72,6 +72,9 @@ eval-agent:
 	python eval/eval_agentic.py
 	python eval/eval_tool_agent_drift_check.py
 	python eval/eval_citation_verifier.py
+	python eval/eval_router.py
+	python eval/eval_query_e2e.py
+	python eval/eval_exam.py
 
 # harness 專屬評估:多步問題集 + 消融(較貴,約 1.5 小時、gpt-4o-mini 數十元台幣)
 eval-harness:

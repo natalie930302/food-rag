@@ -205,6 +205,43 @@ if rt:
 else:
     lines += ["未執行(`python eval/eval_router.py`)", ""]
 
+# ---- 9. /query 端到端 ------------------------------------------------------------------
+e2e = load("results_query_e2e.json")
+lines += ["## 9. /query 端到端(統一入口 + 統一 harness)", ""]
+if e2e:
+    lines += ["| 題組 | n | hit | 拒答 | 引用未支持 | LLM 呼叫/題 | tokens/題 | 秒/題 |", "|---|---|---|---|---|---|---|---|"]
+    for k, s in e2e["by_set"].items():
+        h = f"{s['hit']['count']}/{s['hit']['total']} = {fmt_ci(s['hit']['rate'], *s['hit']['ci95'])}" if "hit" in s else "—"
+        lines.append(f"| {k} | {s['n']} | {h} | {s['refused']} | {s['unsupported_citation_cases']} | {s['avg_llm_calls']} | {s['avg_tokens']} | {s['avg_elapsed_s']} |")
+    lines += ["", "依實際走到的 handler:", "", "| handler | n | hit | 拒答 | 引用未支持 | LLM 呼叫/題 | tokens/題 | 秒/題 |", "|---|---|---|---|---|---|---|---|"]
+    for k, s in e2e["by_handler"].items():
+        h = f"{s['hit']['count']}/{s['hit']['total']}" if "hit" in s else "—"
+        lines.append(f"| {k} | {s['n']} | {h} | {s['refused']} | {s['unsupported_citation_cases']} | {s['avg_llm_calls']} | {s['avg_tokens']} | {s['avg_elapsed_s']} |")
+    if e2e.get("routing_accuracy") is not None:
+        lines.append(f"\n- 路由準確率(有標籤的題目):{e2e['routing_accuracy']:.3f}")
+    lines.append("")
+else:
+    lines += ["未執行(`python eval/eval_query_e2e.py`)", ""]
+
+# ---- 10. 國考題(外部、有官方答案)------------------------------------------------------
+ex = load("results_exam.json")
+lines += ["## 10. 國考題:營養師「食品衛生與安全」109–114 年單選題(官方標準答案,隨機猜測 = 0.25)", ""]
+if ex:
+    lines += ["拒答計為答錯;「法規類」= 題幹/選項含法規關鍵字的可重現啟發式分組,不做人工篩選。", "",
+              "| 組別 | n | 閉卷 gpt-4o-mini | RAG(信心不足即拒答) | RAG + 閉卷 fallback | RAG 作答數 | RAG 作答時正確率 | Δ(fallback − 閉卷)[95% CI] | 翻對/翻錯 | p |",
+              "|---|---|---|---|---|---|---|---|---|---|"]
+    for k, s in ex["summary"].items():
+        v = s["vs_closed"]
+        st = v["sign_test"]
+        prec = f"{s['rag_precision_when_answered']:.3f}" if s.get("rag_precision_when_answered") is not None else "—"
+        lines.append(f"| {k} | {s['n']} | {fmt_ci(s['closed_ok']['rate'], *s['closed_ok']['ci95'])} | "
+                     f"{fmt_ci(s['rag_ok']['rate'], *s['rag_ok']['ci95'])} | {fmt_ci(s['fallback_ok']['rate'], *s['fallback_ok']['ci95'])} | "
+                     f"{s['rag_answered']} | {prec} | {v['diff']:+.3f} [{v['lo']:+.3f}, {v['hi']:+.3f}] | {st['n_plus']}/{st['n_minus']} | {st['p_value']:.3f} |")
+    u = ex.get("usage", {})
+    lines += ["", f"- usage:{u.get('llm_calls')} 次 LLM 呼叫、{u.get('total_tokens'):,} tokens", ""]
+else:
+    lines += ["未執行(`python eval/eval_exam.py`)", ""]
+
 (HERE / "RESULTS.md").write_text("\n".join(lines), encoding="utf-8")
 print("\n".join(lines))
 print("\n已儲存至 eval/RESULTS.md")

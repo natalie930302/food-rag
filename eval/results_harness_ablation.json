@@ -1,372 +1,6 @@
 {
   "full": {
     "in_domain_hit": {
-      "count": 30,
-      "total": 32,
-      "rate": 0.9375,
-      "ci95": [
-        0.84375,
-        1.0
-      ]
-    },
-    "in_domain_answered_without_evidence": 0,
-    "out_domain_answered_without_evidence": {
-      "count": 0,
-      "total": 20
-    },
-    "avg_tool_calls": 1.0,
-    "avg_latency_s": 18.6,
-    "in_domain": [
-      {
-        "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "台灣有可能進口到帶有狂牛症風險的牛肉產品嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "賣給餐飲業者的業務用奶精,也要照規定標示品名嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "農產品如果是別人分裝後驗證的,標示追溯來源時要寫誰的資訊?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "食用油脂原料的檢驗可以用週期性輪替的方式做嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "便利商店賣金針、蘿蔔乾這類產品,可以用週期性輪替檢驗嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "包裝奶精的品名標示新規定,有給業者緩衝期嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "洗碗精配方裡的水算不算是主要成分?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "冬青葉泡的茶湯,可以加進其他茶飲一起賣嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "濃縮果汁還原後算出來超過100%的原汁含有率,該怎麼標示?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "超商賣的餐盒如果有牛肉,需要標示牛肉的原產地嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "粥品裡額外加的水,需要寫在內容物標示裡嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "食品用整箱方式批發賣給中盤商,標示要標在箱子上還是個別包裝上?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "如果我賣的食品品項有被公告要用電子發票,那我賣的非食品部分也要開電子發票嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "用咖啡葉做的茶飲,需要標示咖啡因含量嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "『非登不可』平台上的產品登錄資訊,規定多久要更新一次?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "食品裡面附玩具一起賣,為什麼需要標示警語?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "裁罰基準裡講的資力加權倍數,『所有違規產品』具體是指什麼?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "廠商只是把幾種原料包在一起、包裝完全沒變,這樣算是有動到食品的製程嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "如果我只是把東西重新分裝,不算是真正在做食品加工吧?",
-        "hit": false,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "紅麴膠囊這種東西,官方是怎麼歸類的?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "營養標示上寫的份數,可以有小數點嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "如果我又做食品添加物又做一般食品輸入,登記資料要分兩份填嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "自己工廠內部用的半成品,沒有拿出去賣,也要跟政府報備嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "得了B肝的人還能在食品業工作嗎?",
-        "hit": true,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      },
-      {
-        "question": "要當食品安全管制的窗口,需要上過什麼課嗎?",
-        "hit": false,
-        "grounded": true,
-        "answered_without_evidence": false,
-        "tool_calls_used": 1
-      }
-    ],
-    "out_domain": [
-      {
-        "question": "台灣的所得稅申報期限是什麼時候?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "Unity 遊戲引擎裡要怎麼設定角色的動畫過渡?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "颱風來的時候要注意哪些居家安全事項?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "貓咪大概多久需要施打一次疫苗?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "台北到高雄搭高鐵大概要多久時間?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "護照到期了要怎麼申請換發?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "勞基法規定的特休假天數怎麼算?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "機車強制險一年大概多少錢?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "Python 的 list 跟 tuple 差在哪裡?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "房屋租賃契約公證要準備什麼文件?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "小孩幾歲可以開始學游泳比較好?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "信用卡繳款逾期會影響信用評分嗎?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "iPhone 電池健康度低於多少建議更換?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "汽車定期保養大概多久要換一次機油?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "大學推甄的備審資料通常要放哪些內容?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "登山遇到失溫要怎麼緊急處理?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "藥局買的成藥可以跟處方藥一起吃嗎?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "化妝品標示的保存期限跟開封後使用期限有什麼不同?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "餐廳員工的加班費要怎麼算才合法?",
-        "grounded": false,
-        "answered_without_evidence": false,
-        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
-      },
-      {
-        "question": "寵物飼料的成分標示有規定要寫什麼嗎?",
-        "grounded": true,
-        "answered_without_evidence": false,
-        "answer_preview": "根據《食品標示法規指引手冊》的內容，寵物飼料的成分標示應遵循相關的標示規定。具體來說，標示內容應包括：\n\n1. **成分名稱**：必須清楚列出所有成分的名稱。\n2. **營養成分**：應標示主要的營養成分，如蛋白質、脂肪、纖維等。\n3. **基因改造標示**：如果產品中含有基因改造的成分，必須標示「基因改造」或「含基因"
-      }
-    ]
-  },
-  "no_grounding": {
-    "in_domain_hit": {
       "count": 31,
       "total": 32,
       "rate": 0.96875,
@@ -381,7 +15,7 @@
       "total": 20
     },
     "avg_tool_calls": 1.0,
-    "avg_latency_s": 18.9,
+    "avg_latency_s": 31.9,
     "in_domain": [
       {
         "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
@@ -613,6 +247,373 @@
         "question": "台灣的所得稅申報期限是什麼時候?",
         "grounded": false,
         "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "Unity 遊戲引擎裡要怎麼設定角色的動畫過渡?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "颱風來的時候要注意哪些居家安全事項?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "貓咪大概多久需要施打一次疫苗?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "台北到高雄搭高鐵大概要多久時間?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "護照到期了要怎麼申請換發?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "勞基法規定的特休假天數怎麼算?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "機車強制險一年大概多少錢?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "Python 的 list 跟 tuple 差在哪裡?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "房屋租賃契約公證要準備什麼文件?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "小孩幾歲可以開始學游泳比較好?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "信用卡繳款逾期會影響信用評分嗎?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "iPhone 電池健康度低於多少建議更換?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "汽車定期保養大概多久要換一次機油?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "大學推甄的備審資料通常要放哪些內容?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "登山遇到失溫要怎麼緊急處理?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "藥局買的成藥可以跟處方藥一起吃嗎?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "化妝品標示的保存期限跟開封後使用期限有什麼不同?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "餐廳員工的加班費要怎麼算才合法?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "寵物飼料的成分標示有規定要寫什麼嗎?",
+        "grounded": true,
+        "answered_without_evidence": false,
+        "answer_preview": "根據《食品安全衛生管理法》第25條，寵物飼料的成分標示應遵循相關規定。具體來說，標示內容應包括產品的名稱、成分、營養成分等資訊，並且必須清楚、明顯地標示在包裝上。\n\n此外，根據《食品標示法規指引手冊》，如果寵物飼料中含有基因改造食品原料，則必須標示「基因改造」或「含基因改造」字樣，並且字體大小不得小於2毫米，與其他文字"
+      }
+    ],
+    "run_at": "2026-09-16 16:05"
+  },
+  "no_grounding": {
+    "in_domain_hit": {
+      "count": 30,
+      "total": 32,
+      "rate": 0.9375,
+      "ci95": [
+        0.84375,
+        1.0
+      ]
+    },
+    "in_domain_answered_without_evidence": 0,
+    "out_domain_answered_without_evidence": {
+      "count": 0,
+      "total": 20
+    },
+    "avg_tool_calls": 1.0,
+    "avg_latency_s": 31.8,
+    "in_domain": [
+      {
+        "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "台灣有可能進口到帶有狂牛症風險的牛肉產品嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "賣給餐飲業者的業務用奶精,也要照規定標示品名嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "農產品如果是別人分裝後驗證的,標示追溯來源時要寫誰的資訊?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食用油脂原料的檢驗可以用週期性輪替的方式做嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "便利商店賣金針、蘿蔔乾這類產品,可以用週期性輪替檢驗嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "包裝奶精的品名標示新規定,有給業者緩衝期嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "洗碗精配方裡的水算不算是主要成分?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "冬青葉泡的茶湯,可以加進其他茶飲一起賣嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "濃縮果汁還原後算出來超過100%的原汁含有率,該怎麼標示?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "超商賣的餐盒如果有牛肉,需要標示牛肉的原產地嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "粥品裡額外加的水,需要寫在內容物標示裡嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食品用整箱方式批發賣給中盤商,標示要標在箱子上還是個別包裝上?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "如果我賣的食品品項有被公告要用電子發票,那我賣的非食品部分也要開電子發票嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "用咖啡葉做的茶飲,需要標示咖啡因含量嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "『非登不可』平台上的產品登錄資訊,規定多久要更新一次?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食品裡面附玩具一起賣,為什麼需要標示警語?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "裁罰基準裡講的資力加權倍數,『所有違規產品』具體是指什麼?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "廠商只是把幾種原料包在一起、包裝完全沒變,這樣算是有動到食品的製程嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "如果我只是把東西重新分裝,不算是真正在做食品加工吧?",
+        "hit": false,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "紅麴膠囊這種東西,官方是怎麼歸類的?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "營養標示上寫的份數,可以有小數點嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "如果我又做食品添加物又做一般食品輸入,登記資料要分兩份填嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "自己工廠內部用的半成品,沒有拿出去賣,也要跟政府報備嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "得了B肝的人還能在食品業工作嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "要當食品安全管制的窗口,需要上過什麼課嗎?",
+        "hit": false,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      }
+    ],
+    "out_domain": [
+      {
+        "question": "台灣的所得稅申報期限是什麼時候?",
+        "grounded": false,
+        "answered_without_evidence": false,
         "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題。"
       },
       {
@@ -727,17 +728,18 @@
         "question": "寵物飼料的成分標示有規定要寫什麼嗎?",
         "grounded": true,
         "answered_without_evidence": false,
-        "answer_preview": "根據《食品標示法規指引手冊》，寵物飼料的成分標示應遵循相關的標示規定。具體來說，標示內容應包括：\n\n1. **成分名稱**：必須清楚列出所有成分的名稱。\n2. **營養成分**：應標示主要的營養成分，如蛋白質、脂肪、纖維等。\n3. **基因改造標示**：如果產品中含有基因改造的成分，必須標示「基因改造」或「含基因改造」"
+        "answer_preview": "根據《食品標示法規指引手冊》，寵物飼料的成分標示應遵循特定的規定。具體來說，標示內容應包括：\n\n1. **品名**：必須清楚標示產品的名稱。\n2. **成分**：應列出所有成分，並按照含量從高到低的順序排列。\n3. **營養成分**：如有營養標示，必須依照相關規定進行標示。\n4. **原產地**：如果適用，應標示產品的"
       }
-    ]
+    ],
+    "run_at": "2026-09-16 16:05"
   },
   "no_drift_check": {
     "in_domain_hit": {
-      "count": 27,
+      "count": 28,
       "total": 32,
-      "rate": 0.84375,
+      "rate": 0.875,
       "ci95": [
-        0.71875,
+        0.75,
         0.96875
       ]
     },
@@ -747,7 +749,7 @@
       "total": 20
     },
     "avg_tool_calls": 1.0,
-    "avg_latency_s": 10.8,
+    "avg_latency_s": 21.6,
     "in_domain": [
       {
         "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
@@ -842,7 +844,7 @@
       },
       {
         "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
-        "hit": true,
+        "hit": false,
         "grounded": true,
         "answered_without_evidence": false,
         "tool_calls_used": 1
@@ -919,7 +921,7 @@
       },
       {
         "question": "廠商只是把幾種原料包在一起、包裝完全沒變,這樣算是有動到食品的製程嗎?",
-        "hit": false,
+        "hit": true,
         "grounded": true,
         "answered_without_evidence": false,
         "tool_calls_used": 1
@@ -968,7 +970,7 @@
       },
       {
         "question": "要當食品安全管制的窗口,需要上過什麼課嗎?",
-        "hit": false,
+        "hit": true,
         "grounded": true,
         "answered_without_evidence": false,
         "tool_calls_used": 1
@@ -1093,9 +1095,10 @@
         "question": "寵物飼料的成分標示有規定要寫什麼嗎?",
         "grounded": true,
         "answered_without_evidence": false,
-        "answer_preview": "根據《食品標示法規指引手冊》，寵物飼料的成分標示應遵循相關的標示規定。具體來說，標示內容應包括：\n\n1. **成分名稱**：必須清楚列出所有成分的名稱，並按照成分的含量由高到低排列。\n2. **營養成分**：應標示每份產品所含的主要營養成分，如蛋白質、脂肪、纖維等。\n3. **過敏原標示**：如果產品中含有可能引起過敏"
+        "answer_preview": "根據《食品標示法規指引手冊》，寵物飼料的成分標示應遵循特定的規定。具體來說，標示內容應包括：\n\n1. **品名**：必須清楚標示產品的名稱。\n2. **成分**：應列出所有成分，並按照含量的高低順序排列。\n3. **營養成分**：如有營養標示，必須依照相關規定進行標示。\n4. **原產地**：如果適用，應標示產品的原產"
       }
-    ]
+    ],
+    "run_at": "2026-09-16 16:05"
   },
   "temp_0.1": {
     "in_domain_hit": {
@@ -1113,7 +1116,374 @@
       "total": 20
     },
     "avg_tool_calls": 1.0,
-    "avg_latency_s": 19.8,
+    "avg_latency_s": 33.8,
+    "in_domain": [
+      {
+        "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "台灣有可能進口到帶有狂牛症風險的牛肉產品嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "賣給餐飲業者的業務用奶精,也要照規定標示品名嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "農產品如果是別人分裝後驗證的,標示追溯來源時要寫誰的資訊?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食用油脂原料的檢驗可以用週期性輪替的方式做嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "便利商店賣金針、蘿蔔乾這類產品,可以用週期性輪替檢驗嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "包裝奶精的品名標示新規定,有給業者緩衝期嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "洗碗精配方裡的水算不算是主要成分?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "冬青葉泡的茶湯,可以加進其他茶飲一起賣嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "濃縮果汁還原後算出來超過100%的原汁含有率,該怎麼標示?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "超商賣的餐盒如果有牛肉,需要標示牛肉的原產地嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "粥品裡額外加的水,需要寫在內容物標示裡嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食品用整箱方式批發賣給中盤商,標示要標在箱子上還是個別包裝上?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "如果我賣的食品品項有被公告要用電子發票,那我賣的非食品部分也要開電子發票嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "用咖啡葉做的茶飲,需要標示咖啡因含量嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "『非登不可』平台上的產品登錄資訊,規定多久要更新一次?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食品裡面附玩具一起賣,為什麼需要標示警語?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "裁罰基準裡講的資力加權倍數,『所有違規產品』具體是指什麼?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "廠商只是把幾種原料包在一起、包裝完全沒變,這樣算是有動到食品的製程嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "如果我只是把東西重新分裝,不算是真正在做食品加工吧?",
+        "hit": false,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "紅麴膠囊這種東西,官方是怎麼歸類的?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "營養標示上寫的份數,可以有小數點嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "如果我又做食品添加物又做一般食品輸入,登記資料要分兩份填嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "自己工廠內部用的半成品,沒有拿出去賣,也要跟政府報備嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "得了B肝的人還能在食品業工作嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "要當食品安全管制的窗口,需要上過什麼課嗎?",
+        "hit": false,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      }
+    ],
+    "out_domain": [
+      {
+        "question": "台灣的所得稅申報期限是什麼時候?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "Unity 遊戲引擎裡要怎麼設定角色的動畫過渡?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "颱風來的時候要注意哪些居家安全事項?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "貓咪大概多久需要施打一次疫苗?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "台北到高雄搭高鐵大概要多久時間?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "護照到期了要怎麼申請換發?",
+        "grounded": true,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題。"
+      },
+      {
+        "question": "勞基法規定的特休假天數怎麼算?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "機車強制險一年大概多少錢?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "Python 的 list 跟 tuple 差在哪裡?",
+        "grounded": true,
+        "answered_without_evidence": false,
+        "answer_preview": "依據《食品安全衛生管理法》第22條第1項第10款的規定，相關的法源依據可以用於食品標示的規範。這條法規主要涉及食品的標示要求，確保消費者能夠獲得正確的產品資訊。\n\n具體來說，這條法規的內容來自於我查詢的資料庫，並且確認了其可信度。若您有其他具體的問題或需要進一步的資訊，請告訴我！"
+      },
+      {
+        "question": "房屋租賃契約公證要準備什麼文件?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "小孩幾歲可以開始學游泳比較好?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "信用卡繳款逾期會影響信用評分嗎?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "iPhone 電池健康度低於多少建議更換?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "汽車定期保養大概多久要換一次機油?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "大學推甄的備審資料通常要放哪些內容?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "登山遇到失溫要怎麼緊急處理?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "藥局買的成藥可以跟處方藥一起吃嗎?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "化妝品標示的保存期限跟開封後使用期限有什麼不同?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "餐廳員工的加班費要怎麼算才合法?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "寵物飼料的成分標示有規定要寫什麼嗎?",
+        "grounded": true,
+        "answered_without_evidence": false,
+        "answer_preview": "根據《食品標示法規指引手冊》的內容，寵物飼料的成分標示應遵循特定的規定。標示內容通常包括：\n\n1. **品名**：必須清楚標示產品的名稱。\n2. **成分**：應列出所有成分，並按照含量從高到低的順序排列。\n3. **營養成分**：如有營養標示，應包括主要的營養成分及其含量。\n4. **原產地**：如果適用，應標示產品"
+      }
+    ],
+    "run_at": "2026-09-16 16:05"
+  },
+  "no_tool_retry": {
+    "in_domain_hit": {
+      "count": 30,
+      "total": 32,
+      "rate": 0.9375,
+      "ci95": [
+        0.84375,
+        1.0
+      ]
+    },
+    "in_domain_answered_without_evidence": 0,
+    "out_domain_answered_without_evidence": {
+      "count": 0,
+      "total": 20
+    },
+    "avg_tool_calls": 1.0,
+    "avg_latency_s": 23.6,
     "in_domain": [
       {
         "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
@@ -1459,8 +1829,376 @@
         "question": "寵物飼料的成分標示有規定要寫什麼嗎?",
         "grounded": true,
         "answered_without_evidence": false,
-        "answer_preview": "根據《食品安全衛生管理法》第22條的規定，寵物飼料的成分標示必須正確且完整。這包括但不限於產品的名稱、成分、營養成分等信息。具體的標示要求可能會依據產品的類型和包裝形式有所不同。\n\n這些內容是從《食品安全衛生管理法》第22條的相關規定中查到的，具體要求可參考該法條的詳細內容。"
+        "answer_preview": "根據資料庫中的資訊，寵物飼料的成分標示應遵循《食品安全衛生管理法》第25條的相關規定。該法條要求食品販賣業者在標示上必須清楚列出食品的品名及原產地，並且在包裝上標示成分及營養成分等資訊。\n\n具體來說，標示內容應包括：\n1. 食品的品名。\n2. 主要成分及其比例。\n3. 營養成分的標示，應遵循相關的營養標示規範。\n\n這些"
       }
-    ]
+    ],
+    "run_at": "2026-09-16 16:05"
+  },
+  "no_force_regulation": {
+    "in_domain_hit": {
+      "count": 30,
+      "total": 32,
+      "rate": 0.9375,
+      "ci95": [
+        0.84375,
+        1.0
+      ]
+    },
+    "in_domain_answered_without_evidence": 0,
+    "out_domain_answered_without_evidence": {
+      "count": 0,
+      "total": 20
+    },
+    "avg_tool_calls": 1.0,
+    "avg_latency_s": 28.2,
+    "in_domain": [
+      {
+        "question": "如果我的蜂蜜產品加了糖漿,蜂蜜含量還是超過60%,產品名稱可以叫『調合蜂蜜』嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "天然色素算是食品添加物嗎?需要辦理登錄嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "包裝上的內容物寫『白米』,不寫是哪個品種可以嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "台灣有可能進口到帶有狂牛症風險的牛肉產品嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "營養標示欄位裡可以順便寫膠原蛋白或咖啡因含量嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "賣給餐飲業者的業務用奶精,也要照規定標示品名嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "農產品如果是別人分裝後驗證的,標示追溯來源時要寫誰的資訊?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食品檢驗用的實驗室可以跟藥品或化妝品的實驗室共用嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食用油脂原料的檢驗可以用週期性輪替的方式做嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "便利商店賣金針、蘿蔔乾這類產品,可以用週期性輪替檢驗嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "包裝奶精的品名標示新規定,有給業者緩衝期嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "洗碗精配方裡的水算不算是主要成分?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "冬青葉泡的茶湯,可以加進其他茶飲一起賣嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "製造食品要外銷的業者,需要去登錄哪些輸出食品相關資訊嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "濃縮果汁還原後算出來超過100%的原汁含有率,該怎麼標示?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "超商賣的餐盒如果有牛肉,需要標示牛肉的原產地嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "粥品裡額外加的水,需要寫在內容物標示裡嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食品用整箱方式批發賣給中盤商,標示要標在箱子上還是個別包裝上?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "如果我賣的食品品項有被公告要用電子發票,那我賣的非食品部分也要開電子發票嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "廠商說的『產品成分報告』,是指COA檢驗規格書還是單純的成分表?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "用咖啡葉做的茶飲,需要標示咖啡因含量嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "『非登不可』平台上的產品登錄資訊,規定多久要更新一次?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "食品裡面附玩具一起賣,為什麼需要標示警語?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "裁罰基準裡講的資力加權倍數,『所有違規產品』具體是指什麼?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "廠商只是把幾種原料包在一起、包裝完全沒變,這樣算是有動到食品的製程嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "如果我只是把東西重新分裝,不算是真正在做食品加工吧?",
+        "hit": false,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "紅麴膠囊這種東西,官方是怎麼歸類的?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "營養標示上寫的份數,可以有小數點嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "如果我又做食品添加物又做一般食品輸入,登記資料要分兩份填嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "自己工廠內部用的半成品,沒有拿出去賣,也要跟政府報備嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "得了B肝的人還能在食品業工作嗎?",
+        "hit": true,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      },
+      {
+        "question": "要當食品安全管制的窗口,需要上過什麼課嗎?",
+        "hit": false,
+        "grounded": true,
+        "answered_without_evidence": false,
+        "tool_calls_used": 1
+      }
+    ],
+    "out_domain": [
+      {
+        "question": "台灣的所得稅申報期限是什麼時候?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "Unity 遊戲引擎裡要怎麼設定角色的動畫過渡?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "颱風來的時候要注意哪些居家安全事項?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "貓咪大概多久需要施打一次疫苗?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "台北到高雄搭高鐵大概要多久時間?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "護照到期了要怎麼申請換發?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "勞基法規定的特休假天數怎麼算?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "機車強制險一年大概多少錢?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "Python 的 list 跟 tuple 差在哪裡?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "房屋租賃契約公證要準備什麼文件?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "小孩幾歲可以開始學游泳比較好?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "信用卡繳款逾期會影響信用評分嗎?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "iPhone 電池健康度低於多少建議更換?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "汽車定期保養大概多久要換一次機油?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "大學推甄的備審資料通常要放哪些內容?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "登山遇到失溫要怎麼緊急處理?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "藥局買的成藥可以跟處方藥一起吃嗎?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "化妝品標示的保存期限跟開封後使用期限有什麼不同?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "餐廳員工的加班費要怎麼算才合法?",
+        "grounded": false,
+        "answered_without_evidence": false,
+        "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+      },
+      {
+        "question": "寵物飼料的成分標示有規定要寫什麼嗎?",
+        "grounded": true,
+        "answered_without_evidence": false,
+        "answer_preview": "根據資料庫中的內容，寵物飼料的成分標示應遵循《食品安全衛生管理法》第25條的相關規定。該法條要求食品販賣業者在標示上必須清楚列出食品的品名、原料名稱及其來源等資訊。\n\n具體來說，標示內容應包括：\n1. 食品的品名。\n2. 所有成分的名稱，並按含量由高到低排列。\n3. 任何可能引起過敏的成分必須特別標示。\n\n這些要求旨在"
+      }
+    ],
+    "run_at": "2026-09-16 16:05"
   }
 }

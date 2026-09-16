@@ -27,7 +27,7 @@ Same data, same kind of conclusion: **with small data, a simple method plus hone
 | Does two-stage retrieval (dense → rerank) help? | **Depends on the reranker.** `bge-reranker-base` gives no significant gain (p = 1.00); `bge-reranker-v2-m3` does (Recall@1 +0.11 [+0.04, +0.19], p = 0.008) | [§1](#1-retrieval-two-stage-is-not-automatically-better) |
 | Does the system refuse when retrieval is unreliable? | Yes. At threshold 0.52, 20/20 out-of-domain questions are refused; the cost is 8/108 in-domain false refusals | [§2](#2-confidence-gate-the-clean-threshold-was-a-small-sample-artefact) |
 | Is "let the LLM decide" better than a fixed retry? | **Not on single-hop** (99 vs 99/108). On the 20 multi-hop questions built for it, the first measurement lost (6 vs 10); two design asymmetries were traced and fixed, after which it leads **13 vs 9** (p = 0.22, too few questions for significance) and has a capability the baseline lacks (related-article lookup) | [§3](#3-agent-fixed-retry-vs-tool-calling-harness), [§5](#5-multi-hop-when-the-agent-actually-matters--diagnose-fix-remeasure) |
-| What does each harness boundary actually block? | Ablation says: only the drift check (30 → 27/32 when off); the forced refusal and the citation check caught nothing on this set — insurance, not gain | [§4](#4-harness-ablation-why-each-boundary-exists) |
+| What does each harness boundary actually block? | Six boundaries switched off one at a time: only the drift check matters (31 → 28/32 when off); the forced refusal and the citation check caught nothing — insurance, not gain; the two §5 boundaries show no difference on single-hop (their effect is in multi-hop) — insurance, not gain | [§4](#4-harness-ablation-why-each-boundary-exists) |
 | Does RAG actually beat the closed-book LLM? | **Yes — measured on external questions for the first time**: 260 national dietitian-exam questions, closed-book 66.9 % → RAG + fallback 80.0 % (+0.13 [+0.09, +0.17], p < 0.001); regulation questions 62.3 % → 83.6 % | [§6](#6-national-exam-the-only-eval-set-we-did-not-write-ourselves) |
 | When should the agent be used at all? | `/query` routes first: rule layer 100 %, overall 97.6 %, only multi-hop goes to the agent, 0 harmful misroutes | [§7](#7-router-a-new-failure-point-measured) |
 | Is the eval set big enough? | 24 hand-written → **108** (+84 LLM-generated, human-reviewed), plus 8 hard, 20 out-of-domain, 20 multi-hop, **260 national-exam MCQs with official answers** | [eval/](eval/) |
@@ -164,15 +164,21 @@ out-of-domain for "answered without evidence"):
 
 | Config | What is off | in-domain hit | OOD answered w/o evidence | s/question |
 |---|---|---|---|---|
-| full | — | **30/32 = 0.938 [0.844, 1.000]** | 0/20 | 18.6 |
-| no_grounding | no forced refusal when ungrounded | 31/32 = 0.969 [0.906, 1.000] | **0/20** | 18.9 |
-| no_drift_check | no literal-query consistency anchor | **27/32 = 0.844 [0.719, 0.969]** | 0/20 | 10.8 |
-| temp_0.1 | decision temperature back to 0.1 | 30/32 = 0.938 [0.844, 1.000] | 0/20 | 19.8 |
+| full | — | **31/32 = 0.969 [0.906, 1.000]** | 0/20 | 31.9 |
+| no_grounding | no forced refusal when ungrounded | 30/32 = 0.938 [0.844, 1.000] | **0/20** | 31.8 |
+| no_drift_check | no literal-query consistency anchor | **28/32 = 0.875 [0.750, 0.969]** | 0/20 | 21.6 |
+| temp_0.1 | decision temperature back to 0.1 | 30/32 = 0.938 [0.844, 1.000] | 0/20 | 33.8 |
+| no_tool_retry | no rewrite-and-retry inside the tool (§5 fix 1) | 30/32 = 0.938 [0.844, 1.000] | 0/20 | 23.6 |
+| no_force_regulation | no forced regulation lookup (§5 fix 2) | 30/32 = 0.938 [0.844, 1.000] | 0/20 | 28.2 |
 
-Three honest conclusions — one positive, one "redundant", one "not measurable in a single run":
+(All six configs were rerun in one session after the §5 fixes, replacing the earlier four-config numbers 30 / 31 / 27 / 30;
+s/question is comparable only within a run and includes OpenAI API latency at the time.)
 
-- **The drift check earns its keep**: switching it off loses 3 questions (30 → 27), exactly the query-drift cases
-  diagnosed earlier; the cost is ~7 s per question for the second rerank.
+Four honest conclusions — one positive, one "redundant", one "not measurable in a single run", one "not measurable on this set":
+
+- **The drift check earns its keep**: switching it off loses 3 questions (31 → 28), exactly the query-drift cases
+  diagnosed earlier, and the same class of questions dropped in both ablation rounds; the cost is ~10 s per question for
+  the second rerank.
 - **The forced-refusal override was redundant on this set**: with it off, gpt-4o-mini refused all 20 OOD questions on its
   own, in its own words (the first script version compared the literal refusal string and miscounted 19/20 as bluffs;
   a semantic check gives 0/20). Its value is a *guarantee*, not a measured gain — the prompt held this time, which says
@@ -180,14 +186,19 @@ Three honest conclusions — one positive, one "redundant", one "not measurable 
 - **temperature = 0 cannot be shown in one run**: 0.1 also scores 30/32. The earlier "same question, different result on
   rerun" flakiness is a variance effect that needs repeated runs; a single ablation cannot see it.
 
-The two boundaries added after the multi-hop fix (tool-level retry, forced regulation lookup, §5) are wired into the same ablation script (`no_tool_retry` / `no_force_regulation`) but have not been run yet.
+- **The two §5 boundaries make no measurable difference on single-hop**: `no_tool_retry` and `no_force_regulation` both
+  score 30/32, one question below full — and it is the same question ("what course does a food-safety contact need"),
+  which also drops under no_grounding and temp_0.1. Four unrelated configs losing the same question is LLM variance, not
+  a boundary effect. This is exactly what should happen: on single-hop questions the LLM averages 1.0 tool calls and
+  gets the search right first time, so retry and forced lookup never have a chance to fire. Their effect lives in
+  multi-hop (§5: regulation hit 8 → 15); the ablation's value here is confirming that adding them did not regress single-hop.
 
 **The answer-level citation check is the same kind of result** (`eval/eval_citation_verifier.py`): 100 of 108 questions
 passed the gate and got an answer, 88 answers cite article numbers, and **0/100** cited an article absent from the
 context before any regeneration — the regenerate-with-feedback path never fired. The prompt's "do not invent article
-numbers" held on gpt-4o-mini. So of the four boundaries, **only the drift check has a measurable effect on this eval
+numbers" held on gpt-4o-mini. So of the six boundaries, **only the drift check has a measurable effect on this eval
 set**; the forced refusal and the citation check are code-level insurance that the current model + prompt never needed,
-but that is exactly what catches the regression when either changes. This is more honest than "all four boundaries
+but that is exactly what catches the regression when either changes. This is more honest than "all six boundaries
 matter", and more useful: it says what the harness's cost (an extra rerank and an extra check per question) buys.
 
 ### 5. Multi-hop: when the agent actually matters — diagnose, fix, remeasure

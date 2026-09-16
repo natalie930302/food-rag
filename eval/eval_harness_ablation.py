@@ -17,6 +17,7 @@ README 裡對每個邊界都有「為什麼需要」的敘述,但敘述不是證
 用法:python eval/eval_harness_ablation.py [--configs full,no_grounding]
 """
 import argparse
+import json
 import sys
 import time
 from pathlib import Path
@@ -37,6 +38,10 @@ CONFIGS = {
     "no_tool_retry": {"tool_retry": False},
     "no_force_regulation": {"force_regulation": False},
 }
+
+from datetime import datetime
+
+RUN_AT = datetime.now().strftime("%Y-%m-%d %H:%M")
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--configs", default=",".join(CONFIGS))
@@ -120,4 +125,8 @@ for name, r in results.items():
           f"{o['count']}/{o['total']:<9}{r['in_domain_answered_without_evidence']:<16}"
           f"{r['avg_tool_calls']:<10}{r['avg_latency_s']}")
 
-save_json("results_harness_ablation.json", {name: {k: v for k, v in r.items()} for name, r in results.items()})
+# 只跑部分設定時,保留檔案裡其他設定的既有結果(不同時間點量的數字仍以 run_at 區分)
+out_path = HERE / "results_harness_ablation.json"
+merged = json.loads(out_path.read_text(encoding="utf-8")) if out_path.exists() else {}
+merged.update({name: {**r, "run_at": RUN_AT} for name, r in results.items()})
+save_json("results_harness_ablation.json", merged)

@@ -19,9 +19,11 @@ gpt-4o-mini(結構化 JSON,temperature 0)。router 自己是新的失效點,所�
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from typing import Literal
 
+from app.decompose import is_compound, split_subquestions
 from config.settings import settings
 
 Intent = Literal["regulation_qa", "case_lookup", "ad_review", "multi_hop"]
@@ -36,7 +38,9 @@ _PENALTY_WORDS = ("罰款", "罰鍰", "裁罰", "裁處", "處分", "罰則", "�
 _REG_STRONG = ("哪條", "哪一條", "哪些規定", "違反", "法源", "規定", "法規", "合法", "合不合法",
                "怎麼標", "如何標", "差在哪", "上限")
 _REG_WEAK = ("可以嗎", "需要", "要不要", "算不算", "算是", "是否", "嗎", "呢")
-_RELATED_WORDS = ("一起被引用", "一起引用", "關聯條文", "關聯法條", "有關聯", "哪些條文", "連動", "常跟哪", "常常跟")
+_RELATED_WORDS = ("一起被引用", "一起引用", "關聯條文", "關聯法條", "有關聯", "哪些條文", "有關的條文", "相關條文",
+                  "相關的條文", "其他條文", "連動", "常跟哪", "常常跟")
+_PENALTY_AMOUNT = re.compile(r"罰多少|多少錢|罰鍰多少|罰金多少|罰款多少")
 _AD_REVIEW_CUES = ("幫我審", "審稿", "審查這", "這段文案", "這樣寫", "文案可以", "可以這樣寫", "這句話", "這句放",
                    "這句可以", "幫我看這", "檢查這段", "這則廣告", "放在包裝上", "放在網頁", "放在網站")
 
@@ -51,10 +55,19 @@ class RouteDecision:
         return {"intent": self.intent, "source": self.source, "reason": self.reason}
 
 
+def _is_pure_regulation(sub: str) -> bool:
+    """子問題只有法規訊號、沒有案例/罰則/關聯訊號。"""
+    if any(w in sub for w in _CASE_STRONG + _PENALTY_WORDS + _RELATED_WORDS):
+        return False
+    return any(w in sub for w in _REG_STRONG + _REG_WEAK)
+
+
 def route_by_rules(question: str) -> RouteDecision | None:
     """關鍵字規則;訊號不夠明確就回 None 交給 LLM。順序即優先序。"""
     q = question.strip()
-    case_strong = any(w in q for w in _CASE_STRONG)
+    # 「沒標會被罰多少錢」問的是罰則條文(第 45/47 條),不是找裁罰紀錄;「被罰」不能單獨算成案例訊號
+    penalty_amount = bool(_PENALTY_AMOUNT.search(q))
+    case_strong = any(w in q for w in _CASE_STRONG if not (w == "被罰" and penalty_amount))
     penalty = any(w in q for w in _PENALTY_WORDS)
     reg_strong = any(w in q for w in _REG_STRONG)
     reg_weak = any(w in q for w in _REG_WEAK)
@@ -64,6 +77,13 @@ def route_by_rules(question: str) -> RouteDecision | None:
         return RouteDecision("multi_hop", "rules", "同時明確問規定跟過去案例,需要法規 + 案例兩次檢索")
     if any(w in q for w in _AD_REVIEW_CUES):
         return RouteDecision("ad_review", "rules", "使用者拿文案來審")
+    if is_compound(q):
+        # 一句問了好幾件事:每個子問題都只有「問規定」的訊號才由規則判(固定管線會拆開各自檢索);
+        # 只要有一個子問題帶案例/罰則/關聯字眼,規則分不出「順帶問」還是「要案例」,交給 LLM 語意判斷
+        subs = split_subquestions(q)
+        if all(_is_pure_regulation(sub) for sub in subs):
+            return RouteDecision("regulation_qa", "rules", "多個子問題都只問規定")
+        return None
     if case_strong or penalty:
         return None   # 只提到案例/罰則,是純找案例還是順帶問規定,規則分不出來 → LLM
     if (reg_strong or reg_weak) and ("?" in q or "?" in q):
@@ -78,13 +98,16 @@ _LLM_PROMPT = """你是食品法規問答系統的路由器。把使用者輸入
 - regulation_qa:問某個規定是什麼、能不能做、要不要標示(單一問題,只需查法規)
 - case_lookup:只想找過去的裁罰案例、罰款紀錄
 - ad_review:使用者貼了一段廣告/文案/標語,想知道能不能這樣寫(輸入本身像文案,不是問句)
-- multi_hop:同時要法規依據「和」實際案例/罰款金額,或問法條之間的關聯,需要不只一次檢索
+- multi_hop:同時要法規依據「和」實際案例,或問法條之間的關聯,需要不只一次檢索
+  (注意:「罰多少」若沒有要求實際案例,查罰則條文就能答,屬 regulation_qa)
 
 範例:
 "天然色素算是食品添加物嗎?需要辦理登錄嗎?" → regulation_qa
 "最近有哪些葉黃素廣告被罰?" → case_lookup
 "本產品有效改善高血壓,三天見效" → ad_review
 "賣益生菌說能提升免疫力違反哪條?有人被罰過嗎、罰多少?" → multi_hop
+"食品添加物要怎麼標示?沒標會被罰多少錢?" → regulation_qa(兩個都是查法規,罰則查第 47 條即可)
+"維生素D在膠囊食品的添加上限是多少?超過會怎樣?" → regulation_qa
 "食安法第28條常跟哪些條文一起被引用?" → multi_hop
 
 使用者輸入:

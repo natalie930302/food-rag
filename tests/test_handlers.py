@@ -4,8 +4,6 @@
 """
 from types import SimpleNamespace
 
-import pytest
-
 from app import handlers as h
 from app.agent import AgentResult, AgentUsage
 from app.agent_tools import ToolCallRecord
@@ -13,14 +11,6 @@ from app.agentic_retrieval import AgenticRetrievalResult
 from app.corrective_retrieval import CorrectiveRetrievalResult
 from app.harness import NO_EVIDENCE_ANSWER, RunContext
 from tests.conftest import make_chunk
-
-
-@pytest.fixture
-def fake_deps(monkeypatch):
-    for name in ("get_embed_model", "get_faiss_chunks", "get_faiss_cases", "get_reranker"):
-        monkeypatch.setattr(h.deps, name, lambda: object())
-    monkeypatch.setattr(h.retrieval, "retrieve_cases", lambda *a, **k: [])
-    monkeypatch.setattr(h.retrieval, "retrieve_chunks", lambda *a, **k: [])
 
 
 def _agentic(chunks, confident=True, retry=False):

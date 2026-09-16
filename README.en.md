@@ -26,11 +26,12 @@ Same data, same kind of conclusion: **with small data, a simple method plus hone
 |---|---|---|
 | Does two-stage retrieval (dense → rerank) help? | **Depends on the reranker.** `bge-reranker-base` gives no significant gain (p = 1.00); `bge-reranker-v2-m3` does (Recall@1 +0.11 [+0.04, +0.19], p = 0.008) | [§1](#1-retrieval-two-stage-is-not-automatically-better) |
 | Does the system refuse when retrieval is unreliable? | Yes. At threshold 0.52, 20/20 out-of-domain questions are refused; the cost is 8/108 in-domain false refusals | [§2](#2-confidence-gate-the-clean-threshold-was-a-small-sample-artefact) |
-| Is "let the LLM decide" better than a fixed retry? | **Not on single-hop** (99 vs 99/108). On the 20 multi-hop questions built for it, the first measurement lost (6 vs 10); two design asymmetries were traced and fixed, after which it leads **13 vs 9** (p = 0.22, too few questions for significance) and has a capability the baseline lacks (related-article lookup) | [§3](#3-agent-fixed-retry-vs-tool-calling-harness), [§5](#5-multi-hop-when-the-agent-actually-matters--diagnose-fix-remeasure) |
+| Is "let the LLM decide" better than a fixed retry? | **Not on single-hop** (99 vs 99/108). On the 20 multi-hop questions built for it, the first measurement lost (6 vs 10); two rounds of fixes to the harness and tool contracts — not to the agent — bring it to **16 vs 9** (8 flipped right / 0 wrong, p = 0.008, n = 20), plus a capability the baseline lacks (related-article lookup) | [§3](#3-agent-fixed-retry-vs-tool-calling-harness), [§5](#5-multi-hop-when-the-agent-actually-matters--diagnose-fix-remeasure) |
 | What does each harness boundary actually block? | Six boundaries switched off one at a time: only the drift check matters (31 → 28/32 when off); the forced refusal and the citation check caught nothing — insurance, not gain; the two §5 boundaries show no difference on single-hop (their effect is in multi-hop) — insurance, not gain | [§4](#4-harness-ablation-why-each-boundary-exists) |
 | Does RAG actually beat the closed-book LLM? | **Yes — measured on external questions for the first time**: 260 national dietitian-exam questions, closed-book 66.9 % → RAG + fallback 80.0 % (+0.13 [+0.09, +0.17], p < 0.001); regulation questions 62.3 % → 83.6 % | [§6](#6-national-exam-the-only-eval-set-we-did-not-write-ourselves) |
 | When should the agent be used at all? | `/query` routes first: rule layer 100 %, overall 97.6 %, only multi-hop goes to the agent, 0 harmful misroutes | [§7](#7-router-a-new-failure-point-measured) |
-| Is the eval set big enough? | 24 hand-written → **108** (+84 LLM-generated, human-reviewed), plus 8 hard, 20 out-of-domain, 20 multi-hop, **260 national-exam MCQs with official answers** | [eval/](eval/) |
+| Is the eval set big enough? | 24 hand-written → **108** (+84 LLM-generated, human-reviewed), plus 8 hard, 20 out-of-domain, 20 multi-hop, 16 compound, **260 national-exam MCQs with official answers** | [eval/](eval/) |
+| What happens when a user asks three things in one sentence? | First time: a blanket refusal. Three code-level defects diagnosed (form-sensitive retrieval, regulation-only grounding, greedy rules); after the fix, compound full_hit 11 → **14**/16 | [§8](#8-compound-questions-one-sentence-three-asks--the-whole-stack-failed-then-was-fixed-and-remeasured) |
 
 ## Architecture
 
@@ -154,7 +155,7 @@ Same questions, same hit definition (is the gold chunk among the chunks finally 
 - Both systems have **confidently-wrong** cases (fixed retry: 6 + 1) that no confidence mechanism can detect.
 - Conclusion: the agent's extra freedom (choosing its own query strings and how many calls to make) buys latency, not
   accuracy, on single-hop questions. Its value can only be measured on multi-hop questions (§5) — where the first
-  measurement lost and only a diagnosed fix put it ahead (still not significantly). That is why `/query` routes only
+  measurement lost and two rounds of diagnosed boundary fixes put it significantly ahead (17 vs 9, p = 0.008). That is why `/query` routes only
   multi-hop questions to the agent and everything else to the fixed pipeline (§7).
 
 ### 4. Harness ablation: why each boundary exists
@@ -235,21 +236,24 @@ search with the original question and lets it answer again. The first run of thi
 
 **Remeasured after the fix (same questions):**
 
-| Component | baseline | agent (before) | **agent (after)** |
-|---|---|---|---|
-| reg_hit | 12/20 = 0.600 [0.400, 0.800] | 8/20 | **15/20 = 0.750 [0.550, 0.900]** |
-| case_hit | 16/17 | 15/17 | 15/17 |
-| related_hit | 0/3 | 3/3 | **3/3** |
-| **full_hit** | 9/20 = 0.450 [0.250, 0.650] | 6/20 | **13/20 = 0.650 [0.450, 0.850]** |
+| Component | baseline | agent (before) | agent (fix 1: tool retry + forced regulation lookup) | **agent (fix 2: §8 case threshold + keyword→question)** |
+|---|---|---|---|---|
+| reg_hit | 13/20 = 0.650 [0.450, 0.850] | 8/20 | 15/20 = 0.750 [0.550, 0.900] | **17/20 = 0.850 [0.700, 1.000]** |
+| case_hit | 16/17 | 15/17 | 15/17 | **17/17** |
+| related_hit | 0/3 | 3/3 | 3/3 | **3/3** |
+| **full_hit** | 9/20 = 0.450 [0.250, 0.650] | 6/20 | 13/20 = 0.650 [0.450, 0.850] | **17/20 = 0.850 [0.700, 1.000]** |
 
-Flipped 5 right / 1 wrong, p = 0.219; the agent averaged 2.40 tool calls and used more than one on 20/20 questions;
-latency baseline 15.0 s / agent 26.2 s.
+Fix 1: flipped 5 right / 1 wrong, p = 0.219. Fix 2: **8 right / 0 wrong, p = 0.008**; the agent averaged 2.55 tool
+calls and used more than one on 20/20 questions; latency baseline 14.0 s / agent 27.8 s. (Baseline across four runs:
+10, 9, 9, 9.)
 
-**Honest conclusion**: the direction reversed — with the two defects fixed, the agent leads by 4 on the set built for
-it, and the gain is exactly on the diagnosed hop (regulation 8 → 15). But the n = 20 CI is ±20 points and p = 0.22, so
-"significantly better" cannot be claimed; the baseline itself drifts between 9 and 10 across runs (LLM-rewrite
-non-determinism). What does hold: **the agent no longer trails, it has a capability the baseline lacks (related-article
-lookup), and it costs 1.7× the latency**. Proving significance needs 50–60 multi-hop questions.
+**Honest conclusion**: neither round made the agent "smarter"; both fixed its harness and tool contracts. Round one
+added the tool-level retry and the forced regulation lookup (regulation 8 → 15). Round two was built for the compound
+questions of §8 — cases count as evidence only above a similarity threshold, keyword queries are turned into questions
+— and the multi-hop gain is a by-product (regulation 15 → 17, cases 15 → 17). After round two the agent scores
+**17/20 vs 9/20, 8 flipped right / 0 wrong, p = 0.008: the first time in this project the agent beats the fixed
+pipeline significantly**. Still: n = 20, ±20-point CIs, the baseline drifts between 9 and 10 across four runs, and the
+agent costs 2× the latency. "Significant" holds at n = 20; treating it as a conclusion still needs 50–60 questions.
 
 ### 6. National exam: the only eval set we did not write ourselves
 
@@ -323,6 +327,46 @@ lesson as the main system's "reranker-base does not help, the agent does not win
 match the data, and you only know after measuring. Full log, reproduction commands and learning notes are in that
 directory's [README](experiments/severity-regression/README.md). The data is produced by this repo's `make ingest` and is
 not shipped in git.
+
+### 8. Compound questions: one sentence, three asks — the whole stack failed, then was fixed and remeasured
+
+The 108 single-hop and 20 multi-hop sets are all clean one-question items. The first free-form user input —
+"which article does a weight-loss ad violate? how much is the fine? any real cases?" — got a blanket refusal, even though
+the agent had already found three relevant penalty cases. The model was not the problem; three pieces I wrote failed on
+compound sentences, and the single-hop set could not see any of it:
+
+1. **Retrieval is extremely sensitive to question form.** "Which article does a weight-loss ad violate?" scores 0.91 on
+   the reranker; the agent's keyword query "weight-loss ad" scores 0.27; the full three-part sentence scores 0.17. The
+   fixed pipeline sent the whole sentence, the agent sent keywords — both bad queries.
+2. **The grounding boundary only counted regulation search.** Cases and related articles were found, but one failed
+   regulation hop overwrote the entire answer with a refusal.
+3. **The rules layer was greedy.** "How much is the fine" was read as a case lookup; "which article + ?" was classified
+   single-hop no matter how many question marks, so the LLM router never saw it.
+
+All fixes are in code (`app/decompose.py` new; one change each in `router`, `agent_tools`, `agent`, `handlers`,
+`harness`): compound questions are split into sub-questions retrieved separately and merged (one LLM call only when a
+sub-question lacks a subject); the tool turns keyword queries into questions before searching; case retrieval counts as
+evidence only above a similarity threshold (0.58; relevant 0.60–0.66 vs. off-topic 0.45–0.52 measured) and then counts
+toward grounding; related articles and confident cases join the citation-check evidence (the verifier used to delete the
+related articles the agent had found as "hallucinated"); "not found" is stated per part instead of refusing the whole
+question; the rules layer defers mixed-signal compound sentences to the LLM router.
+
+**New set `eval/compound_questions.json` (16 questions, 2–3 parts each, all parts must pass for a full hit)**, same
+questions before and after:
+
+| Version | full_hit | parts_hit | whole refusals | routes | avg LLM calls | s/question |
+|---|---|---|---|---|---|---|
+| before (00317fa) | 11/16 = 0.688 [0.438, 0.875] | 28/35 = 0.800 [0.657, 0.914] | 3 | multi_hop 9, regulation_qa 7 | 3.0 | 17.6 |
+| **after** | **14/16 = 0.875 [0.688, 1.000]** | **33/35 = 0.943 [0.857, 1.000]** | 0 | multi_hop 8, regulation_qa 8 | 2.94 | 23.6 |
+
+Per question: 4 flipped right / 1 flipped wrong, exact sign test p = 0.375. Three of the four wins were blanket refusals before; the one loss is a sub-question ("what happens if unlabelled") whose penalty article the split retrieval missed and honestly reported as not found (the old whole-sentence query happened to catch it). The cost is higher latency (17.6 → 23.6 s/question, 1.3×): each sub-question retrieves and retries on its own. Rerunning the 20 multi-hop questions: agent 13 → **17/20** (§5 — the case threshold and keyword→question fix act on
+multi-hop too); rerunning the 108 single-hop questions: 101 → 101/108, OOD refusals 20/20, no regression.
+
+**Honest conclusion**: this set was written after the fix, so it measures "is it fixed", not independent validation, and
+16 questions give wide CIs. What it adds is a blind spot in the evaluation: clean single-question items hid three real
+failure modes that the first free-form user input hit. Same lesson as §5: **the agent's judgement layer was fine (it
+called all three tools correctly); what failed were the boundaries and tool contracts I wrote for it** — asking for
+"full questions" in the prompt did nothing; the tool has to fix the query itself.
 
 ## Honest limitations
 

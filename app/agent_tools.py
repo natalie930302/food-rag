@@ -48,7 +48,10 @@ from dataclasses import dataclass, field
 
 from app.agentic_retrieval import reformulate_query
 from app.corrective_retrieval import retrieve_with_confidence_gate
+from app.decompose import is_compound, keyword_to_question, looks_like_keywords
 from app.retrieval import count_chunks_for_law, get_co_cited_laws, retrieve_cases
+
+CASE_GROUNDING_THRESHOLD = 0.58   # 案例向量相似度(cosine)門檻,見 execute_tool 內註解
 
 TOOL_SCHEMAS = [
     {
@@ -63,7 +66,7 @@ TOOL_SCHEMAS = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "query": {"type": "string", "description": "檢索用的問題或關鍵字"},
+                    "query": {"type": "string", "description": "完整的自然語言問句(例如「減肥廣告違反食安法哪一條?」),不要只給關鍵字;一次問好幾件事時,一個子問題查一次"},
                     "law_article": {
                         "type": "string",
                         "description": "可選,鎖定特定法條範圍,例如「食安法第28條」",
@@ -81,7 +84,7 @@ TOOL_SCHEMAS = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "query": {"type": "string", "description": "案例檢索關鍵字或問題描述"},
+                    "query": {"type": "string", "description": "要找的案例類型,用一句話描述(例如「宣稱減肥的食品廣告被裁罰的案例」)"},
                 },
                 "required": ["query"],
             },
@@ -142,6 +145,12 @@ def execute_tool(
     if call_name == "search_regulations":
         filters = {"law_article": args["law_article"]} if args.get("law_article") else None
         llm_query = args["query"]
+        # 工具端保證:LLM 給關鍵字(「減肥廣告」)就補成問句再查。cross-encoder 對關鍵字打分極低
+        # (實測 0.27 vs 問句 0.91),這件事不能只在 prompt 裡拜託它。
+        query_fixed = False
+        if looks_like_keywords(llm_query):
+            llm_query = keyword_to_question(llm_query)
+            query_fixed = True
         result = retrieve_with_confidence_gate(
             db, embed_model, faiss_index, reranker, llm_query, filters=filters,
         )
@@ -161,7 +170,8 @@ def execute_tool(
 
         retry_used = False
         if not result.confident and tool_retry and client is not None:
-            base = original_question or llm_query
+            # 原始問題是複合句(多個問號)時,整句本身就是壞查詢,改寫的底稿用工具這次的子問句
+            base = llm_query if (not original_question or is_compound(original_question)) else original_question
             reformulated = reformulate_query(client, base)
             retry_result = retrieve_with_confidence_gate(
                 db, embed_model, faiss_index, reranker, reformulated, filters=filters,
@@ -178,6 +188,9 @@ def execute_tool(
                 for c in result.chunks
             ],
         }
+        if query_fixed:
+            payload["query_used"] = llm_query
+            payload["note_query"] = f"你給的是關鍵字,系統已改成問句「{llm_query}」再查;之後請直接給完整問句。"
         if query_drift_detected:
             payload["note"] = "你的查詢字串跟原始問題字面文字檢索結果不一致,已改用原始問題字面文字的檢索結果。"
         elif retry_used and result.confident:
@@ -185,10 +198,11 @@ def execute_tool(
         elif not result.confident:
             payload["note"] = "信心分數過低,不可當作回答依據,請換句話說重新查詢或改用其他工具。"
         record = ToolCallRecord(
-            name=call_name, arguments=args,
+            name=call_name, arguments={**args, "query_used": llm_query} if query_fixed else args,
             confident=result.confident, top_score=result.top_score,
             chunk_ids=[c.chunk_id for c in result.chunks],
-            result_summary=f"{len(result.chunks)} chunks, confident={result.confident}, score={result.top_score}",
+            result_summary=f"{len(result.chunks)} chunks, confident={result.confident}, score={result.top_score}"
+                           + (" [關鍵字→問句]" if query_fixed else ""),
             query_drift_detected=query_drift_detected, retry_used=retry_used,
             chunks=[{"chunk_id": c.chunk_id, "text": c.text, "primary_law": c.primary_law} for c in result.chunks],
         )
@@ -202,7 +216,13 @@ def execute_tool(
             from app.deps import get_faiss_cases
             faiss_cases = get_faiss_cases()
         cases = retrieve_cases(db, embed_model, faiss_cases, args["query"], top_k=3)
+        # FAISS 永遠回傳最近鄰,所以「查到 3 筆」不等於「有相關案例」。實測相關問題 0.60–0.66、
+        # 無關問題(捷運票價、天氣)0.45–0.52,以 0.58 為界;有信心的案例才算回答依據(grounded)。
+        top = cases[0].score if cases and cases[0].score is not None else None
+        cases_confident = top is not None and top >= CASE_GROUNDING_THRESHOLD
         payload = {
+            "confident": cases_confident,
+            "top_score": top,
             "cases": [
                 {
                     "id": c.id, "year": c.year, "month": c.month,
@@ -213,10 +233,17 @@ def execute_tool(
                 for c in cases
             ]
         }
+        if not cases_confident:
+            payload["note"] = "這些案例與問題相似度不足,可能無關,不可當作回答依據。"
         record = ToolCallRecord(
-            name=call_name, arguments=args,
+            name=call_name, arguments=args, confident=cases_confident, top_score=top,
             chunk_ids=[c.id for c in cases],
-            result_summary=f"{len(cases)} cases",
+            result_summary=f"{len(cases)} cases, confident={cases_confident}, score={top}",
+            # 有信心的案例也是引用驗證的證據:答案引用案例的法條(「第28條第1項」)不該被判成瞎掰
+            chunks=[{"chunk_id": -c.id, "primary_law": c.law_cited,
+                     "text": f"{c.year}年{c.month}月 {c.company or ''}「{c.product or ''}」違反{c.law_cited or ''},"
+                             f"裁處 {c.penalty_twd or 0} 元。{(c.violation or '')[:120]}"}
+                    for c in cases] if cases_confident else [],
         )
         return json.dumps(payload, ensure_ascii=False), record
 
@@ -231,8 +258,14 @@ def execute_tool(
             ],
         }
         record = ToolCallRecord(
-            name=call_name, arguments=args,
+            name=call_name, arguments=args, confident=False,
             result_summary=f"total={total}, {len(rows)} related laws",
+            # 關聯法條是「條文共現統計」,不是針對使用者問題的證據:任何條號都查得到共現,所以它不能單獨
+            # 讓整題算 grounded(2026/09 e2e 抓到 OOD 題「登山失溫」因此被放行)。但它列出的是真實條號,
+            # 仍放進 chunks 供引用驗證,答案列出關聯條文時才不會被驗證器當成瞎掰。
+            chunks=[{"chunk_id": -1, "primary_law": f"{r['related_law_name']}第{r['related_article']}條",
+                     "text": f"{r['related_law_name']}第{r['related_article']}條(與第{args['article_full']}條共同引用 {r['co_count']} 次)"}
+                    for r in rows],
         )
         return json.dumps(payload, ensure_ascii=False), record
 

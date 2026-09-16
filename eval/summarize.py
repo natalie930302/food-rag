@@ -12,7 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from eval.stats import fmt_ci
+from eval.stats import exact_sign_test, fmt_ci
 
 HERE = Path(__file__).parent
 
@@ -241,6 +241,32 @@ if ex:
     lines += ["", f"- usage:{u.get('llm_calls')} 次 LLM 呼叫、{u.get('total_tokens'):,} tokens", ""]
 else:
     lines += ["未執行(`python eval/eval_exam.py`)", ""]
+
+# ---- 11. 複合問題(一句多問)修正前 / 後 -------------------------------------------------
+cb, ca = load("results_compound_before.json"), load("results_compound.json")
+lines += ["## 11. 複合問題:一句問 2–3 件事(16 題;每題拆成部分各自判定,全部通過才算 full_hit)", ""]
+if ca:
+    lines += ["修正內容:複合問題先拆子問題各自檢索(固定管線)、工具端把關鍵字補成問句、案例相似度過門檻即算依據、"
+              "關聯法條與案例列入引用驗證證據、部分回答不再標為拒答、規則層把混合訊號的複合句交給 LLM 路由。", "",
+              "| 版本 | full_hit | parts_hit | 整題拒答 | 路由分佈 | 平均 LLM 呼叫 | 秒/題 |",
+              "|---|---|---|---|---|---|---|"]
+    for tag, d in (("修正前", cb), ("修正後", ca)):
+        if not d:
+            continue
+        sm = d["summary"]
+        fh, ph = sm["full_hit"], sm["parts_hit"]
+        lines.append(f"| {tag} | {fh['count']}/{fh['total']} = {fmt_ci(fh['rate'], *fh['ci95'])} | "
+                     f"{ph['count']}/{ph['total']} = {fmt_ci(ph['rate'], *ph['ci95'])} | {sm['refused']} | "
+                     f"{sm['routes']} | {sm['avg_llm_calls']} | {sm['avg_latency_s']} |")
+    if cb and ca:
+        b = {r["question"]: float(r["full_hit"]) for r in cb["records"]}
+        a = {r["question"]: float(r["full_hit"]) for r in ca["records"]}
+        common = [q for q in a if q in b]
+        st = exact_sign_test([b[q] for q in common], [a[q] for q in common])   # n_plus = 修正前錯、修正後對
+        lines.append(f"\n- 逐題(n={len(common)}):修正後翻對 {st['n_plus']} / 翻錯 {st['n_minus']},exact sign test p={st['p_value']:.3f}")
+    lines.append("")
+else:
+    lines += ["未執行(`python eval/eval_compound.py`)", ""]
 
 (HERE / "RESULTS.md").write_text("\n".join(lines), encoding="utf-8")
 print("\n".join(lines))

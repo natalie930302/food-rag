@@ -5,9 +5,9 @@
       "refused": 3,
       "unsupported_citation_cases": 0,
       "citation_regenerated": 1,
-      "avg_llm_calls": 1.87,
-      "avg_tokens": 3453,
-      "avg_elapsed_s": 10.9,
+      "avg_llm_calls": 1.9,
+      "avg_tokens": 3468,
+      "avg_elapsed_s": 11.4,
       "hit": {
         "count": 101,
         "total": 108,
@@ -24,71 +24,71 @@
       "unsupported_citation_cases": 0,
       "citation_regenerated": 0,
       "avg_llm_calls": 1.38,
-      "avg_tokens": 3485,
-      "avg_elapsed_s": 12.4,
+      "avg_tokens": 3530,
+      "avg_elapsed_s": 12.5,
       "hit": {
-        "count": 6,
+        "count": 7,
         "total": 8,
-        "rate": 0.75,
+        "rate": 0.875,
         "ci95": [
-          0.5,
+          0.625,
           1.0
         ]
       }
     },
     "multi-hop": {
       "n": 20,
-      "refused": 10,
+      "refused": 1,
       "unsupported_citation_cases": 0,
       "citation_regenerated": 1,
-      "avg_llm_calls": 2.7,
-      "avg_tokens": 4455,
-      "avg_elapsed_s": 18.4,
+      "avg_llm_calls": 3.25,
+      "avg_tokens": 5851,
+      "avg_elapsed_s": 27.8,
       "hit": {
-        "count": 3,
+        "count": 5,
         "total": 20,
-        "rate": 0.15,
+        "rate": 0.25,
         "ci95": [
-          0.0,
-          0.3
+          0.1,
+          0.45
         ]
       }
     },
     "router-set": {
       "n": 30,
-      "refused": 12,
+      "refused": 7,
       "unsupported_citation_cases": 0,
       "citation_regenerated": 0,
       "avg_llm_calls": 1.83,
-      "avg_tokens": 3813,
-      "avg_elapsed_s": 9.6
+      "avg_tokens": 4160,
+      "avg_elapsed_s": 11.1
     },
     "ood": {
       "n": 20,
       "refused": 20,
       "unsupported_citation_cases": 0,
       "citation_regenerated": 0,
-      "avg_llm_calls": 2.1,
-      "avg_tokens": 525,
-      "avg_elapsed_s": 14.7
+      "avg_llm_calls": 3.75,
+      "avg_tokens": 1638,
+      "avg_elapsed_s": 27.6
     }
   },
   "by_handler": {
     "regulation": {
       "n": 141,
-      "refused": 23,
+      "refused": 22,
       "unsupported_citation_cases": 0,
       "citation_regenerated": 1,
-      "avg_llm_calls": 1.74,
-      "avg_tokens": 2893,
-      "avg_elapsed_s": 11.5,
+      "avg_llm_calls": 1.75,
+      "avg_tokens": 2916,
+      "avg_elapsed_s": 11.8,
       "hit": {
-        "count": 105,
-        "total": 113,
-        "rate": 0.9292035398230089,
+        "count": 107,
+        "total": 114,
+        "rate": 0.9385964912280702,
         "ci95": [
-          0.8761061946902655,
-          0.9734513274336283
+          0.8947368421052632,
+          0.9824561403508771
         ]
       }
     },
@@ -98,7 +98,7 @@
       "unsupported_citation_cases": 0,
       "citation_regenerated": 0,
       "avg_llm_calls": 1.45,
-      "avg_tokens": 6871,
+      "avg_tokens": 6884,
       "avg_elapsed_s": 3.5,
       "hit": {
         "count": 1,
@@ -112,19 +112,19 @@
     },
     "agent": {
       "n": 34,
-      "refused": 22,
+      "refused": 9,
       "unsupported_citation_cases": 0,
       "citation_regenerated": 1,
-      "avg_llm_calls": 3.03,
-      "avg_tokens": 3862,
-      "avg_elapsed_s": 17.0,
+      "avg_llm_calls": 4.35,
+      "avg_tokens": 5599,
+      "avg_elapsed_s": 31.3,
       "hit": {
-        "count": 4,
-        "total": 22,
-        "rate": 0.18181818181818182,
+        "count": 5,
+        "total": 21,
+        "rate": 0.23809523809523808,
         "ci95": [
-          0.045454545454545456,
-          0.36363636363636365
+          0.047619047619047616,
+          0.42857142857142855
         ]
       }
     }
@@ -154,12 +154,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2973,
-        "completion_tokens": 72,
-        "total_tokens": 3045,
-        "elapsed_s": 14.77,
+        "completion_tokens": 74,
+        "total_tokens": 3047,
+        "elapsed_s": 19.28,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.8
+      "elapsed_s": 19.3
     },
     {
       "set": "single-hop",
@@ -176,20 +176,22 @@
       "verdict": null,
       "trace": [
         "route",
+        "decompose",
+        "retrieve",
         "retrieve",
         "generate",
         "verify_citations"
       ],
       "usage": {
-        "llm_calls": 1,
+        "llm_calls": 2,
         "tool_calls": 0,
-        "prompt_tokens": 2920,
-        "completion_tokens": 71,
-        "total_tokens": 2991,
-        "elapsed_s": 12.76,
+        "prompt_tokens": 2341,
+        "completion_tokens": 72,
+        "total_tokens": 2413,
+        "elapsed_s": 19.52,
         "stop_reason": "answered"
       },
-      "elapsed_s": 12.8
+      "elapsed_s": 19.5
     },
     {
       "set": "single-hop",
@@ -216,10 +218,10 @@
         "prompt_tokens": 3389,
         "completion_tokens": 76,
         "total_tokens": 3465,
-        "elapsed_s": 9.14,
+        "elapsed_s": 9.29,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.1
+      "elapsed_s": 9.3
     },
     {
       "set": "single-hop",
@@ -244,12 +246,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3180,
-        "completion_tokens": 172,
-        "total_tokens": 3352,
-        "elapsed_s": 9.03,
+        "completion_tokens": 223,
+        "total_tokens": 3403,
+        "elapsed_s": 10.31,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.0
+      "elapsed_s": 10.3
     },
     {
       "set": "single-hop",
@@ -276,10 +278,10 @@
         "prompt_tokens": 3139,
         "completion_tokens": 88,
         "total_tokens": 3227,
-        "elapsed_s": 14.87,
+        "elapsed_s": 15.17,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.9
+      "elapsed_s": 15.2
     },
     {
       "set": "single-hop",
@@ -304,12 +306,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2015,
-        "completion_tokens": 90,
-        "total_tokens": 2105,
-        "elapsed_s": 8.46,
+        "completion_tokens": 92,
+        "total_tokens": 2107,
+        "elapsed_s": 8.92,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.5
+      "elapsed_s": 8.9
     },
     {
       "set": "single-hop",
@@ -336,10 +338,10 @@
         "prompt_tokens": 2836,
         "completion_tokens": 91,
         "total_tokens": 2927,
-        "elapsed_s": 9.41,
+        "elapsed_s": 9.54,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.4
+      "elapsed_s": 9.5
     },
     {
       "set": "single-hop",
@@ -364,12 +366,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3396,
-        "completion_tokens": 153,
-        "total_tokens": 3549,
-        "elapsed_s": 8.44,
+        "completion_tokens": 141,
+        "total_tokens": 3537,
+        "elapsed_s": 8.82,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.4
+      "elapsed_s": 8.8
     },
     {
       "set": "single-hop",
@@ -394,12 +396,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 4472,
-        "completion_tokens": 112,
-        "total_tokens": 4584,
-        "elapsed_s": 9.19,
+        "completion_tokens": 117,
+        "total_tokens": 4589,
+        "elapsed_s": 9.72,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.2
+      "elapsed_s": 9.7
     },
     {
       "set": "single-hop",
@@ -424,12 +426,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 4424,
-        "completion_tokens": 153,
-        "total_tokens": 4577,
-        "elapsed_s": 13.76,
+        "completion_tokens": 123,
+        "total_tokens": 4547,
+        "elapsed_s": 14.04,
         "stop_reason": "answered"
       },
-      "elapsed_s": 13.8
+      "elapsed_s": 14.0
     },
     {
       "set": "single-hop",
@@ -456,10 +458,10 @@
         "prompt_tokens": 2019,
         "completion_tokens": 98,
         "total_tokens": 2117,
-        "elapsed_s": 8.79,
+        "elapsed_s": 9.04,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.8
+      "elapsed_s": 9.0
     },
     {
       "set": "single-hop",
@@ -484,12 +486,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3177,
-        "completion_tokens": 73,
-        "total_tokens": 3250,
-        "elapsed_s": 8.95,
+        "completion_tokens": 72,
+        "total_tokens": 3249,
+        "elapsed_s": 9.14,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.0
+      "elapsed_s": 9.1
     },
     {
       "set": "single-hop",
@@ -514,9 +516,9 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2201,
-        "completion_tokens": 133,
-        "total_tokens": 2334,
-        "elapsed_s": 4.99,
+        "completion_tokens": 130,
+        "total_tokens": 2331,
+        "elapsed_s": 4.96,
         "stop_reason": "answered"
       },
       "elapsed_s": 5.0
@@ -544,12 +546,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2202,
-        "completion_tokens": 158,
-        "total_tokens": 2360,
-        "elapsed_s": 6.03,
+        "completion_tokens": 218,
+        "total_tokens": 2420,
+        "elapsed_s": 7.0,
         "stop_reason": "answered"
       },
-      "elapsed_s": 6.0
+      "elapsed_s": 7.0
     },
     {
       "set": "single-hop",
@@ -574,12 +576,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2876,
-        "completion_tokens": 121,
-        "total_tokens": 2997,
-        "elapsed_s": 7.38,
+        "completion_tokens": 126,
+        "total_tokens": 3002,
+        "elapsed_s": 7.3,
         "stop_reason": "answered"
       },
-      "elapsed_s": 7.4
+      "elapsed_s": 7.3
     },
     {
       "set": "single-hop",
@@ -604,12 +606,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3530,
-        "completion_tokens": 103,
-        "total_tokens": 3633,
-        "elapsed_s": 9.84,
+        "completion_tokens": 102,
+        "total_tokens": 3632,
+        "elapsed_s": 9.9,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.8
+      "elapsed_s": 9.9
     },
     {
       "set": "single-hop",
@@ -634,12 +636,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3623,
-        "completion_tokens": 68,
-        "total_tokens": 3691,
-        "elapsed_s": 8.74,
+        "completion_tokens": 60,
+        "total_tokens": 3683,
+        "elapsed_s": 8.37,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.7
+      "elapsed_s": 8.4
     },
     {
       "set": "single-hop",
@@ -664,12 +666,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3123,
-        "completion_tokens": 81,
-        "total_tokens": 3204,
-        "elapsed_s": 7.33,
+        "completion_tokens": 80,
+        "total_tokens": 3203,
+        "elapsed_s": 7.49,
         "stop_reason": "answered"
       },
-      "elapsed_s": 7.3
+      "elapsed_s": 7.5
     },
     {
       "set": "single-hop",
@@ -694,12 +696,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2350,
-        "completion_tokens": 112,
-        "total_tokens": 2462,
-        "elapsed_s": 7.77,
+        "completion_tokens": 90,
+        "total_tokens": 2440,
+        "elapsed_s": 7.43,
         "stop_reason": "answered"
       },
-      "elapsed_s": 7.8
+      "elapsed_s": 7.4
     },
     {
       "set": "single-hop",
@@ -724,12 +726,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2493,
-        "completion_tokens": 82,
-        "total_tokens": 2575,
-        "elapsed_s": 8.72,
+        "completion_tokens": 83,
+        "total_tokens": 2576,
+        "elapsed_s": 8.85,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.7
+      "elapsed_s": 8.8
     },
     {
       "set": "single-hop",
@@ -756,10 +758,10 @@
         "prompt_tokens": 3204,
         "completion_tokens": 91,
         "total_tokens": 3295,
-        "elapsed_s": 9.81,
+        "elapsed_s": 10.24,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.8
+      "elapsed_s": 10.2
     },
     {
       "set": "single-hop",
@@ -784,12 +786,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2693,
-        "completion_tokens": 94,
-        "total_tokens": 2787,
-        "elapsed_s": 7.27,
+        "completion_tokens": 97,
+        "total_tokens": 2790,
+        "elapsed_s": 7.79,
         "stop_reason": "answered"
       },
-      "elapsed_s": 7.3
+      "elapsed_s": 7.8
     },
     {
       "set": "single-hop",
@@ -814,9 +816,9 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3258,
-        "completion_tokens": 125,
-        "total_tokens": 3383,
-        "elapsed_s": 8.98,
+        "completion_tokens": 170,
+        "total_tokens": 3428,
+        "elapsed_s": 9.02,
         "stop_reason": "answered"
       },
       "elapsed_s": 9.0
@@ -847,10 +849,10 @@
         "prompt_tokens": 6732,
         "completion_tokens": 131,
         "total_tokens": 6863,
-        "elapsed_s": 11.1,
+        "elapsed_s": 10.86,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.1
+      "elapsed_s": 10.9
     },
     {
       "set": "single-hop",
@@ -875,12 +877,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3443,
-        "completion_tokens": 247,
-        "total_tokens": 3690,
-        "elapsed_s": 10.89,
+        "completion_tokens": 238,
+        "total_tokens": 3681,
+        "elapsed_s": 10.83,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.9
+      "elapsed_s": 10.8
     },
     {
       "set": "single-hop",
@@ -905,12 +907,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3421,
-        "completion_tokens": 99,
-        "total_tokens": 3520,
-        "elapsed_s": 9.43,
+        "completion_tokens": 102,
+        "total_tokens": 3523,
+        "elapsed_s": 9.47,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.4
+      "elapsed_s": 9.5
     },
     {
       "set": "single-hop",
@@ -935,12 +937,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3454,
-        "completion_tokens": 140,
-        "total_tokens": 3594,
-        "elapsed_s": 8.2,
+        "completion_tokens": 154,
+        "total_tokens": 3608,
+        "elapsed_s": 8.42,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.2
+      "elapsed_s": 8.4
     },
     {
       "set": "single-hop",
@@ -965,9 +967,9 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3146,
-        "completion_tokens": 220,
-        "total_tokens": 3366,
-        "elapsed_s": 10.48,
+        "completion_tokens": 247,
+        "total_tokens": 3393,
+        "elapsed_s": 10.54,
         "stop_reason": "answered"
       },
       "elapsed_s": 10.5
@@ -995,12 +997,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3987,
-        "completion_tokens": 211,
-        "total_tokens": 4198,
-        "elapsed_s": 9.74,
+        "completion_tokens": 348,
+        "total_tokens": 4335,
+        "elapsed_s": 11.28,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.7
+      "elapsed_s": 11.3
     },
     {
       "set": "single-hop",
@@ -1025,9 +1027,9 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2938,
-        "completion_tokens": 120,
-        "total_tokens": 3058,
-        "elapsed_s": 9.64,
+        "completion_tokens": 121,
+        "total_tokens": 3059,
+        "elapsed_s": 9.63,
         "stop_reason": "answered"
       },
       "elapsed_s": 9.6
@@ -1055,18 +1057,18 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3058,
-        "completion_tokens": 90,
-        "total_tokens": 3148,
-        "elapsed_s": 9.81,
+        "completion_tokens": 95,
+        "total_tokens": 3153,
+        "elapsed_s": 9.95,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.8
+      "elapsed_s": 9.9
     },
     {
       "set": "single-hop",
       "question": "請問這次的罰款標準是怎麼制定的呢？",
       "expected_intent": null,
-      "intent": "case_lookup",
+      "intent": "regulation_qa",
       "route_source": "llm",
       "handler": "regulation",
       "hit": true,
@@ -1087,12 +1089,12 @@
         "llm_calls": 4,
         "tool_calls": 0,
         "prompt_tokens": 9740,
-        "completion_tokens": 516,
-        "total_tokens": 10256,
-        "elapsed_s": 22.93,
+        "completion_tokens": 531,
+        "total_tokens": 10271,
+        "elapsed_s": 23.34,
         "stop_reason": "answered"
       },
-      "elapsed_s": 22.9
+      "elapsed_s": 23.3
     },
     {
       "set": "single-hop",
@@ -1119,10 +1121,10 @@
         "prompt_tokens": 3905,
         "completion_tokens": 27,
         "total_tokens": 3932,
-        "elapsed_s": 9.78,
+        "elapsed_s": 10.11,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.8
+      "elapsed_s": 10.1
     },
     {
       "set": "single-hop",
@@ -1147,12 +1149,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 1863,
-        "completion_tokens": 83,
-        "total_tokens": 1946,
-        "elapsed_s": 7.96,
+        "completion_tokens": 47,
+        "total_tokens": 1910,
+        "elapsed_s": 7.64,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.0
+      "elapsed_s": 7.6
     },
     {
       "set": "single-hop",
@@ -1177,12 +1179,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3715,
-        "completion_tokens": 113,
-        "total_tokens": 3828,
-        "elapsed_s": 9.65,
+        "completion_tokens": 127,
+        "total_tokens": 3842,
+        "elapsed_s": 10.07,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.6
+      "elapsed_s": 10.1
     },
     {
       "set": "single-hop",
@@ -1210,12 +1212,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 6349,
-        "completion_tokens": 312,
-        "total_tokens": 6661,
-        "elapsed_s": 5.35,
+        "completion_tokens": 316,
+        "total_tokens": 6665,
+        "elapsed_s": 4.51,
         "stop_reason": "answered"
       },
-      "elapsed_s": 5.4
+      "elapsed_s": 4.5
     },
     {
       "set": "single-hop",
@@ -1240,12 +1242,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3040,
-        "completion_tokens": 223,
-        "total_tokens": 3263,
-        "elapsed_s": 8.26,
+        "completion_tokens": 229,
+        "total_tokens": 3269,
+        "elapsed_s": 8.19,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.3
+      "elapsed_s": 8.2
     },
     {
       "set": "single-hop",
@@ -1270,12 +1272,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3163,
-        "completion_tokens": 341,
-        "total_tokens": 3504,
-        "elapsed_s": 11.63,
+        "completion_tokens": 282,
+        "total_tokens": 3445,
+        "elapsed_s": 10.84,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.6
+      "elapsed_s": 10.8
     },
     {
       "set": "single-hop",
@@ -1302,10 +1304,10 @@
         "prompt_tokens": 3224,
         "completion_tokens": 74,
         "total_tokens": 3298,
-        "elapsed_s": 13.18,
+        "elapsed_s": 13.54,
         "stop_reason": "answered"
       },
-      "elapsed_s": 13.2
+      "elapsed_s": 13.5
     },
     {
       "set": "single-hop",
@@ -1330,12 +1332,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3291,
-        "completion_tokens": 87,
-        "total_tokens": 3378,
-        "elapsed_s": 9.92,
+        "completion_tokens": 107,
+        "total_tokens": 3398,
+        "elapsed_s": 10.39,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.9
+      "elapsed_s": 10.4
     },
     {
       "set": "single-hop",
@@ -1360,12 +1362,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2101,
-        "completion_tokens": 94,
-        "total_tokens": 2195,
-        "elapsed_s": 9.94,
+        "completion_tokens": 99,
+        "total_tokens": 2200,
+        "elapsed_s": 11.01,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.9
+      "elapsed_s": 11.0
     },
     {
       "set": "single-hop",
@@ -1390,12 +1392,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3404,
-        "completion_tokens": 383,
-        "total_tokens": 3787,
-        "elapsed_s": 10.96,
+        "completion_tokens": 389,
+        "total_tokens": 3793,
+        "elapsed_s": 11.17,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.0
+      "elapsed_s": 11.2
     },
     {
       "set": "single-hop",
@@ -1422,10 +1424,10 @@
         "prompt_tokens": 3717,
         "completion_tokens": 135,
         "total_tokens": 3852,
-        "elapsed_s": 9.15,
+        "elapsed_s": 8.72,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.1
+      "elapsed_s": 8.7
     },
     {
       "set": "single-hop",
@@ -1450,12 +1452,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3216,
-        "completion_tokens": 261,
-        "total_tokens": 3477,
-        "elapsed_s": 14.12,
+        "completion_tokens": 254,
+        "total_tokens": 3470,
+        "elapsed_s": 13.94,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.1
+      "elapsed_s": 13.9
     },
     {
       "set": "single-hop",
@@ -1480,12 +1482,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3395,
-        "completion_tokens": 104,
-        "total_tokens": 3499,
-        "elapsed_s": 9.81,
+        "completion_tokens": 96,
+        "total_tokens": 3491,
+        "elapsed_s": 9.64,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.8
+      "elapsed_s": 9.6
     },
     {
       "set": "single-hop",
@@ -1510,12 +1512,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2792,
-        "completion_tokens": 156,
-        "total_tokens": 2948,
-        "elapsed_s": 11.82,
+        "completion_tokens": 171,
+        "total_tokens": 2963,
+        "elapsed_s": 12.09,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.8
+      "elapsed_s": 12.1
     },
     {
       "set": "single-hop",
@@ -1540,12 +1542,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2475,
-        "completion_tokens": 77,
-        "total_tokens": 2552,
-        "elapsed_s": 5.96,
+        "completion_tokens": 78,
+        "total_tokens": 2553,
+        "elapsed_s": 6.26,
         "stop_reason": "answered"
       },
-      "elapsed_s": 6.0
+      "elapsed_s": 6.3
     },
     {
       "set": "single-hop",
@@ -1570,12 +1572,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2588,
-        "completion_tokens": 94,
-        "total_tokens": 2682,
-        "elapsed_s": 9.51,
+        "completion_tokens": 95,
+        "total_tokens": 2683,
+        "elapsed_s": 9.6,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.5
+      "elapsed_s": 9.6
     },
     {
       "set": "single-hop",
@@ -1602,10 +1604,10 @@
         "prompt_tokens": 3697,
         "completion_tokens": 50,
         "total_tokens": 3747,
-        "elapsed_s": 8.9,
+        "elapsed_s": 9.09,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.9
+      "elapsed_s": 9.1
     },
     {
       "set": "single-hop",
@@ -1630,12 +1632,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3493,
-        "completion_tokens": 271,
-        "total_tokens": 3764,
-        "elapsed_s": 14.16,
+        "completion_tokens": 270,
+        "total_tokens": 3763,
+        "elapsed_s": 13.19,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.2
+      "elapsed_s": 13.2
     },
     {
       "set": "single-hop",
@@ -1660,12 +1662,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3243,
-        "completion_tokens": 193,
-        "total_tokens": 3436,
-        "elapsed_s": 10.89,
+        "completion_tokens": 226,
+        "total_tokens": 3469,
+        "elapsed_s": 13.98,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.9
+      "elapsed_s": 14.0
     },
     {
       "set": "single-hop",
@@ -1690,12 +1692,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3445,
-        "completion_tokens": 102,
-        "total_tokens": 3547,
-        "elapsed_s": 9.71,
+        "completion_tokens": 162,
+        "total_tokens": 3607,
+        "elapsed_s": 10.19,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.7
+      "elapsed_s": 10.2
     },
     {
       "set": "single-hop",
@@ -1720,12 +1722,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2626,
-        "completion_tokens": 135,
-        "total_tokens": 2761,
-        "elapsed_s": 10.15,
+        "completion_tokens": 147,
+        "total_tokens": 2773,
+        "elapsed_s": 10.49,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.1
+      "elapsed_s": 10.5
     },
     {
       "set": "single-hop",
@@ -1750,12 +1752,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3974,
-        "completion_tokens": 192,
-        "total_tokens": 4166,
-        "elapsed_s": 14.39,
+        "completion_tokens": 238,
+        "total_tokens": 4212,
+        "elapsed_s": 14.95,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.4
+      "elapsed_s": 15.0
     },
     {
       "set": "single-hop",
@@ -1780,12 +1782,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 4039,
-        "completion_tokens": 192,
-        "total_tokens": 4231,
-        "elapsed_s": 13.53,
+        "completion_tokens": 187,
+        "total_tokens": 4226,
+        "elapsed_s": 13.3,
         "stop_reason": "answered"
       },
-      "elapsed_s": 13.5
+      "elapsed_s": 13.3
     },
     {
       "set": "single-hop",
@@ -1810,12 +1812,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 1990,
-        "completion_tokens": 168,
-        "total_tokens": 2158,
-        "elapsed_s": 10.11,
+        "completion_tokens": 163,
+        "total_tokens": 2153,
+        "elapsed_s": 9.72,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.1
+      "elapsed_s": 9.7
     },
     {
       "set": "single-hop",
@@ -1840,12 +1842,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3750,
-        "completion_tokens": 197,
-        "total_tokens": 3947,
-        "elapsed_s": 10.06,
+        "completion_tokens": 180,
+        "total_tokens": 3930,
+        "elapsed_s": 9.6,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.1
+      "elapsed_s": 9.6
     },
     {
       "set": "single-hop",
@@ -1870,12 +1872,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2727,
-        "completion_tokens": 364,
-        "total_tokens": 3091,
-        "elapsed_s": 14.21,
+        "completion_tokens": 397,
+        "total_tokens": 3124,
+        "elapsed_s": 13.83,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.2
+      "elapsed_s": 13.8
     },
     {
       "set": "single-hop",
@@ -1900,12 +1902,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2699,
-        "completion_tokens": 107,
-        "total_tokens": 2806,
-        "elapsed_s": 13.73,
+        "completion_tokens": 105,
+        "total_tokens": 2804,
+        "elapsed_s": 16.61,
         "stop_reason": "answered"
       },
-      "elapsed_s": 13.7
+      "elapsed_s": 16.6
     },
     {
       "set": "single-hop",
@@ -1932,10 +1934,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 17.62,
+        "elapsed_s": 17.78,
         "stop_reason": "answered"
       },
-      "elapsed_s": 17.6
+      "elapsed_s": 17.8
     },
     {
       "set": "single-hop",
@@ -1960,12 +1962,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 4543,
-        "completion_tokens": 132,
-        "total_tokens": 4675,
-        "elapsed_s": 9.6,
+        "completion_tokens": 130,
+        "total_tokens": 4673,
+        "elapsed_s": 9.66,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.6
+      "elapsed_s": 9.7
     },
     {
       "set": "single-hop",
@@ -1990,12 +1992,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 4772,
-        "completion_tokens": 32,
-        "total_tokens": 4804,
-        "elapsed_s": 9.92,
+        "completion_tokens": 50,
+        "total_tokens": 4822,
+        "elapsed_s": 11.84,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.9
+      "elapsed_s": 11.8
     },
     {
       "set": "single-hop",
@@ -2021,12 +2023,12 @@
         "llm_calls": 3,
         "tool_calls": 0,
         "prompt_tokens": 4152,
-        "completion_tokens": 65,
-        "total_tokens": 4217,
-        "elapsed_s": 17.11,
+        "completion_tokens": 79,
+        "total_tokens": 4231,
+        "elapsed_s": 19.42,
         "stop_reason": "answered"
       },
-      "elapsed_s": 17.1
+      "elapsed_s": 19.4
     },
     {
       "set": "single-hop",
@@ -2053,10 +2055,10 @@
         "prompt_tokens": 2552,
         "completion_tokens": 109,
         "total_tokens": 2661,
-        "elapsed_s": 10.22,
+        "elapsed_s": 11.33,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.2
+      "elapsed_s": 11.3
     },
     {
       "set": "single-hop",
@@ -2083,10 +2085,10 @@
         "prompt_tokens": 1953,
         "completion_tokens": 91,
         "total_tokens": 2044,
-        "elapsed_s": 5.84,
+        "elapsed_s": 5.74,
         "stop_reason": "answered"
       },
-      "elapsed_s": 5.8
+      "elapsed_s": 5.7
     },
     {
       "set": "single-hop",
@@ -2111,12 +2113,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3545,
-        "completion_tokens": 268,
-        "total_tokens": 3813,
-        "elapsed_s": 10.33,
+        "completion_tokens": 264,
+        "total_tokens": 3809,
+        "elapsed_s": 10.21,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.3
+      "elapsed_s": 10.2
     },
     {
       "set": "single-hop",
@@ -2142,12 +2144,12 @@
         "llm_calls": 3,
         "tool_calls": 0,
         "prompt_tokens": 3434,
-        "completion_tokens": 120,
-        "total_tokens": 3554,
-        "elapsed_s": 16.84,
+        "completion_tokens": 115,
+        "total_tokens": 3549,
+        "elapsed_s": 17.26,
         "stop_reason": "answered"
       },
-      "elapsed_s": 16.8
+      "elapsed_s": 17.3
     },
     {
       "set": "single-hop",
@@ -2164,20 +2166,22 @@
       "verdict": null,
       "trace": [
         "route",
+        "decompose",
+        "retrieve",
         "retrieve",
         "generate",
         "verify_citations"
       ],
       "usage": {
-        "llm_calls": 2,
+        "llm_calls": 3,
         "tool_calls": 0,
-        "prompt_tokens": 2832,
-        "completion_tokens": 93,
-        "total_tokens": 2925,
-        "elapsed_s": 8.83,
+        "prompt_tokens": 3001,
+        "completion_tokens": 141,
+        "total_tokens": 3142,
+        "elapsed_s": 13.84,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.8
+      "elapsed_s": 13.8
     },
     {
       "set": "single-hop",
@@ -2202,21 +2206,21 @@
       "usage": {
         "llm_calls": 3,
         "tool_calls": 0,
-        "prompt_tokens": 4604,
-        "completion_tokens": 84,
-        "total_tokens": 4688,
-        "elapsed_s": 16.87,
+        "prompt_tokens": 4630,
+        "completion_tokens": 67,
+        "total_tokens": 4697,
+        "elapsed_s": 17.0,
         "stop_reason": "answered"
       },
-      "elapsed_s": 16.9
+      "elapsed_s": 17.0
     },
     {
       "set": "single-hop",
       "question": "如果我在三月退貨，應該怎麼報告這筆交易？",
       "expected_intent": null,
-      "intent": "multi_hop",
+      "intent": "regulation_qa",
       "route_source": "llm",
-      "handler": "agent",
+      "handler": "regulation",
       "hit": true,
       "refused": false,
       "confident": true,
@@ -2225,19 +2229,20 @@
       "verdict": null,
       "trace": [
         "route",
-        "tool:search_regulations",
-        "generate"
+        "retrieve",
+        "generate",
+        "verify_citations"
       ],
       "usage": {
-        "llm_calls": 3,
-        "tool_calls": 1,
-        "prompt_tokens": 3206,
-        "completion_tokens": 220,
-        "total_tokens": 3426,
-        "elapsed_s": 20.89,
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 2934,
+        "completion_tokens": 160,
+        "total_tokens": 3094,
+        "elapsed_s": 11.21,
         "stop_reason": "answered"
       },
-      "elapsed_s": 20.9
+      "elapsed_s": 11.2
     },
     {
       "set": "single-hop",
@@ -2262,12 +2267,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3646,
-        "completion_tokens": 139,
-        "total_tokens": 3785,
-        "elapsed_s": 10.27,
+        "completion_tokens": 134,
+        "total_tokens": 3780,
+        "elapsed_s": 10.76,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.3
+      "elapsed_s": 10.8
     },
     {
       "set": "single-hop",
@@ -2293,12 +2298,12 @@
         "llm_calls": 3,
         "tool_calls": 0,
         "prompt_tokens": 4047,
-        "completion_tokens": 362,
-        "total_tokens": 4409,
-        "elapsed_s": 19.28,
+        "completion_tokens": 345,
+        "total_tokens": 4392,
+        "elapsed_s": 19.37,
         "stop_reason": "answered"
       },
-      "elapsed_s": 19.3
+      "elapsed_s": 19.4
     },
     {
       "set": "single-hop",
@@ -2325,10 +2330,10 @@
         "prompt_tokens": 3185,
         "completion_tokens": 107,
         "total_tokens": 3292,
-        "elapsed_s": 8.25,
+        "elapsed_s": 8.39,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.2
+      "elapsed_s": 8.4
     },
     {
       "set": "single-hop",
@@ -2339,7 +2344,7 @@
       "handler": "agent",
       "hit": false,
       "refused": true,
-      "confident": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -2348,19 +2353,19 @@
         "tool:search_regulations",
         "tool:search_related_laws",
         "tool:search_regulations",
-        "tool:search_regulations",
+        "tool:search_violation_cases",
         "generate"
       ],
       "usage": {
-        "llm_calls": 6,
+        "llm_calls": 8,
         "tool_calls": 4,
-        "prompt_tokens": 4325,
-        "completion_tokens": 114,
-        "total_tokens": 4439,
-        "elapsed_s": 35.27,
+        "prompt_tokens": 6359,
+        "completion_tokens": 124,
+        "total_tokens": 6483,
+        "elapsed_s": 52.73,
         "stop_reason": "tool_calls"
       },
-      "elapsed_s": 35.3
+      "elapsed_s": 52.7
     },
     {
       "set": "single-hop",
@@ -2387,10 +2392,10 @@
         "prompt_tokens": 2518,
         "completion_tokens": 67,
         "total_tokens": 2585,
-        "elapsed_s": 8.98,
+        "elapsed_s": 8.77,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.0
+      "elapsed_s": 8.8
     },
     {
       "set": "single-hop",
@@ -2415,12 +2420,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 4331,
-        "completion_tokens": 84,
-        "total_tokens": 4415,
-        "elapsed_s": 10.33,
+        "completion_tokens": 83,
+        "total_tokens": 4414,
+        "elapsed_s": 10.83,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.3
+      "elapsed_s": 10.8
     },
     {
       "set": "single-hop",
@@ -2445,12 +2450,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 1992,
-        "completion_tokens": 166,
-        "total_tokens": 2158,
-        "elapsed_s": 5.52,
+        "completion_tokens": 157,
+        "total_tokens": 2149,
+        "elapsed_s": 5.66,
         "stop_reason": "answered"
       },
-      "elapsed_s": 5.5
+      "elapsed_s": 5.7
     },
     {
       "set": "single-hop",
@@ -2475,12 +2480,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2991,
-        "completion_tokens": 289,
-        "total_tokens": 3280,
-        "elapsed_s": 10.23,
+        "completion_tokens": 199,
+        "total_tokens": 3190,
+        "elapsed_s": 9.03,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.2
+      "elapsed_s": 9.0
     },
     {
       "set": "single-hop",
@@ -2505,9 +2510,9 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2963,
-        "completion_tokens": 177,
-        "total_tokens": 3140,
-        "elapsed_s": 7.72,
+        "completion_tokens": 157,
+        "total_tokens": 3120,
+        "elapsed_s": 7.75,
         "stop_reason": "answered"
       },
       "elapsed_s": 7.7
@@ -2537,10 +2542,10 @@
         "prompt_tokens": 2399,
         "completion_tokens": 172,
         "total_tokens": 2571,
-        "elapsed_s": 11.13,
+        "elapsed_s": 11.22,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.1
+      "elapsed_s": 11.2
     },
     {
       "set": "single-hop",
@@ -2567,10 +2572,10 @@
         "prompt_tokens": 3194,
         "completion_tokens": 80,
         "total_tokens": 3274,
-        "elapsed_s": 10.18,
+        "elapsed_s": 9.68,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.2
+      "elapsed_s": 9.7
     },
     {
       "set": "single-hop",
@@ -2595,12 +2600,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2992,
-        "completion_tokens": 144,
-        "total_tokens": 3136,
-        "elapsed_s": 7.42,
+        "completion_tokens": 149,
+        "total_tokens": 3141,
+        "elapsed_s": 7.67,
         "stop_reason": "answered"
       },
-      "elapsed_s": 7.4
+      "elapsed_s": 7.7
     },
     {
       "set": "single-hop",
@@ -2625,12 +2630,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3161,
-        "completion_tokens": 215,
-        "total_tokens": 3376,
-        "elapsed_s": 10.31,
+        "completion_tokens": 177,
+        "total_tokens": 3338,
+        "elapsed_s": 10.14,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.3
+      "elapsed_s": 10.1
     },
     {
       "set": "single-hop",
@@ -2657,10 +2662,10 @@
         "prompt_tokens": 3454,
         "completion_tokens": 145,
         "total_tokens": 3599,
-        "elapsed_s": 9.74,
+        "elapsed_s": 10.96,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.7
+      "elapsed_s": 11.0
     },
     {
       "set": "single-hop",
@@ -2685,12 +2690,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3717,
-        "completion_tokens": 267,
-        "total_tokens": 3984,
-        "elapsed_s": 13.26,
+        "completion_tokens": 251,
+        "total_tokens": 3968,
+        "elapsed_s": 13.4,
         "stop_reason": "answered"
       },
-      "elapsed_s": 13.3
+      "elapsed_s": 13.4
     },
     {
       "set": "single-hop",
@@ -2715,12 +2720,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 4103,
-        "completion_tokens": 192,
-        "total_tokens": 4295,
-        "elapsed_s": 12.65,
+        "completion_tokens": 189,
+        "total_tokens": 4292,
+        "elapsed_s": 13.08,
         "stop_reason": "answered"
       },
-      "elapsed_s": 12.7
+      "elapsed_s": 13.1
     },
     {
       "set": "single-hop",
@@ -2745,12 +2750,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3072,
-        "completion_tokens": 245,
-        "total_tokens": 3317,
-        "elapsed_s": 11.09,
+        "completion_tokens": 220,
+        "total_tokens": 3292,
+        "elapsed_s": 10.86,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.1
+      "elapsed_s": 10.9
     },
     {
       "set": "single-hop",
@@ -2775,12 +2780,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 4236,
-        "completion_tokens": 240,
-        "total_tokens": 4476,
-        "elapsed_s": 10.11,
+        "completion_tokens": 220,
+        "total_tokens": 4456,
+        "elapsed_s": 10.47,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.1
+      "elapsed_s": 10.5
     },
     {
       "set": "single-hop",
@@ -2805,12 +2810,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3125,
-        "completion_tokens": 85,
-        "total_tokens": 3210,
-        "elapsed_s": 10.89,
+        "completion_tokens": 79,
+        "total_tokens": 3204,
+        "elapsed_s": 10.66,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.9
+      "elapsed_s": 10.7
     },
     {
       "set": "single-hop",
@@ -2837,10 +2842,10 @@
         "prompt_tokens": 3649,
         "completion_tokens": 130,
         "total_tokens": 3779,
-        "elapsed_s": 9.39,
+        "elapsed_s": 9.53,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.4
+      "elapsed_s": 9.5
     },
     {
       "set": "single-hop",
@@ -2865,12 +2870,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3361,
-        "completion_tokens": 130,
-        "total_tokens": 3491,
-        "elapsed_s": 9.27,
+        "completion_tokens": 112,
+        "total_tokens": 3473,
+        "elapsed_s": 9.13,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.3
+      "elapsed_s": 9.1
     },
     {
       "set": "single-hop",
@@ -2895,12 +2900,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 4194,
-        "completion_tokens": 179,
-        "total_tokens": 4373,
-        "elapsed_s": 11.16,
+        "completion_tokens": 222,
+        "total_tokens": 4416,
+        "elapsed_s": 11.41,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.2
+      "elapsed_s": 11.4
     },
     {
       "set": "single-hop",
@@ -2925,12 +2930,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3761,
-        "completion_tokens": 255,
-        "total_tokens": 4016,
-        "elapsed_s": 14.95,
+        "completion_tokens": 281,
+        "total_tokens": 4042,
+        "elapsed_s": 18.36,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.0
+      "elapsed_s": 18.4
     },
     {
       "set": "single-hop",
@@ -2955,12 +2960,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3080,
-        "completion_tokens": 97,
-        "total_tokens": 3177,
-        "elapsed_s": 14.39,
+        "completion_tokens": 106,
+        "total_tokens": 3186,
+        "elapsed_s": 15.8,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.4
+      "elapsed_s": 15.8
     },
     {
       "set": "single-hop",
@@ -2985,12 +2990,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2906,
-        "completion_tokens": 120,
-        "total_tokens": 3026,
-        "elapsed_s": 8.63,
+        "completion_tokens": 117,
+        "total_tokens": 3023,
+        "elapsed_s": 9.19,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.6
+      "elapsed_s": 9.2
     },
     {
       "set": "single-hop",
@@ -3015,12 +3020,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3593,
-        "completion_tokens": 135,
-        "total_tokens": 3728,
-        "elapsed_s": 10.14,
+        "completion_tokens": 177,
+        "total_tokens": 3770,
+        "elapsed_s": 11.03,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.1
+      "elapsed_s": 11.0
     },
     {
       "set": "single-hop",
@@ -3045,12 +3050,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3070,
-        "completion_tokens": 186,
-        "total_tokens": 3256,
-        "elapsed_s": 15.64,
+        "completion_tokens": 173,
+        "total_tokens": 3243,
+        "elapsed_s": 15.88,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.6
+      "elapsed_s": 15.9
     },
     {
       "set": "single-hop",
@@ -3077,10 +3082,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 17.72,
+        "elapsed_s": 17.65,
         "stop_reason": "answered"
       },
-      "elapsed_s": 17.7
+      "elapsed_s": 17.6
     },
     {
       "set": "single-hop",
@@ -3105,9 +3110,9 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 4410,
-        "completion_tokens": 142,
-        "total_tokens": 4552,
-        "elapsed_s": 9.66,
+        "completion_tokens": 151,
+        "total_tokens": 4561,
+        "elapsed_s": 9.72,
         "stop_reason": "answered"
       },
       "elapsed_s": 9.7
@@ -3135,12 +3140,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3546,
-        "completion_tokens": 102,
-        "total_tokens": 3648,
-        "elapsed_s": 10.76,
+        "completion_tokens": 157,
+        "total_tokens": 3703,
+        "elapsed_s": 10.87,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.8
+      "elapsed_s": 10.9
     },
     {
       "set": "single-hop",
@@ -3165,12 +3170,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3643,
-        "completion_tokens": 176,
-        "total_tokens": 3819,
-        "elapsed_s": 11.11,
+        "completion_tokens": 169,
+        "total_tokens": 3812,
+        "elapsed_s": 10.68,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.1
+      "elapsed_s": 10.7
     },
     {
       "set": "single-hop",
@@ -3195,12 +3200,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3547,
-        "completion_tokens": 121,
-        "total_tokens": 3668,
-        "elapsed_s": 10.81,
+        "completion_tokens": 118,
+        "total_tokens": 3665,
+        "elapsed_s": 10.39,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.8
+      "elapsed_s": 10.4
     },
     {
       "set": "single-hop",
@@ -3225,12 +3230,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3974,
-        "completion_tokens": 99,
-        "total_tokens": 4073,
-        "elapsed_s": 10.72,
+        "completion_tokens": 91,
+        "total_tokens": 4065,
+        "elapsed_s": 10.25,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.7
+      "elapsed_s": 10.2
     },
     {
       "set": "single-hop",
@@ -3255,12 +3260,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2303,
-        "completion_tokens": 250,
-        "total_tokens": 2553,
-        "elapsed_s": 11.67,
+        "completion_tokens": 249,
+        "total_tokens": 2552,
+        "elapsed_s": 12.38,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.7
+      "elapsed_s": 12.4
     },
     {
       "set": "single-hop",
@@ -3285,12 +3290,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 1945,
-        "completion_tokens": 132,
-        "total_tokens": 2077,
-        "elapsed_s": 6.75,
+        "completion_tokens": 134,
+        "total_tokens": 2079,
+        "elapsed_s": 6.73,
         "stop_reason": "answered"
       },
-      "elapsed_s": 6.8
+      "elapsed_s": 6.7
     },
     {
       "set": "single-hop",
@@ -3315,12 +3320,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3430,
-        "completion_tokens": 195,
-        "total_tokens": 3625,
-        "elapsed_s": 10.09,
+        "completion_tokens": 230,
+        "total_tokens": 3660,
+        "elapsed_s": 10.73,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.1
+      "elapsed_s": 10.7
     },
     {
       "set": "single-hop",
@@ -3345,12 +3350,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3006,
-        "completion_tokens": 199,
-        "total_tokens": 3205,
-        "elapsed_s": 10.78,
+        "completion_tokens": 156,
+        "total_tokens": 3162,
+        "elapsed_s": 10.95,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.8
+      "elapsed_s": 10.9
     },
     {
       "set": "single-hop",
@@ -3375,12 +3380,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 2920,
-        "completion_tokens": 295,
-        "total_tokens": 3215,
-        "elapsed_s": 8.05,
+        "completion_tokens": 244,
+        "total_tokens": 3164,
+        "elapsed_s": 7.85,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.1
+      "elapsed_s": 7.9
     },
     {
       "set": "hard",
@@ -3405,12 +3410,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 4279,
-        "completion_tokens": 138,
-        "total_tokens": 4417,
-        "elapsed_s": 9.83,
+        "completion_tokens": 139,
+        "total_tokens": 4418,
+        "elapsed_s": 10.71,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.8
+      "elapsed_s": 10.7
     },
     {
       "set": "hard",
@@ -3435,12 +3440,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3227,
-        "completion_tokens": 187,
-        "total_tokens": 3414,
-        "elapsed_s": 9.79,
+        "completion_tokens": 179,
+        "total_tokens": 3406,
+        "elapsed_s": 9.69,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.8
+      "elapsed_s": 9.7
     },
     {
       "set": "hard",
@@ -3465,13 +3470,13 @@
       "usage": {
         "llm_calls": 3,
         "tool_calls": 0,
-        "prompt_tokens": 2818,
-        "completion_tokens": 98,
-        "total_tokens": 2916,
-        "elapsed_s": 18.3,
+        "prompt_tokens": 2971,
+        "completion_tokens": 109,
+        "total_tokens": 3080,
+        "elapsed_s": 19.24,
         "stop_reason": "answered"
       },
-      "elapsed_s": 18.3
+      "elapsed_s": 19.2
     },
     {
       "set": "hard",
@@ -3496,12 +3501,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2423,
-        "completion_tokens": 83,
-        "total_tokens": 2506,
-        "elapsed_s": 11.89,
+        "completion_tokens": 74,
+        "total_tokens": 2497,
+        "elapsed_s": 11.55,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.9
+      "elapsed_s": 11.5
     },
     {
       "set": "hard",
@@ -3528,10 +3533,10 @@
         "prompt_tokens": 3103,
         "completion_tokens": 74,
         "total_tokens": 3177,
-        "elapsed_s": 12.62,
+        "elapsed_s": 12.37,
         "stop_reason": "answered"
       },
-      "elapsed_s": 12.6
+      "elapsed_s": 12.4
     },
     {
       "set": "hard",
@@ -3556,12 +3561,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3509,
-        "completion_tokens": 179,
-        "total_tokens": 3688,
-        "elapsed_s": 11.46,
+        "completion_tokens": 116,
+        "total_tokens": 3625,
+        "elapsed_s": 10.97,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.5
+      "elapsed_s": 11.0
     },
     {
       "set": "hard",
@@ -3586,12 +3591,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3753,
-        "completion_tokens": 107,
-        "total_tokens": 3860,
-        "elapsed_s": 9.02,
+        "completion_tokens": 74,
+        "total_tokens": 3827,
+        "elapsed_s": 8.53,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.0
+      "elapsed_s": 8.5
     },
     {
       "set": "hard",
@@ -3600,7 +3605,7 @@
       "intent": "regulation_qa",
       "route_source": "rules",
       "handler": "regulation",
-      "hit": false,
+      "hit": true,
       "refused": false,
       "confident": true,
       "unsupported_citations": [],
@@ -3616,13 +3621,13 @@
       "usage": {
         "llm_calls": 2,
         "tool_calls": 0,
-        "prompt_tokens": 3769,
-        "completion_tokens": 130,
-        "total_tokens": 3899,
-        "elapsed_s": 16.5,
+        "prompt_tokens": 4070,
+        "completion_tokens": 141,
+        "total_tokens": 4211,
+        "elapsed_s": 16.84,
         "stop_reason": "answered"
       },
-      "elapsed_s": 16.5
+      "elapsed_s": 16.8
     },
     {
       "set": "multi-hop",
@@ -3632,8 +3637,8 @@
       "route_source": "rules",
       "handler": "agent",
       "hit": false,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -3646,10 +3651,10 @@
       "usage": {
         "llm_calls": 2,
         "tool_calls": 2,
-        "prompt_tokens": 2435,
-        "completion_tokens": 84,
-        "total_tokens": 2519,
-        "elapsed_s": 16.66,
+        "prompt_tokens": 4164,
+        "completion_tokens": 386,
+        "total_tokens": 4550,
+        "elapsed_s": 16.72,
         "stop_reason": "answered"
       },
       "elapsed_s": 16.7
@@ -3665,7 +3670,7 @@
       "refused": false,
       "confident": true,
       "unsupported_citations": [],
-      "citation_regenerated": true,
+      "citation_regenerated": false,
       "verdict": null,
       "trace": [
         "route",
@@ -3674,15 +3679,15 @@
         "generate"
       ],
       "usage": {
-        "llm_calls": 3,
+        "llm_calls": 2,
         "tool_calls": 2,
-        "prompt_tokens": 9874,
-        "completion_tokens": 510,
-        "total_tokens": 10384,
-        "elapsed_s": 21.34,
+        "prompt_tokens": 5481,
+        "completion_tokens": 344,
+        "total_tokens": 5825,
+        "elapsed_s": 20.13,
         "stop_reason": "answered"
       },
-      "elapsed_s": 21.3
+      "elapsed_s": 20.1
     },
     {
       "set": "multi-hop",
@@ -3704,15 +3709,15 @@
         "generate"
       ],
       "usage": {
-        "llm_calls": 4,
+        "llm_calls": 3,
         "tool_calls": 2,
-        "prompt_tokens": 6988,
-        "completion_tokens": 295,
-        "total_tokens": 7283,
-        "elapsed_s": 21.28,
+        "prompt_tokens": 4100,
+        "completion_tokens": 417,
+        "total_tokens": 4517,
+        "elapsed_s": 19.89,
         "stop_reason": "answered"
       },
-      "elapsed_s": 21.3
+      "elapsed_s": 19.9
     },
     {
       "set": "multi-hop",
@@ -3736,13 +3741,13 @@
       "usage": {
         "llm_calls": 2,
         "tool_calls": 2,
-        "prompt_tokens": 3031,
-        "completion_tokens": 335,
-        "total_tokens": 3366,
-        "elapsed_s": 14.76,
+        "prompt_tokens": 3991,
+        "completion_tokens": 298,
+        "total_tokens": 4289,
+        "elapsed_s": 18.34,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.8
+      "elapsed_s": 18.3
     },
     {
       "set": "multi-hop",
@@ -3752,8 +3757,8 @@
       "route_source": "rules",
       "handler": "agent",
       "hit": false,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -3766,13 +3771,13 @@
       "usage": {
         "llm_calls": 2,
         "tool_calls": 2,
-        "prompt_tokens": 2476,
-        "completion_tokens": 455,
-        "total_tokens": 2931,
-        "elapsed_s": 16.1,
+        "prompt_tokens": 4156,
+        "completion_tokens": 310,
+        "total_tokens": 4466,
+        "elapsed_s": 17.41,
         "stop_reason": "answered"
       },
-      "elapsed_s": 16.1
+      "elapsed_s": 17.4
     },
     {
       "set": "multi-hop",
@@ -3790,18 +3795,21 @@
       "trace": [
         "route",
         "tool:search_related_laws",
+        "tool:search_regulations",
+        "tool:search_regulations",
+        "tool:search_related_laws",
         "generate"
       ],
       "usage": {
-        "llm_calls": 2,
-        "tool_calls": 1,
-        "prompt_tokens": 1457,
-        "completion_tokens": 290,
-        "total_tokens": 1747,
-        "elapsed_s": 3.8,
-        "stop_reason": "answered"
+        "llm_calls": 7,
+        "tool_calls": 4,
+        "prompt_tokens": 6892,
+        "completion_tokens": 435,
+        "total_tokens": 7327,
+        "elapsed_s": 44.78,
+        "stop_reason": "tool_calls"
       },
-      "elapsed_s": 3.8
+      "elapsed_s": 44.8
     },
     {
       "set": "multi-hop",
@@ -3825,47 +3833,17 @@
       "usage": {
         "llm_calls": 2,
         "tool_calls": 2,
-        "prompt_tokens": 2678,
-        "completion_tokens": 255,
-        "total_tokens": 2933,
-        "elapsed_s": 18.83,
+        "prompt_tokens": 3078,
+        "completion_tokens": 310,
+        "total_tokens": 3388,
+        "elapsed_s": 18.27,
         "stop_reason": "answered"
       },
-      "elapsed_s": 18.8
+      "elapsed_s": 18.3
     },
     {
       "set": "multi-hop",
       "question": "說膠原蛋白飲可以「美白抗老」,這種廣告會不會出事?有被罰過的例子嗎?",
-      "expected_intent": null,
-      "intent": "multi_hop",
-      "route_source": "llm",
-      "handler": "agent",
-      "hit": false,
-      "refused": true,
-      "confident": false,
-      "unsupported_citations": [],
-      "citation_regenerated": false,
-      "verdict": null,
-      "trace": [
-        "route",
-        "tool:search_regulations",
-        "tool:search_violation_cases",
-        "generate"
-      ],
-      "usage": {
-        "llm_calls": 3,
-        "tool_calls": 2,
-        "prompt_tokens": 2540,
-        "completion_tokens": 371,
-        "total_tokens": 2911,
-        "elapsed_s": 26.95,
-        "stop_reason": "answered"
-      },
-      "elapsed_s": 27.0
-    },
-    {
-      "set": "multi-hop",
-      "question": "我在臉書粉專分享自家產品「調節血糖」的顧客見證文,這算廣告嗎?有人因為這樣被罰嗎?",
       "expected_intent": null,
       "intent": "multi_hop",
       "route_source": "llm",
@@ -3885,13 +3863,45 @@
       "usage": {
         "llm_calls": 3,
         "tool_calls": 2,
-        "prompt_tokens": 3734,
-        "completion_tokens": 287,
-        "total_tokens": 4021,
-        "elapsed_s": 24.52,
+        "prompt_tokens": 4183,
+        "completion_tokens": 422,
+        "total_tokens": 4605,
+        "elapsed_s": 28.32,
         "stop_reason": "answered"
       },
-      "elapsed_s": 24.5
+      "elapsed_s": 28.3
+    },
+    {
+      "set": "multi-hop",
+      "question": "我在臉書粉專分享自家產品「調節血糖」的顧客見證文,這算廣告嗎?有人因為這樣被罰嗎?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": false,
+      "refused": false,
+      "confident": true,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 7,
+        "tool_calls": 4,
+        "prompt_tokens": 6836,
+        "completion_tokens": 394,
+        "total_tokens": 7230,
+        "elapsed_s": 63.78,
+        "stop_reason": "tool_calls"
+      },
+      "elapsed_s": 63.8
     },
     {
       "set": "multi-hop",
@@ -3900,28 +3910,30 @@
       "intent": "multi_hop",
       "route_source": "rules",
       "handler": "agent",
-      "hit": false,
-      "refused": true,
-      "confident": false,
+      "hit": true,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
       "trace": [
         "route",
+        "tool:search_regulations",
+        "tool:search_regulations",
         "tool:search_violation_cases",
         "tool:search_violation_cases",
         "generate"
       ],
       "usage": {
         "llm_calls": 2,
-        "tool_calls": 2,
-        "prompt_tokens": 3227,
-        "completion_tokens": 422,
-        "total_tokens": 3649,
-        "elapsed_s": 4.48,
-        "stop_reason": "answered"
+        "tool_calls": 4,
+        "prompt_tokens": 7136,
+        "completion_tokens": 577,
+        "total_tokens": 7713,
+        "elapsed_s": 36.7,
+        "stop_reason": "tool_calls"
       },
-      "elapsed_s": 4.5
+      "elapsed_s": 36.7
     },
     {
       "set": "multi-hop",
@@ -3941,18 +3953,19 @@
         "tool:search_regulations",
         "tool:search_violation_cases",
         "tool:search_regulations",
+        "tool:search_related_laws",
         "generate"
       ],
       "usage": {
-        "llm_calls": 3,
-        "tool_calls": 3,
-        "prompt_tokens": 6533,
+        "llm_calls": 6,
+        "tool_calls": 4,
+        "prompt_tokens": 7377,
         "completion_tokens": 381,
-        "total_tokens": 6914,
-        "elapsed_s": 33.68,
-        "stop_reason": "answered"
+        "total_tokens": 7758,
+        "elapsed_s": 49.62,
+        "stop_reason": "tool_calls"
       },
-      "elapsed_s": 33.7
+      "elapsed_s": 49.6
     },
     {
       "set": "multi-hop",
@@ -3962,8 +3975,8 @@
       "route_source": "llm",
       "handler": "agent",
       "hit": false,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -3976,13 +3989,13 @@
       "usage": {
         "llm_calls": 3,
         "tool_calls": 2,
-        "prompt_tokens": 2401,
-        "completion_tokens": 305,
-        "total_tokens": 2706,
-        "elapsed_s": 25.21,
+        "prompt_tokens": 4724,
+        "completion_tokens": 370,
+        "total_tokens": 5094,
+        "elapsed_s": 24.98,
         "stop_reason": "answered"
       },
-      "elapsed_s": 25.2
+      "elapsed_s": 25.0
     },
     {
       "set": "multi-hop",
@@ -3991,9 +4004,9 @@
       "intent": "multi_hop",
       "route_source": "rules",
       "handler": "agent",
-      "hit": false,
-      "refused": true,
-      "confident": false,
+      "hit": true,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -4001,20 +4014,18 @@
         "route",
         "tool:search_regulations",
         "tool:search_violation_cases",
-        "tool:search_regulations",
-        "tool:search_related_laws",
         "generate"
       ],
       "usage": {
-        "llm_calls": 4,
-        "tool_calls": 4,
-        "prompt_tokens": 5879,
-        "completion_tokens": 140,
-        "total_tokens": 6019,
-        "elapsed_s": 3.85,
-        "stop_reason": "tool_calls"
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 5580,
+        "completion_tokens": 267,
+        "total_tokens": 5847,
+        "elapsed_s": 19.32,
+        "stop_reason": "answered"
       },
-      "elapsed_s": 3.9
+      "elapsed_s": 19.3
     },
     {
       "set": "multi-hop",
@@ -4033,18 +4044,20 @@
         "route",
         "tool:search_regulations",
         "tool:search_regulations",
+        "tool:search_violation_cases",
+        "tool:search_violation_cases",
         "generate"
       ],
       "usage": {
         "llm_calls": 2,
-        "tool_calls": 2,
-        "prompt_tokens": 6487,
-        "completion_tokens": 403,
-        "total_tokens": 6890,
-        "elapsed_s": 29.47,
-        "stop_reason": "answered"
+        "tool_calls": 4,
+        "prompt_tokens": 8804,
+        "completion_tokens": 558,
+        "total_tokens": 9362,
+        "elapsed_s": 36.9,
+        "stop_reason": "tool_calls"
       },
-      "elapsed_s": 29.5
+      "elapsed_s": 36.9
     },
     {
       "set": "multi-hop",
@@ -4054,27 +4067,28 @@
       "route_source": "rules",
       "handler": "agent",
       "hit": false,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
-      "citation_regenerated": false,
+      "citation_regenerated": true,
       "verdict": null,
       "trace": [
         "route",
         "tool:search_regulations",
         "tool:search_violation_cases",
+        "tool:search_regulations",
         "generate"
       ],
       "usage": {
-        "llm_calls": 2,
-        "tool_calls": 2,
-        "prompt_tokens": 2470,
-        "completion_tokens": 361,
-        "total_tokens": 2831,
-        "elapsed_s": 19.97,
+        "llm_calls": 5,
+        "tool_calls": 3,
+        "prompt_tokens": 10775,
+        "completion_tokens": 755,
+        "total_tokens": 11530,
+        "elapsed_s": 44.62,
         "stop_reason": "answered"
       },
-      "elapsed_s": 20.0
+      "elapsed_s": 44.6
     },
     {
       "set": "multi-hop",
@@ -4098,13 +4112,13 @@
       "usage": {
         "llm_calls": 3,
         "tool_calls": 2,
-        "prompt_tokens": 3764,
-        "completion_tokens": 463,
-        "total_tokens": 4227,
-        "elapsed_s": 29.63,
+        "prompt_tokens": 4168,
+        "completion_tokens": 356,
+        "total_tokens": 4524,
+        "elapsed_s": 27.29,
         "stop_reason": "answered"
       },
-      "elapsed_s": 29.6
+      "elapsed_s": 27.3
     },
     {
       "set": "multi-hop",
@@ -4128,13 +4142,13 @@
       "usage": {
         "llm_calls": 3,
         "tool_calls": 2,
-        "prompt_tokens": 4655,
-        "completion_tokens": 403,
-        "total_tokens": 5058,
-        "elapsed_s": 18.85,
+        "prompt_tokens": 4337,
+        "completion_tokens": 450,
+        "total_tokens": 4787,
+        "elapsed_s": 17.99,
         "stop_reason": "answered"
       },
-      "elapsed_s": 18.9
+      "elapsed_s": 18.0
     },
     {
       "set": "multi-hop",
@@ -4158,13 +4172,13 @@
       "usage": {
         "llm_calls": 3,
         "tool_calls": 2,
-        "prompt_tokens": 3800,
-        "completion_tokens": 403,
-        "total_tokens": 4203,
-        "elapsed_s": 16.77,
+        "prompt_tokens": 4007,
+        "completion_tokens": 326,
+        "total_tokens": 4333,
+        "elapsed_s": 17.97,
         "stop_reason": "answered"
       },
-      "elapsed_s": 16.8
+      "elapsed_s": 18.0
     },
     {
       "set": "multi-hop",
@@ -4174,8 +4188,8 @@
       "route_source": "rules",
       "handler": "agent",
       "hit": false,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -4183,20 +4197,18 @@
         "route",
         "tool:search_regulations",
         "tool:search_violation_cases",
-        "tool:search_related_laws",
-        "tool:search_regulations",
         "generate"
       ],
       "usage": {
-        "llm_calls": 4,
-        "tool_calls": 4,
-        "prompt_tokens": 6399,
-        "completion_tokens": 137,
-        "total_tokens": 6536,
-        "elapsed_s": 18.91,
-        "stop_reason": "tool_calls"
+        "llm_calls": 3,
+        "tool_calls": 2,
+        "prompt_tokens": 3706,
+        "completion_tokens": 313,
+        "total_tokens": 4019,
+        "elapsed_s": 19.97,
+        "stop_reason": "answered"
       },
-      "elapsed_s": 18.9
+      "elapsed_s": 20.0
     },
     {
       "set": "multi-hop",
@@ -4206,8 +4218,8 @@
       "route_source": "rules",
       "handler": "agent",
       "hit": false,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -4215,18 +4227,19 @@
         "route",
         "tool:search_related_laws",
         "tool:search_related_laws",
+        "tool:search_regulations",
         "generate"
       ],
       "usage": {
-        "llm_calls": 2,
-        "tool_calls": 2,
-        "prompt_tokens": 1739,
-        "completion_tokens": 235,
-        "total_tokens": 1974,
-        "elapsed_s": 3.61,
+        "llm_calls": 3,
+        "tool_calls": 3,
+        "prompt_tokens": 5383,
+        "completion_tokens": 479,
+        "total_tokens": 5862,
+        "elapsed_s": 12.68,
         "stop_reason": "answered"
       },
-      "elapsed_s": 3.6
+      "elapsed_s": 12.7
     },
     {
       "set": "router-set",
@@ -4254,12 +4267,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 6914,
-        "completion_tokens": 296,
-        "total_tokens": 7210,
-        "elapsed_s": 4.07,
+        "completion_tokens": 293,
+        "total_tokens": 7207,
+        "elapsed_s": 5.35,
         "stop_reason": "answered"
       },
-      "elapsed_s": 4.1
+      "elapsed_s": 5.3
     },
     {
       "set": "router-set",
@@ -4287,12 +4300,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 7664,
-        "completion_tokens": 229,
-        "total_tokens": 7893,
-        "elapsed_s": 4.48,
+        "completion_tokens": 269,
+        "total_tokens": 7933,
+        "elapsed_s": 3.86,
         "stop_reason": "answered"
       },
-      "elapsed_s": 4.5
+      "elapsed_s": 3.9
     },
     {
       "set": "router-set",
@@ -4320,12 +4333,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 6687,
-        "completion_tokens": 272,
-        "total_tokens": 6959,
-        "elapsed_s": 3.18,
+        "completion_tokens": 265,
+        "total_tokens": 6952,
+        "elapsed_s": 2.91,
         "stop_reason": "answered"
       },
-      "elapsed_s": 3.2
+      "elapsed_s": 2.9
     },
     {
       "set": "router-set",
@@ -4339,7 +4352,7 @@
       "confident": null,
       "unsupported_citations": [],
       "citation_regenerated": false,
-      "verdict": "medium",
+      "verdict": "high",
       "trace": [
         "route",
         "keyword_scan",
@@ -4353,12 +4366,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 5939,
-        "completion_tokens": 230,
-        "total_tokens": 6169,
-        "elapsed_s": 3.04,
+        "completion_tokens": 296,
+        "total_tokens": 6235,
+        "elapsed_s": 3.3,
         "stop_reason": "answered"
       },
-      "elapsed_s": 3.0
+      "elapsed_s": 3.3
     },
     {
       "set": "router-set",
@@ -4386,12 +4399,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 7272,
-        "completion_tokens": 266,
-        "total_tokens": 7538,
-        "elapsed_s": 3.47,
+        "completion_tokens": 273,
+        "total_tokens": 7545,
+        "elapsed_s": 3.78,
         "stop_reason": "answered"
       },
-      "elapsed_s": 3.5
+      "elapsed_s": 3.8
     },
     {
       "set": "router-set",
@@ -4421,10 +4434,10 @@
         "prompt_tokens": 6176,
         "completion_tokens": 130,
         "total_tokens": 6306,
-        "elapsed_s": 2.05,
+        "elapsed_s": 2.3,
         "stop_reason": "answered"
       },
-      "elapsed_s": 2.1
+      "elapsed_s": 2.3
     },
     {
       "set": "router-set",
@@ -4452,12 +4465,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 6519,
-        "completion_tokens": 284,
-        "total_tokens": 6803,
-        "elapsed_s": 3.98,
+        "completion_tokens": 300,
+        "total_tokens": 6819,
+        "elapsed_s": 4.14,
         "stop_reason": "answered"
       },
-      "elapsed_s": 4.0
+      "elapsed_s": 4.1
     },
     {
       "set": "router-set",
@@ -4485,12 +4498,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 6557,
-        "completion_tokens": 224,
-        "total_tokens": 6781,
-        "elapsed_s": 3.2,
+        "completion_tokens": 215,
+        "total_tokens": 6772,
+        "elapsed_s": 2.96,
         "stop_reason": "answered"
       },
-      "elapsed_s": 3.2
+      "elapsed_s": 3.0
     },
     {
       "set": "router-set",
@@ -4518,12 +4531,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 5946,
-        "completion_tokens": 253,
-        "total_tokens": 6199,
-        "elapsed_s": 2.66,
+        "completion_tokens": 272,
+        "total_tokens": 6218,
+        "elapsed_s": 3.05,
         "stop_reason": "answered"
       },
-      "elapsed_s": 2.7
+      "elapsed_s": 3.0
     },
     {
       "set": "router-set",
@@ -4551,12 +4564,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 6784,
-        "completion_tokens": 281,
-        "total_tokens": 7065,
-        "elapsed_s": 3.11,
+        "completion_tokens": 284,
+        "total_tokens": 7068,
+        "elapsed_s": 2.91,
         "stop_reason": "answered"
       },
-      "elapsed_s": 3.1
+      "elapsed_s": 2.9
     },
     {
       "set": "router-set",
@@ -4584,10 +4597,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 14.94,
+        "elapsed_s": 14.98,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.9
+      "elapsed_s": 15.0
     },
     {
       "set": "router-set",
@@ -4615,10 +4628,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 15.17,
+        "elapsed_s": 15.15,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.2
+      "elapsed_s": 15.1
     },
     {
       "set": "router-set",
@@ -4646,10 +4659,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 16.71,
+        "elapsed_s": 16.25,
         "stop_reason": "answered"
       },
-      "elapsed_s": 16.7
+      "elapsed_s": 16.3
     },
     {
       "set": "router-set",
@@ -4677,10 +4690,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 23.71,
+        "elapsed_s": 23.79,
         "stop_reason": "answered"
       },
-      "elapsed_s": 23.7
+      "elapsed_s": 23.8
     },
     {
       "set": "router-set",
@@ -4690,26 +4703,27 @@
       "route_source": "llm",
       "handler": "agent",
       "hit": null,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
       "trace": [
         "route",
         "tool:search_violation_cases",
+        "tool:search_regulations",
         "generate"
       ],
       "usage": {
-        "llm_calls": 3,
-        "tool_calls": 1,
-        "prompt_tokens": 2167,
-        "completion_tokens": 265,
-        "total_tokens": 2432,
-        "elapsed_s": 3.99,
+        "llm_calls": 4,
+        "tool_calls": 2,
+        "prompt_tokens": 6863,
+        "completion_tokens": 468,
+        "total_tokens": 7331,
+        "elapsed_s": 15.26,
         "stop_reason": "answered"
       },
-      "elapsed_s": 4.0
+      "elapsed_s": 15.3
     },
     {
       "set": "router-set",
@@ -4737,10 +4751,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 15.95,
+        "elapsed_s": 15.99,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.9
+      "elapsed_s": 16.0
     },
     {
       "set": "router-set",
@@ -4768,10 +4782,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 15.97,
+        "elapsed_s": 18.51,
         "stop_reason": "answered"
       },
-      "elapsed_s": 16.0
+      "elapsed_s": 18.5
     },
     {
       "set": "router-set",
@@ -4799,10 +4813,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 15.5,
+        "elapsed_s": 16.92,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.5
+      "elapsed_s": 16.9
     },
     {
       "set": "router-set",
@@ -4827,12 +4841,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3389,
-        "completion_tokens": 78,
-        "total_tokens": 3467,
-        "elapsed_s": 9.01,
+        "completion_tokens": 73,
+        "total_tokens": 3462,
+        "elapsed_s": 8.92,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.0
+      "elapsed_s": 8.9
     },
     {
       "set": "router-set",
@@ -4857,12 +4871,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2883,
-        "completion_tokens": 403,
-        "total_tokens": 3286,
-        "elapsed_s": 10.59,
+        "completion_tokens": 416,
+        "total_tokens": 3299,
+        "elapsed_s": 10.21,
         "stop_reason": "answered"
       },
-      "elapsed_s": 10.6
+      "elapsed_s": 10.2
     },
     {
       "set": "router-set",
@@ -4889,10 +4903,10 @@
         "prompt_tokens": 2022,
         "completion_tokens": 68,
         "total_tokens": 2090,
-        "elapsed_s": 11.35,
+        "elapsed_s": 11.65,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.3
+      "elapsed_s": 11.6
     },
     {
       "set": "router-set",
@@ -4917,12 +4931,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2813,
-        "completion_tokens": 160,
-        "total_tokens": 2973,
-        "elapsed_s": 8.11,
+        "completion_tokens": 115,
+        "total_tokens": 2928,
+        "elapsed_s": 7.94,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.1
+      "elapsed_s": 7.9
     },
     {
       "set": "router-set",
@@ -4947,12 +4961,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 2737,
-        "completion_tokens": 64,
-        "total_tokens": 2801,
-        "elapsed_s": 12.18,
+        "completion_tokens": 57,
+        "total_tokens": 2794,
+        "elapsed_s": 11.48,
         "stop_reason": "answered"
       },
-      "elapsed_s": 12.2
+      "elapsed_s": 11.5
     },
     {
       "set": "router-set",
@@ -4977,12 +4991,12 @@
         "llm_calls": 2,
         "tool_calls": 0,
         "prompt_tokens": 3450,
-        "completion_tokens": 166,
-        "total_tokens": 3616,
-        "elapsed_s": 9.39,
+        "completion_tokens": 169,
+        "total_tokens": 3619,
+        "elapsed_s": 9.58,
         "stop_reason": "answered"
       },
-      "elapsed_s": 9.4
+      "elapsed_s": 9.6
     },
     {
       "set": "router-set",
@@ -5007,12 +5021,12 @@
         "llm_calls": 1,
         "tool_calls": 0,
         "prompt_tokens": 3232,
-        "completion_tokens": 154,
-        "total_tokens": 3386,
-        "elapsed_s": 14.93,
+        "completion_tokens": 200,
+        "total_tokens": 3432,
+        "elapsed_s": 15.16,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.9
+      "elapsed_s": 15.2
     },
     {
       "set": "router-set",
@@ -5022,8 +5036,8 @@
       "route_source": "rules",
       "handler": "agent",
       "hit": null,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -5031,18 +5045,19 @@
         "route",
         "tool:search_related_laws",
         "tool:search_related_laws",
+        "tool:search_regulations",
         "generate"
       ],
       "usage": {
-        "llm_calls": 2,
-        "tool_calls": 2,
-        "prompt_tokens": 1735,
-        "completion_tokens": 278,
-        "total_tokens": 2013,
-        "elapsed_s": 2.94,
+        "llm_calls": 3,
+        "tool_calls": 3,
+        "prompt_tokens": 5333,
+        "completion_tokens": 510,
+        "total_tokens": 5843,
+        "elapsed_s": 12.33,
         "stop_reason": "answered"
       },
-      "elapsed_s": 2.9
+      "elapsed_s": 12.3
     },
     {
       "set": "router-set",
@@ -5052,8 +5067,8 @@
       "route_source": "rules",
       "handler": "agent",
       "hit": null,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -5061,18 +5076,19 @@
         "route",
         "tool:search_related_laws",
         "tool:search_violation_cases",
+        "tool:search_regulations",
         "generate"
       ],
       "usage": {
-        "llm_calls": 3,
-        "tool_calls": 2,
-        "prompt_tokens": 3263,
-        "completion_tokens": 294,
-        "total_tokens": 3557,
-        "elapsed_s": 3.9,
+        "llm_calls": 4,
+        "tool_calls": 3,
+        "prompt_tokens": 7683,
+        "completion_tokens": 386,
+        "total_tokens": 8069,
+        "elapsed_s": 13.06,
         "stop_reason": "answered"
       },
-      "elapsed_s": 3.9
+      "elapsed_s": 13.1
     },
     {
       "set": "router-set",
@@ -5096,13 +5112,13 @@
       "usage": {
         "llm_calls": 2,
         "tool_calls": 2,
-        "prompt_tokens": 3409,
-        "completion_tokens": 288,
-        "total_tokens": 3697,
-        "elapsed_s": 13.96,
+        "prompt_tokens": 3758,
+        "completion_tokens": 377,
+        "total_tokens": 4135,
+        "elapsed_s": 14.97,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.0
+      "elapsed_s": 15.0
     },
     {
       "set": "router-set",
@@ -5112,8 +5128,8 @@
       "route_source": "llm",
       "handler": "agent",
       "hit": null,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -5121,20 +5137,18 @@
         "route",
         "tool:search_regulations",
         "tool:search_violation_cases",
-        "tool:search_regulations",
-        "tool:search_related_laws",
         "generate"
       ],
       "usage": {
-        "llm_calls": 5,
-        "tool_calls": 4,
-        "prompt_tokens": 5847,
-        "completion_tokens": 140,
-        "total_tokens": 5987,
-        "elapsed_s": 33.55,
-        "stop_reason": "tool_calls"
+        "llm_calls": 4,
+        "tool_calls": 2,
+        "prompt_tokens": 2611,
+        "completion_tokens": 348,
+        "total_tokens": 2959,
+        "elapsed_s": 26.71,
+        "stop_reason": "answered"
       },
-      "elapsed_s": 33.5
+      "elapsed_s": 26.7
     },
     {
       "set": "router-set",
@@ -5144,8 +5158,8 @@
       "route_source": "rules",
       "handler": "agent",
       "hit": null,
-      "refused": true,
-      "confident": false,
+      "refused": false,
+      "confident": true,
       "unsupported_citations": [],
       "citation_regenerated": false,
       "verdict": null,
@@ -5153,20 +5167,18 @@
         "route",
         "tool:search_regulations",
         "tool:search_violation_cases",
-        "tool:search_related_laws",
-        "tool:search_regulations",
         "generate"
       ],
       "usage": {
-        "llm_calls": 4,
-        "tool_calls": 4,
-        "prompt_tokens": 6024,
-        "completion_tokens": 140,
-        "total_tokens": 6164,
-        "elapsed_s": 4.29,
-        "stop_reason": "tool_calls"
+        "llm_calls": 2,
+        "tool_calls": 2,
+        "prompt_tokens": 5554,
+        "completion_tokens": 218,
+        "total_tokens": 5772,
+        "elapsed_s": 19.31,
+        "stop_reason": "answered"
       },
-      "elapsed_s": 4.3
+      "elapsed_s": 19.3
     },
     {
       "set": "ood",
@@ -5193,18 +5205,18 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 8.36,
+        "elapsed_s": 8.26,
         "stop_reason": "answered"
       },
-      "elapsed_s": 8.4
+      "elapsed_s": 8.3
     },
     {
       "set": "ood",
       "question": "Unity 遊戲引擎裡要怎麼設定角色的動畫過渡?",
       "expected_intent": null,
-      "intent": "regulation_qa",
+      "intent": "multi_hop",
       "route_source": "llm",
-      "handler": "regulation",
+      "handler": "agent",
       "hit": null,
       "refused": true,
       "confident": false,
@@ -5213,20 +5225,22 @@
       "verdict": null,
       "trace": [
         "route",
-        "retrieve",
-        "retry",
-        "refuse"
+        "tool:search_regulations",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
       ],
       "usage": {
-        "llm_calls": 2,
-        "tool_calls": 0,
-        "prompt_tokens": 0,
-        "completion_tokens": 0,
-        "total_tokens": 0,
-        "elapsed_s": 14.59,
-        "stop_reason": "answered"
+        "llm_calls": 9,
+        "tool_calls": 4,
+        "prompt_tokens": 5432,
+        "completion_tokens": 124,
+        "total_tokens": 5556,
+        "elapsed_s": 54.36,
+        "stop_reason": "tool_calls"
       },
-      "elapsed_s": 14.6
+      "elapsed_s": 54.4
     },
     {
       "set": "ood",
@@ -5243,18 +5257,22 @@
       "verdict": null,
       "trace": [
         "route",
+        "tool:search_regulations",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "tool:search_regulations",
         "generate"
       ],
       "usage": {
-        "llm_calls": 2,
-        "tool_calls": 0,
-        "prompt_tokens": 583,
-        "completion_tokens": 23,
-        "total_tokens": 606,
-        "elapsed_s": 2.13,
-        "stop_reason": "answered"
+        "llm_calls": 9,
+        "tool_calls": 4,
+        "prompt_tokens": 5444,
+        "completion_tokens": 112,
+        "total_tokens": 5556,
+        "elapsed_s": 61.57,
+        "stop_reason": "tool_calls"
       },
-      "elapsed_s": 2.1
+      "elapsed_s": 61.6
     },
     {
       "set": "ood",
@@ -5281,10 +5299,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 16.59,
+        "elapsed_s": 16.7,
         "stop_reason": "answered"
       },
-      "elapsed_s": 16.6
+      "elapsed_s": 16.7
     },
     {
       "set": "ood",
@@ -5301,26 +5319,28 @@
       "verdict": null,
       "trace": [
         "route",
+        "tool:search_regulations",
+        "tool:search_regulations",
         "generate"
       ],
       "usage": {
-        "llm_calls": 2,
-        "tool_calls": 0,
-        "prompt_tokens": 582,
-        "completion_tokens": 23,
-        "total_tokens": 605,
-        "elapsed_s": 1.52,
+        "llm_calls": 6,
+        "tool_calls": 2,
+        "prompt_tokens": 2725,
+        "completion_tokens": 74,
+        "total_tokens": 2799,
+        "elapsed_s": 33.22,
         "stop_reason": "answered"
       },
-      "elapsed_s": 1.5
+      "elapsed_s": 33.2
     },
     {
       "set": "ood",
       "question": "護照到期了要怎麼申請換發?",
       "expected_intent": null,
-      "intent": "multi_hop",
+      "intent": "regulation_qa",
       "route_source": "llm",
-      "handler": "agent",
+      "handler": "regulation",
       "hit": null,
       "refused": true,
       "confident": false,
@@ -5329,21 +5349,20 @@
       "verdict": null,
       "trace": [
         "route",
-        "tool:search_regulations",
-        "tool:search_related_laws",
-        "tool:search_regulations",
-        "generate"
+        "retrieve",
+        "retry",
+        "refuse"
       ],
       "usage": {
-        "llm_calls": 5,
-        "tool_calls": 3,
-        "prompt_tokens": 2772,
-        "completion_tokens": 87,
-        "total_tokens": 2859,
-        "elapsed_s": 29.02,
+        "llm_calls": 2,
+        "tool_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "elapsed_s": 16.86,
         "stop_reason": "answered"
       },
-      "elapsed_s": 29.0
+      "elapsed_s": 16.9
     },
     {
       "set": "ood",
@@ -5370,10 +5389,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 15.81,
+        "elapsed_s": 15.88,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.8
+      "elapsed_s": 15.9
     },
     {
       "set": "ood",
@@ -5390,18 +5409,21 @@
       "verdict": null,
       "trace": [
         "route",
+        "tool:search_regulations",
+        "tool:search_regulations",
+        "tool:search_related_laws",
         "generate"
       ],
       "usage": {
-        "llm_calls": 2,
-        "tool_calls": 0,
-        "prompt_tokens": 581,
-        "completion_tokens": 23,
-        "total_tokens": 604,
-        "elapsed_s": 1.81,
+        "llm_calls": 7,
+        "tool_calls": 3,
+        "prompt_tokens": 3781,
+        "completion_tokens": 93,
+        "total_tokens": 3874,
+        "elapsed_s": 41.6,
         "stop_reason": "answered"
       },
-      "elapsed_s": 1.8
+      "elapsed_s": 41.6
     },
     {
       "set": "ood",
@@ -5428,45 +5450,14 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 15.67,
+        "elapsed_s": 16.6,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.7
+      "elapsed_s": 16.6
     },
     {
       "set": "ood",
       "question": "房屋租賃契約公證要準備什麼文件?",
-      "expected_intent": null,
-      "intent": "multi_hop",
-      "route_source": "llm",
-      "handler": "agent",
-      "hit": null,
-      "refused": true,
-      "confident": false,
-      "unsupported_citations": [],
-      "citation_regenerated": false,
-      "verdict": null,
-      "trace": [
-        "route",
-        "tool:search_regulations",
-        "tool:search_related_laws",
-        "tool:search_regulations",
-        "generate"
-      ],
-      "usage": {
-        "llm_calls": 5,
-        "tool_calls": 3,
-        "prompt_tokens": 2868,
-        "completion_tokens": 90,
-        "total_tokens": 2958,
-        "elapsed_s": 22.16,
-        "stop_reason": "answered"
-      },
-      "elapsed_s": 22.2
-    },
-    {
-      "set": "ood",
-      "question": "小孩幾歲可以開始學游泳比較好?",
       "expected_intent": null,
       "intent": "regulation_qa",
       "route_source": "llm",
@@ -5489,10 +5480,42 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 15.09,
+        "elapsed_s": 15.96,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.1
+      "elapsed_s": 16.0
+    },
+    {
+      "set": "ood",
+      "question": "小孩幾歲可以開始學游泳比較好?",
+      "expected_intent": null,
+      "intent": "multi_hop",
+      "route_source": "llm",
+      "handler": "agent",
+      "hit": null,
+      "refused": true,
+      "confident": false,
+      "unsupported_citations": [],
+      "citation_regenerated": false,
+      "verdict": null,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "usage": {
+        "llm_calls": 9,
+        "tool_calls": 4,
+        "prompt_tokens": 5381,
+        "completion_tokens": 116,
+        "total_tokens": 5497,
+        "elapsed_s": 54.73,
+        "stop_reason": "tool_calls"
+      },
+      "elapsed_s": 54.7
     },
     {
       "set": "ood",
@@ -5519,10 +5542,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 11.64,
+        "elapsed_s": 12.34,
         "stop_reason": "answered"
       },
-      "elapsed_s": 11.6
+      "elapsed_s": 12.3
     },
     {
       "set": "ood",
@@ -5549,10 +5572,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 15.54,
+        "elapsed_s": 16.33,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.5
+      "elapsed_s": 16.3
     },
     {
       "set": "ood",
@@ -5579,10 +5602,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 15.56,
+        "elapsed_s": 16.35,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.6
+      "elapsed_s": 16.3
     },
     {
       "set": "ood",
@@ -5600,28 +5623,28 @@
       "trace": [
         "route",
         "tool:search_regulations",
-        "tool:search_related_laws",
         "tool:search_regulations",
+        "tool:search_related_laws",
         "generate"
       ],
       "usage": {
-        "llm_calls": 5,
+        "llm_calls": 7,
         "tool_calls": 3,
-        "prompt_tokens": 2787,
-        "completion_tokens": 89,
-        "total_tokens": 2876,
-        "elapsed_s": 32.34,
+        "prompt_tokens": 3797,
+        "completion_tokens": 97,
+        "total_tokens": 3894,
+        "elapsed_s": 38.58,
         "stop_reason": "answered"
       },
-      "elapsed_s": 32.3
+      "elapsed_s": 38.6
     },
     {
       "set": "ood",
       "question": "登山遇到失溫要怎麼緊急處理?",
       "expected_intent": null,
-      "intent": "regulation_qa",
+      "intent": "multi_hop",
       "route_source": "llm",
-      "handler": "regulation",
+      "handler": "agent",
       "hit": null,
       "refused": true,
       "confident": false,
@@ -5630,20 +5653,22 @@
       "verdict": null,
       "trace": [
         "route",
-        "retrieve",
-        "retry",
-        "refuse"
+        "tool:search_regulations",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
       ],
       "usage": {
-        "llm_calls": 2,
-        "tool_calls": 0,
-        "prompt_tokens": 0,
-        "completion_tokens": 0,
-        "total_tokens": 0,
-        "elapsed_s": 16.06,
-        "stop_reason": "answered"
+        "llm_calls": 9,
+        "tool_calls": 4,
+        "prompt_tokens": 5472,
+        "completion_tokens": 114,
+        "total_tokens": 5586,
+        "elapsed_s": 70.42,
+        "stop_reason": "tool_calls"
       },
-      "elapsed_s": 16.1
+      "elapsed_s": 70.4
     },
     {
       "set": "ood",
@@ -5670,10 +5695,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 15.33,
+        "elapsed_s": 15.72,
         "stop_reason": "answered"
       },
-      "elapsed_s": 15.3
+      "elapsed_s": 15.7
     },
     {
       "set": "ood",
@@ -5700,10 +5725,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 14.69,
+        "elapsed_s": 14.81,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.7
+      "elapsed_s": 14.8
     },
     {
       "set": "ood",
@@ -5730,10 +5755,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 14.53,
+        "elapsed_s": 14.77,
         "stop_reason": "answered"
       },
-      "elapsed_s": 14.5
+      "elapsed_s": 14.8
     },
     {
       "set": "ood",
@@ -5760,10 +5785,10 @@
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "elapsed_s": 16.22,
+        "elapsed_s": 16.69,
         "stop_reason": "answered"
       },
-      "elapsed_s": 16.2
+      "elapsed_s": 16.7
     }
   ]
 }

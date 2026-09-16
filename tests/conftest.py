@@ -6,6 +6,8 @@
 """
 from __future__ import annotations
 
+import pytest
+
 from app.retrieval import RetrievedChunk
 
 
@@ -27,3 +29,13 @@ class FakeReranker:
     def predict(self, pairs):
         self.calls.append(pairs)
         return [self.scores_by_text.get(doc, 0.0) for _, doc in pairs]
+
+
+@pytest.fixture
+def fake_deps(monkeypatch):
+    """handlers 測試用:模型/索引全換成假物件,案例與 chunk 檢索回空。"""
+    from app import handlers as h
+    for name in ("get_embed_model", "get_faiss_chunks", "get_faiss_cases", "get_reranker"):
+        monkeypatch.setattr(h.deps, name, lambda: object())
+    monkeypatch.setattr(h.retrieval, "retrieve_cases", lambda *a, **k: [])
+    monkeypatch.setattr(h.retrieval, "retrieve_chunks", lambda *a, **k: [])

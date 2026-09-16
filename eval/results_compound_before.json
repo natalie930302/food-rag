@@ -1,0 +1,470 @@
+{
+  "summary": {
+    "tag": "before",
+    "n": 16,
+    "full_hit": {
+      "count": 11,
+      "total": 16,
+      "rate": 0.6875,
+      "ci95": [
+        0.4375,
+        0.875
+      ]
+    },
+    "parts_hit": {
+      "count": 28,
+      "total": 35,
+      "rate": 0.8,
+      "ci95": [
+        0.6571428571428571,
+        0.9142857142857143
+      ]
+    },
+    "refused": 3,
+    "routes": {
+      "multi_hop": 9,
+      "regulation_qa": 7
+    },
+    "avg_llm_calls": 3.0,
+    "avg_latency_s": 17.6
+  },
+  "records": [
+    {
+      "question": "減肥廣告違反哪一條?罰多少?有沒有實際案例?",
+      "route": "multi_hop",
+      "route_source": "rules",
+      "refused": false,
+      "parts": [
+        {
+          "name": "法條",
+          "ok": false
+        },
+        {
+          "name": "罰則",
+          "ok": true
+        },
+        {
+          "name": "案例",
+          "ok": true
+        }
+      ],
+      "full_hit": false,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "llm_calls": 6,
+      "elapsed_s": 41.3,
+      "answer_preview": "根據資料庫的查詢結果，減肥廣告可能違反《食品安全衛生管理法》，該法主要針對食品廣告的內容要求，禁止虛偽或誇大不實的宣傳。\n\n在實際案例中，有幾個減肥產品的廣告因為違反該法而受到處罰。例如：\n\n1. **林OO代言德國全新升級芙媚琳加強錠**：該廣告宣稱能快速減重，最終被處以40,000元的罰款。\n2. **Relove 馬甲纖纖飲**：捷醫國際生物科技股份有限公司因廣告內容誇大效果，被處以160,000元的罰款。\n3. **另一家Relove 馬甲纖纖飲的廣告**：騰柏國際有限公司也因類似原因被處以40,000元的罰款。\n\n這些案例顯示了對於減肥產品廣告的監管力度，並且強調了遵守相關法規的重要"
+    },
+    {
+      "question": "真空包裝豆干要符合什麼規定?有人因為這個被罰過嗎?",
+      "route": "multi_hop",
+      "route_source": "rules",
+      "refused": true,
+      "parts": [
+        {
+          "name": "法規",
+          "ok": true
+        },
+        {
+          "name": "案例(可誠實說沒有)",
+          "ok": true
+        }
+      ],
+      "full_hit": false,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "llm_calls": 3,
+      "elapsed_s": 23.6,
+      "answer_preview": "根據查詢結果，真空包裝豆干需遵循《食品安全衛生管理法》第8條的相關規定。具體來說，真空包裝即食食品的製造必須符合以下條件：\n\n1. **常溫貯存及販售**：水活性在0.85以下，或pH值在9.0以上，或經商業滅菌，或為天然酸性食品（pH值小於4.6），或為發酵食品，或其他能抑制肉毒桿菌生長的條件。\n2. **冷藏貯存及販售**：水活性大於0.85的產品必須在攝氏7度以下貯存，且保存期限應在10日以內，除非符合特定條件（如添加亞硝酸鹽或水活性在0.94以下等）。\n\n這些規定來自於《食品良好衛生規範準則》，具體內容可參考該準則的相關條文。\n\n至於違規案例，查詢結果顯示有關真空包裝食品的具體罰則案例"
+    },
+    {
+      "question": "食品添加物要怎麼標示?沒標會被罰多少錢?",
+      "route": "multi_hop",
+      "route_source": "rules",
+      "refused": false,
+      "parts": [
+        {
+          "name": "標示",
+          "ok": true
+        },
+        {
+          "name": "罰則",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "llm_calls": 2,
+      "elapsed_s": 14.2,
+      "answer_preview": "根據《食品安全衛生管理法》第24條第1項第10款的規定，食品添加物必須在產品外包裝上明顯標示「產品登錄碼字樣」及其產品登錄碼。自106年1月1日起，若未依規定標示，將違反該法，並依第47條處以新台幣3萬元以上至300萬元以下的罰鍰，且產品需依第52條限期回收改正。\n\n此外，根據查詢的違規案例，若標示不完整或誇張易生誤解的情形，可能會受到相似的罰款。例如，某公司因為廣告內容誇張而被罰60,000元，這顯示出標示不當的罰則範圍。\n\n因此，食品添加物的標示必須遵循上述規定，否則將面臨相應的罰款和回收要求。"
+    },
+    {
+      "question": "維生素D在膠囊食品的添加上限是多少?超過會怎樣?",
+      "route": "regulation_qa",
+      "route_source": "rules",
+      "refused": false,
+      "parts": [
+        {
+          "name": "上限",
+          "ok": true
+        },
+        {
+          "name": "後果(可誠實說沒有)",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "llm_calls": 1,
+      "elapsed_s": 9.8,
+      "answer_preview": "在膠囊狀食品中，維生素D的添加上限為每日食用量中不得高於800 I.U.（20μg）。若產品中同時添加維生素D2和維生素D3，則每一種的使用量除以用量標準所得之數值總和不得大於1，這是依據《食品安全衛生管理法》第18條及其附表一的規定。\n\n若超過上述限量，可能會違反食品添加物的使用規範，導致產品不符合安全標準，並可能面臨相關的法律責任及罰款。"
+    },
+    {
+      "question": "宣稱可以降血糖的產品,會被依哪條處罰?跟第28條有關的其他條文有哪些?",
+      "route": "regulation_qa",
+      "route_source": "rules",
+      "refused": false,
+      "parts": [
+        {
+          "name": "法條",
+          "ok": true
+        },
+        {
+          "name": "關聯條文",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations"
+      ],
+      "llm_calls": 1,
+      "elapsed_s": 6.1,
+      "answer_preview": "宣稱可以降血糖的產品，會依《食品安全衛生管理法》第28條處罰，因為該條規定食品之標示、宣傳或廣告不得有不實、誇張或易生誤解之情形，且不得涉及醫療效能的宣稱。\n\n與第28條相關的其他條文包括《食品安全衛生管理法》第22條，該條規定了包裝蜂蜜及其糖漿類產品的標示規定，若未依規定標示，將面臨罰鍰。此外，若標示不實則依第28條處罰。\n\n例如，114年2月，洪OO即瑞瑞堂因其產品宣稱對血糖有影響而被裁處NT$40,000，違反了《食品安全衛生管理法》第28條第1項的規定。"
+    },
+    {
+      "question": "膠原蛋白飲可以說「美白」嗎?被抓到會怎麼罰?有沒有人被罰過?",
+      "route": "multi_hop",
+      "route_source": "llm",
+      "refused": true,
+      "parts": [
+        {
+          "name": "可否",
+          "ok": false
+        },
+        {
+          "name": "罰則",
+          "ok": false
+        },
+        {
+          "name": "案例",
+          "ok": false
+        }
+      ],
+      "full_hit": false,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "generate"
+      ],
+      "llm_calls": 7,
+      "elapsed_s": 49.0,
+      "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+    },
+    {
+      "question": "散裝食品要標示什麼?網路上賣散裝食品也要標嗎?",
+      "route": "regulation_qa",
+      "route_source": "rules",
+      "refused": false,
+      "parts": [
+        {
+          "name": "標示項目",
+          "ok": true
+        },
+        {
+          "name": "網路販售",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "llm_calls": 1,
+      "elapsed_s": 10.4,
+      "answer_preview": "散裝食品的標示要求如下：\n\n1. **標示項目**：依《食品安全衛生管理法》第 25 條規定，食品販賣業者如為已辦理公司登記或商業登記者，販售散裝食品時應標示產品的品名及原產地（國）。未具公司登記或商業登記的食品販賣業者販售特定的散裝食品（如生鮮、冷藏、冷凍等20項農畜禽產品）也必須標示原產地（國）。\n\n2. **網路販售**：網路上販售的散裝食品同樣需要遵循上述標示規定。如果販賣者具備公司或商業登記，則必須標示品名及原產地；若未具備登記，則販售的特定散裝食品仍需標示原產地（國）。\n\n因此，無論是實體店面還是網路販售，散裝食品的標示要求都是適用的。"
+    },
+    {
+      "question": "基因改造食品要怎麼標示?沒標會怎樣?",
+      "route": "regulation_qa",
+      "route_source": "rules",
+      "refused": false,
+      "parts": [
+        {
+          "name": "標示",
+          "ok": true
+        },
+        {
+          "name": "後果",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "llm_calls": 1,
+      "elapsed_s": 10.6,
+      "answer_preview": "基因改造食品的標示規定如下：\n\n1. 具營業登記直接供應飲食場所之食品，若含有基因改造食品原料，應標示「基因改造」或「含基因改造」字樣。這是依據《食品安全衛生管理法》第25條第二項規定。\n\n2. 標示的方式可以是卡片、菜單註記、標記（標籤）或標示牌（板）等型式，並應採懸掛、立（插）牌、黏貼或其他足以明顯辨明之方式。字體長度及寬度不得小於2毫米。\n\n3. 若產品使用的基因改造食品原料仍含有轉殖基因片段或轉殖蛋白質，則無論含量多寡，都必須標示「基因改造」或「含基因改造」字樣。\n\n若未依規定標示，可能會面臨法律責任及罰鍰，具體罰則依相關法規而定。"
+    },
+    {
+      "question": "食品業者要辦登錄嗎?沒登錄會被罰多少?",
+      "route": "multi_hop",
+      "route_source": "llm",
+      "refused": false,
+      "parts": [
+        {
+          "name": "登錄",
+          "ok": true
+        },
+        {
+          "name": "罰則",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "llm_calls": 3,
+      "elapsed_s": 14.1,
+      "answer_preview": "根據《食品安全衛生管理法》第8條，食品業者必須辦理登錄，無論其是否有實體店鋪。若未依規定辦理登錄，根據《食品安全衛生管理法》第48條第1項第2款，將會被命令限期改正，屆期不改正者，處以新臺幣3萬元以上300萬元以下的罰鍰。\n\n這些資訊來自於「食品業者登錄Q&A問答集」及相關法規資料庫的查詢結果。"
+    },
+    {
+      "question": "益生菌可以宣稱「調整體質」嗎?有沒有廠商因此被罰?罰多少?",
+      "route": "multi_hop",
+      "route_source": "llm",
+      "refused": false,
+      "parts": [
+        {
+          "name": "可否",
+          "ok": true
+        },
+        {
+          "name": "案例",
+          "ok": true
+        },
+        {
+          "name": "金額",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "llm_calls": 4,
+      "elapsed_s": 21.3,
+      "answer_preview": "根據資料庫的查詢結果，益生菌產品宣稱「調整體質」的情況可能違反相關法規。依據《食品安全衛生管理法》第28條第1項，食品的標示、宣傳或廣告不得有不實、誇張或易生誤解的情形。\n\n具體案例方面，有廠商因為宣稱「調整體質」而受到處罰。例如，新普利股份有限公司因其產品「EatBLISS 益比喜 健字號益敏王LCW23膠囊」的廣告中提到「調整體質」而被罰240,000元，這是根據違規案例的資料庫查詢結果。\n\n這些資訊來自於食品標示法規指引及違規案例的資料庫。"
+    },
+    {
+      "question": "使用未經許可的食品添加物違反哪條?罰則是什麼?",
+      "route": "multi_hop",
+      "route_source": "llm",
+      "refused": false,
+      "parts": [
+        {
+          "name": "法條",
+          "ok": false
+        },
+        {
+          "name": "罰則",
+          "ok": true
+        }
+      ],
+      "full_hit": false,
+      "trace": [
+        "route",
+        "tool:search_regulations",
+        "tool:search_violation_cases",
+        "generate"
+      ],
+      "llm_calls": 3,
+      "elapsed_s": 18.9,
+      "answer_preview": "使用未經許可的食品添加物違反《食品安全衛生管理法》第21條，該條規定不得添加未經許可之添加物於食品及食品添加物。根據該法第47條，違反此規定可處以新臺幣3萬元以上至300萬元以下的罰鍰；情節重大者，還可能面臨歇業、停業一定期間或廢止公司登記的處罰。\n\n這些資訊來自於我查詢的法規資料庫，具體條文可參考《食品安全衛生管理法》第21條及第47條。"
+    },
+    {
+      "question": "食品標示過敏原的規定是什麼?不標會怎樣?",
+      "route": "regulation_qa",
+      "route_source": "rules",
+      "refused": false,
+      "parts": [
+        {
+          "name": "規定",
+          "ok": true
+        },
+        {
+          "name": "後果",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "llm_calls": 1,
+      "elapsed_s": 10.1,
+      "answer_preview": "食品標示過敏原的規定要求市售包裝食品如含有公告之11項致過敏性內容物，必須在其容器或外包裝上標示相關醒語資訊。這些內容物包括甲殼類、芒果、花生、牛奶、羊奶、蛋、堅果類、芝麻、含麩質之穀物、大豆、魚類及其製品，以及使用亞硫酸鹽類等。標示方式可以是「本產品含有○○」或「本產品含有○○，不適合其過敏體質者食用」等。\n\n若未依規定標示過敏原資訊，將依違反《食品安全衛生管理法》第22條規定，處以3萬元以上300萬元以下的罰鍰；若標示不實，則依第28條規定，處以4萬元以上400萬元以下的罰鍰。此外，產品也可能依第52條限期回收改正。"
+    },
+    {
+      "question": "賣「壯陽」保健食品的廣告會被罰多少?有實際案例嗎?",
+      "route": "multi_hop",
+      "route_source": "llm",
+      "refused": true,
+      "parts": [
+        {
+          "name": "罰則",
+          "ok": false
+        },
+        {
+          "name": "案例",
+          "ok": false
+        }
+      ],
+      "full_hit": false,
+      "trace": [
+        "route",
+        "tool:search_violation_cases",
+        "tool:search_regulations",
+        "tool:search_related_laws",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "llm_calls": 8,
+      "elapsed_s": 25.4,
+      "answer_preview": "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
+    },
+    {
+      "question": "食安法第22條跟哪些條文常一起被引用?違反第22條罰多少?",
+      "route": "multi_hop",
+      "route_source": "rules",
+      "refused": false,
+      "parts": [
+        {
+          "name": "關聯條文",
+          "ok": true
+        },
+        {
+          "name": "罰則",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "tool:search_related_laws",
+        "tool:search_violation_cases",
+        "tool:search_regulations",
+        "generate"
+      ],
+      "llm_calls": 3,
+      "elapsed_s": 12.9,
+      "answer_preview": "根據查詢結果，違反食安法第22條的罰則為新臺幣3萬元至300萬元的罰鍰，具體依據為食安法第47條的規定。此外，根據食安法第52條的規定，若產品標示不符合要求，需限期回收改正，改正前不得繼續販賣，屆期未遵行者，將被沒入銷毀。\n\n這些資訊來自於《113年-食品標示法規手冊》的內容。"
+    },
+    {
+      "question": "食品業者要投保產品責任保險嗎?沒投保會被罰嗎?",
+      "route": "regulation_qa",
+      "route_source": "llm",
+      "refused": false,
+      "parts": [
+        {
+          "name": "投保",
+          "ok": true
+        },
+        {
+          "name": "罰則",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "retrieve",
+        "retrieve_cases",
+        "generate",
+        "verify_citations"
+      ],
+      "llm_calls": 2,
+      "elapsed_s": 5.7,
+      "answer_preview": "食品業者必須依據《食品安全衛生管理法》第13條的規定，投保產品責任保險。若未依規定投保，將依《食品安全衛生管理法》第47條處以新臺幣三萬元以上三百萬元以下的罰鍰；情節重大者，還可能面臨歇業、停業或廢止登錄等處罰。"
+    },
+    {
+      "question": "標示「減少疲勞感」算保健功效嗎?一般食品可以用嗎?",
+      "route": "regulation_qa",
+      "route_source": "rules",
+      "refused": false,
+      "parts": [
+        {
+          "name": "保健功效",
+          "ok": true
+        },
+        {
+          "name": "可否",
+          "ok": true
+        }
+      ],
+      "full_hit": true,
+      "trace": [
+        "route",
+        "retrieve",
+        "generate",
+        "verify_citations"
+      ],
+      "llm_calls": 2,
+      "elapsed_s": 9.0,
+      "answer_preview": "標示「減少疲勞感」屬於健康食品的保健功效之一，因此一般食品不得使用此標示。依據提供的資料，「減少疲勞感」與健康食品的保健功效意義相近，故不符合一般食品的標示規範。"
+    }
+  ]
+}

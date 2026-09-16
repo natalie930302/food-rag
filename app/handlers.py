@@ -2,7 +2,8 @@
 /query 的三條執行路徑。每條都拿同一個 RunContext(app/harness.py)記 trace 與 usage,
 回傳同一種 HandlerResult——對外只有一個入口、一種回傳格式、一套邊界。
 
-  run_regulation  單跳法規問答:dense → entity boost → rerank → 信心閘門 → (改寫重試) → 生成 → 引用驗證
+  run_regulation  法規問答:(複合問題先拆子問題)→ dense → entity boost → rerank → 信心閘門 → (改寫重試)
+                  → 各子問題結果合併 → 生成 → 引用驗證
   run_review      廣告審稿:關鍵字掃描 → 保證撈第 28 條 + 全庫補 → 案例 → 生成三段報告 → 引用驗證 → verdict
   run_agent       多步:tool-calling agent(app/agent.py),trace 由工具紀錄轉成同一種 TraceStep
 
@@ -18,6 +19,7 @@ from dataclasses import dataclass, field
 from app import deps, llm, retrieval
 from app.agent import run_agent
 from app.agentic_retrieval import retrieve_agentic
+from app.decompose import decompose
 from app.harness import NO_EVIDENCE_ANSWER, RunContext, is_refusal, verify_and_regenerate
 from app.retrieval import RetrievedCase, RetrievedChunk
 
@@ -70,25 +72,53 @@ def _wants_cases(question: str) -> bool:
     return any(kw in question for kw in _AD_KEYWORDS + _AD_CLAIM_VERBS + _CASE_TRIGGERS)
 
 
-def run_regulation(ctx: RunContext, db, client, question: str, top_k: int = 8, include_cases: bool = False) -> HandlerResult:
-    em, fi = deps.get_embed_model(), deps.get_faiss_chunks()
-    t0 = time.time()
+def _retrieve_one(ctx: RunContext, db, em, fi, client, question: str, top_k: int, label: str = ""):
+    """一個問句走一次「檢索 → 信心閘門 → 信心不足就 LLM 改寫重查」,把每一步記進 trace。"""
+    t = time.time()
     r = retrieve_agentic(db, em, fi, deps.get_reranker(), client, question,
                          filters=_filters_for(question), top_k=top_k)
     first = r.attempts[0]
-    ctx.step("retrieve", t0, confident=first["confident"], top_score=first["top_score"],
+    ctx.step("retrieve", t, confident=first["confident"], top_score=first["top_score"],
              chunk_ids=[c.chunk_id for c in r.final_result.chunks] if not r.used_retry else [],
-             detail="dense + entity boost + rerank + 信心閘門")
+             detail=(label + " " if label else "") + "dense + entity boost + rerank + 信心閘門")
     if r.used_retry:
         ctx.llm_calls += 1                             # reformulate_query 呼叫了一次 LLM
         second = r.attempts[1]
-        ctx.step("retry", detail=f"LLM 改寫 → 「{second['question']}」", confident=second["confident"],
-                 top_score=second["top_score"], chunk_ids=[c.chunk_id for c in r.final_result.chunks])
-    confident = r.final_result.confident
-    chunks = r.final_result.chunks if confident else []
+        ctx.step("retry", detail=(label + " " if label else "") + f"LLM 改寫 → 「{second['question']}」",
+                 confident=second["confident"], top_score=second["top_score"],
+                 chunk_ids=[c.chunk_id for c in r.final_result.chunks])
+    return r
+
+
+def run_regulation(ctx: RunContext, db, client, question: str, top_k: int = 8, include_cases: bool = False) -> HandlerResult:
+    em, fi = deps.get_embed_model(), deps.get_faiss_chunks()
+    t0 = time.time()
+
+    # 複合問題(一句多問)整句送檢索會失敗(2026/09 實測 reranker 0.17 vs 單問 0.91):
+    # 先拆成子問題各自檢索,結果合併;任一子問題過閘門就生成,答案逐部分標示有無依據。
+    subs, used_llm = decompose(client, question)
+    if used_llm:
+        ctx.llm_calls += 1
+    if len(subs) >= 2:
+        ctx.step("decompose", t0, detail=" | ".join(subs), arguments={"subquestions": subs, "llm": used_llm})
+
+    used_retry = False
+    confident = False
+    chunks: list[RetrievedChunk] = []
+    seen: set[int] = set()
+    per_sub = max(3, top_k // len(subs)) if len(subs) >= 2 else top_k
+    for i, sub in enumerate(subs):
+        r = _retrieve_one(ctx, db, em, fi, client, sub, per_sub, label=f"子問題{i + 1}" if len(subs) >= 2 else "")
+        used_retry = used_retry or r.used_retry
+        if r.final_result.confident:
+            confident = True
+            for c in r.final_result.chunks:
+                if c.chunk_id not in seen:
+                    seen.add(c.chunk_id)
+                    chunks.append(c)
 
     cases: list[RetrievedCase] = []
-    if include_cases or _wants_cases(question):
+    if include_cases or any(_wants_cases(sub) for sub in subs):
         t = time.time()
         cases = retrieval.retrieve_cases(db, em, deps.get_faiss_cases(), question, top_k=3)
         ctx.step("retrieve_cases", t, chunk_ids=[c.id for c in cases])
@@ -97,16 +127,21 @@ def run_regulation(ctx: RunContext, db, client, question: str, top_k: int = 8, i
     t1 = time.time()
     if not confident:
         ctx.step("refuse", detail="信心不足,不呼叫 LLM")
-        return HandlerResult(answer=NO_EVIDENCE_ANSWER, cases=cases, confident=False, used_retry=r.used_retry,
+        return HandlerResult(answer=NO_EVIDENCE_ANSWER, cases=cases, confident=False, used_retry=used_retry,
                              refused=True, retrieval_ms=retrieval_ms)
 
     system, user = llm.build_general_prompt(question, chunks, cases)
+    if len(subs) >= 2:
+        listed = "\n".join(f"{i + 1}. {q}" for i, q in enumerate(subs))
+        user += ("\n\n這個問題包含多個子問題:\n" + listed +
+                 "\n請依序逐一回答每個子問題。某個子問題在 context 裡沒有依據時,只針對那一部分寫"
+                 "「資料庫中沒有找到與此相關的資料」,其餘子問題照答;不要因為一部分沒依據就整題拒答。")
     answer = llm.call_llm(client, system, user, ctx=ctx)
     ctx.step("generate", t1)
     answer, unsupported, regenerated = verify_and_regenerate(
         ctx, answer, chunks, lambda fb: llm.call_llm(client, system, user + "\n\n" + fb, ctx=ctx))
     return HandlerResult(
-        answer=answer, sources=chunks, cases=cases, confident=True, used_retry=r.used_retry,
+        answer=answer, sources=chunks, cases=cases, confident=True, used_retry=used_retry,
         refused=is_refusal(answer), unsupported_citations=unsupported, citation_regenerated=regenerated,
         retrieval_ms=retrieval_ms, llm_ms=int((time.time() - t1) * 1000),
     )

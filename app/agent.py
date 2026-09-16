@@ -15,8 +15,8 @@ harness 的職責是設邊界,不是信任 LLM 自律。四道邊界,每一道�
 
   1. 預算(AgentBudget):工具呼叫次數、總 token、牆鐘秒數,任一超過就停止呼叫工具、
      強制作答。次數上限防重複查詢燒 API 費用;token/秒數上限是 production 的標配
-  2. grounded 檢查(enforce_grounding):迴圈結束時,只要過程中沒有任何一次
-     search_regulations 回傳 confident=True,不管 LLM 說了什麼,一律強制覆寫成
+  2. grounded 檢查(enforce_grounding):迴圈結束時,只要過程中沒有任何一次工具回傳
+     confident=True(法規檢索過閘門,或案例檢索相似度過門檻),不管 LLM 說了什麼,一律強制覆寫成
      跟 /ask 同一句誠實拒答訊息。prompt 裡雖然也寫了「沒依據就承認」,但 prompt
      只是請求不是保證——corrective RAG 的「誠實拒答」紀律要靠程式碼再把關一次
   3. 字面錨定 drift 檢查(drift_check):見 app/agent_tools.py
@@ -110,10 +110,11 @@ def _record_usage(usage: AgentUsage, resp) -> None:
 
 
 def _grounded_chunks(trace: list[ToolCallRecord]) -> list[dict]:
-    """所有 confident 的 search_regulations 回傳過的 chunk(給引用驗證用)。"""
+    """所有 confident 工具回傳過的證據(給引用驗證用):法規 chunk、有信心的案例、關聯法條統計。
+    2026/09 修正:原本只收法規 chunk,agent 用 search_related_laws 查到的條號會被驗證器當成瞎掰而重生成。"""
     out: list[dict] = []
     for rec in trace:
-        if rec.name == "search_regulations" and rec.confident:
+        if rec.confident or rec.name == "search_related_laws":
             out.extend(rec.chunks)
     return out
 

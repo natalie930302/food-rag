@@ -14,6 +14,7 @@
 """
 from __future__ import annotations
 
+import re
 import time
 from dataclasses import dataclass, field
 
@@ -22,12 +23,19 @@ from app.verifier import feedback_for_regeneration, verify_citations
 NO_EVIDENCE_ANSWER = "目前資料庫裡沒有找到足夠可信的法規依據可以回答這個問題,建議換個問法,或直接洽詢主管機關確認。"
 
 # LLM 在沒有 grounded 強制時常用自己的話拒答;這些都算拒答,不算「沒依據卻硬答」
-REFUSAL_CUES = ("沒有找到足夠可信", "無法回答", "沒有相關", "無相關", "找不到相關", "不足以回答", "建議洽詢",
+REFUSAL_CUES = ("沒有找到足夠可信", "沒有找到", "未找到", "無法回答", "沒有相關", "無相關", "找不到相關", "不足以回答", "建議洽詢",
                 "沒有足夠", "無法提供", "不在資料庫", "資料庫裡沒有", "查無")
 
 
 def is_refusal(answer: str) -> bool:
-    return answer == NO_EVIDENCE_ANSWER or any(c in answer for c in REFUSAL_CUES)
+    """整題拒答才算。多重問題的部分回答會寫「資料庫中沒有找到與○○相關的資料」,那是誠實的
+    部分回答,不是拒答(否則前端把整份有內容的答案標成「拒答」)。"""
+    a = answer.strip()
+    if a == NO_EVIDENCE_ANSWER or a.startswith(NO_EVIDENCE_ANSWER[:14]):
+        return True
+    # 每一句都是「找不到」才算整題拒答;只要有一句是實質內容(「上限 800 IU。」)就是部分回答
+    sents = [x.strip() for x in re.split(r"[。\n]", a) if x.strip()]
+    return bool(sents) and all(any(c in x for c in REFUSAL_CUES) for x in sents)
 
 
 @dataclass

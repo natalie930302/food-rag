@@ -1,4 +1,4 @@
-.PHONY: install unzip ingest parse build-index run run-prod test lint eval eval-retrieval eval-agent eval-harness eval-report stats failed clean help
+.PHONY: install unzip ingest parse build-index run run-prod test lint eval eval-retrieval eval-agent eval-harness eval-compound eval-report stats failed clean help
 
 help:
 	@echo "Available commands:"
@@ -15,6 +15,7 @@ help:
 	@echo "  make test        - 跑 pytest"
 	@echo "  make lint        - ruff 靜態檢查"
 	@echo "  make eval        - 重跑全部檢索/agent 評估並產出 eval/RESULTS.md"
+	@echo "  make eval-compound - 16 題複合問題(一句多問)端到端"
 	@echo "  make eval-harness - 多步問題集 + harness 消融(較貴)"
 	@echo "  make clean       - 清掉 data/index 與 data/processed"
 
@@ -80,6 +81,10 @@ eval-agent:
 eval-harness:
 	python eval/eval_multihop.py
 	python eval/eval_harness_ablation.py
+	python eval/eval_compound.py
+
+eval-compound:
+	python eval/eval_compound.py
 
 eval-report:
 	python eval/summarize.py

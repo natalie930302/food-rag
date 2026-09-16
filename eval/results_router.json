@@ -28,8 +28,7 @@
   "confusion": {
     "regulation_qa": {
       "regulation_qa": 120,
-      "case_lookup": 1,
-      "ad_review": 1,
+      "ad_review": 2,
       "multi_hop": 1
     },
     "case_lookup": {
@@ -71,7 +70,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "rules",
-      "reason": "單純問規定",
+      "reason": "多個子問題都只問規定",
       "correct": true
     },
     {
@@ -116,7 +115,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示追溯來源的規定",
+      "reason": "查詢標示追溯來源的規定",
       "correct": true
     },
     {
@@ -215,7 +214,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示要求的具體規定",
+      "reason": "查詢標示要求的法規",
       "correct": true
     },
     {
@@ -233,7 +232,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問產品成分報告的定義和要求",
+      "reason": "查詢產品成分報告的定義",
       "correct": true
     },
     {
@@ -269,7 +268,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問規定內容",
+      "reason": "查法規中對於違規產品的定義",
       "correct": true
     },
     {
@@ -278,7 +277,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問食品中可能影響健康的危險因素",
+      "reason": "查詢食品中影響健康的危險因素",
       "correct": true
     },
     {
@@ -287,7 +286,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "查詢特定規定的內容",
+      "reason": "查詢特定規定的成員數量",
       "correct": true
     },
     {
@@ -296,7 +295,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示是否符合天然果汁的定義",
+      "reason": "查詢果汁標示是否符合天然果汁定義",
       "correct": true
     },
     {
@@ -305,7 +304,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問分裝食品的合法性",
+      "reason": "查詢分裝食品的合法性",
       "correct": true
     },
     {
@@ -314,7 +313,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問填充材料的標示規定",
+      "reason": "查詢標示填充材料的規定",
       "correct": true
     },
     {
@@ -323,7 +322,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問進口食品的追蹤責任",
+      "reason": "查詢進口食品的追蹤責任",
       "correct": true
     },
     {
@@ -339,10 +338,10 @@
       "question": "請問這次的罰款標準是怎麼制定的呢？",
       "intent": "regulation_qa",
       "set": "single-hop",
-      "predicted": "case_lookup",
+      "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "查詢過去的罰款標準",
-      "correct": false
+      "reason": "查詢罰款標準的制定規定",
+      "correct": true
     },
     {
       "question": "請問乙酸的使用濃度上限是多少？",
@@ -350,7 +349,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問特定物質的使用規定",
+      "reason": "查詢乙酸的使用濃度上限",
       "correct": true
     },
     {
@@ -359,7 +358,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問食品檢驗報告的費用",
+      "reason": "查詢檢驗報告的費用屬於法規問題",
       "correct": true
     },
     {
@@ -368,7 +367,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問食品包裝是否算散裝的規定",
+      "reason": "查詢散裝食品的定義",
       "correct": true
     },
     {
@@ -377,7 +376,7 @@
       "set": "single-hop",
       "predicted": "ad_review",
       "source": "llm",
-      "reason": "輸入本身像文案,想知道能不能這樣寫",
+      "reason": "輸入內容像文案,詢問是否可以這樣寫",
       "correct": false
     },
     {
@@ -386,7 +385,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問檢驗報告是否為強制檢驗的規定",
+      "reason": "查詢檢驗報告是否為強制檢驗的規定",
       "correct": true
     },
     {
@@ -395,7 +394,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問塑膠食品包裝的印刷規定",
+      "reason": "查詢塑膠食品包裝印刷的相關規定",
       "correct": true
     },
     {
@@ -404,7 +403,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問水產品的定義",
+      "reason": "查詢水產品的定義",
       "correct": true
     },
     {
@@ -422,7 +421,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問助劑是否需要記錄的規定",
+      "reason": "查詢助劑是否需要記錄的法規",
       "correct": true
     },
     {
@@ -431,7 +430,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問某個規定的定義",
+      "reason": "查詢法規定義",
       "correct": true
     },
     {
@@ -440,7 +439,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示責任的法規",
+      "reason": "查詢標示責任的法規",
       "correct": true
     },
     {
@@ -449,7 +448,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "查詢食品添加物廠的衛生管理人員資格規定",
+      "reason": "查詢法規中對衛生管理人員資格的要求",
       "correct": true
     },
     {
@@ -458,7 +457,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問是否需要保存產品來源資料的規定",
+      "reason": "查詢是否需要保存產品來源資料的法規",
       "correct": true
     },
     {
@@ -467,7 +466,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問健康食品的檢查要求",
+      "reason": "查詢健康食品的檢查規定",
       "correct": true
     },
     {
@@ -503,7 +502,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示內容的處理方式",
+      "reason": "查詢標示規定",
       "correct": true
     },
     {
@@ -512,7 +511,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示要求",
+      "reason": "查詢標示要求",
       "correct": true
     },
     {
@@ -530,7 +529,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示規定",
+      "reason": "查詢海鮮商品冰包裝的標示規定",
       "correct": true
     },
     {
@@ -539,7 +538,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "查詢食品添加物檢驗報告的標準和實驗室要求",
+      "reason": "查法規關於檢驗報告的要求",
       "correct": true
     },
     {
@@ -557,7 +556,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示過敏原的規定",
+      "reason": "查詢標示過敏原的規定",
       "correct": true
     },
     {
@@ -566,7 +565,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示產地的規定",
+      "reason": "查詢標示產地的法規",
       "correct": true
     },
     {
@@ -575,7 +574,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "查詢標示要求的法規",
+      "reason": "查詢標示要求",
       "correct": true
     },
     {
@@ -584,7 +583,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問是否需要再登錄已持有的許可證",
+      "reason": "查詢是否需要再登錄的法規問題",
       "correct": true
     },
     {
@@ -611,7 +610,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "查詢農藥殘留量的法規",
+      "reason": "查農藥殘留標準",
       "correct": true
     },
     {
@@ -638,7 +637,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "查詢法規來源的問題",
+      "reason": "查詢法規來源",
       "correct": true
     },
     {
@@ -647,7 +646,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問進口食品標示要求",
+      "reason": "查詢進口食品標示要求",
       "correct": true
     },
     {
@@ -665,7 +664,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問食品業者登記的必要性和開始時間",
+      "reason": "查詢食品業者登記的規定",
       "correct": true
     },
     {
@@ -674,17 +673,17 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問食品中銅成分的攝取上限",
+      "reason": "查詢食品中銅成分的攝取上限",
       "correct": true
     },
     {
       "question": "如果我在三月退貨，應該怎麼報告這筆交易？",
       "intent": "regulation_qa",
       "set": "single-hop",
-      "predicted": "multi_hop",
+      "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "需要查詢退貨報告的規定和相關案例",
-      "correct": false
+      "reason": "查詢退貨報告的相關規定",
+      "correct": true
     },
     {
       "question": "我想知道像免疫球蛋白這些東西，能不能當作營養素來標示呢？",
@@ -692,7 +691,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "查詢標示規定",
+      "reason": "查法規是否允許標示為營養素",
       "correct": true
     },
     {
@@ -701,7 +700,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問特殊配方食品的注意事項，涉及法規查詢",
+      "reason": "查詢特殊配方食品的相關規定",
       "correct": true
     },
     {
@@ -717,10 +716,10 @@
       "question": "如果我在網路上訂購食品，多久會收到貨呢？",
       "intent": "regulation_qa",
       "set": "single-hop",
-      "predicted": "regulation_qa",
+      "predicted": "multi_hop",
       "source": "llm",
-      "reason": "詢問食品訂購的交貨時間",
-      "correct": true
+      "reason": "詢問網路訂購食品的配送時間，涉及多個法規和實務案例",
+      "correct": false
     },
     {
       "question": "我想知道文件保存五年的規定是怎麼算的，什麼時候開始算呢？",
@@ -737,7 +736,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示規定",
+      "reason": "查詢消泡劑的標示規定",
       "correct": true
     },
     {
@@ -755,7 +754,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問進口食品業者的法規要求",
+      "reason": "查詢進口食品業者的法規要求",
       "correct": true
     },
     {
@@ -764,7 +763,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問違反食安法的處理方式",
+      "reason": "查詢違反食安法的處理方式",
       "correct": true
     },
     {
@@ -773,7 +772,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問特定流程的規定",
+      "reason": "查詢驗證收費流程屬於法規問題",
       "correct": true
     },
     {
@@ -791,7 +790,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問特定疾病相關的法規資訊",
+      "reason": "查詢特定食品安全規定",
       "correct": true
     },
     {
@@ -809,7 +808,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問餐盒食品的檢驗規定",
+      "reason": "查詢餐盒食品的檢驗規定",
       "correct": true
     },
     {
@@ -818,7 +817,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示要求的具體規定",
+      "reason": "查詢標示要求",
       "correct": true
     },
     {
@@ -836,7 +835,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示規定的具體要求",
+      "reason": "查詢調合油的標示規定",
       "correct": true
     },
     {
@@ -854,7 +853,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示規定",
+      "reason": "查法規標示要求",
       "correct": true
     },
     {
@@ -872,17 +871,17 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示規定",
+      "reason": "查詢標示規定",
       "correct": true
     },
     {
       "question": "如果我有一種果汁，主要是葡萄，這樣的標示合不合法呢？",
       "intent": "regulation_qa",
       "set": "single-hop",
-      "predicted": "regulation_qa",
+      "predicted": "ad_review",
       "source": "llm",
-      "reason": "詢問標示是否合法",
-      "correct": true
+      "reason": "輸入內容像文案，詢問標示合法性",
+      "correct": false
     },
     {
       "question": "我想進口食品添加物，有什麼特別的注意事項嗎？",
@@ -890,7 +889,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問進口食品添加物的注意事項",
+      "reason": "查詢進口食品添加物的相關規定",
       "correct": true
     },
     {
@@ -899,7 +898,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問碳酸飲料外包裝標示要求",
+      "reason": "查詢碳酸飲料外包裝標示要求",
       "correct": true
     },
     {
@@ -917,7 +916,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示過敏原的規定",
+      "reason": "查詢標示過敏原的規定",
       "correct": true
     },
     {
@@ -926,7 +925,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問冷凍蔬菜產品的標示規定",
+      "reason": "查詢冷凍蔬菜產品是否需要營養標示",
       "correct": true
     },
     {
@@ -935,7 +934,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問添加物的進口規定",
+      "reason": "查詢國外藥品添加物回台灣的規定",
       "correct": true
     },
     {
@@ -944,7 +943,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問特定規定是否需要標示",
+      "reason": "查詢標示規定",
       "correct": true
     },
     {
@@ -953,7 +952,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問香料標示的規定",
+      "reason": "查詢香料標示規定",
       "correct": true
     },
     {
@@ -962,7 +961,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問標示是否違法",
+      "reason": "查詢標示是否違法",
       "correct": true
     },
     {
@@ -971,7 +970,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問是否需要標示二氧化碳的規定",
+      "reason": "查詢標示要求",
       "correct": true
     },
     {
@@ -998,7 +997,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問文件保存的規定",
+      "reason": "查詢文件保存的相關規定",
       "correct": true
     },
     {
@@ -1007,7 +1006,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問風險等級劃分的規定",
+      "reason": "查詢風險等級劃分的法規",
       "correct": true
     },
     {
@@ -1016,7 +1015,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問是否需要標示營養成分",
+      "reason": "查詢標示營養成分的規定",
       "correct": true
     },
     {
@@ -1025,7 +1024,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問如何建立追蹤系統，涉及法規要求",
+      "reason": "查詢建立追蹤系統的相關規定",
       "correct": true
     },
     {
@@ -1052,7 +1051,7 @@
       "set": "single-hop",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問官方對紅麴膠囊的歸類",
+      "reason": "查詢紅麴膠囊的官方歸類",
       "correct": true
     },
     {
@@ -1124,7 +1123,7 @@
       "set": "multi-hop",
       "predicted": "multi_hop",
       "source": "llm",
-      "reason": "同時要法規依據「和」實際案例/罰款金額",
+      "reason": "查法規依據和實際案例罰款",
       "correct": true
     },
     {
@@ -1169,7 +1168,7 @@
       "set": "multi-hop",
       "predicted": "multi_hop",
       "source": "llm",
-      "reason": "同時詢問廣告合規性和過去的罰款案例",
+      "reason": "查廣告合規性和過去的罰款案例",
       "correct": true
     },
     {
@@ -1178,7 +1177,7 @@
       "set": "multi-hop",
       "predicted": "multi_hop",
       "source": "llm",
-      "reason": "詢問廣告性質及相關罰款案例",
+      "reason": "詢問廣告定義及相關罰則案例",
       "correct": true
     },
     {
@@ -1205,7 +1204,7 @@
       "set": "multi-hop",
       "predicted": "multi_hop",
       "source": "llm",
-      "reason": "同時要法規依據和實際案例/罰款金額",
+      "reason": "查法規依據和實際案例",
       "correct": true
     },
     {
@@ -1241,7 +1240,7 @@
       "set": "multi-hop",
       "predicted": "multi_hop",
       "source": "llm",
-      "reason": "同時詢問標示違規與過去罰款案例",
+      "reason": "同時查標示規定和過去的罰款案例",
       "correct": true
     },
     {
@@ -1250,7 +1249,7 @@
       "set": "multi-hop",
       "predicted": "multi_hop",
       "source": "llm",
-      "reason": "同時詢問廣告內容的合規性和過去的罰款案例",
+      "reason": "同時查廣告內容是否誇張及過去的罰款案例",
       "correct": true
     },
     {
@@ -1259,7 +1258,7 @@
       "set": "multi-hop",
       "predicted": "multi_hop",
       "source": "llm",
-      "reason": "同時詢問廣告規範和相關裁罰案例",
+      "reason": "同時查法規依據和實際案例",
       "correct": true
     },
     {
@@ -1295,7 +1294,7 @@
       "set": "router-set",
       "predicted": "ad_review",
       "source": "llm",
-      "reason": "輸入本身像文案,想知道能不能這樣寫",
+      "reason": "輸入本身像文案,不是問句",
       "correct": true
     },
     {
@@ -1322,7 +1321,7 @@
       "set": "router-set",
       "predicted": "ad_review",
       "source": "llm",
-      "reason": "輸入本身像文案,想知道能不能這樣寫",
+      "reason": "輸入內容像文案,詢問廣告合規性",
       "correct": true
     },
     {
@@ -1340,7 +1339,7 @@
       "set": "router-set",
       "predicted": "ad_review",
       "source": "llm",
-      "reason": "輸入本身像文案,想知道能不能這樣寫",
+      "reason": "輸入本身像文案,不是問句",
       "correct": true
     },
     {
@@ -1385,7 +1384,7 @@
       "set": "router-set",
       "predicted": "case_lookup",
       "source": "llm",
-      "reason": "只想找過去的裁罰案例",
+      "reason": "查找過去的裁罰案例",
       "correct": true
     },
     {
@@ -1394,7 +1393,7 @@
       "set": "router-set",
       "predicted": "case_lookup",
       "source": "llm",
-      "reason": "只想找過去的裁罰案例",
+      "reason": "查過去的裁罰案例",
       "correct": true
     },
     {
@@ -1403,7 +1402,7 @@
       "set": "router-set",
       "predicted": "case_lookup",
       "source": "llm",
-      "reason": "只想找過去的裁罰案例、罰款紀錄",
+      "reason": "尋找過去的膠原蛋白飲裁罰案例",
       "correct": true
     },
     {
@@ -1412,7 +1411,7 @@
       "set": "router-set",
       "predicted": "multi_hop",
       "source": "llm",
-      "reason": "同時要法規依據和實際案例/罰款金額",
+      "reason": "查處分案例和罰款金額的關聯",
       "correct": false
     },
     {
@@ -1421,7 +1420,7 @@
       "set": "router-set",
       "predicted": "case_lookup",
       "source": "llm",
-      "reason": "只想找過去的裁罰案例",
+      "reason": "查過去的裁罰案例",
       "correct": true
     },
     {
@@ -1430,7 +1429,7 @@
       "set": "router-set",
       "predicted": "case_lookup",
       "source": "llm",
-      "reason": "只想找過去的裁罰案例、罰款紀錄",
+      "reason": "尋找過去的裁罰案例",
       "correct": true
     },
     {
@@ -1439,7 +1438,7 @@
       "set": "router-set",
       "predicted": "case_lookup",
       "source": "llm",
-      "reason": "只想找過去的裁罰案例",
+      "reason": "查找過去的裁罰案例",
       "correct": true
     },
     {
@@ -1493,7 +1492,7 @@
       "set": "router-set",
       "predicted": "regulation_qa",
       "source": "llm",
-      "reason": "詢問特定規定的檢驗要求",
+      "reason": "查詢餐盒食品的檢驗規定",
       "correct": true
     },
     {
@@ -1538,7 +1537,7 @@
       "set": "router-set",
       "predicted": "multi_hop",
       "source": "llm",
-      "reason": "詢問廣告定義及相關罰款案例",
+      "reason": "同時詢問廣告定義和過去的罰款案例",
       "correct": true
     },
     {

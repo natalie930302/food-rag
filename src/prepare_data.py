@@ -7,10 +7,13 @@ import math
 import random
 import csv
 import re
+import sys
 
 random.seed(42)
 
-SRC = "../data/violations.jsonl"
+# 400 筆裁罰案例不隨 repo 提供:由 food-rag 的 `make ingest` 產生 data/processed/violations.jsonl,
+# 複製到本專案 data/ 下,或直接把路徑當第一個參數傳入。
+SRC = sys.argv[1] if len(sys.argv) > 1 else "../data/violations.jsonl"
 OUT_DIR = "../data"
 
 rows = []

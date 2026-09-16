@@ -1,5 +1,7 @@
 # food-violation-severity-model
 
+> 本專案已併入 [food-rag](https://github.com/natalie930302/food-rag) 的 `experiments/severity-regression/`,與其資料來源放在同一個 repo 內維護;此處保留原始歷史供連結使用。
+
 用食品/健康食品違規廣告的真實裁罰案例(台北市政府公告114-115年,400筆)訓練模型,**預測罰款金額**(log尺度迴歸)。資料來自 `food-rag` 專案已蒐集的裁罰公告。
 
 ## 為什麼是迴歸,不是分類?
@@ -8,7 +10,8 @@
 
 ## 資料
 
-- 來源:`data/violations.jsonl`(400筆,含違規文字、罰款金額、法條依據)
+- 來源:台北市政府 114–115 年違規食品廣告裁罰公告,400 筆,含違規文字、罰款金額、法條依據。由 [food-rag](https://github.com/natalie930302/food-rag) 的 `make ingest` 從原始公告解析產生(`data/processed/violations.jsonl`)
+- **資料與模型產物不隨本 repo 提供**(`.gitignore` 排除 `data/*.jsonl`、`*.csv`、`*.joblib`、`*.pt`)。重現時先跑 food-rag 的 ingest,再把 `violations.jsonl` 複製到本專案 `data/`,或 `python prepare_data.py <path>` 直接指定路徑
 - 切分:train 280 / val 60 / test 60(依隨機切分,無時間洩漏疑慮因為都是獨立裁罰案件)
 - 目標值取 log(罰款金額),因為金額分佈右偏(40,000 ~ 1,980,000元)
 

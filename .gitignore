@@ -1,4 +1,9 @@
 __pycache__/
 *.pyc
 .venv/
-data/bert_regressor.pt
+# 資料與模型產物不入庫:400 筆裁罰案例由 food-rag 的 ingest 產生(見 README「資料」)
+data/*.jsonl
+data/*.csv
+data/*.joblib
+data/*.pt
+!data/results_small_regularized.json

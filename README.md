@@ -9,6 +9,15 @@
 外加一個有邊界的 tool-calling agent(只在 `/query` 判定為多步問題時啟用)。重點不是功能清單,是**每個元件都有量化證據、
 每個「提升」都附信賴區間、負向結果照實記錄**。
 
+## 專案地圖
+
+| 目錄 | 是什麼 | 一句話結論 |
+|---|---|---|
+| `app/` `ingest/` `eval/`(本頁) | **主系統**:法規 RAG 問答 / 廣告審稿 / 有邊界的 agent,單一 `/query` 入口 | reranker 型號才是關鍵;agent 只在多步題目有價值;RAG 在 260 題國考上 +13 點 |
+| [`experiments/severity-regression/`](experiments/severity-regression/) | **延伸實驗**:拿同一份 400 筆裁罰案例,從違規文字預測罰款金額 | TF-IDF+Ridge(test R² 0.391)打敗微調 BERT(−0.278)與更小的 rbt3(−0.514):280 筆撐不起 transformer 微調 |
+
+兩者用同一份資料、得到同一類結論:**小資料下,簡單方法加誠實評估,贏過直覺上更強的模型。**
+
 ## 30 秒看懂
 
 | 問題 | 答案 | 證據 |
@@ -254,6 +263,22 @@ harness 自己用原始問題補查一次再讓它答。第一次跑這組題目
 第一版規則層只有 90%——把「罰款/裁罰」這類泛用字當成案例訊號,「罰款標準怎麼制定」就被判成案例;收緊成只在訊號很強時才自己判、
 其餘交給 LLM 之後,規則層 100%、整體從 94.0% 到 97.6%。這是「規則要窄、LLM 要當 fallback 而不是主力」的一個具體例子。
 
+## 延伸實驗:同一份 400 筆案例的罰款金額迴歸
+
+主系統把 400 筆台北市裁罰案例當檢索語料;[`experiments/severity-regression/`](experiments/severity-regression/) 把同一份資料當監督式學習的標籤,
+從違規廣告文字預測罰款金額(log 尺度迴歸,train 280 / val 60 / test 60)。原本規劃「違規/合規」分類,拿到資料才發現裁罰公告只有違規樣本,
+於是改成資料本身答得出來的問題,而不是硬造負樣本。
+
+| 方法 | 參數量 | val R² | test R² | test MAE |
+|---|---|---|---|---|
+| **字元 TF-IDF(2–4gram)+ Ridge** | — | 0.548 | **0.391** | NT$29,642 |
+| 微調 bert-base-chinese | ~102M | 0.057 | −0.278 | NT$47,870 |
+| 微調 hfl/rbt3(更小 + dropout 0.3 + weight decay + best checkpoint) | ~38M | −0.024 | −0.514 | NT$52,227 |
+
+換更小的模型、加正則化、挑最佳 checkpoint 之後結果更差,連訓練集 R² 都是負的:不是 overfit,是 transformer 微調在這個資料量級下學不到穩定訊號。
+這跟主系統「reranker-base 沒幫助、agent 沒有自動變好」是同一種教訓——模型複雜度要跟資料量匹配,而且要量了才知道。
+完整實驗紀錄、重現指令與學習筆記見該目錄的 [README](experiments/severity-regression/README.md)。資料由本 repo 的 `make ingest` 產生,不隨 git 提供。
+
 ## 誠實的限制
 
 - **合成題目的偏差**:84 題是 gpt-4o-mini 看著 chunk 出的題,雖然過濾了字面重疊(最長共同子字串 ≤ 6 字)、
@@ -322,6 +347,8 @@ eval/                評估集、腳本、stats.py(bootstrap/符號檢定)、RES
 tests/               單元測試(fake reranker + scripted LLM client)
 docs/                研究日誌、技術報告
 scripts/             replay_trace、extract_chunk_entities、inspect_index
+experiments/
+  severity-regression/  延伸實驗:罰款金額迴歸(git subtree 併入,保留原歷史;資料不入庫)
 ```
 
 ## 文件

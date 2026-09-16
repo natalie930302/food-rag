@@ -1,12 +1,12 @@
 """
 Baseline: 字元級 TF-IDF + Ridge 迴歸,預測 log(罰款金額)。
 """
-import pandas as pd
+import joblib
 import numpy as np
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-import joblib
 
 train = pd.read_csv("../data/train.csv")
 val = pd.read_csv("../data/val.csv")

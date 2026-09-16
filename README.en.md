@@ -11,6 +11,15 @@ multi-hop). The point is not the feature list:
 **every component has quantitative evidence, every "improvement" carries a confidence interval, and negative results
 are reported as they happened.**
 
+## Project map
+
+| Directory | What it is | One-line conclusion |
+|---|---|---|
+| `app/` `ingest/` `eval/` (this page) | **Main system**: regulation RAG QA / ad review / bounded agent behind a single `/query` entry point | The reranker model is what matters; the agent only pays off on multi-hop questions; RAG adds +13 points on 260 national-exam questions |
+| [`experiments/severity-regression/`](experiments/severity-regression/) | **Extension**: predict the fine amount from the violation text, using the same 400 penalty cases | TF-IDF + Ridge (test R² 0.391) beats fine-tuned BERT (−0.278) and the smaller rbt3 (−0.514): 280 training rows cannot support transformer fine-tuning |
+
+Same data, same kind of conclusion: **with small data, a simple method plus honest evaluation beats the intuitively stronger model.**
+
 ## 30-second summary
 
 | Question | Answer | Evidence |
@@ -283,6 +292,27 @@ so "how is the penalty schedule set?" was routed to case lookup. Narrowing the r
 handing everything else to the LLM took the rule layer to 100 % and the total from 94.0 % to 97.6 % — a concrete case of
 "keep rules narrow; use the LLM as the fallback, not the workhorse".
 
+## Extension: fine-amount regression on the same 400 cases
+
+The main system uses the 400 Taipei penalty cases as a retrieval corpus; [`experiments/severity-regression/`](experiments/severity-regression/)
+uses the same rows as supervised labels and predicts the fine amount from the violation text (log-scale regression,
+train 280 / val 60 / test 60). The original plan was a violation/compliant classifier; the data turned out to contain
+only violations (penalty notices never announce compliant ads), so the task was redesigned around a question the data
+can honestly answer instead of fabricating negatives.
+
+| Method | Params | val R² | test R² | test MAE |
+|---|---|---|---|---|
+| **Char TF-IDF (2–4gram) + Ridge** | — | 0.548 | **0.391** | NT$29,642 |
+| Fine-tuned bert-base-chinese | ~102M | 0.057 | −0.278 | NT$47,870 |
+| Fine-tuned hfl/rbt3 (smaller + dropout 0.3 + weight decay + best checkpoint) | ~38M | −0.024 | −0.514 | NT$52,227 |
+
+A smaller model, stronger regularisation and checkpoint selection made it worse, and even the training-set R² is
+negative: not overfitting, but transformer fine-tuning failing to learn a stable signal at this data size. It is the same
+lesson as the main system's "reranker-base does not help, the agent does not win by default" — model complexity has to
+match the data, and you only know after measuring. Full log, reproduction commands and learning notes are in that
+directory's [README](experiments/severity-regression/README.md). The data is produced by this repo's `make ingest` and is
+not shipped in git.
+
 ## Honest limitations
 
 - **Synthetic-question bias.** 84 questions were written by gpt-4o-mini while looking at the chunk. Lexical overlap
@@ -345,6 +375,8 @@ eval/       question sets, scripts, stats.py (bootstrap / sign test), RESULTS.md
 tests/      unit tests with a fake reranker and a scripted LLM client
 docs/       research log, technical report
 scripts/    replay_trace, extract_chunk_entities, inspect_index
+experiments/
+  severity-regression/  extension: fine-amount regression (merged via git subtree, history kept; data not in git)
 ```
 
 ## License

@@ -2,13 +2,14 @@
 微調中文 BERT(bert-base-chinese)做迴歸,預測 log(罰款金額)。
 跟 baseline_tfidf.py 的結果比較,驗證微調是否真的帶來進步。
 """
-import pandas as pd
-import numpy as np
-import torch
-from torch.utils.data import Dataset, DataLoader
-from transformers import AutoTokenizer, AutoModel
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import time
+
+import numpy as np
+import pandas as pd
+import torch
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from torch.utils.data import DataLoader, Dataset
+from transformers import AutoModel, AutoTokenizer
 
 MODEL_NAME = "bert-base-chinese"
 MAX_LEN = 256

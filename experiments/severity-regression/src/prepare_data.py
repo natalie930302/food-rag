@@ -2,10 +2,10 @@
 讀取 violations.jsonl,切分 train/val/test,存成 csv。
 目標:用違規廣告文字(product + violation)預測罰款金額(log尺度迴歸)。
 """
+import csv
 import json
 import math
 import random
-import csv
 import re
 import sys
 

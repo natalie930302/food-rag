@@ -14,14 +14,15 @@ baseline(test R² -0.278 vs 0.391)。這支腳本驗證README「後續可以做�
 其餘設定(資料切分、log轉換、評估指標)跟 train_bert.py 完全一致,只變動上面
 4點,才能把差異歸因到「模型更小+正則化更強」這個假設上。
 """
-import pandas as pd
-import numpy as np
-import torch
-from torch.utils.data import Dataset, DataLoader
-from transformers import AutoTokenizer, AutoModel
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-import time
 import copy
+import time
+
+import numpy as np
+import pandas as pd
+import torch
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from torch.utils.data import DataLoader, Dataset
+from transformers import AutoModel, AutoTokenizer
 
 MODEL_NAME = "hfl/rbt3"
 MAX_LEN = 256
@@ -149,6 +150,7 @@ val_result = report("val", val_loader)
 test_result = report("test", test_loader)
 
 import json
+
 with open("../data/results_small_regularized.json", "w", encoding="utf-8") as f:
     json.dump({
         "model_name": MODEL_NAME,

@@ -128,6 +128,7 @@ def run_agent(
     enforce_grounding: bool = True,
     drift_check: bool = True,
     verify_answer: bool = True,
+    on_step=None,
     faiss_cases=None,
     tool_retry: bool = True,
     force_regulation: bool = True,
@@ -175,6 +176,8 @@ def run_agent(
                     client=client, tool_retry=tool_retry,
                 )
                 trace.append(record)
+                if on_step:
+                    on_step(record)
                 usage.tool_calls += 1
                 if record.retry_used:
                     usage.llm_calls += 1
@@ -232,6 +235,8 @@ def run_agent(
                 client=client, tool_retry=tool_retry,
             )
             trace.append(record)
+            if on_step:
+                on_step(record)
             usage.tool_calls += 1
             if record.retry_used:
                 usage.llm_calls += 1          # 工具內的改寫重試也算一次 LLM 呼叫

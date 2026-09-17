@@ -205,14 +205,17 @@ def run_review(ctx: RunContext, db, client, ad_text: str, top_k: int = 5) -> Han
 
 def run_agent_route(ctx: RunContext, db, client, question: str, max_tool_calls: int = 4) -> HandlerResult:
     t0 = time.time()
-    r = run_agent(db, deps.get_embed_model(), deps.get_faiss_chunks(), deps.get_reranker(), client,
-                  question, max_tool_calls=max_tool_calls, faiss_cases=deps.get_faiss_cases())
-    for rec in r.trace:
+
+    def _tool_step(rec) -> None:
+        """每一次工具呼叫完成就記進 ctx(不是等 agent 跑完才一次補),/query/stream 才能即時推給前端。"""
         detail = rec.result_summary + (" [工具內改寫重查]" if rec.retry_used else "")
         if rec.arguments.get("forced"):
             detail += " [harness 強制補查法規]"
         ctx.step(f"tool:{rec.name}", confident=rec.confident, top_score=rec.top_score, chunk_ids=rec.chunk_ids,
                  query_drift_detected=rec.query_drift_detected, arguments=rec.arguments, detail=detail)
+
+    r = run_agent(db, deps.get_embed_model(), deps.get_faiss_chunks(), deps.get_reranker(), client,
+                  question, max_tool_calls=max_tool_calls, faiss_cases=deps.get_faiss_cases(), on_step=_tool_step)
     ctx.tool_calls += r.usage.tool_calls
     ctx.llm_calls += r.usage.llm_calls
     ctx.prompt_tokens += r.usage.prompt_tokens

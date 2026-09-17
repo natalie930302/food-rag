@@ -12,14 +12,16 @@
 
 啟動:uvicorn app.main:app --reload --port 8000
 """
+import json
 import logging
+import threading
 import time
 from contextlib import asynccontextmanager
 
 import torch
 from fastapi import FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from openai import OpenAI
 
@@ -92,18 +94,8 @@ def _cases(cases) -> list[schemas.ViolationCase]:
 
 # ============ 功能端點 ============
 
-@app.post("/query", response_model=schemas.QueryResponse)
-def query(req: schemas.QueryRequest, x_openai_key: str | None = Header(default=None)):
-    """單一入口。
-
-    1. 路由:規則層零成本判定,判不出來才問一次 LLM;呼叫端也可以 force_intent 指定
-    2. 分派:regulation_qa / case_lookup → 固定路徑;ad_review → 審稿;multi_hop → tool-calling agent
-       (單跳問題上 agent 跟固定路徑一樣準但慢一倍,所以只有多步才用,見 README §3、§6)
-    3. harness:不管走哪條,回來都是同一種 trace / usage / meta,拒答與引用驗證同一套
-    """
-    ctx = RunContext(max_seconds=req.max_seconds)
-    client = _client(x_openai_key)
-
+def _run_query(req: schemas.QueryRequest, client: OpenAI, ctx: RunContext) -> schemas.QueryResponse:
+    """/query 與 /query/stream 共用的主體:分流 → 分派到路徑 → 組回傳。ctx.trace 會在執行中被逐步填入。"""
     t = time.time()
     if req.force_intent:
         intent, source, reason = req.force_intent, "forced", ""
@@ -200,6 +192,61 @@ def health():
         failed_files=failed,
     )
 
+
+
+@app.post("/query", response_model=schemas.QueryResponse)
+def query(req: schemas.QueryRequest, x_openai_key: str | None = Header(default=None)):
+    """單一入口。
+
+    1. 路由:規則層零成本判定,判不出來才問一次 LLM;呼叫端也可以 force_intent 指定
+    2. 分派:regulation_qa / case_lookup → 固定路徑;ad_review → 審稿路徑;multi_hop → agent 路徑
+       (單跳問題上 agent 跟固定路徑一樣準但慢一倍,所以只有多步才用,見 README §3、§6)
+    3. harness:不管走哪條,回來都是同一種 trace / usage / meta,拒答與引用驗證同一套
+    """
+    return _run_query(req, _client(x_openai_key), RunContext(max_seconds=req.max_seconds))
+
+
+@app.post("/query/stream")
+def query_stream(req: schemas.QueryRequest, x_openai_key: str | None = Header(default=None)):
+    """跟 /query 完全相同的流程,但用 SSE 把每一步即時推出去,前端才能顯示「現在跑到哪一步」。
+
+    事件:`step`(一個 TraceStep JSON,依發生順序)→ 最後一個 `result`(完整 QueryResponse JSON);
+    例外時送 `error`。實作:主體在背景執行緒跑,這裡每 0.15 秒看 ctx.trace 有沒有新步驟。
+    """
+    ctx = RunContext(max_seconds=req.max_seconds)
+    client = _client(x_openai_key)
+    box: dict = {}
+
+    def work():
+        try:
+            box["result"] = _run_query(req, client, ctx)
+        except Exception as e:                       # noqa: BLE001 - 要把任何錯誤送回前端而不是靜默斷線
+            box["error"] = f"{type(e).__name__}: {e}"
+
+    def sse(event: str, data) -> str:
+        return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+    def gen():
+        th = threading.Thread(target=work, daemon=True)
+        th.start()
+        sent = 0
+        while True:
+            while sent < len(ctx.trace):
+                yield sse("step", ctx.trace[sent].as_dict())
+                sent += 1
+            if not th.is_alive():
+                break
+            time.sleep(0.15)
+        while sent < len(ctx.trace):
+            yield sse("step", ctx.trace[sent].as_dict())
+            sent += 1
+        if "error" in box:
+            yield sse("error", {"detail": box["error"]})
+        else:
+            yield sse("result", box["result"].model_dump())
+
+    return StreamingResponse(gen(), media_type="text/event-stream",
+                             headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 # ============ 資料端點 ============
 

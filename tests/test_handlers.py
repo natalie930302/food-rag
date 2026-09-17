@@ -106,7 +106,14 @@ def test_agent_route_converts_tool_trace_and_usage(fake_deps, monkeypatch):
                          chunk_ids=[7], result_summary="1 chunks")
     usage = AgentUsage(tool_calls=1, llm_calls=2, prompt_tokens=300, completion_tokens=30, stop_reason="answered")
     result = AgentResult(answer="依第28條。", trace=[rec], tool_calls_used=1, grounded=True, usage=usage)
-    monkeypatch.setattr(h, "run_agent", lambda *a, **k: result)
+
+    def fake_agent(*a, on_step=None, **k):
+        # 真的 run_agent 每呼叫一次工具就回呼一次;trace 的即時追加靠這個回呼(給 /query/stream 用)
+        for r_ in result.trace:
+            on_step(r_)
+        return result
+
+    monkeypatch.setattr(h, "run_agent", fake_agent)
     monkeypatch.setattr(h, "retrieval_chunks_by_ids", lambda db, ids: [make_chunk(7)])
     ctx = RunContext()
     r = h.run_agent_route(ctx, None, None, "多步問題")

@@ -58,3 +58,41 @@ def test_health_reports_checks_and_index_stats():
     assert set(d["checks"]) == {"index", "cases_index", "embed_model", "reranker", "openai_key"}
     assert d["index"]["total_chunks"] > 0 and "by_kind" in d["index"]
     assert isinstance(d["failed_files"], list)
+
+
+def test_query_stream_emits_steps_then_result(monkeypatch):
+    """/query/stream:每個 ctx.step 一個 step 事件,最後一個 result 事件;順序要對。"""
+    from app import main as mn
+    from app import schemas as sc
+
+    def fake_run(req, client, ctx):
+        ctx.step("route", detail="regulation_qa (rules)")
+        ctx.step("retrieve", detail="x")
+        return sc.QueryResponse(
+            answer="答", route=sc.RouteInfo(intent="regulation_qa", source="rules", reason="", handler="regulation", router_ms=1),
+            trace=[sc.TraceStep(**s.as_dict()) for s in ctx.trace], usage=sc.Usage(**ctx.usage()),
+            meta=sc.QueryMeta(model="m", total_chunks_searched=0, retrieval_ms=0, llm_ms=0, refused=False),
+        )
+
+    monkeypatch.setattr(mn, "_run_query", fake_run)
+    monkeypatch.setattr(mn, "_client", lambda key: object())
+    c = _client()
+    with c.stream("POST", "/query/stream", json={"question": "q"}) as resp:
+        assert resp.status_code == 200 and resp.headers["content-type"].startswith("text/event-stream")
+        body = "".join(resp.iter_text())
+    events = [blk.split("\n", 1)[0].removeprefix("event: ") for blk in body.strip().split("\n\n")]
+    assert events == ["step", "step", "result"]
+    assert '"name": "retrieve"' in body and '"answer": "答"' in body
+
+
+def test_query_stream_reports_errors_as_event(monkeypatch):
+    from app import main as mn
+
+    def boom(req, client, ctx):
+        raise RuntimeError("模型沒載")
+
+    monkeypatch.setattr(mn, "_run_query", boom)
+    monkeypatch.setattr(mn, "_client", lambda key: object())
+    with _client().stream("POST", "/query/stream", json={"question": "q"}) as resp:
+        body = "".join(resp.iter_text())
+    assert "event: error" in body and "模型沒載" in body

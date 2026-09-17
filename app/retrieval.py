@@ -167,6 +167,16 @@ def retrieve_chunks(
     return _fetch_chunks_by_embedding_ids(db, eids, scores)
 
 
+# 案例向量相似度(cosine)門檻:FAISS 永遠回傳最近鄰,「查到 3 筆」不等於「有相關案例」。
+# 2026/09 實測相關問題 0.60–0.66、無關問題(捷運票價、天氣)0.45–0.52。過門檻的案例才算回答依據。
+CASE_GROUNDING_THRESHOLD = 0.58
+
+
+def cases_are_confident(cases: list) -> bool:
+    top = cases[0].score if cases and cases[0].score is not None else None
+    return top is not None and top >= CASE_GROUNDING_THRESHOLD
+
+
 def retrieve_cases(
     db: sqlite3.Connection,
     model: SentenceTransformer,

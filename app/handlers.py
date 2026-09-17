@@ -90,6 +90,16 @@ def _retrieve_one(ctx: RunContext, db, em, fi, client, question: str, top_k: int
     return r
 
 
+def _case_as_chunk(c: RetrievedCase) -> RetrievedChunk:
+    """案例當引用驗證的證據:答案引用案例的法條(「第28條第1項」)不該被判成瞎掰。"""
+    return RetrievedChunk(
+        chunk_id=-c.id, text=f"{c.year}年{c.month}月 {c.company or ''}「{c.product or ''}」違反{c.law_cited or ''},"
+                             f"裁處 {c.penalty_twd or 0} 元。{(c.violation or '')[:200]}",
+        primary_law=c.law_cited, subtopic=None, document=None, kind="case", source_path=None,
+        is_ocr=False, has_table=False, score=c.score or 0.0,
+    )
+
+
 def run_regulation(ctx: RunContext, db, client, question: str, top_k: int = 8, include_cases: bool = False) -> HandlerResult:
     em, fi = deps.get_embed_model(), deps.get_faiss_chunks()
     t0 = time.time()
@@ -118,19 +128,29 @@ def run_regulation(ctx: RunContext, db, client, question: str, top_k: int = 8, i
                     chunks.append(c)
 
     cases: list[RetrievedCase] = []
+    cases_confident = False
     if include_cases or any(_wants_cases(sub) for sub in subs):
         t = time.time()
         cases = retrieval.retrieve_cases(db, em, deps.get_faiss_cases(), question, top_k=3)
-        ctx.step("retrieve_cases", t, chunk_ids=[c.id for c in cases])
+        cases_confident = retrieval.cases_are_confident(cases)
+        ctx.step("retrieve_cases", t, chunk_ids=[c.id for c in cases], confident=cases_confident,
+                 top_score=cases[0].score if cases else None)
     retrieval_ms = int((time.time() - t0) * 1000)
 
+    # 「有哪些業者因為宣稱減肥被罰?罰了多少?」:法規那一跳信心不足,但案例查到了且相似度過門檻——
+    # 案例本身就是回答依據,不能因為法規沒過閘門就整題拒答(2026/09 使用者實測抓到;agent 路徑同一規則)
     t1 = time.time()
-    if not confident:
-        ctx.step("refuse", detail="信心不足,不呼叫 LLM")
+    if not confident and not cases_confident:
+        ctx.step("refuse", detail="法規與案例都信心不足,不呼叫 LLM")
         return HandlerResult(answer=NO_EVIDENCE_ANSWER, cases=cases, confident=False, used_retry=used_retry,
                              refused=True, retrieval_ms=retrieval_ms)
+    if not cases_confident:
+        cases = []                                     # 沒信心的案例不進 prompt,免得 LLM 拿無關案例湊答案
 
     system, user = llm.build_general_prompt(question, chunks, cases)
+    if not confident:
+        user += ("\n\n注意:這次沒有檢索到可信的法規條文,只有上列違規案例是可靠依據。"
+                 "請只根據案例回答(廠商、年月、罰鍰、引用的法條),不要自行補充案例裡沒有的法規內容。")
     if len(subs) >= 2:
         listed = "\n".join(f"{i + 1}. {q}" for i, q in enumerate(subs))
         user += ("\n\n這個問題包含多個子問題:\n" + listed +
@@ -138,8 +158,9 @@ def run_regulation(ctx: RunContext, db, client, question: str, top_k: int = 8, i
                  "「資料庫中沒有找到與此相關的資料」,其餘子問題照答;不要因為一部分沒依據就整題拒答。")
     answer = llm.call_llm(client, system, user, ctx=ctx)
     ctx.step("generate", t1)
+    evidence = list(chunks) + [_case_as_chunk(c) for c in cases]
     answer, unsupported, regenerated = verify_and_regenerate(
-        ctx, answer, chunks, lambda fb: llm.call_llm(client, system, user + "\n\n" + fb, ctx=ctx))
+        ctx, answer, evidence, lambda fb: llm.call_llm(client, system, user + "\n\n" + fb, ctx=ctx))
     return HandlerResult(
         answer=answer, sources=chunks, cases=cases, confident=True, used_retry=used_retry,
         refused=is_refusal(answer), unsupported_citations=unsupported, citation_regenerated=regenerated,

@@ -49,9 +49,7 @@ from dataclasses import dataclass, field
 from app.agentic_retrieval import reformulate_query
 from app.corrective_retrieval import retrieve_with_confidence_gate
 from app.decompose import is_compound, keyword_to_question, looks_like_keywords
-from app.retrieval import count_chunks_for_law, get_co_cited_laws, retrieve_cases
-
-CASE_GROUNDING_THRESHOLD = 0.58   # 案例向量相似度(cosine)門檻,見 execute_tool 內註解
+from app.retrieval import cases_are_confident, count_chunks_for_law, get_co_cited_laws, retrieve_cases
 
 TOOL_SCHEMAS = [
     {
@@ -216,10 +214,9 @@ def execute_tool(
             from app.deps import get_faiss_cases
             faiss_cases = get_faiss_cases()
         cases = retrieve_cases(db, embed_model, faiss_cases, args["query"], top_k=3)
-        # FAISS 永遠回傳最近鄰,所以「查到 3 筆」不等於「有相關案例」。實測相關問題 0.60–0.66、
-        # 無關問題(捷運票價、天氣)0.45–0.52,以 0.58 為界;有信心的案例才算回答依據(grounded)。
+        # 門檻與理由見 app/retrieval.cases_are_confident;有信心的案例才算回答依據(grounded)
         top = cases[0].score if cases and cases[0].score is not None else None
-        cases_confident = top is not None and top >= CASE_GROUNDING_THRESHOLD
+        cases_confident = cases_are_confident(cases)
         payload = {
             "confident": cases_confident,
             "top_score": top,

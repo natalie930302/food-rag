@@ -208,3 +208,28 @@ def test_related_laws_and_confident_cases_count_as_citation_evidence(monkeypatch
     monkeypatch.setattr(at, "retrieve_cases", lambda *a, **k: [_case(0.40)])
     _, weak = at.execute_tool(None, None, None, None, "search_violation_cases", {"query": "q"}, faiss_cases=object())
     assert ag._grounded_chunks([weak]) == []                                   # 沒信心的案例不算證據
+
+
+# ---------- 固定管線:只有案例可信也要作答(不能整題拒答) ----------
+
+def test_regulation_handler_answers_from_confident_cases_alone(fake_deps, monkeypatch):
+    monkeypatch.setattr(h, "retrieve_agentic", lambda *a, **k: _agentic([], confident=False))
+    monkeypatch.setattr(h.retrieval, "retrieve_cases", lambda *a, **k: [_case(0.66)])
+    seen = {}
+    monkeypatch.setattr(h.llm, "build_general_prompt", lambda q, ch, cs: (seen.setdefault("cases", cs), "sys", "usr")[1:])
+    monkeypatch.setattr(h.llm, "call_llm", lambda client, system, user, ctx=None: (seen.setdefault("user", user), "114年1月 c 因 v 違反第28條第1項,裁處 40,000 元。")[1])
+    ctx = RunContext()
+    res = h.run_regulation(ctx, None, None, "有哪些業者因為宣稱減肥被罰?罰了多少?", top_k=5, include_cases=True)
+    assert not res.refused and res.confident and len(res.cases) == 1 and len(seen["cases"]) == 1
+    assert "只有上列違規案例是可靠依據" in seen["user"]
+    assert res.unsupported_citations == []                       # 案例引用的第28條第1項算有依據
+    assert any(s.name == "retrieve_cases" and s.confident for s in ctx.trace)
+
+
+def test_regulation_handler_still_refuses_when_cases_are_weak(fake_deps, monkeypatch):
+    monkeypatch.setattr(h, "retrieve_agentic", lambda *a, **k: _agentic([], confident=False))
+    monkeypatch.setattr(h.retrieval, "retrieve_cases", lambda *a, **k: [_case(0.45)])
+    called = []
+    monkeypatch.setattr(h.llm, "call_llm", lambda *a, **k: called.append(1) or "x")
+    res = h.run_regulation(RunContext(), None, None, "台北捷運票價?有人被罰嗎?", top_k=5, include_cases=True)
+    assert res.refused and called == []

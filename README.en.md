@@ -33,6 +33,22 @@ Same data, same kind of conclusion: **with small data, a simple method plus hone
 | Is the eval set big enough? | 24 hand-written → **108** (+84 LLM-generated, human-reviewed), plus 8 hard, 20 out-of-domain, 20 multi-hop, 16 compound, **260 national-exam MCQs with official answers** | [eval/](eval/) |
 | What happens when a user asks three things in one sentence? | First time: a blanket refusal. Three code-level defects diagnosed (form-sensitive retrieval, regulation-only grounding, greedy rules); after the fix, compound full_hit 11 → **14**/16 | [§8](#8-compound-questions-one-sentence-three-asks--the-whole-stack-failed-then-was-fixed-and-remeasured) |
 
+## Terms (used consistently throughout)
+
+| Term | Meaning | Count |
+|---|---|---|
+| **intent** | The router's decision for one input: regulation question `regulation_qa`, case lookup `case_lookup`, ad review `ad_review`, multi-step `multi_hop` | 4 |
+| **path** | The code that actually runs after the decision: fixed path, review path, agent path (the first two intents share the fixed path) | 3 |
+| **retrieval pipeline** | The five steps "dense candidates → entity boost → reranker → confidence gate → rewrite-and-retry"; the fixed path calls it directly, the agent path wraps it as the `search_regulations` tool | 1 |
+| **harness** | The boundary layer shared by all three paths: trace, budget, refusal contract, citation check — all enforced in code | 1 |
+
+| Intent | Example | Path | What happens next |
+|---|---|---|---|
+| regulation question | What must vacuum-packed dried tofu comply with? | fixed path | (compound questions are split first) → retrieval pipeline → generate → citation check |
+| case lookup | Which businesses were fined for weight-loss claims? | fixed path + forced case retrieval | as above, plus the 3 nearest cases from the case index; if regulations fail the gate but cases pass the similarity threshold, answer from cases alone |
+| ad review | (paste ad copy) | review path | risk-keyword scan → guaranteed Article 28 + full-corpus retrieval → similar cases → three-part report → citation check → risk verdict |
+| multi-step | Which article? how much? any cases? / Which articles relate to Article 28? | agent path | the LLM drives three tools (regulations = the retrieval pipeline, cases, related articles) in its own order, at most 4 calls; the harness enforces the boundaries |
+
 ## Architecture
 
 ```mermaid
@@ -50,7 +66,7 @@ flowchart LR
         RT -- multi_hop --> Q2
     end
 
-    subgraph pipe["fixed pipeline (regulation_qa / case_lookup)"]
+    subgraph pipe["fixed path (regulation_qa / case_lookup)"]
         Q[question] --> D[dense retrieval<br/>top-10] --> B[entity boost<br/>enumerated nouns → chunk]
         B --> RR[bge-reranker-v2-m3<br/>cross-encoder]
         RR --> G{confidence gate<br/>top-1 ≥ 0.52?}
@@ -77,14 +93,14 @@ flowchart LR
     DB --> T3
 ```
 
-The fixed pipeline is deterministic (low confidence → exactly one rewrite-and-retry). The agent path wraps the same
+The fixed path is deterministic (low confidence → exactly one rewrite-and-retry). The agent path wraps the same
 retrieval as tools and lets the LLM drive control flow. All three paths share one harness layer (`app/harness.py`) —
 the same trace, usage, refusal contract and citation check — with boundaries enforced in code: **a prompt is a request,
 code is a guarantee.**
 
 `/query` is the single entry point: zero-cost keyword rules classify the intent first, and only when they cannot decide is
 gpt-4o-mini asked once (structured JSON, temperature 0). **Only questions that genuinely need multi-step retrieval go to the
-agent** — on single-hop questions the agent is as accurate as the fixed pipeline but twice as slow (§3), so the cheap,
+agent** — on single-hop questions the agent is as accurate as the fixed path but twice as slow (§3), so the cheap,
 deterministic path is the default (the Adaptive-RAG idea). The routing decision and its reason are returned in `route`.
 
 ## Results
@@ -142,7 +158,7 @@ near-domain traps (cosmetics labelling 0.24 and lease notarisation 0.40 came clo
 
 Same questions, same hit definition (is the gold chunk among the chunks finally used to answer):
 
-| Set | Fixed retry (fixed pipeline) | Tool-calling agent (agent path) | flipped right / wrong | sign test p |
+| Set | Fixed retry (fixed path) | Tool-calling agent (agent path) | flipped right / wrong | sign test p |
 |---|---|---|---|---|
 | main (108) | 99/108 = 0.917 [0.861, 0.963] | 99/108 = 0.917 [0.861, 0.963] | 1 / 1 | 1.000 |
 | hard (8) | 7/8 = 0.875 [0.625, 1.000] | 7/8 = 0.875 [0.625, 1.000] | 0 / 0 | 1.000 |
@@ -150,13 +166,13 @@ Same questions, same hit definition (is the gold chunk among the chunks finally 
 - **The fixed rewrite-and-retry does help at n = 108**: 8 retries triggered, 3 rescued. The earlier negative result
   ("1 triggered, 0 rescued" on the 8-question hard set) was a sample-size artefact.
 - **The agent ties on single-hop questions; it is not better.** Only 3 of 108 questions used more than one tool call;
-  the literal-anchor drift check intervened on 25; latency is 20.5 s/question (reranker on GPU; the fixed pipeline ~11 s). These are the numbers after the two fixes of §5 — single-hop did not regress.
+  the literal-anchor drift check intervened on 25; latency is 20.5 s/question (reranker on GPU; the fixed path ~11 s). These are the numbers after the two fixes of §5 — single-hop did not regress.
   The earlier "31/32 beats 30/32" conclusion does not survive n = 108 (99 vs 99).
 - Both systems have **confidently-wrong** cases (fixed retry: 6 + 1) that no confidence mechanism can detect.
 - Conclusion: the agent's extra freedom (choosing its own query strings and how many calls to make) buys latency, not
   accuracy, on single-hop questions. Its value can only be measured on multi-hop questions (§5) — where the first
   measurement lost and two rounds of diagnosed boundary fixes put it significantly ahead (18 vs 9, p = 0.004). That is why `/query` routes only
-  multi-hop questions to the agent and everything else to the fixed pipeline (§7).
+  multi-hop questions to the agent and everything else to the fixed path (§7).
 
 ### 4. Harness ablation: why each boundary exists
 
@@ -208,9 +224,9 @@ Single-hop questions cannot show the agent's value (§3), so 20 hand-written que
 "regulation + related article" (`eval/multihop_questions.json`). The hit is split into three components; all required
 components must be met for a full hit.
 
-**First measurement (before the fix): the agent loses to the fixed pipeline + keyword rules**
+**First measurement (before the fix): the agent loses to the fixed path + keyword rules**
 
-| Component | baseline (fixed pipeline + keyword-triggered case lookup) | tool-calling agent |
+| Component | baseline (fixed path + keyword-triggered case lookup) | tool-calling agent |
 |---|---|---|
 | reg_hit (right regulation) | 13/20 | 8/20 |
 | case_hit (right case; required by 17) | 16/17 | 15/17 |
@@ -222,7 +238,7 @@ loses on the **regulation hop**.
 
 **Tracing the cause found two design asymmetries, not a flaw in the agent idea:**
 
-1. The fixed pipeline's regulation retrieval is "search → if unconfident, let the LLM rewrite and search again"; the
+1. The fixed path's regulation retrieval is "search → if unconfident, let the LLM rewrite and search again"; the
    agent's `search_regulations` tool only searched once and left the retry to the LLM's judgement — which it rarely
    exercised. The tool had one fewer chance than the baseline by construction.
 2. The system prompt says "call `search_regulations` at least once before answering"; on 2/20 questions the LLM skipped
@@ -337,7 +353,7 @@ compound sentences, and the single-hop set could not see any of it:
 
 1. **Retrieval is extremely sensitive to question form.** "Which article does a weight-loss ad violate?" scores 0.91 on
    the reranker; the agent's keyword query "weight-loss ad" scores 0.27; the full three-part sentence scores 0.17. The
-   fixed pipeline sent the whole sentence, the agent sent keywords — both bad queries.
+   fixed path sent the whole sentence, the agent sent keywords — both bad queries.
 2. **The grounding boundary only counted regulation search.** Cases and related articles were found, but one failed
    regulation hop overwrote the entire answer with a refusal.
 3. **The rules layer was greedy.** "How much is the fine" was read as a case lookup; "which article + ?" was classified
@@ -347,7 +363,7 @@ All fixes are in code (`app/decompose.py` new; one change each in `router`, `age
 `harness`): compound questions are split into sub-questions retrieved separately and merged (one LLM call only when a
 sub-question lacks a subject); the tool turns keyword queries into questions before searching; case retrieval counts as
 evidence only above a similarity threshold (0.58; relevant 0.60–0.66 vs. off-topic 0.45–0.56 measured — a narrow
-margin, a known limitation) and then counts toward grounding, with the same rule in the fixed pipeline and the agent: if
+margin, a known limitation) and then counts toward grounding, with the same rule in the fixed path and the agent: if
 the regulation hop fails the gate but the cases are confident, answer from the cases alone ("which businesses were fined
 for weight-loss claims?" used to find three correct cases and still refuse); related articles and confident cases join the citation-check evidence (the verifier used to delete the
 related articles the agent had found as "hallucinated"); "not found" is stated per part instead of refusing the whole

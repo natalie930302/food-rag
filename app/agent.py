@@ -24,9 +24,9 @@ harness 的職責是設邊界,不是信任 LLM 自律。四道邊界,每一道�
      chunk 裡,否則帶著回饋重生成一次;還是不行就把沒依據的引用標記在結果裡。
      這是信心閘門管不到的那一層——檢索內容可信,不代表 LLM 引用得對(app/verifier.py)
 
-2026/09 multi-hop 評估後補的兩道修正(agent 輸給固定管線的根因,不是 agent 概念的錯):
-  5. 工具內建重試(tool_retry):search_regulations 信心不足時自動做跟固定管線同一套「LLM 改寫
-     重查一次」——原本這件事交給 LLM 自己判斷,它常常不做,工具先天比固定管線少一次機會
+2026/09 multi-hop 評估後補的兩道修正(agent 輸給固定路徑的根因,不是 agent 概念的錯):
+  5. 工具內建重試(tool_retry):search_regulations 信心不足時自動做跟固定路徑同一套「LLM 改寫
+     重查一次」——原本這件事交給 LLM 自己判斷,它常常不做,工具先天比固定路徑少一次機會
   6. 程式碼強制「先查法規」(force_regulation):system prompt 第 1 條寫「回答前至少呼叫一次
      search_regulations」,實測有 2/20 題 LLM 直接跳過去查案例就作答 → 被 grounded 邊界拒答。
      prompt 是請求不是保證:LLM 要作答卻從沒查過法規時,harness 自己用原始問題查一次再讓它答

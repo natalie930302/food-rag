@@ -1,13 +1,13 @@
 """
 單一入口(/query)的意圖路由:先分流,再決定要用多重的機制。
 
-為什麼不是「所有問題都丟給 agent」:eval/ 量到單跳問題上 tool-calling agent 跟固定管線
+為什麼不是「所有問題都丟給 agent」:eval/ 量到單跳問題上 tool-calling agent 跟固定路徑
 打平(31/32 vs 30/32)但延遲約 2 倍、多 1~2 次 LLM 呼叫;只有需要查案例 / 關聯法條的
 多步問題,agent 才真的有事做(eval_multihop.py 平均 2.85 次工具呼叫)。所以路由的原則是
 Adaptive-RAG(Jeong et al., 2024)那種「依問題複雜度決定用多重的機制」:
 
-  regulation_qa  單跳法規問答           → /ask 的固定管線(確定性、便宜、同樣準)
-  case_lookup    找裁罰案例             → /ask 固定管線 + 強制查案例
+  regulation_qa  單跳法規問答           → /ask 的固定路徑(確定性、便宜、同樣準)
+  case_lookup    找裁罰案例             → /ask 固定路徑 + 強制查案例
   ad_review      拿一段文案來審         → /review
   multi_hop      法規 + 案例 / 關聯法條  → /ask_agent(付得起延遲跟成本的地方才用 agent)
 
@@ -78,7 +78,7 @@ def route_by_rules(question: str) -> RouteDecision | None:
     if any(w in q for w in _AD_REVIEW_CUES):
         return RouteDecision("ad_review", "rules", "使用者拿文案來審")
     if is_compound(q):
-        # 一句問了好幾件事:每個子問題都只有「問規定」的訊號才由規則判(固定管線會拆開各自檢索);
+        # 一句問了好幾件事:每個子問題都只有「問規定」的訊號才由規則判(固定路徑會拆開各自檢索);
         # 只要有一個子問題帶案例/罰則/關聯字眼,規則分不出「順帶問」還是「要案例」,交給 LLM 語意判斷
         subs = split_subquestions(q)
         if all(_is_pure_regulation(sub) for sub in subs):
@@ -129,7 +129,7 @@ def route_by_llm(client, question: str) -> RouteDecision:
             return RouteDecision(intent, "llm", str(data.get("reason", ""))[:60])
     except (json.JSONDecodeError, AttributeError, TypeError):
         pass
-    # LLM 回傳壞掉 → 走最便宜、最不會出事的那條(固定管線會自己拒答)
+    # LLM 回傳壞掉 → 走最便宜、最不會出事的那條(固定路徑會自己拒答)
     return RouteDecision(DEFAULT_INTENT, "fallback", "LLM 路由回傳格式無效")
 
 

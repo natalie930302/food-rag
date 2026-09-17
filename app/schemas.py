@@ -18,7 +18,7 @@ class QueryRequest(BaseModel):
     force_intent: Intent | None = Field(
         default=None, description="跳過路由、直接指定走哪條(前端的審稿分頁、評估腳本用)")
     use_llm_router: bool = Field(
-        default=True, description="規則判不出來時是否用 LLM 分類;False 則一律走固定管線")
+        default=True, description="規則判不出來時是否用 LLM 分類;False 則一律走固定路徑")
     top_k: int = Field(default=8, ge=1, le=20)
     max_tool_calls: int = Field(default=4, ge=1, le=8, description="multi_hop 路徑的工具呼叫上限")
     max_seconds: float = Field(default=90.0, ge=5, le=600, description="整次請求的時間預算")
@@ -63,7 +63,7 @@ class RouteInfo(BaseModel):
 
 
 class TraceStep(BaseModel):
-    """三條執行路徑共用的步驟紀錄。固定管線:retrieve / retry / retrieve_cases / generate /
+    """三條執行路徑共用的步驟紀錄。固定路徑:retrieve / retry / retrieve_cases / generate /
     verify_citations / refuse;審稿:keyword_scan / retrieve / … / verdict;agent:tool:<工具名> / generate。"""
     name: str
     ms: int = 0
@@ -91,7 +91,7 @@ class QueryMeta(BaseModel):
     retrieval_ms: int
     llm_ms: int
     confident: bool | None = Field(default=None, description="信心閘門是否通過(審稿路徑不適用 → null)")
-    used_retry: bool | None = Field(default=None, description="固定管線是否觸發了 LLM 改寫重試")
+    used_retry: bool | None = Field(default=None, description="固定路徑是否觸發了 LLM 改寫重試")
     refused: bool = Field(description="是否為拒答(程式碼契約:沒有可信依據就不硬答)")
     unsupported_citations: list[str] = Field(
         default=[], description="答案引用、但檢索內容裡沒出現的條號(已重生成一次仍未修正);空清單代表全部有依據")

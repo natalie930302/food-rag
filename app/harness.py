@@ -1,10 +1,10 @@
 """
-/query 統一的 harness 層:不管走哪條執行路徑(固定管線 / 廣告審稿 / tool-calling agent),
+/query 統一的 harness 層:不管走哪條執行路徑(固定路徑 / 廣告審稿 / tool-calling agent),
 回來的 trace、usage、拒答契約、引用驗證都是同一套。
 
 為什麼要有這一層:原本三個端點各自實作——trace 跟 usage 只有 agent 有、引用驗證只有
 /ask 跟 agent 有、拒答句寫在三個地方。對外只有一個入口卻有三種規矩,harness 要各管三份。
-這裡把「規矩」收成一份,執行路徑照舊各走各的(單跳走便宜的固定管線,多步才進 agent,
+這裡把「規矩」收成一份,執行路徑照舊各走各的(單跳走便宜的固定路徑,多步才進 agent,
 見 app/router.py 的依據)。
 
   RunContext          一次請求的共用狀態:trace 步驟、LLM usage 累計、牆鐘時間、預算

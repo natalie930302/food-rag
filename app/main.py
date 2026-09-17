@@ -97,8 +97,8 @@ def query(req: schemas.QueryRequest, x_openai_key: str | None = Header(default=N
     """單一入口。
 
     1. 路由:規則層零成本判定,判不出來才問一次 LLM;呼叫端也可以 force_intent 指定
-    2. 分派:regulation_qa / case_lookup → 固定管線;ad_review → 審稿;multi_hop → tool-calling agent
-       (單跳問題上 agent 跟固定管線一樣準但慢一倍,所以只有多步才用,見 README §3、§6)
+    2. 分派:regulation_qa / case_lookup → 固定路徑;ad_review → 審稿;multi_hop → tool-calling agent
+       (單跳問題上 agent 跟固定路徑一樣準但慢一倍,所以只有多步才用,見 README §3、§6)
     3. harness:不管走哪條,回來都是同一種 trace / usage / meta,拒答與引用驗證同一套
     """
     ctx = RunContext(max_seconds=req.max_seconds)

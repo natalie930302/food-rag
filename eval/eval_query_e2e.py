@@ -11,7 +11,7 @@
   adversarial_questions.json 20 題 OOD(應拒答)
 
 每題記錄:route、handler、hit(有 gold 時)、refused、unsupported_citations、usage、延遲。
-成本:約 186 題,大多走固定管線(1 次 LLM),multi-hop 走 agent(2~4 次);gpt-4o-mini 十幾元台幣。
+成本:約 186 題,大多走固定路徑(1 次 LLM),multi-hop 走 agent(2~4 次);gpt-4o-mini 十幾元台幣。
 
 用法:python eval/eval_query_e2e.py [--limit N]
 """

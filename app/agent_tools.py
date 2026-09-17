@@ -136,9 +136,9 @@ def execute_tool(
     original_question:使用者最原始的問題字面文字(不是 LLM 改寫過的查詢),只有
     search_regulations 會用到,做字面錨定一致性檢查(見上方模組說明)。
     drift_check=False 只給 eval/eval_harness_ablation.py 量「這道檢查擋掉了什麼」用。
-    client / tool_retry:search_regulations 信心不足時,用跟固定管線同一套「LLM 改寫問題重查一次」
-    (app/agentic_retrieval.reformulate_query)。2026/09 multi-hop 評估追出 agent 輸給固定管線的根因之一
-    就是這裡:固定管線有這次重試、agent 的工具沒有,LLM 又常常不自己重試——工具先天少一次機會。
+    client / tool_retry:search_regulations 信心不足時,用跟固定路徑同一套「LLM 改寫問題重查一次」
+    (app/agentic_retrieval.reformulate_query)。2026/09 multi-hop 評估追出 agent 輸給固定路徑的根因之一
+    就是這裡:固定路徑有這次重試、agent 的工具沒有,LLM 又常常不自己重試——工具先天少一次機會。
     """
     if call_name == "search_regulations":
         filters = {"law_article": args["law_article"]} if args.get("law_article") else None
